@@ -1,0 +1,50 @@
+<!--
+  Author(s): Agraj Khanna
+  File: index.html
+  Description: Home page structure (nav + footer template)
+  Date: Oct 30, 2025
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PrepPal</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+
+    <!-- Navigation -->
+    <header class="nav">
+      <div class="container nav-inner">
+        <a class="brand" href="index.html">
+          <span class="brand-badge"></span>
+          PrepPal
+        </a>
+        <nav class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="dashboard.html">Dashboard</a>
+          <a href="store.html">Meals</a>
+          <a href="admin.html">Admin</a>
+          <a class="cta" href="login.html">Get Started</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Page content -->
+    <main class="container" style="padding:2rem 0;">
+      <h1>Welcome to PrepPal Frontend</h1>
+      <p>If you can see this, your setup works!</p>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        © <span id="year"></span> PrepPal — eat better, live easier.
+      </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>
