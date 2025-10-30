@@ -5,21 +5,24 @@
   Date: Oct 30, 2025
 */
 
+/* --- Basic setup --- */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
-  background: #fafafa;
+  background-color: #fafafa;
   color: #222;
 }
 
+/* --- Container --- */
 .container {
   max-width: 1000px;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
+/* --- Navbar --- */
 .nav {
-  background: white;
+  background: #fff;
   border-bottom: 1px solid #ddd;
 }
 
@@ -39,7 +42,16 @@ body {
 
 .cta {
   background: orange;
-  color: white;
+  color: #fff;
   padding: 0.5rem 1rem;
   border-radius: 8px;
+}
+
+/* --- Footer --- */
+.footer {
+  text-align: center;
+  color: #555;
+  border-top: 1px solid #ddd;
+  padding: 1rem 0;
+  margin-top: 2rem;
 }
