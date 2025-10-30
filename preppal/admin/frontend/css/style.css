@@ -1,0 +1,45 @@
+<!--
+  Author(s): Gurpreet Singh Sidhu
+  File: style.css
+  Description: Basic styling for layout, navigation, and footer.
+  Date: Oct 30, 2025
+-->
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #fafafa;
+  color: #222;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.nav {
+  background: white;
+  border-bottom: 1px solid #ddd;
+}
+
+.nav-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+}
+
+.nav-links a {
+  margin-left: 1rem;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+.cta {
+  background: orange;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
