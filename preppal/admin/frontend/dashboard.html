@@ -4,72 +4,98 @@
   Description: Minimal user dashboard with summary stats.
   Date: October 30, Thursday, 2025
 -->
+<!--
+  Student & ID: Musab Ahmed Rashid (230084799)
+  Role: Designer
+  File: dashboard.html
+  Description: Admin dashboard displaying key metrics and data cards.
+  Date: Nov 2025
+-->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PrepPal — Dashboard</title>
-    <link rel="stylesheet" href="css/styles.css" />
+    <title>PrepPal Dashboard</title>
+    <link rel="stylesheet" href="css/style.css" />
   </head>
-  <body>
 
+  <body>
     <!-- Navigation -->
     <header class="nav">
       <div class="container nav-inner">
         <a class="brand" href="index.html">
           <span class="brand-badge"></span>
-          PrepPal
+          <span class="brand-name">PrepPal</span>
         </a>
         <nav class="nav-links">
           <a href="index.html">Home</a>
-          <a href="dashboard.html">Dashboard</a>
+          <a href="dashboard.html" class="active">Dashboard</a>
           <a href="store.html">Meals</a>
           <a href="admin.html">Admin</a>
-          <a class="cta" href="login.html">Get Started</a>
+          <a class="cta" href="login.html">Log Out</a>
         </nav>
       </div>
     </header>
 
-    <!-- Page content -->
-    <main class="container" style="padding:2rem 0;">
-      <h1 style="margin-bottom:1rem;">Your Dashboard</h1>
+    <!-- Dashboard Header -->
+    <section class="hero small-hero">
+      <div class="hero-text">
+        <h1>Admin Dashboard</h1>
+        <p>Overview of your users, orders, and subscriptions.</p>
+      </div>
+    </section>
 
-      <!-- Simple summary cards -->
-      <section style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem; margin-bottom:1rem;">
-        <div style="background:#fff;border:1px solid #ddd;border-radius:10px;padding:1rem;">
-          <div style="color:#666;">Calories today</div>
-          <div id="calories" style="font-weight:bold;font-size:1.25rem;">0 kcal</div>
+    <!-- Dashboard Content -->
+    <main class="container">
+      <div class="admin-dashboard">
+        <div class="card">
+          <h3>Total Users</h3>
+          <p>125</p>
         </div>
-        <div style="background:#fff;border:1px solid #ddd;border-radius:10px;padding:1rem;">
-          <div style="color:#666;">Protein</div>
-          <div id="protein" style="font-weight:bold;font-size:1.25rem;">0 g</div>
-        </div>
-        <div style="background:#fff;border:1px solid #ddd;border-radius:10px;padding:1rem;">
-          <div style="color:#666;">Carbs</div>
-          <div id="carbs" style="font-weight:bold;font-size:1.25rem;">0 g</div>
-        </div>
-        <div style="background:#fff;border:1px solid #ddd;border-radius:10px;padding:1rem;">
-          <div style="color:#666;">Fats</div>
-          <div id="fats" style="font-weight:bold;font-size:1.25rem;">0 g</div>
-        </div>
-      </section>
 
-      <!-- Placeholder area teammates can enhance with charts later -->
-      <section style="background:#fff;border:1px solid #ddd;border-radius:10px;padding:1rem;">
-        <h2 style="margin:0 0 .5rem 0;">Trends (coming soon)</h2>
-        <p style="color:#666;margin:0;">Chart placeholders for intake vs burn and weekly protein trends.</p>
+        <div class="card">
+          <h3>Active Subscriptions</h3>
+          <p>57</p>
+        </div>
+
+        <div class="card">
+          <h3>Pending Orders</h3>
+          <p>12</p>
+        </div>
+
+        <div class="card">
+          <h3>Meals in Stock</h3>
+          <p>230</p>
+        </div>
+
+        <div class="card">
+          <h3>Revenue (This Month)</h3>
+          <p>£3,420</p>
+        </div>
+      </div>
+
+      <!-- Optional Chart Placeholder -->
+      <section class="chart-section">
+        <h2>Performance Overview</h2>
+        <p>(Chart integration coming soon)</p>
+        <div class="chart-placeholder">
+          <span>📈</span>
+        </div>
       </section>
     </main>
 
     <!-- Footer -->
     <footer class="footer">
       <div class="container">
-        © <span id="year"></span> PrepPal — eat better, live easier.
+        © <span id="year"></span> <span class="brand-name">PrepPal</span> —
+        Eat better, live easier.
       </div>
     </footer>
 
-    <script src="js/app.js"></script>
-    <script src="js/dashboard.js"></script>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
   </body>
 </html>

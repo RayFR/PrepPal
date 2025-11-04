@@ -1,0 +1,60 @@
+<!--
+  Student & ID: Musab Ahmed Rashid (230084799)
+  File: store.html
+  Description: Simple product listing for PrepPal meals & supplements
+  Date: Nov 2025
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PrepPal • Meals</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html"><span class="brand-badge"></span>PrepPal</a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="login.html">Admin</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container main-content">
+    <h2>Meals & Supplements</h2>
+    <p>Browse our available meals — choose servings and add to cart.</p>
+
+    <div class="admin-dashboard" style="margin-top:1.5rem;">
+      <div class="card">
+        <h3>Chicken & Veg</h3>
+        <p>High protein, balanced macros.</p>
+        <div style="margin-top:.75rem;"><a class="cta" href="#">Add to cart</a></div>
+      </div>
+
+      <div class="card">
+        <h3>Vegan Bowl</h3>
+        <p>High fibre, plant-powered.</p>
+        <div style="margin-top:.75rem;"><a class="cta" href="#">Add to cart</a></div>
+      </div>
+
+      <div class="card">
+        <h3>Protein Powder</h3>
+        <p>Supplement for muscle support.</p>
+        <div style="margin-top:.75rem;"><a class="cta" href="#">Add to cart</a></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">© <span id="year"></span> PrepPal — Eat better, live easier.</div>
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

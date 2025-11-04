@@ -5,22 +5,30 @@
   Date: Oct 30, Thursday 2025
 -->
 
+<!--
+  Student & ID: Musab Ahmed Rashid (230084799)
+  Role: Designer
+  File: index.html
+  Description: Homepage with navigation, hero section, and footer for PrepPal.
+  Date: Nov 2025
+-->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PrepPal</title>
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/style.css" />
   </head>
-  <body>
 
+  <body>
     <!-- Navigation -->
     <header class="nav">
       <div class="container nav-inner">
         <a class="brand" href="index.html">
           <span class="brand-badge"></span>
-          PrepPal
+          <span class="brand-name">PrepPal</span>
         </a>
         <nav class="nav-links">
           <a href="index.html">Home</a>
@@ -32,19 +40,36 @@
       </div>
     </header>
 
-    <!-- Page content -->
-    <main class="container" style="padding:2rem 0;">
-      <h1>Welcome to PrepPal</h1>
-      <p>Where we make mealprepping easy!</p>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-text">
+        <h1>Healthy Eating Made Simple</h1>
+        <p>Personalized meals and supplements for your lifestyle goals.</p>
+        <a href="store.html" class="cta">Explore Meals</a>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container main-content">
+      <h2>Welcome to PrepPal</h2>
+      <p>
+        PrepPal is your go-to platform for meal prepping and nutrition
+        management. Discover tailored meal plans, track your nutrition, and stay
+        consistent with your goals — all in one place.
+      </p>
     </main>
 
     <!-- Footer -->
     <footer class="footer">
       <div class="container">
-        © <span id="year"></span> PrepPal — eat better, live easier.
+        © <span id="year"></span> <span class="brand-name">PrepPal</span> —
+        Eat better, live easier.
       </div>
     </footer>
 
-    <script src="js/app.js"></script>
+    <script>
+      // Auto-update footer year
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
   </body>
 </html>
