@@ -20,4 +20,9 @@
       if (e.key === 'Enter') btn.click();
     });
   });
+    // Auto-update footer year on every page (Agraj Khanna/240195519 ID)
+  var yearEl = document.getElementById('year');
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
 })();
