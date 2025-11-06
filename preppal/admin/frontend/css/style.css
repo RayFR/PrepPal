@@ -87,7 +87,7 @@ body {
 
 /* --- Hero Section --- */
 .hero {
-  background: url('../images/meal-banner.jpg') center/cover no-repeat;
+  background: url('../images/meal-banner.jpg') center/cover no-repeat; /* Modified image which is located in the folder images (Gurpreet Singh Sidhu / 230237915 ID) */
   color: #fff;
   text-align: center;
   padding: 5rem 1rem;
