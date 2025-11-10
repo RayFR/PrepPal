@@ -12,6 +12,14 @@
   Date: Nov 2025
 */
 
+/*
+  Student & ID: Rohan Hayer (240085807)
+  Role: Designer
+  File: style.css
+  Description: Paired with Musab to complete styling for PrepPal frontend
+  Date: Nov 2025
+*/
+
 /* --- General Setup --- */
 body {
   font-family: 'Poppins', Arial, sans-serif;
@@ -53,7 +61,7 @@ body {
 .brand-badge {
   width: 150px; 
   height: 40px; 
-  background: url('../images/preppal_logo.png') center/contain no-repeat;
+  background: url('../images/preppal-logo.png') center/contain no-repeat;
   display: inline-block;
 }
 
