@@ -43,28 +43,25 @@ body {
   align-items: center;
   height: 65px;
 }
-
+/* --- Display for PrepPal logo --- */
 .brand {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: #ff7a00;
-  text-decoration: none;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  height: 35px; 
+  text-decoration: none;
 }
-
 .brand-badge {
-  width: 25px;
-  height: 25px;
-  background: #ff7a00;
-  border-radius: 50%;
+  width: 150px; 
+  height: 40px; 
+  background: url('../images/preppal_logo.png') center/contain no-repeat;
+  display: inline-block;
 }
 
+/* --- Navbar Continuation--- */
 .nav-links a {
   margin-left: 1rem;
   text-decoration: none;
-  color: #333;
+  color: #ff7a00;
   font-weight: 600;
   transition: color 0.3s;
 }
@@ -153,6 +150,16 @@ body {
 .card h3 {
   margin-bottom: 0.5rem;
   color: #ff7a00;
+}
+
+/* --- Product Card Images --- */
+.product-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  display: block
 }
 
 /* --- Footer --- */
