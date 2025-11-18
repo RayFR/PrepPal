@@ -74,6 +74,12 @@ body {
   transition: color 0.3s;
 }
 
+/* --- Active Nav Link --- */
+.nav-links a.active {
+  color: #ff7a00;
+  text-decoration: underline;
+}
+
 .nav-links a:hover {
   color: #ff7a00;
 }
