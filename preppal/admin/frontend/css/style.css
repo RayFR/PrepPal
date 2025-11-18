@@ -84,7 +84,7 @@ body {
 /* --- Active Nav Link --- */
 .nav-links a.active {
   color: #ff7a00;
-  text-decoration: underline;
+  text-decoration: underline;     /* --- added underline to navbar --- 240195519 Agraj Khanna */
 }
 
 .nav-links a:hover {
