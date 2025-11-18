@@ -74,6 +74,13 @@ body {
   transition: color 0.3s;
 }
 
+/* Cart display in navbar */ /* Made the Cart display look nicer - Gurpreet Singh Sidhu(230237915) */
+#cartDisplay {
+  margin-left: 1rem;
+  font-weight: 600;
+  color: #ff7a00;
+}
+
 /* --- Active Nav Link --- */
 .nav-links a.active {
   color: #ff7a00;
