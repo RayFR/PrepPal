@@ -74,11 +74,27 @@ body {
   transition: color 0.3s;
 }
 
-/* Cart display in navbar */ /* Made the Cart display look nicer - Gurpreet Singh Sidhu(230237915) */
+/* Cart display in navbar */ /* Made the Cart display look nicer - Gurpreet Singh Sidhu(230237915) Agraj Khanna (240195519)*/
 #cartDisplay {
   margin-left: 1rem;
   font-weight: 600;
   color: #ff7a00;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background: #fff3e0;           
+  border: 1px solid #ffb74d;    
+  font-size: 0.9rem;
+  cursor: default;
+}
+
+/* Add a cart icon before the text */
+#cartDisplay::before {
+  content: "🛒";
+  font-size: 1rem;
+  line-height: 1;
 }
 
 /* --- Active Nav Link --- */
