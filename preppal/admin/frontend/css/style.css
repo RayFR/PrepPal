@@ -84,10 +84,11 @@ body {
   gap: 0.35rem;
   padding: 0.35rem 0.9rem;
   border-radius: 999px;
-  background: #fff3e0;
-  border: 1px solid #ffb74d;
+  background: #fff3e0;           
+  border: 1px solid #ffb74d;     
   font-size: 0.9rem;
-  cursor: pointer;
+  cursor: pointer;               
+  transition: transform 0.15s ease;
 }
 
 /* Small cart icon before text */
@@ -96,6 +97,7 @@ body {
   font-size: 1rem;
   line-height: 1;
 }
+
 
 /* --- Active Nav Link --- */
 .nav-links a.active {
@@ -212,7 +214,7 @@ body {
   color: #ff7a00;
 }
 
-/* Mini cart panel - (Gurpreet Singh Sidhu / 230237915)*/
+/* Mini cart panel - (Gurpreet Singh Sidhu / 230237915) (Agraj Khanna/240195519)*/
 .cart-panel {
   position: fixed;
   top: 70px;
@@ -260,6 +262,72 @@ body {
 .cart-close:hover {
   background: #ff9000;
 }
+
+.cart-items {
+  list-style: none;
+  margin: 0 0 0.75rem;
+  padding: 0;
+  max-height: 180px;
+  overflow-y: auto;
+  border-top: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.cart-items li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.4rem 0;
+  font-size: 0.9rem;
+}
+
+.cart-items li span.name {
+  flex: 1;
+  padding-right: 0.5rem;
+}
+
+.cart-items li span.price {
+  white-space: nowrap;
+}
+
+.cart-total {
+  font-weight: 600;
+  text-align: right;
+  margin-bottom: 0.75rem;
+}
+
+
+.cart-close {
+  border: none;
+  background: #ff7a00;
+  color: #fff;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.cart-close:hover {
+  background: #ff9000;
+}
+
+/* Cart bump animation when item is added (Agraj Khanna 240195519) (Gurpreet Singh Sidhu 230237915)*/
+#cartDisplay.bump {
+  animation: cart-bump 0.3s ease;
+}
+
+@keyframes cart-bump {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 
 /* --- Responsive --- */
 @media (max-width: 768px) {
