@@ -35,17 +35,23 @@
   <div id="cartPanel" class="cart-panel" aria-hidden="true">
     <h3>Your Cart</h3>
     <p id="cartSummary">You have 0 items in your cart.</p>
+
+    <ul id="cartItems" class="cart-items">
+    </ul>
+
+    <p id="cartTotal" class="cart-total">Total: £0.00</p>
+
     <button type="button" class="cart-close">Close</button>
   </div>
 
   <main class="container main-content"> 
     <h2>Meals & Supplements</h2>
     <p>Browse our available meals — choose servings and add to cart.</p>
-    <!--Restructured entire card segment to support additional images (Rohan Hayer / 240085807 ID)-->
-    <div class="card"> <!--Made the card cleaner for viewing (Gurpreet Singh Sidhu / 230237915 ID)-->
-      <img src="images/chicken-bowl.png" alt="Chicken & Veg" class="product-image">
-      <h3>Chicken & Veg</h3>
-      <p>High protein, balanced macros.</p>
+    <!--Restructured entire card segment to support additional images / Updated Add-to-Cart system (Gurpreet Singh Sidhu / 230237915) (Rohan Hayer / 240085807 ID)-->
+    <div class="card">
+  <img src="images/chicken-bowl.png" alt="Chicken & Veg" class="product-image">
+  <h3>Chicken & Veg</h3>
+  <p>High protein, balanced macros.</p>
 
   <ul style="text-align:left; margin:0; padding-left:1.2rem; font-size:0.95rem;">
     <li>Calories: 485 kcal</li>
@@ -59,51 +65,66 @@
 
   <h3>£7.99</h3>
   <div style="margin-top:.75rem;">
-    <a class="cta" href="#">Add to cart</a>
+    <a
+      class="cta add-to-cart"
+      href="#"
+      data-name="Chicken & Veg"
+      data-price="7.99"
+    >Add to cart</a>
   </div>
 </div>
 
-      <div class="card"> <!--Made the card cleaner for viewing (Gurpreet Singh Sidhu / 230237915 ID)-->
-        <img src="images/vegan-bowl.png" alt="Vegan Bowl" class="product-image">
-        <h3>Vegan Bowl</h3>
-        <p>High fibre, plant-powered.</p>
+      <div class="card">
+  <img src="images/vegan-bowl.png" alt="Vegan Bowl" class="product-image">
+  <h3>Vegan Bowl</h3>
+  <p>High fibre, plant-powered.</p>
 
-        <ul style="text-align:left; margin:0; padding-left:1.2rem; font-size:0.95rem;">
-          <li>Calories: 410 kcal</li>
-          <li>Protein: 20 g</li>
-          <li>Carbohydrates: 34 g</li>
-          <li>Fat: 19 g</li>
-          <li>Fiber: 9 g</li>
-          <li>Sugars: 8 g</li>
-          <li>Sodium: 500 mg</li>
-        </ul>
+  <ul style="text-align:left; margin:0; padding-left:1.2rem; font-size:0.95rem;">
+    <li>Calories: 410 kcal</li>
+    <li>Protein: 20 g</li>
+    <li>Carbohydrates: 34 g</li>
+    <li>Fat: 19 g</li>
+    <li>Fiber: 9 g</li>
+    <li>Sugars: 8 g</li>
+    <li>Sodium: 500 mg</li>
+  </ul>
 
-        <h3>£6.99</h3>
-        <div style="margin-top:.75rem;">
-          <a class="cta" href="#">Add to cart</a>
-        </div>
-      </div>
+  <h3>£6.99</h3>
+  <div style="margin-top:.75rem;">
+    <a
+      class="cta add-to-cart"
+      href="#"
+      data-name="Vegan Bowl"
+      data-price="6.99"
+    >Add to cart</a>
+  </div>
+</div>
 
-      <div class="card"> <!--Made the card cleaner for viewing (Gurpreet Singh Sidhu / 230237915 ID)-->
-        <img src="images/protein-shake.png" alt="Protein Powder" class="product-image">
-        <h3>Protein Powder 500g</h3>
-        <p>For Muscle Growth (Per 30g Serving).</p>
+      <div class="card">
+  <img src="images/protein-shake.png" alt="Protein Powder" class="product-image">
+  <h3>Protein Powder 500g</h3>
+  <p>For Muscle Growth (Per 30g Serving).</p>
 
-        <ul style="text-align:left; margin:0; padding-left:1.2rem; font-size:0.95rem;">
-          <li>Energy: 122 kcal</li>
-          <li>Protein: 25 g</li>
-          <li>Carbohydrates: 3.5 g</li>
-          <li>Fat: 2.2 g</li>
-          <li>Fiber: 1.8 g</li>
-          <li>Salt: 0.4 g</li>
-          <li>Suitable for Vegans and Vegetarians</li>
-        </ul>
+  <ul style="text-align:left; margin:0; padding-left:1.2rem; font-size:0.95rem;">
+    <li>Energy: 122 kcal</li>
+    <li>Protein: 25 g</li>
+    <li>Carbohydrates: 3.5 g</li>
+    <li>Fat: 2.2 g</li>
+    <li>Fiber: 1.8 g</li>
+    <li>Salt: 0.4 g</li>
+    <li>Suitable for Vegans and Vegetarians</li>
+  </ul>
 
-        <h3>£24.99</h3>
-        <div style="margin-top:.75rem;">
-          <a class="cta" href="#">Add to cart</a>
-        </div>
-      </div>
+  <h3>£24.99</h3>
+  <div style="margin-top:.75rem;">
+    <a
+      class="cta add-to-cart"
+      href="#"
+      data-name="Protein Powder 500g"
+      data-price="24.99"
+    >Add to cart</a>
+  </div>
+</div>
 
   <footer class="footer">
     <div class="container">© <span id="year"></span> PrepPal — Eat better, live easier.</div>
