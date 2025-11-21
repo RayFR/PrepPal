@@ -84,10 +84,10 @@ body {
   gap: 0.35rem;
   padding: 0.35rem 0.9rem;
   border-radius: 999px;
-  background: #fff3e0;           
-  border: 1px solid #ffb74d;     
+  background: #fff3e0;
+  border: 1px solid #ffb74d;
   font-size: 0.9rem;
-  cursor: pointer;               
+  cursor: pointer;
   transition: transform 0.15s ease;
 }
 
@@ -296,15 +296,81 @@ body {
   margin-bottom: 0.75rem;
 }
 
+/* Cart item thumbnails (Gurprret Singh Sidhu - 230237915 ID) */
+.cart-items li .thumb-wrapper {
+  flex-shrink: 0;
+}
+
+.cart-items li img.thumb {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* Cart item info column */
+.cart-items li .info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-items li span.meta {
+  font-size: 0.8rem;
+  color: #777;
+}
+
+/* Remove button */
+.cart-items li button.remove-item {
+  border: none;
+  background: transparent;
+  color: #ff7a00;
+  cursor: pointer;
+  font-size: 0.8rem;
+  margin-left: 0.3rem;
+}
+
+.cart-items li button.remove-item:hover {
+  text-decoration: underline;
+}
+
+/* Cart actions (Clear / Checkout / Close buttons row) */
+.cart-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.cart-btn {
+  border: none;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.cart-clear {
+  background: #f5f5f5;
+  color: #333;
+}
+
+.cart-clear:hover {
+  background: #e0e0e0;
+}
+
+.cart-checkout {
+  background: #4caf50;
+  color: #fff;
+}
+
+.cart-checkout:hover {
+  background: #43a047;
+}
 
 .cart-close {
-  border: none;
   background: #ff7a00;
   color: #fff;
-  padding: 0.35rem 0.9rem;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  cursor: pointer;
 }
 
 .cart-close:hover {
@@ -381,4 +447,25 @@ body {
   font-size: 3rem;
   color: #ff7a00;
   margin-top: 1rem;
+}
+
+/* Cart bump animation when item is added (Agraj Khanna 240195519 / Gurpreet Singh Sidhu 230237915)*/
+#cartDisplay.bump {
+  animation: cart-bump 0.3s ease;
+}
+
+@keyframes cart-bump {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Fade-out when removing a cart item */
+.cart-items li.removing {
+  animation: cart-remove 0.25s ease forwards;
+}
+
+@keyframes cart-remove {
+  0% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 0; transform: translateX(10px); }
 }
