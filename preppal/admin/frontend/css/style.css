@@ -91,6 +91,12 @@ body {
   transition: transform 0.15s ease;
 }
 
+/* Hide cart on pages where we add the cart-hidden class */
+#cartDisplay.cart-hidden {
+  display: none;
+}
+
+
 /* Small cart icon before text */
 #cartDisplay::before {
   content: "🛒";

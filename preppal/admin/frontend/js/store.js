@@ -1,12 +1,13 @@
 /*
-  Student & ID: (Agraj Khanna 240195519 ID/Gurpreet Singh Sidhu 230237915 ID)
+  Student & ID: (Agraj Khanna 240195519 ID / Gurpreet Singh Sidhu 230237915 ID)
   Description: Global cart system:
   - Tracks items (name + price + image + quantity)
-  - Persists to localStora
+  - Persists to localStorage
   - Shows mini cart panel on all pages
   - Remove single items with fade-out
   - Clear Cart + Checkout buttons
   - Bump animation on add
+  - Hides cart pill on home page when cart is empty
 */
 
 (function () {
@@ -154,10 +155,27 @@
     }
   }
 
+  // NEW: control cart visibility on home page (index.html)
+  function updateHomeCartVisibility() {
+    if (!cartDisplay) return;
+
+    // Treat title "PrepPal" as the home page
+    var isHome = document.title === 'PrepPal';
+    if (!isHome) return;
+
+    var count = getCartItemCount();
+    if (count === 0) {
+      cartDisplay.classList.add('cart-hidden');
+    } else {
+      cartDisplay.classList.remove('cart-hidden');
+    }
+  }
+
   function refreshCartUI() {
     updateCartDisplayPill();
     renderCartList();
     updateCartSummaryAndTotal();
+    updateHomeCartVisibility(); // make sure home page hides/shows pill correctly
   }
 
   function bumpCartDisplay() {
