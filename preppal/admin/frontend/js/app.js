@@ -1,14 +1,54 @@
 // Students & IDs: (Agraj Khanna 240195519 ID / Gurpreet Singh Sidhu 230237915 ID)
 // Basic interactive helpers for admin frontend (mobile nav toggle + demo form handler)
 (function () {
-  // Demo: intercept login form to show a friendly alert (remove when wiring real backend)
-  var loginForm = document.getElementById('loginForm');
-  if (loginForm) {
-    loginForm.addEventListener('submit', function (e) {
-      e.preventDefault(); // demo only
-      alert('Demo: login submitted (frontend only). Remove this when connecting backend.');
-    });
-  }
+// Demo: intercept login form to show a friendly alert (remove when wiring real backend)
+// ====================================================
+// Fake Login System (localStorage-based authentication)
+// ====================================================
+
+var AUTH_KEY = "preppal_isLoggedIn";
+function isLoggedIn() {
+  return localStorage.getItem(AUTH_KEY) === "true";
+}
+
+function login() {
+  localStorage.setItem(AUTH_KEY, "true");
+}
+
+function logout() {
+  localStorage.removeItem(AUTH_KEY);
+}
+
+// Handle login form
+var loginForm = document.getElementById("loginForm");
+
+if (loginForm) {
+  loginForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    var email = document.getElementById("email").value.trim();
+    var password = document.getElementById("password").value.trim();
+
+    // Hard-coded demo credentials
+    if (email === "admin@preppal.com" && password === "123456") {
+      login();
+      alert("Login successful!");
+      window.location.href = "index.html"; // redirect after login
+    } else {
+      alert("Incorrect email or password. Try admin@preppal.com / 123456");
+    }
+  });
+}
+
+// Handle logout button in nav
+var logoutBtn = document.querySelector('a[href="login.html"].cta');
+
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", function () {
+    logout();
+  });
+}
+
 
   // Accessibility: allow Enter on CTA links (just ensures keyboard focus)
   var ctas = document.querySelectorAll('.cta');
