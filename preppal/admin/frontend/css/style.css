@@ -49,34 +49,68 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 65px;
+  height: 70px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
-/* --- Display for PrepPal logo --- */
+
+/* logo – keep behaviour the same */
 .brand {
   display: flex;
   align-items: center;
-  height: 35px; 
+  height: 35px;
   text-decoration: none;
 }
+
 .brand-badge {
-  width: 150px; 
-  height: 40px; 
+  width: 150px;
+  height: 40px;
   background: url('../images/preppal-logo.png') center/contain no-repeat;
   display: inline-block;
 }
 
-/* --- Navbar Continuation--- */
-.nav-links a {
-  margin-left: 1rem;
-  text-decoration: none;
-  color: #ff7a00;
-  font-weight: 600;
-  transition: color 0.3s;
+/* group nav links nicely */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
 }
 
-/* Cart display in navbar */ /* Made the Cart display look nicer - Gurpreet Singh Sidhu(230237915) Agraj Khanna (240195519)*/
+/* links */
+.nav-links a {
+  text-decoration: none;
+  color: #444;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.nav-links a.active {
+  color: #ff7a00;
+  text-decoration: none;
+  position: relative;
+}
+
+.nav-links a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.3rem;
+  width: 100%;
+  height: 2px;
+  border-radius: 999px;
+  background: #ff7a00;
+}
+
+.nav-links a:hover {
+  color: #ff7a00;
+  opacity: 0.9;
+}
+
+/* Cart pill in navbar */
 #cartDisplay {
-  margin-left: 1rem;
+  margin-left: 0.5rem;
   font-weight: 600;
   color: #ff7a00;
   display: inline-flex;
@@ -88,14 +122,13 @@ body {
   border: 1px solid #ffb74d;
   font-size: 0.9rem;
   cursor: pointer;
-  transition: transform 0.15s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
 
 /* Hide cart on pages where we add the cart-hidden class */
 #cartDisplay.cart-hidden {
   display: none;
 }
-
 
 /* Small cart icon before text */
 #cartDisplay::before {
@@ -104,71 +137,95 @@ body {
   line-height: 1;
 }
 
-
-/* --- Active Nav Link --- */
-.nav-links a.active {
-  color: #ff7a00;
-  text-decoration: underline;     /* --- added underline to navbar --- 240195519 Agraj Khanna */
+#cartDisplay:hover {
+  background: #ffe0b2;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
-.nav-links a:hover {
-  color: #ff7a00;
-}
-
+/* CTA button (Get Started / Log Out) */
 .cta {
   background: #ff7a00;
   color: #fff !important;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  transition: background 0.3s;
+  padding: 0.5rem 1.35rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(255, 122, 0, 0.3);
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
 }
 
 .cta:hover {
   background: #ff9000;
+  box-shadow: 0 10px 24px rgba(255, 122, 0, 0.4);
+  transform: translateY(-1px);
 }
 
 /* --- Hero Section --- */
 .hero {
-  background: url('../images/meal-banner.jpg') center/cover no-repeat; /* Modified image which is located in the folder images (Gurpreet Singh Sidhu / 230237915 ID) */
+  background: url('../images/meal-banner.jpg') center/cover no-repeat;
   color: #fff;
   text-align: center;
   padding: 5rem 1rem;
   position: relative;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero::before {
   content: "";
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.5);
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.55),
+    rgba(0, 0, 0, 0.7)
+  );
 }
 
 .hero-text {
   position: relative;
   z-index: 1;
-  max-width: 600px;
+  max-width: 640px;
   margin: 0 auto;
 }
 
 .hero-text h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+  font-size: 2.6rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.01em;
 }
 
 .hero-text p {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
+  font-size: 1.05rem;
+  margin-bottom: 1.75rem;
+  opacity: 0.9;
 }
 
 /* --- Main Content --- */
 .main-content {
-  padding: 3rem 0;
+  padding: 3rem 0 4rem;
   text-align: center;
 }
 
 .main-content h2 {
   color: #333;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.7rem;
+}
+
+.main-content p {
+  max-width: 720px;
+  margin: 0 auto;
+  font-size: 0.98rem;
+  color: #555;
 }
 
 /* --- Admin Dashboard Cards --- */
@@ -181,15 +238,15 @@ body {
 
 .card {
   background: #fff;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
+  border-radius: 16px;
+  padding: 1.5rem 1.6rem;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.14);
 }
 
 .card h3 {
@@ -405,27 +462,61 @@ body {
 @media (max-width: 768px) {
   .nav-inner {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     height: auto;
-    padding: 1rem 0;
+    gap: 0.75rem;
+    padding: 0.75rem 0.75rem 1rem;
   }
 
   .nav-links {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
-  .nav-links a {
-    padding: 0.75rem 0;
-    width: 100%;
-    border-top: 1px solid #eee;
+  .hero {
+    padding: 4rem 1.25rem;
   }
 
   .hero-text h1 {
     font-size: 2rem;
   }
 }
+
+/* Personalised calorie / goal calculator */
+.calorie-planner {
+  text-align: left;
+}
+
+.calorie-form label {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 0.25rem;
+}
+
+.calorie-form input,
+.calorie-form select {
+  width: 100%;
+  padding: 0.4rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-family: inherit;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+}
+
+.calorie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 0.75rem 1rem;
+  margin-top: 0.75rem;
+}
+
+.calorie-results {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid #f0f0f0;
+}
+
 /* --- Dashboard Enhancements --- */
 .small-hero {
   background: linear-gradient(135deg, #ff7a00 0%, #ff9f40 100%);
@@ -474,4 +565,226 @@ body {
 @keyframes cart-remove {
   0% { opacity: 1; transform: translateX(0); }
   100% { opacity: 0; transform: translateX(10px); }
+}
+
+/* --- Fancy calculator / dashboard look --- */
+
+.calorie-planner {
+  text-align: left;
+  border-top: 4px solid #ff7a00;
+  position: relative;
+  overflow: hidden;
+}
+
+.calorie-planner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -40%;
+  width: 80%;
+  height: 4px;
+  background: linear-gradient(90deg, #ff7a00, #ffca28, #ff7a00);
+  opacity: 0.9;
+}
+
+.calorie-header {
+  margin-bottom: 1rem;
+}
+
+.calorie-header p {
+  margin-bottom: 0.75rem;
+  color: #555;
+}
+
+/* Step tags (like mini chips) */
+.calorie-tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.pill-soft {
+  background: #fff3e0;
+  color: #ff7a00;
+  border: 1px solid #ffe0b2;
+}
+
+/* Inputs */
+.calorie-form label {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 0.25rem;
+}
+
+.calorie-form input,
+.calorie-form select {
+  width: 100%;
+  padding: 0.4rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-family: inherit;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+}
+
+.calorie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 0.75rem 1rem;
+  margin-top: 0.75rem;
+}
+
+/* Primary button with a bit more "app" feel */
+.primary-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  box-shadow: 0 8px 18px rgba(255, 122, 0, 0.35);
+}
+
+.primary-cta:hover {
+  box-shadow: 0 10px 24px rgba(255, 122, 0, 0.45);
+  transform: translateY(-1px);
+}
+
+/* Results wrapper */
+.calorie-results {
+  margin-top: 1.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid #f0f0f0;
+}
+
+/* TOP: ring + text (side-by-side like a dashboard card) */
+.calorie-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Circular calorie ring */
+.calorie-ring {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.ring-graphic {
+  --progress: 0deg; /* updated by JS */
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(#fff 60%, transparent 61%),
+    conic-gradient(#ff7a00 var(--progress), #ffe0b2 0deg 360deg);
+}
+
+.ring-inner {
+  width: 75%;
+  height: 75%;
+  border-radius: 50%;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ring-inner span {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.ring-inner small {
+  font-size: 0.7rem;
+  color: #777;
+}
+
+.ring-caption {
+  font-size: 0.8rem;
+  color: #555;
+}
+
+.summary-text h3 {
+  margin: 0 0 0.4rem;
+}
+
+.summary-text p {
+  margin: 0;
+  color: #555;
+}
+
+/* Macro cards like chips */
+.macro-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.25rem 0 0.9rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.6rem;
+  font-size: 0.9rem;
+}
+
+.macro-list li {
+  background: #fff7f0;
+  border-radius: 12px;
+  padding: 0.55rem 0.75rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.macro-list li strong {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ff7a00;
+}
+
+.macro-list li span {
+  font-weight: 600;
+  color: #333;
+}
+
+/* Plan card */
+.plan-card {
+  background: #f9fafb;
+  border-radius: 10px;
+  padding: 0.75rem 0.9rem;
+  border: 1px dashed #ffcc80;
+  margin-bottom: 0.75rem;
+}
+
+.plan-card strong {
+  color: #ff7a00;
+}
+
+/* Add-to-cart button under the plan */
+.plan-add-btn {
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
+}
+
+/* Mobile tweak */
+@media (max-width: 600px) {
+  .calorie-summary {
+    align-items: flex-start;
+  }
 }
