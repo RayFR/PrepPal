@@ -4,9 +4,6 @@
 // File: connectdb.php
 // Description: Connects the database with the backend logic.
 // Date: Nov 2025
-
-<?php
-
 $db_host = 'localhost';
 $db_name = 'preppal';
 $username = 'root';
