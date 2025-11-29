@@ -43,13 +43,18 @@
     <!-- Navigation -->
 <header class="nav">
   <div class="container nav-inner">
-    <a class="brand" href="admin.html">
+    <a class="brand" href="index.html">
       <span class="brand-badge"></span>
     </a>
     <nav class="nav-links">
+      <!-- Public links -->
+      <a href="index.html">Home</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="store.html">Meals</a>
+
+      <!-- Admin-only links -->
       <a href="admin.html" class="nav-admin-only">Admin Home</a>
-      <a href="dashboard.html" class="active nav-admin-only">Dashboard</a>
-      <a href="store.html" class="nav-admin-only">Meals</a>
+      <a href="dashboard.html" class="nav-admin-only active">Dashboard</a>
 
       <span id="cartDisplay">Cart (0)</span>
       <button id="themeToggle" type="button" class="theme-toggle" aria-label="Toggle theme">☀️</button>
@@ -57,6 +62,7 @@
     </nav>
   </div>
 </header>
+
 
 
     <!-- Mini cart panel (shared across all pages) (Gurpreet Singh Sidhu - 230237915 ID)-->
