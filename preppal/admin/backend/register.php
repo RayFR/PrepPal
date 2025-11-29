@@ -44,5 +44,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="UTF-8">
+        <title>Register</title>
+    </head>
+
+    <body>
+        <h1>Register</h1>
+
+        <?php if (!empty($errors)): ?>
+    <div style="color:red;">
+        <ul>
+        <?php foreach ($errors as $e): ?>
+    <li><?= htmlspecialchars($e) ?></li>
+        <?php endforeach; ?>
+    </ul>
+        </div>
+        <?php endif; ?>
+
+        <?php if ($success): ?> 
+        <div style="color:green;">
+            <?= $success ?>
+        </div>
+        <?php endif; ?>
+
+        <form method="post">
+            Username:<br>
+            <input type="text" name="username"><br><br>
+            
+            Email:<br>
+            <input type="email" name="email"><br><br>
+
+            Password:<br>
+            <input type="password" name="password"><br><br>
+
+            Confirm Password:<br>
+            <input type="password" name="confirm"><br><br>
+
+            <button type="submit">Register</button>
+        </form>
+            
+            
+        
+    </body>
+</html>
         
     
+
