@@ -882,3 +882,142 @@ body {
     align-items: flex-start;
   }
 }
+
+/* Theme toggle button in navbar */
+.theme-toggle {
+  border: none;
+  background: transparent;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0.3rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.theme-toggle:hover {
+  background: rgba(0, 0, 0, 0.04);
+  transform: translateY(-1px);
+}
+
+/* Auth tabs + forms (login/register) */
+.auth-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.75rem 0 1rem;
+}
+
+.auth-tab {
+  flex: 1;
+  padding: 0.4rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.auth-tab-active {
+  background: #ff7a00;
+  color: #fff;
+  border-color: #ff7a00;
+}
+
+.auth-form {
+  display: none;
+  margin-top: 0.5rem;
+}
+
+.auth-form-active {
+  display: block;
+}
+
+.auth-note {
+  margin-top: 0.9rem;
+  font-size: 0.8rem;
+  color: #777;
+}
+
+/*Dark Theme*/
+
+body[data-theme="dark"] {
+  background-color: #050816;
+  color: #e5e7eb;
+}
+
+body[data-theme="dark"] .nav {
+  background: #0b1020;
+  border-bottom-color: #111827;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+body[data-theme="dark"] .nav-links a {
+  color: #e5e7eb;
+}
+
+body[data-theme="dark"] .nav-links a:hover {
+  color: #fbbf24;
+}
+
+body[data-theme="dark"] .nav-links a.active {
+  color: #fbbf24;
+}
+
+body[data-theme="dark"] .nav-links a.active::after {
+  background: #fbbf24;
+}
+
+body[data-theme="dark"] .theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+body[data-theme="dark"] .card {
+  background: #111827;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.75);
+}
+
+body[data-theme="dark"] .main-content h2,
+body[data-theme="dark"] .info-section h3 {
+  color: #f9fafb;
+}
+
+body[data-theme="dark"] .main-content p,
+body[data-theme="dark"] .info-lead,
+body[data-theme="dark"] .summary-text p {
+  color: #e5e7eb;
+}
+
+body[data-theme="dark"] #cartDisplay {
+  background: #1f2937;
+  color: #fbbf24;
+  border-color: #fbbf24;
+}
+
+body[data-theme="dark"] .cart-panel {
+  background: #020617;
+  color: #e5e7eb;
+}
+
+body[data-theme="dark"] .cart-items li button.remove-item {
+  color: #fbbf24;
+}
+
+body[data-theme="dark"] .footer {
+  background: #020617;
+}
+
+body[data-theme="dark"] .footer span {
+  color: #fbbf24;
+}
+
+body[data-theme="dark"] .macro-list li {
+  background: #1f2937;
+}
+
+body[data-theme="dark"] .plan-card {
+  background: #020617;
+  border-color: #fbbf24;
+}
