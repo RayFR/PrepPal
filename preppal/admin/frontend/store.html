@@ -16,24 +16,24 @@
 </head>
 <body>
   <header class="nav">
-  <div class="container nav-inner">
-    <a class="brand" href="index.html"><span class="brand-badge"></span></a>
-    <nav class="nav-links">
-  <a href="index.html">Home</a>
-  <a href="calculator.html">Calculator</a>
-  <a href="store.html" class="active">Meals</a>
+    <div class="container nav-inner">
+      <a class="brand" href="index.html"><span class="brand-badge"></span></a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="calculator.html">Calculator</a>
+        <a href="store.html" class="active">Meals</a>
+        <a href="contact.html">Contact</a>
 
-  <!-- These only show for admins, hidden for normal users by JS -->
-  <a href="admin.html" class="nav-admin-only">Admin Home</a>
-  <a href="dashboard.html" class="nav-admin-only">Dashboard</a>
+        <!-- Admin-only links (shown only when logged in as admin via app.js) -->
+        <a href="admin.html" class="nav-admin-only">Admin Home</a>
+        <a href="dashboard.html" class="nav-admin-only">Dashboard</a>
 
-  <span id="cartDisplay">Cart (0)</span>
-  <button id="themeToggle" type="button" class="theme-toggle" aria-label="Toggle theme">☀️</button>
-  <a class="cta" href="login.html" id="authButton">Sign In</a>
-</nav>
-  </div>
-</header>
-
+        <span id="cartDisplay">Cart (0)</span>
+        <button id="themeToggle" type="button" class="theme-toggle" aria-label="Toggle theme">☀️</button>
+        <a class="cta" href="login.html" id="authButton">Sign In</a>
+      </nav>
+    </div>
+  </header>
 
   <!-- Mini cart panel (shared across all pages) (Gurpreet Singh Sidhu - 230237915 ID) -->
   <div id="cartPanel" class="cart-panel" aria-hidden="true">
@@ -52,13 +52,24 @@
   </div>
 
   <main class="container main-content">
+    <!-- Store search -->
+    <div class="store-search-row">
+      <label for="productSearchInput" class="store-search-label">Search meals &amp; supplements</label>
+      <input
+        type="text"
+        id="productSearchInput"
+        class="store-search-input"
+        placeholder="Type to filter by name or description..."
+      />
+    </div>
+
     <h2>Meal Prep Plans</h2>
     <p>Choose a weekly PrepPal plan that matches your goal. Each plan includes chef-prepared meals delivered to your door.</p>
 
     <!-- Use existing grid/card styling -->
     <div class="admin-dashboard">
       <!-- Fat Loss Plan -->
-      <div class="card">
+      <div class="card" data-product-card="true">
         <img src="images/chicken-bowl.png" alt="Fat Loss Plan" class="product-image">
         <h3>Fat Loss Plan</h3>
         <p>Structured meals to help you lean down while keeping energy levels high.</p>
@@ -83,7 +94,7 @@
       </div>
 
       <!-- Lean Muscle Plan -->
-      <div class="card">
+      <div class="card" data-product-card="true">
         <img src="images/chicken-bowl.png" alt="Lean Muscle Plan" class="product-image">
         <h3>Lean Muscle Plan</h3>
         <p>Higher-calorie meals to support muscle gain without excess fat.</p>
@@ -108,7 +119,7 @@
       </div>
 
       <!-- Maintenance Plan -->
-      <div class="card">
+      <div class="card" data-product-card="true">
         <img src="images/vegan-bowl.png" alt="Maintenance Plan" class="product-image">
         <h3>Maintenance Plan</h3>
         <p>Balanced meals to help you maintain your current weight and feel your best.</p>
@@ -133,7 +144,7 @@
       </div>
 
       <!-- High Fibre & Micronutrient Plan -->
-      <div class="card">
+      <div class="card" data-product-card="true">
         <img src="images/vegan-bowl.png" alt="High Fibre Plan" class="product-image">
         <h3>High Fibre Plan</h3>
         <p>Plant-forward meals focused on gut health and micronutrients.</p>
@@ -164,7 +175,7 @@
 
     <div class="admin-dashboard">
       <!-- Whey Protein -->
-      <div class="card">
+      <div class="card" data-product-card="true">
         <img src="images/protein-shake.png" alt="Whey Protein" class="product-image">
         <h3>Whey Protein (1kg)</h3>
         <p>Smooth, easy-mix whey to help you hit your daily protein targets.</p>
@@ -188,7 +199,7 @@
       </div>
 
       <!-- Creatine -->
-      <div class="card">
+      <div class="card" data-product-card="true">
         <img src="images/protein-shake.png" alt="Creatine Monohydrate" class="product-image">
         <h3>Creatine Monohydrate (300g)</h3>
         <p>Clinically supported supplement for strength and performance.</p>
@@ -212,7 +223,7 @@
       </div>
 
       <!-- BCAA -->
-      <div class="card">
+      <div class="card" data-product-card="true">
         <img src="images/protein-shake.png" alt="BCAA Powder" class="product-image">
         <h3>BCAA Powder (250g)</h3>
         <p>Branched-chain amino acids to support training and recovery.</p>
@@ -236,14 +247,14 @@
       </div>
 
       <!-- Multivitamin -->
-      <div class="card">
+      <div class="card" data-product-card="true">
         <img src="images/vegan-bowl.png" alt="Daily Multivitamin" class="product-image">
         <h3>Daily Multivitamin (60 tablets)</h3>
         <p>All-round micronutrient support to cover the basics.</p>
 
         <ul style="text-align:left; margin:0; padding-left:1.2rem; font-size:0.95rem;">
           <li>30–60 days supply</li>
-          <li>Includes vitamin D, B-complex & minerals</li>
+          <li>Includes vitamin D, B-complex &amp; minerals</li>
           <li>Designed to complement PrepPal plans</li>
         </ul>
 

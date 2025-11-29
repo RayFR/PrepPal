@@ -316,4 +316,22 @@
       });
     });
   }
+ 
+  // Store search (live filter)
+  var productSearchInput = document.getElementById('productSearchInput');
+  if (productSearchInput) {
+    var productCards = document.querySelectorAll('[data-product-card="true"]');
+
+    function applyProductFilter() {
+      var term = productSearchInput.value.trim().toLowerCase();
+      productCards.forEach(function (card) {
+        var text = card.textContent.toLowerCase();
+        var match = text.indexOf(term) !== -1;
+        card.style.display = match ? '' : 'none';
+      });
+    }
+
+    productSearchInput.addEventListener('input', applyProductFilter);
+  }
+
 })();

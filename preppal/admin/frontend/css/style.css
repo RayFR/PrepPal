@@ -941,8 +941,82 @@ body {
   color: #777;
 }
 
-/*Dark Theme*/
+.contact-card {
+  max-width: 560px;
+  margin: 2rem auto 0;
+  text-align: left;
+}
 
+.contact-form textarea {
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+}
+
+.contact-note {
+  margin-top: 0.75rem;
+  font-size: 0.82rem;
+  color: #6b7280;
+}
+
+
+.store-search-row {
+  margin: 1.5rem 0 1.75rem;
+  text-align: left;
+}
+
+.store-search-label {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 0.35rem;
+  color: #4b5563;
+}
+
+.store-search-input {
+  width: 100%;
+  max-width: 420px;
+  padding: 0.45rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  font-family: inherit;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+  box-sizing: border-box;
+}
+
+/*Store Search Bar*/
+.store-search-row {
+  margin: 1.5rem 0 1.75rem;
+  text-align: left;
+}
+
+.store-search-label {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 0.35rem;
+  color: #4b5563;
+}
+
+.store-search-input {
+  width: 100%;
+  max-width: 420px;
+  padding: 0.45rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  font-family: inherit;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+  box-sizing: border-box;
+}
+
+
+
+/*Dark Theme*/
 body[data-theme="dark"] {
   background-color: #050816;
   color: #e5e7eb;
