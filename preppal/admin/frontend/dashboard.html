@@ -22,34 +22,42 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
 
-  <script>
-  if (localStorage.getItem("preppal_isLoggedIn") !== "true") {
-    window.location.href = "login.html";
-  }
+ <script>
+  (function () {
+    try {
+      var raw = localStorage.getItem('preppal_currentUser');
+      if (!raw) { window.location.href = 'login.html'; return; }
+      var user = JSON.parse(raw);
+      if (!user || !user.isAdmin) {
+        window.location.href = 'login.html';
+      }
+    } catch (e) {
+      window.location.href = 'login.html';
+    }
+  })();
 </script>
+
 
 
   <body>
     <!-- Navigation -->
-    <header class="nav">
-      <div class="container nav-inner">
-        <a class="brand" href="index.html">
-          <span class="brand-badge"></span>
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="admin.html">
+      <span class="brand-badge"></span>
+    </a>
+    <nav class="nav-links">
+      <a href="admin.html" class="nav-admin-only">Admin Home</a>
+      <a href="dashboard.html" class="active nav-admin-only">Dashboard</a>
+      <a href="store.html" class="nav-admin-only">Meals</a>
 
-        </a>
-        <nav class="nav-links">
-          <a href="index.html">Home</a>
-           <a href="calculator.html">Calculator</a>
-          <a href="dashboard.html" class="active">Dashboard</a>
-          <a href="store.html">Meals</a>
-          <a href="admin.html">Admin</a>
+      <span id="cartDisplay">Cart (0)</span>
+      <button id="themeToggle" type="button" class="theme-toggle" aria-label="Toggle theme">☀️</button>
+      <a class="cta" href="login.html" id="authButton">Log Out</a>
+    </nav>
+  </div>
+</header>
 
-          <span id="cartDisplay">Cart (0)</span>
-          <a class="cta" href="login.html">Log Out</a>
-        </nav>
-
-      </div>
-    </header>
 
     <!-- Mini cart panel (shared across all pages) (Gurpreet Singh Sidhu - 230237915 ID)-->
 <div id="cartPanel" class="cart-panel" aria-hidden="true">

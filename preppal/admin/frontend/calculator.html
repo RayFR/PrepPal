@@ -15,21 +15,21 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <header class="nav">
-    <div class="container nav-inner">
-      <a class="brand" href="index.html"><span class="brand-badge"></span></a>
-      <nav class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="calculator.html" class="active">Calculator</a>
-        <a href="dashboard.html">Dashboard</a>
-        <a href="store.html">Meals</a>
-        <a href="admin.html">Admin</a>
+ <header class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html"><span class="brand-badge"></span></a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="calculator.html" class="active">Calculator</a>
+      <a href="store.html">Meals</a>
 
-        <span id="cartDisplay">Cart (0)</span>
-        <a class="cta" href="login.html">Log Out</a>
-      </nav>
-    </div>
-  </header>
+      <span id="cartDisplay">Cart (0)</span>
+      <button id="themeToggle" type="button" class="theme-toggle" aria-label="Toggle theme">☀️</button>
+      <a class="cta" href="login.html" id="authButton">Sign In</a>
+    </nav>
+  </div>
+</header>
+
 
   <!-- Mini cart panel (same as other pages) -->
   <div id="cartPanel" class="cart-panel" aria-hidden="true">
