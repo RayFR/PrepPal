@@ -19,14 +19,18 @@
   <div class="container nav-inner">
     <a class="brand" href="index.html"><span class="brand-badge"></span></a>
     <nav class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="calculator.html">Calculator</a>
-      <a href="store.html" class="active">Meals</a>
+  <a href="index.html">Home</a>
+  <a href="calculator.html">Calculator</a>
+  <a href="store.html" class="active">Meals</a>
 
-      <span id="cartDisplay">Cart (0)</span>
-      <button id="themeToggle" type="button" class="theme-toggle" aria-label="Toggle theme">☀️</button>
-      <a class="cta" href="login.html" id="authButton">Sign In</a>
-    </nav>
+  <!-- These only show for admins, hidden for normal users by JS -->
+  <a href="admin.html" class="nav-admin-only">Admin Home</a>
+  <a href="dashboard.html" class="nav-admin-only">Dashboard</a>
+
+  <span id="cartDisplay">Cart (0)</span>
+  <button id="themeToggle" type="button" class="theme-toggle" aria-label="Toggle theme">☀️</button>
+  <a class="cta" href="login.html" id="authButton">Sign In</a>
+</nav>
   </div>
 </header>
 
