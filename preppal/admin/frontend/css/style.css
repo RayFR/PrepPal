@@ -1014,7 +1014,86 @@ body {
   box-sizing: border-box;
 }
 
+.admin-table-card {
+  margin-top: 2rem;
+  text-align: left;
+}
 
+.admin-table-header {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+.admin-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+.admin-table th {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6b7280;
+}
+
+.admin-table tr:last-child td {
+  border-bottom: none;
+}
+
+.admin-table-note {
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.admin-status-select {
+  padding: 0.2rem 0.4rem;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  font-size: 0.82rem;
+  background: #f9fafb;
+}
+
+/* Dark mode tweaks */
+body[data-theme="dark"] .admin-table-card {
+  background: #020617;
+}
+
+body[data-theme="dark"] .admin-table th,
+body[data-theme="dark"] .admin-table td {
+  border-bottom-color: #111827;
+}
+
+body[data-theme="dark"] .admin-table th {
+  color: #9ca3af;
+}
+
+body[data-theme="dark"] .admin-table-note,
+body[data-theme="dark"] .admin-table-header {
+  color: #9ca3af;
+}
+
+body[data-theme="dark"] .admin-status-select {
+  background: #020617;
+  color: #e5e7eb;
+  border-color: #374151;
+}
 
 /*Dark Theme*/
 body[data-theme="dark"] {
