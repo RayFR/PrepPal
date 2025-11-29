@@ -239,12 +239,8 @@
       return;
     }
 
-    alert('Demo checkout complete! (This is a frontend-only prototype.)');
-    clearCart();
-    if (cartPanel) {
-      cartPanel.classList.remove('open');
-      cartPanel.setAttribute('aria-hidden', 'true');
-    }
+    // Go to checkout page (cart contents stay in localStorage)
+    window.location.href = 'checkout.html';
   }
 
   // --- Panel toggle ---
