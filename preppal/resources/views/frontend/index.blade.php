@@ -1,0 +1,180 @@
+<!--
+  Student&ID: Agraj Khanna(240195519)
+  File: index.html
+  Description: Homepage with navigation, welcome text, and footer
+  Date: Oct 30, Thursday 2025
+-->
+
+<!--
+  Student & ID: Gurpreet Singh Sidhu (230237915)
+  Role: Designer
+  File: index.html
+  Description: Homepage with navigation, hero section, and footer for PrepPal.
+  Date: Nov 2025
+-->
+
+<!--
+  Student & ID: Musab Ahmed Rashid (230084799)
+  Role: Designer
+  File: index.html
+  Description: Homepage with navigation, hero section, and footer for PrepPal.
+  Date: Nov 2025
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PrepPal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"> <!--Adding Poppins font (Gurpreet Singh Sidhu / 230237915 ID)-->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <!-- Navigation -->
+    <header class="nav">
+      <div class="container nav-inner">
+        <a class="brand" href="index.html">
+          <span class="brand-badge"></span>
+        
+     </a>
+      <nav class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="calculator.html">Calculator</a>
+        <a href="store.html">Meals</a>
+
+        <a href="admin.html" class="nav-admin-only">Admin Home</a>
+        <a href="dashboard.html" class="nav-admin-only">Dashboard</a>
+
+        <span id="cartDisplay" class="cart-hidden">Cart (0)</span>
+        <button id="themeToggle" type="button" class="theme-toggle" aria-label="Toggle theme">☀️</button>
+        <a class="cta" href="login.html" id="authButton">Get Started</a>
+      </nav>
+
+      </div>
+    </header>
+
+    <!-- Mini cart panel (shared across all pages) (Gurpreet Singh Sidhu - 230237915 ID)-->
+<div id="cartPanel" class="cart-panel" aria-hidden="true">
+  <h3>Your Cart</h3>
+  <p id="cartSummary">You have 0 items in your cart.</p>
+
+  <ul id="cartItems" class="cart-items">
+  </ul>
+
+  <p id="cartTotal" class="cart-total">Total: £0.00</p>
+
+  <div class="cart-actions">
+    <button type="button" class="cart-btn cart-clear">Clear Cart</button>
+    <button type="button" class="cart-btn cart-checkout">Checkout</button>
+    <button type="button" class="cart-btn cart-close">Close</button>
+  </div>
+</div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+    <div class="hero-text">
+    <h1>Healthy Eating Made Simple</h1>
+    <p>Personalized meals and supplements for your lifestyle goals.</p>
+
+    <div class="hero-actions">
+      <a href="login.html" class="cta">Get Started</a>
+      <a href="#how-it-works" class="hero-secondary">How it works</a>
+    </div>
+    </div>
+    </section>
+
+
+    <!-- Main Content -->
+    <main class="container main-content">
+  <h2>Welcome to PrepPal</h2>
+  <p>
+    PrepPal is your go-to platform for meal prepping and nutrition
+    management. Discover tailored meal plans, track your nutrition, and stay
+    consistent with your goals — all in one place.
+  </p>
+
+  <!-- Pills nav like MyFitnessPal -->
+  <div class="pill-nav">
+    <a href="#how-it-works" class="pill-link">How it works</a>
+    <a href="#plans" class="pill-link">Plans &amp; meals</a>
+    <a href="#our-story" class="pill-link">Our goal</a>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section id="how-it-works" class="page-section info-section">
+    <h3>How PrepPal works</h3>
+    <p class="info-lead">
+      We combine a simple macro calculator with ready-made meal prep plans so you always know what to eat.
+    </p>
+
+    <div class="info-grid">
+      <div class="card">
+        <h4>1. Calculate your targets</h4>
+        <p>Use the calorie &amp; macro calculator to estimate your daily needs based on your body and activity.</p>
+      </div>
+      <div class="card">
+        <h4>2. Choose a PrepPal plan</h4>
+        <p>Pick from fat loss, lean muscle, maintenance or high-fibre plans that match your goals.</p>
+      </div>
+      <div class="card">
+        <h4>3. Add meals &amp; supplements</h4>
+        <p>Add meal prep plans and supplements to your cart. Your choices stay saved while you browse.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLANS -->
+  <section id="plans" class="page-section info-section">
+    <h3>Plans &amp; meals</h3>
+    <p class="info-lead">
+      Ready-made weekly plans designed around your calories and macros.
+    </p>
+
+    <div class="info-grid">
+      <div class="card">
+        <h4>Fat loss</h4>
+        <p>Lower-calorie, high-protein meals to help you lean down without feeling starved.</p>
+      </div>
+      <div class="card">
+        <h4>Lean muscle</h4>
+        <p>Higher-calorie plans with extra carbs and protein to support training and recovery.</p>
+      </div>
+      <div class="card">
+        <h4>High-fibre</h4>
+        <p>Plant-forward meals with plenty of fibre and micronutrients for long-term health.</p>
+      </div>
+    </div>
+
+    <div class="info-cta">
+      <a href="store.html" class="cta">Explore meals &amp; supplements</a>
+    </div>
+  </section>
+
+  <!-- OUR STORY / GOAL -->
+  <section id="our-story" class="page-section info-section">
+    <h3>Our goal</h3>
+    <p class="info-lead">
+      PrepPal was built to make meal prep and nutrition feel simple, not stressful.
+    </p>
+    <p>
+      Instead of tracking every single food from scratch, we focus on curated weekly plans that already
+      match your calorie and macro targets. You choose a goal, we handle the meal prep ideas.
+    </p>
+  </section>
+</main>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        © <span id="year"></span> <span class="brand-name">PrepPal</span> —
+        Eat better, live easier.
+      </div>
+    </footer>
+
+    <script src="js/app.js"></script> <!--Deleted Section Making it neater (Agraj Khanna/240195519 ID)-->
+    <script src="js/store.js"></script>
+  </body>
+</html>

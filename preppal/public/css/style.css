@@ -1,0 +1,1176 @@
+/*
+  Student & ID: Agraj Khanna (240195519)
+  Role: Leader/Frontend
+  File: style.css
+  Description: Paired with Musab to complete styling for PrepPal frontend
+  Date: Nov 2025
+*/
+
+/*
+  Student&ID: Gurpreet Singh Sidhu(230237915)
+  File: style.css
+  Description: Basic styling for layout, navigation, and footer.
+  Date: Oct 30, Thursday, 2025
+*/
+/*
+  Student & ID: Musab Ahmed Rashid (230084799)
+  Role: Designer
+  File: style.css
+  Description: Complete styling for PrepPal frontend (Home + Admin pages)
+  Date: Nov 2025
+*/
+
+/*
+  Student & ID: Rohan Hayer (240085807)
+  Role: Designer
+  File: style.css
+  Description: Paired with Musab to complete styling for PrepPal frontend
+  Date: Nov 2025
+*/
+
+/* --- General Setup --- */
+body {
+  font-family: 'Poppins', Arial, sans-serif;
+  margin: 0;
+  background-color: #fafafa;
+  color: #222;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* --- Navbar --- */
+.nav {
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* logo – keep behaviour the same */
+.brand {
+  display: flex;
+  align-items: center;
+  height: 35px;
+  text-decoration: none;
+}
+
+.brand-badge {
+  width: 150px;
+  height: 40px;
+  background: url('../images/preppal-logo.png') center/contain no-repeat;
+  display: inline-block;
+}
+
+/* group nav links nicely */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* links */
+.nav-links a {
+  text-decoration: none;
+  color: #444;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.nav-links a.active {
+  color: #ff7a00;
+  text-decoration: none;
+  position: relative;
+}
+
+.nav-links a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.3rem;
+  width: 100%;
+  height: 2px;
+  border-radius: 999px;
+  background: #ff7a00;
+}
+
+.nav-links a:hover {
+  color: #ff7a00;
+  opacity: 0.9;
+}
+
+/* Cart pill in navbar */
+#cartDisplay {
+  margin-left: 0.5rem;
+  font-weight: 600;
+  color: #ff7a00;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background: #fff3e0;
+  border: 1px solid #ffb74d;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+/* Hide cart on pages where we add the cart-hidden class */
+#cartDisplay.cart-hidden {
+  display: none;
+}
+
+/* Small cart icon before text */
+#cartDisplay::before {
+  content: "🛒";
+  font-size: 1rem;
+  line-height: 1;
+}
+
+#cartDisplay:hover {
+  background: #ffe0b2;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* CTA button (Get Started / Log Out) */
+.cta {
+  background: #ff7a00;
+  color: #fff !important;
+  padding: 0.5rem 1.35rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(255, 122, 0, 0.3);
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+}
+
+.cta:hover {
+  background: #ff9000;
+  box-shadow: 0 10px 24px rgba(255, 122, 0, 0.4);
+  transform: translateY(-1px);
+}
+
+/* --- Hero Section --- */
+.hero {
+  background: url('../images/meal-banner.jpg') center/cover no-repeat;
+  color: #fff;
+  text-align: center;
+  padding: 5rem 1rem;
+  position: relative;
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.55),
+    rgba(0, 0, 0, 0.7)
+  );
+}
+
+.hero-text {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.hero-text h1 {
+  font-size: 2.6rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.01em;
+}
+
+.hero-text p {
+  font-size: 1.05rem;
+  margin-bottom: 1.75rem;
+  opacity: 0.9;
+}
+
+/* --- Main Content --- */
+.main-content {
+  padding: 3rem 0 4rem;
+  text-align: center;
+}
+
+.main-content h2 {
+  color: #333;
+  margin-bottom: 0.75rem;
+  font-size: 1.7rem;
+}
+
+.main-content p {
+  max-width: 720px;
+  margin: 0 auto;
+  font-size: 0.98rem;
+  color: #555;
+}
+
+/* Pills navigation under hero */
+.pill-nav {
+  margin: 2rem auto 2.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.pill-link {
+  padding: 0.35rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: #374151;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+  transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.pill-link:hover {
+  background: #ff7a00;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+}
+
+/* Hero actions */
+.hero-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hero-secondary {
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid #ffffff;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  background: transparent;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.hero-secondary:hover {
+  background: #ffffff;
+  color: #ff7a00;
+}
+
+/* Info sections on home page */
+.info-section {
+  text-align: left;
+  margin-top: 2.5rem;
+}
+
+.info-section h3 {
+  margin-bottom: 0.35rem;
+  font-size: 1.4rem;
+  color: #111827;
+}
+
+.info-lead {
+  margin: 0 0 1.25rem;
+  font-size: 0.96rem;
+  color: #4b5563;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  margin-top: 0.5rem;
+}
+
+.info-cta {
+  margin-top: 1.75rem;
+  display: flex;
+  justify-content: flex-start;
+}
+
+
+/* --- Admin Dashboard Cards --- */
+.admin-dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.5rem 1.6rem;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.14);
+}
+
+.card h3 {
+  margin-bottom: 0.5rem;
+  color: #ff7a00;
+}
+
+/* --- Product Card Images --- */
+.product-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  display: block
+}
+
+/* --- Footer --- */
+.footer {
+  background: #222;
+  color: #fff;
+  padding: 1.5rem 0;
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.footer span {
+  color: #ff7a00;
+}
+
+/* Mini cart panel - (Gurpreet Singh Sidhu / 230237915) (Agraj Khanna/240195519)*/
+.cart-panel {
+  position: fixed;
+  top: 70px;
+  right: 1rem;
+  width: 280px;
+  max-width: 90%;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  padding: 1rem 1.25rem;
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.cart-panel.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.cart-panel h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: #ff7a00;
+}
+
+.cart-panel p {
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
+}
+
+.cart-close {
+  border: none;
+  background: #ff7a00;
+  color: #fff;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.cart-close:hover {
+  background: #ff9000;
+}
+
+.cart-items {
+  list-style: none;
+  margin: 0 0 0.75rem;
+  padding: 0;
+  max-height: 180px;
+  overflow-y: auto;
+  border-top: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.cart-items li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.4rem 0;
+  font-size: 0.9rem;
+}
+
+.cart-items li span.name {
+  flex: 1;
+  padding-right: 0.5rem;
+}
+
+.cart-items li span.price {
+  white-space: nowrap;
+}
+
+.cart-total {
+  font-weight: 600;
+  text-align: right;
+  margin-bottom: 0.75rem;
+}
+
+/* Cart item thumbnails (Gurprret Singh Sidhu - 230237915 ID) */
+.cart-items li .thumb-wrapper {
+  flex-shrink: 0;
+}
+
+.cart-items li img.thumb {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* Cart item info column */
+.cart-items li .info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-items li span.meta {
+  font-size: 0.8rem;
+  color: #777;
+}
+
+/* Remove button */
+.cart-items li button.remove-item {
+  border: none;
+  background: transparent;
+  color: #ff7a00;
+  cursor: pointer;
+  font-size: 0.8rem;
+  margin-left: 0.3rem;
+}
+
+.cart-items li button.remove-item:hover {
+  text-decoration: underline;
+}
+
+/* Cart actions (Clear / Checkout / Close buttons row) */
+.cart-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.cart-btn {
+  border: none;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.cart-clear {
+  background: #f5f5f5;
+  color: #333;
+}
+
+.cart-clear:hover {
+  background: #e0e0e0;
+}
+
+.cart-checkout {
+  background: #4caf50;
+  color: #fff;
+}
+
+.cart-checkout:hover {
+  background: #43a047;
+}
+
+.cart-close {
+  background: #ff7a00;
+  color: #fff;
+}
+
+.cart-close:hover {
+  background: #ff9000;
+}
+
+/* Cart bump animation when item is added (Agraj Khanna 240195519) (Gurpreet Singh Sidhu 230237915)*/
+#cartDisplay.bump {
+  animation: cart-bump 0.3s ease;
+}
+
+@keyframes cart-bump {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .nav-inner {
+    flex-direction: column;
+    align-items: stretch;
+    height: auto;
+    gap: 0.75rem;
+    padding: 0.75rem 0.75rem 1rem;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero {
+    padding: 4rem 1.25rem;
+  }
+
+  .hero-text h1 {
+    font-size: 2rem;
+  }
+}
+
+/* Personalised calorie / goal calculator */
+.calorie-planner {
+  text-align: left;
+}
+
+.calorie-form label {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 0.25rem;
+}
+
+.calorie-form input,
+.calorie-form select {
+  width: 100%;
+  padding: 0.4rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-family: inherit;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+}
+
+.calorie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 0.75rem 1rem;
+  margin-top: 0.75rem;
+}
+
+.calorie-results {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid #f0f0f0;
+}
+
+/* --- Dashboard Enhancements --- */
+.small-hero {
+  background: linear-gradient(135deg, #ff7a00 0%, #ff9f40 100%);
+  color: #fff;
+  padding: 3rem 1rem;
+}
+
+.small-hero .hero-text h1 {
+  font-size: 2rem;
+}
+
+.chart-section {
+  text-align: center;
+  margin: 3rem 0;
+}
+
+.chart-placeholder {
+  width: 100%;
+  height: 250px;
+  border: 2px dashed #ff7a00;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: #ff7a00;
+  margin-top: 1rem;
+}
+
+/* Cart bump animation when item is added (Agraj Khanna 240195519 / Gurpreet Singh Sidhu 230237915)*/
+#cartDisplay.bump {
+  animation: cart-bump 0.3s ease;
+}
+
+@keyframes cart-bump {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Fade-out when removing a cart item */
+.cart-items li.removing {
+  animation: cart-remove 0.25s ease forwards;
+}
+
+@keyframes cart-remove {
+  0% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 0; transform: translateX(10px); }
+}
+
+/* --- Fancy calculator / dashboard look --- */
+
+.calorie-planner {
+  text-align: left;
+  border-top: 4px solid #ff7a00;
+  position: relative;
+  overflow: hidden;
+}
+
+.calorie-planner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -40%;
+  width: 80%;
+  height: 4px;
+  background: linear-gradient(90deg, #ff7a00, #ffca28, #ff7a00);
+  opacity: 0.9;
+}
+
+.calorie-header {
+  margin-bottom: 1rem;
+}
+
+.calorie-header p {
+  margin-bottom: 0.75rem;
+  color: #555;
+}
+
+/* Step tags (like mini chips) */
+.calorie-tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.pill-soft {
+  background: #fff3e0;
+  color: #ff7a00;
+  border: 1px solid #ffe0b2;
+}
+
+/* Inputs */
+.calorie-form label {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 0.25rem;
+}
+
+.calorie-form input,
+.calorie-form select {
+  width: 100%;
+  padding: 0.4rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-family: inherit;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+}
+
+.calorie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 0.75rem 1rem;
+  margin-top: 0.75rem;
+}
+
+/* Primary button with a bit more "app" feel */
+.primary-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  box-shadow: 0 8px 18px rgba(255, 122, 0, 0.35);
+}
+
+.primary-cta:hover {
+  box-shadow: 0 10px 24px rgba(255, 122, 0, 0.45);
+  transform: translateY(-1px);
+}
+
+/* Results wrapper */
+.calorie-results {
+  margin-top: 1.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid #f0f0f0;
+}
+
+/* TOP: ring + text (side-by-side like a dashboard card) */
+.calorie-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Circular calorie ring */
+.calorie-ring {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.ring-graphic {
+  --progress: 0deg; /* updated by JS */
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(#fff 60%, transparent 61%),
+    conic-gradient(#ff7a00 var(--progress), #ffe0b2 0deg 360deg);
+}
+
+.ring-inner {
+  width: 75%;
+  height: 75%;
+  border-radius: 50%;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ring-inner span {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.ring-inner small {
+  font-size: 0.7rem;
+  color: #777;
+}
+
+.ring-caption {
+  font-size: 0.8rem;
+  color: #555;
+}
+
+.summary-text h3 {
+  margin: 0 0 0.4rem;
+}
+
+.summary-text p {
+  margin: 0;
+  color: #555;
+}
+
+/* Macro cards like chips */
+.macro-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.25rem 0 0.9rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.6rem;
+  font-size: 0.9rem;
+}
+
+.macro-list li {
+  background: #fff7f0;
+  border-radius: 12px;
+  padding: 0.55rem 0.75rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.macro-list li strong {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ff7a00;
+}
+
+.macro-list li span {
+  font-weight: 600;
+  color: #333;
+}
+
+/* Plan card */
+.plan-card {
+  background: #f9fafb;
+  border-radius: 10px;
+  padding: 0.75rem 0.9rem;
+  border: 1px dashed #ffcc80;
+  margin-bottom: 0.75rem;
+}
+
+.plan-card strong {
+  color: #ff7a00;
+}
+
+/* Add-to-cart button under the plan */
+.plan-add-btn {
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
+}
+
+/* Mobile tweak */
+@media (max-width: 600px) {
+  .calorie-summary {
+    align-items: flex-start;
+  }
+}
+
+/* Theme toggle button in navbar */
+.theme-toggle {
+  border: none;
+  background: transparent;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0.3rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.theme-toggle:hover {
+  background: rgba(0, 0, 0, 0.04);
+  transform: translateY(-1px);
+}
+
+/* Auth tabs + forms (login/register) */
+.auth-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.75rem 0 1rem;
+}
+
+.auth-tab {
+  flex: 1;
+  padding: 0.4rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.auth-tab-active {
+  background: #ff7a00;
+  color: #fff;
+  border-color: #ff7a00;
+}
+
+.auth-form {
+  display: none;
+  margin-top: 0.5rem;
+}
+
+.auth-form-active {
+  display: block;
+}
+
+.auth-note {
+  margin-top: 0.9rem;
+  font-size: 0.8rem;
+  color: #777;
+}
+
+.contact-card {
+  max-width: 560px;
+  margin: 2rem auto 0;
+  text-align: left;
+}
+
+.contact-form textarea {
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+}
+
+.contact-note {
+  margin-top: 0.75rem;
+  font-size: 0.82rem;
+  color: #6b7280;
+}
+
+
+.store-search-row {
+  margin: 1.5rem 0 1.75rem;
+  text-align: left;
+}
+
+.store-search-label {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 0.35rem;
+  color: #4b5563;
+}
+
+.store-search-input {
+  width: 100%;
+  max-width: 420px;
+  padding: 0.45rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  font-family: inherit;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+  box-sizing: border-box;
+}
+
+/*Store Search Bar*/
+.store-search-row {
+  margin: 1.5rem 0 1.75rem;
+  text-align: left;
+}
+
+.store-search-label {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 0.35rem;
+  color: #4b5563;
+}
+
+.store-search-input {
+  width: 100%;
+  max-width: 420px;
+  padding: 0.45rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  font-family: inherit;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+  box-sizing: border-box;
+}
+
+.admin-table-card {
+  margin-top: 2rem;
+  text-align: left;
+}
+
+.admin-table-header {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+.admin-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: left;
+}
+
+.admin-table th {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6b7280;
+}
+
+.admin-table tr:last-child td {
+  border-bottom: none;
+}
+
+.admin-table-note {
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.admin-status-select {
+  padding: 0.2rem 0.4rem;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  font-size: 0.82rem;
+  background: #f9fafb;
+}
+
+/* Dark mode tweaks */
+body[data-theme="dark"] .admin-table-card {
+  background: #020617;
+}
+
+body[data-theme="dark"] .admin-table th,
+body[data-theme="dark"] .admin-table td {
+  border-bottom-color: #111827;
+}
+
+body[data-theme="dark"] .admin-table th {
+  color: #9ca3af;
+}
+
+body[data-theme="dark"] .admin-table-note,
+body[data-theme="dark"] .admin-table-header {
+  color: #9ca3af;
+}
+
+body[data-theme="dark"] .admin-status-select {
+  background: #020617;
+  color: #e5e7eb;
+  border-color: #374151;
+}
+
+/*Dark Theme*/
+body[data-theme="dark"] {
+  background-color: #050816;
+  color: #e5e7eb;
+}
+
+body[data-theme="dark"] .nav {
+  background: #0b1020;
+  border-bottom-color: #111827;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+body[data-theme="dark"] .nav-links a {
+  color: #e5e7eb;
+}
+
+body[data-theme="dark"] .nav-links a:hover {
+  color: #fbbf24;
+}
+
+body[data-theme="dark"] .nav-links a.active {
+  color: #fbbf24;
+}
+
+body[data-theme="dark"] .nav-links a.active::after {
+  background: #fbbf24;
+}
+
+body[data-theme="dark"] .theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+body[data-theme="dark"] .card {
+  background: #111827;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.75);
+}
+
+body[data-theme="dark"] .main-content h2,
+body[data-theme="dark"] .info-section h3 {
+  color: #f9fafb;
+}
+
+body[data-theme="dark"] .main-content p,
+body[data-theme="dark"] .info-lead,
+body[data-theme="dark"] .summary-text p {
+  color: #e5e7eb;
+}
+
+body[data-theme="dark"] #cartDisplay {
+  background: #1f2937;
+  color: #fbbf24;
+  border-color: #fbbf24;
+}
+
+body[data-theme="dark"] .cart-panel {
+  background: #020617;
+  color: #e5e7eb;
+}
+
+body[data-theme="dark"] .cart-items li button.remove-item {
+  color: #fbbf24;
+}
+
+body[data-theme="dark"] .footer {
+  background: #020617;
+}
+
+body[data-theme="dark"] .footer span {
+  color: #fbbf24;
+}
+
+body[data-theme="dark"] .macro-list li {
+  background: #1f2937;
+}
+
+body[data-theme="dark"] .plan-card {
+  background: #020617;
+  border-color: #fbbf24;
+}

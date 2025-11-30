@@ -173,7 +173,7 @@ CREATE TABLE `user_meal_log` (
   `protein_g` decimal(5,2) DEFAULT NULL,
   `carbs_g` decimal(5,2) DEFAULT NULL,
   `fats_g` decimal(5,2) DEFAULT NULL,
-  `date_logged` date DEFAULT curdate()
+  `date_logged` date DEFAULT (curdate())
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
