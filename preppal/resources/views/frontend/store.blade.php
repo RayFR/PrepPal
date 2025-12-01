@@ -15,25 +15,11 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <header class="nav">
-    <div class="container nav-inner">
-      <a class="brand" href="index.html"><span class="brand-badge"></span></a>
-      <nav class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="calculator.html">Calculator</a>
-        <a href="store.html" class="active">Meals</a>
-        <a href="contact.html">Contact</a>
+@extends('layouts.app')
 
-        <!-- Admin-only links (shown only when logged in as admin via app.js) -->
-        <a href="admin.html" class="nav-admin-only">Admin Home</a>
-        <a href="dashboard.html" class="nav-admin-only">Dashboard</a>
+@section('title', 'Calculator')
 
-        <span id="cartDisplay">Cart (0)</span>
-        <button id="themeToggle" type="button" class="theme-toggle" aria-label="Toggle theme">☀️</button>
-        <a class="cta" href="login.html" id="authButton">Sign In</a>
-      </nav>
-    </div>
-  </header>
+@section('content')
 
   <!-- Mini cart panel (shared across all pages) (Gurpreet Singh Sidhu - 230237915 ID) -->
   <div id="cartPanel" class="cart-panel" aria-hidden="true">
@@ -278,5 +264,7 @@
 
   <script src="js/app.js"></script>
   <script src="js/store.js"></script>
+
+@endsection
 </body>
 </html>

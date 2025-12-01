@@ -14,42 +14,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css" />
 </head>
-<body>
- <header class="nav">
-  <div class="container nav-inner">
-    <a class="brand" href="index.html"><span class="brand-badge"></span></a>
-    <nav class="nav-links">
-  <a href="index.html">Home</a>
-  <a href="calculator.html" class="active">Calculator</a>
-  <a href="store.html">Meals</a>
 
-  <a href="admin.html" class="nav-admin-only">Admin Home</a>
-  <a href="dashboard.html" class="nav-admin-only">Dashboard</a>
+@extends('layouts.app')
 
-  <span id="cartDisplay">Cart (0)</span>
-  <button id="themeToggle" type="button" class="theme-toggle" aria-label="Toggle theme">☀️
-</button>
-  <a class="cta" href="login.html" id="authButton">Sign In</a>
-</nav>
-  </div>
-</header>
+@section('title', 'Calculator')
 
-
-  <!-- Mini cart panel (same as other pages) -->
-  <div id="cartPanel" class="cart-panel" aria-hidden="true">
-    <h3>Your Cart</h3>
-    <p id="cartSummary">You have 0 items in your cart.</p>
-
-    <ul id="cartItems" class="cart-items"></ul>
-
-    <p id="cartTotal" class="cart-total">Total: £0.00</p>
-
-    <div class="cart-actions">
-      <button type="button" class="cart-btn cart-clear">Clear Cart</button>
-      <button type="button" class="cart-btn cart-checkout">Checkout</button>
-      <button type="button" class="cart-btn cart-close">Close</button>
-    </div>
-  </div>
+@section('content')
 
   <main class="container main-content">
     <section class="hero small-hero">
@@ -203,5 +173,6 @@
 
   <script src="js/app.js"></script>
   <script src="js/store.js"></script>
+@endsection
 </body>
 </html>

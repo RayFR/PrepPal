@@ -3,20 +3,25 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
-// Home page
+// home/index page
 Route::get('/', function () {
-    return view('frontend.index');
+    return view('frontend.home');
 })->name('home');
 
-// Calculator page
+// calc page
 Route::get('/calculator', function () {
     return view('frontend.calculator');
 })->name('calculator');
 
-// Store page
+// store page
 Route::get('/store', function () {
     return view('frontend.store');
 })->name('store');
+
+// checkout page
+Route::get('/checkout', function () {
+    return view('frontend.checkout');
+})->name('checkout');
 
 
 // Auth pages

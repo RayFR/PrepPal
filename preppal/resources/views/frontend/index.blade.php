@@ -32,30 +32,13 @@
   </head>
 
   <body>
-    <!-- Navigation -->
-    <header class="nav">
-      <div class="container nav-inner">
-        <a class="brand" href="index.html">
-          <span class="brand-badge"></span>
-        
-     </a>
-      <nav class="nav-links">
-        <a href="index.html" class="active">Home</a>
-        <a href="calculator.html">Calculator</a>
-        <a href="store.html">Meals</a>
+@extends('layouts.app')
 
-        <a href="admin.html" class="nav-admin-only">Admin Home</a>
-        <a href="dashboard.html" class="nav-admin-only">Dashboard</a>
+@section('title', 'Calculator')
 
-        <span id="cartDisplay" class="cart-hidden">Cart (0)</span>
-        <button id="themeToggle" type="button" class="theme-toggle" aria-label="Toggle theme">☀️</button>
-        <a class="cta" href="login.html" id="authButton">Get Started</a>
-      </nav>
+@section('content')
 
-      </div>
-    </header>
-
-    <!-- Mini cart panel (shared across all pages) (Gurpreet Singh Sidhu - 230237915 ID)-->
+<!-- Mini cart panel (shared across all pages) (Gurpreet Singh Sidhu - 230237915 ID)-->
 <div id="cartPanel" class="cart-panel" aria-hidden="true">
   <h3>Your Cart</h3>
   <p id="cartSummary">You have 0 items in your cart.</p>
@@ -176,5 +159,7 @@
 
     <script src="js/app.js"></script> <!--Deleted Section Making it neater (Agraj Khanna/240195519 ID)-->
     <script src="js/store.js"></script>
+
+@endsection
   </body>
 </html>

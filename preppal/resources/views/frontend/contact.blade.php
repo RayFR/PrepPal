@@ -14,25 +14,11 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <!-- Navbar (same pattern as others, with admin-only links) -->
-  <header class="nav">
-    <div class="container nav-inner">
-      <a class="brand" href="index.html"><span class="brand-badge"></span></a>
-      <nav class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="calculator.html">Calculator</a>
-        <a href="store.html">Meals</a>
-        <a href="contact.html" class="active">Contact</a>
+@extends('layouts.app')
 
-        <a href="admin.html" class="nav-admin-only">Admin Home</a>
-        <a href="dashboard.html" class="nav-admin-only">Dashboard</a>
+@section('title', 'Calculator')
 
-        <span id="cartDisplay">Cart (0)</span>
-        <button id="themeToggle" type="button" class="theme-toggle" aria-label="Toggle theme">☀️</button>
-        <a class="cta" href="login.html" id="authButton">Sign In</a>
-      </nav>
-    </div>
-  </header>
+@section('content')
 
   <!-- Mini cart panel -->
   <div id="cartPanel" class="cart-panel" aria-hidden="true">
@@ -120,5 +106,7 @@
       });
     })();
   </script>
+
+@endsection
 </body>
 </html>

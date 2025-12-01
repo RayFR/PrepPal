@@ -15,34 +15,6 @@
   <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
 </head>
 <body>
-  <header class="nav">
-    <div class="container nav-inner">
-      <a class="brand" href="{{ route('home') }}">
-        <span class="brand-badge"></span>
-      </a>
-
-      <nav class="nav-links">
-        <a href="{{ route('home') }}">Home</a>
-        <a href="{{ route('calculator') }}">Calculator</a>
-        <a href="{{ route('store') }}">Meals</a>
-
-        <span id="cartDisplay">Cart (0)</span>
-
-        <button id="themeToggle" type="button" class="theme-toggle">☀️</button>
-
-        @auth
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button class="cta" style="background:none;border:none;">Logout</button>
-            </form>
-        @else
-            <a class="cta" href="{{ route('login') }}">Sign In</a>
-        @endauth
-      </nav>
-    </div>
-  </header>
-
-
   <main class="container" style="padding:4rem 1rem;">
     <section class="card" style="max-width:520px;margin:0 auto;">
       <h2 style="margin-top:0;">Welcome to PrepPal</h2>
@@ -128,6 +100,5 @@
           });
       });
   </script>
-
 </body>
 </html>
