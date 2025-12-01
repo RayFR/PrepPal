@@ -3,18 +3,32 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
-// showing/GET forms
+// Home page
+Route::get('/', function () {
+    return view('frontend.index');
+})->name('home');
+
+// Calculator page
+Route::get('/calculator', function () {
+    return view('frontend.calculator');
+})->name('calculator');
+
+// Store page
+Route::get('/store', function () {
+    return view('frontend.store');
+})->name('store');
+
+
+// Auth pages
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
 
-// actions/POST requests
-Route::post('/login', [AuthController::class, 'login'])->name('login.post');
-Route::post('/register', [AuthController::class, 'register'])->name('register.post');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::post('/logout', [AuthController::class, 'logout'])
-    ->middleware('auth')
-    ->name('logout');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
 
-// protected routes
+
+// Dashboard (auth required)
 Route::get('/dashboard', [AuthController::class, 'dashboard'])
     ->middleware('auth')
     ->name('dashboard');
