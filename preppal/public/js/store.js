@@ -240,7 +240,7 @@
     }
 
     // Go to checkout page (cart contents stay in localStorage)
-    window.location.href = 'checkout.html';
+    window.location.href="/checkout" 
   }
 
   // --- Panel toggle ---

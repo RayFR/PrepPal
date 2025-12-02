@@ -1,84 +1,55 @@
 /*
   Student & ID: (Agraj Khanna 240195519 ID / Gurpreet Singh Sidhu 230237915 ID)
-  Description: Checkout Implementation
+  Description: Checkout Implementation (Laravel backend version)
 */
 
-// Checkout logic: render cart, store orders in localStorage
 (function () {
-  var CART_KEY = 'preppalCart';
-  var ORDERS_KEY = 'preppal_orders';
-  var USER_KEY = 'preppal_currentUser';
+  const CART_KEY = 'preppalCart';
 
   function loadCart() {
     try {
-      var raw = localStorage.getItem(CART_KEY);
-      if (!raw) return [];
-      var list = JSON.parse(raw);
-      return Array.isArray(list) ? list : [];
-    } catch (e) {
+      return JSON.parse(localStorage.getItem(CART_KEY)) || [];
+    } catch {
       return [];
     }
   }
 
-  function saveOrders(list) {
-    localStorage.setItem(ORDERS_KEY, JSON.stringify(list || []));
-  }
-
-  function loadOrders() {
-    try {
-      var raw = localStorage.getItem(ORDERS_KEY);
-      if (!raw) return [];
-      var list = JSON.parse(raw);
-      return Array.isArray(list) ? list : [];
-    } catch (e) {
-      return [];
-    }
-  }
-
-  function getCurrentUser() {
-    try {
-      var raw = localStorage.getItem(USER_KEY);
-      if (!raw) return null;
-      return JSON.parse(raw);
-    } catch (e) {
-      return null;
-    }
-  }
-
-  var itemsEl = document.getElementById('checkoutItems');
-  var totalEl = document.getElementById('checkoutTotal');
-  var emptyMsg = document.getElementById('checkoutEmptyMessage');
-  var form = document.getElementById('checkoutForm');
+  const itemsEl = document.getElementById('checkoutItems');
+  const totalEl = document.getElementById('checkoutTotal');
+  const emptyMsg = document.getElementById('checkoutEmptyMessage');
+  const form = document.getElementById('checkoutForm');
 
   if (!itemsEl || !totalEl || !form) return;
 
-  var cartItems = loadCart();
+  const cartItems = loadCart();
 
   function renderCart() {
     itemsEl.innerHTML = '';
+
     if (!cartItems.length) {
       emptyMsg.style.display = 'block';
       form.style.display = 'none';
-      totalEl.textContent = 'Total: £0.00';
+      totalEl.textContent = "Total: £0.00";
       return;
     }
 
     emptyMsg.style.display = 'none';
     form.style.display = 'block';
 
-    var total = 0;
-    cartItems.forEach(function (item) {
-      var li = document.createElement('li');
+    let total = 0;
+
+    cartItems.forEach(item => {
+      const li = document.createElement('li');
       li.className = 'checkout-item-row';
 
-      var name = document.createElement('span');
+      const name = document.createElement('span');
       name.className = 'checkout-item-name';
-      name.textContent = item.name + ' × ' + item.qty;
+      name.textContent = `${item.name} × ${item.qty}`;
 
-      var price = document.createElement('span');
+      const price = document.createElement('span');
       price.className = 'checkout-item-price';
-      var lineTotal = (item.price || 0) * (item.qty || 0);
-      price.textContent = '£' + lineTotal.toFixed(2);
+      const lineTotal = (item.price || 0) * (item.qty || 0);
+      price.textContent = `£${lineTotal.toFixed(2)}`;
 
       total += lineTotal;
 
@@ -87,61 +58,50 @@
       itemsEl.appendChild(li);
     });
 
-    totalEl.textContent = 'Total: £' + total.toFixed(2);
+    totalEl.textContent = `Total: £${total.toFixed(2)}`;
   }
 
   renderCart();
 
-  form.addEventListener('submit', function (e) {
+  // -------------------------
+  // SUBMIT ORDER TO LARAVEL
+  // -------------------------
+  form.addEventListener('submit', async function (e) {
     e.preventDefault();
+
     if (!cartItems.length) {
-      alert('Your cart is empty.');
+      alert("Your cart is empty.");
       return;
     }
 
-    var name = document.getElementById('coName').value.trim();
-    var email = document.getElementById('coEmail').value.trim();
-    var address = document.getElementById('coAddress').value.trim();
-    var city = document.getElementById('coCity').value.trim();
-    var postcode = document.getElementById('coPostcode').value.trim();
-    var notes = document.getElementById('coNotes').value.trim();
-
-    if (!name || !email || !address || !city || !postcode) {
-      alert('Please complete all required fields.');
-      return;
-    }
-
-    var user = getCurrentUser();
-    var orders = loadOrders();
-
-    var total = cartItems.reduce(function (sum, item) {
-      return sum + (item.price || 0) * (item.qty || 0);
-    }, 0);
-
-    var order = {
-      id: 'order_' + Date.now(),
-      createdAt: new Date().toISOString(),
-      status: 'Pending',
-      items: cartItems,
-      total: total,
-      customer: {
-        name: name,
-        email: email,
-        address: address,
-        city: city,
-        postcode: postcode,
-        notes: notes
-      },
-      user: user // can be null if guest
+    const payload = {
+      name: document.getElementById('coName').value,
+      email: document.getElementById('coEmail').value,
+      address: document.getElementById('coAddress').value,
+      city: document.getElementById('coCity').value,
+      postcode: document.getElementById('coPostcode').value,
+      notes: document.getElementById('coNotes').value,
+      items: cartItems
     };
 
-    orders.push(order);
-    saveOrders(orders);
+    const response = await fetch('/checkout', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
+      },
+      body: JSON.stringify(payload)
+    });
 
-    // clear cart
-    localStorage.removeItem(CART_KEY);
+    const data = await response.json();
 
-    alert('Order placed! This is a demo checkout – no real payment processed.');
-    window.location.href = 'index.html';
+    if (data.success) {
+      localStorage.removeItem('preppalCart');
+      alert("Order placed successfully!");
+      window.location.href = "/orders";
+    } else {
+      alert("Something went wrong placing your order.");
+    }
   });
+
 })();
