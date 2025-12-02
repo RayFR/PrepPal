@@ -23,6 +23,8 @@ Route::get('/checkout', function () {
     return view('frontend.checkout');
 })->name('checkout');
 
+Route::post('/checkout', [CheckoutController::class, 'store'])
+    ->middleware('auth');
 
 // Auth pages
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');

@@ -163,7 +163,7 @@
         <strong>meal prep plans</strong> and <strong>supplements</strong>.
         Anything you add from the calculator will already be waiting in your cart.
       </p>
-      <a href="store.html" class="cta">Go to Meals &amp; Supplements</a>
+      <a href="{{ route('store') }}" class="cta">Go to Meals &amp; Supplements</a>
     </section>
 
     <footer class="footer">

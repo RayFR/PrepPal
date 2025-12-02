@@ -26,13 +26,13 @@
   (function () {
     try {
       var raw = localStorage.getItem('preppal_currentUser');
-      if (!raw) { window.location.href = 'login.html'; return; }
+      if (!raw) { window.location.href = "{{ route('login') }}"; return; }
       var user = JSON.parse(raw);
       if (!user || !user.isAdmin) {
-        window.location.href = 'login.html';
+        window.location.href = "{{ route('login') }}";
       }
     } catch (e) {
-      window.location.href = 'login.html';
+      window.location.href = "{{ route('login') }}";
     }
   })();
 </script>

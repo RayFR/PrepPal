@@ -62,7 +62,7 @@
     <p>Personalized meals and supplements for your lifestyle goals.</p>
 
     <div class="hero-actions">
-      <a href="login.html" class="cta">Get Started</a>
+      <a href="{{ route('login') }}" class="cta">Get Started</a>
       <a href="#how-it-works" class="hero-secondary">How it works</a>
     </div>
     </div>
@@ -131,7 +131,7 @@
     </div>
 
     <div class="info-cta">
-      <a href="store.html" class="cta">Explore meals &amp; supplements</a>
+      <a href="{{ route('store') }}" class="cta">Explore meals &amp; supplements</a>
     </div>
   </section>
 
