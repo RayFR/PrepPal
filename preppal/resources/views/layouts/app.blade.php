@@ -1,5 +1,3 @@
-    <!-- this layout will make the nav bar persist across the pages without having to manually implement it each time -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,6 +21,8 @@
                 <a href="{{ route('store') }}">Store</a>
                 <a href="{{ route('calculator') }}">Calculator</a>
                 <a href="{{ route('contact') }}">Contact</a>
+
+                <!-- Global cart button -->
                 <span id="cartDisplay">Cart (0)</span>
 
                 @auth
@@ -44,7 +44,26 @@
     <main style="padding-top: 2rem;">
         @yield('content')
     </main>
-    
+
+    <!-- GLOBAL CART PANEL (used by ALL pages) -->
+    <div id="cartPanel" class="cart-panel" aria-hidden="true">
+
+        <h3>Your Cart</h3>
+        <p id="cartSummary">You have 0 items in your cart.</p>
+
+        <ul id="cartItems" class="cart-items"></ul>
+
+        <p id="cartTotal" class="cart-total">Total: £0.00</p>
+
+        <div class="cart-actions">
+            <button type="button" class="cart-btn cart-clear">Clear</button>
+            <button type="button" class="cart-btn cart-checkout">Checkout</button>
+            <button type="button" class="cart-btn cart-close">Close</button>
+        </div>
+
+    </div>
+
+    <!-- Scripts loaded after HTML -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/store.js') }}"></script>
     @stack('scripts')
