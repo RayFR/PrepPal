@@ -41,7 +41,7 @@
 </section>
 
 <!-- Main Content -->
-<div class="main-content">
+<div class="container main-content">
 
     <h2>Welcome to PrepPal</h2>
     <p>

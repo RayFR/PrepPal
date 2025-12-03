@@ -41,7 +41,7 @@
         </div>
     </header>
 
-    <main class="container" style="padding-top: 2rem;">
+    <main style="padding-top: 2rem;">
         @yield('content')
     </main>
 
