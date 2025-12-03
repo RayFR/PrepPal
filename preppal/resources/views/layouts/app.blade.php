@@ -20,8 +20,9 @@
 
             <nav class="nav-links">
                 <a href="{{ route('home') }}">Home</a>
+                <a href="{{ route('store') }}">Store</a>
                 <a href="{{ route('calculator') }}">Calculator</a>
-                <a href="{{ route('store') }}">Meals</a>
+                <a href="{{ route('contact') }}">Contact</a>
                 <span id="cartDisplay">Cart (0)</span>
 
                 @auth

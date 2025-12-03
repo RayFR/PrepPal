@@ -18,6 +18,11 @@ Route::get('/store', function () {
     return view('frontend.store');
 })->name('store');
 
+// store page
+Route::get('/contact', function () {
+    return view('frontend.contact');
+})->name('contact');
+
 // checkout page
 Route::get('/checkout', function () {
     return view('frontend.checkout');

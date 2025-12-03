@@ -179,12 +179,15 @@ body {
   background: url('../images/meal-banner.jpg') center/cover no-repeat;
   color: #fff;
   text-align: center;
-  padding: 5rem 1rem;
+  padding: 5rem 0; /* no left/right padding */
   position: relative;
   min-height: 320px;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%; /* force full screen width */
+  max-width: none;
+  margin: 0; /* remove any margins */
 }
 
 .hero::before {
