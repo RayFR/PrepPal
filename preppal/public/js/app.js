@@ -211,4 +211,21 @@
     });
   }
 
+  document.addEventListener("DOMContentLoaded", () => {
+    const tabs = document.querySelectorAll('.auth-tab');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('auth-tab-active'));
+            tab.classList.add('auth-tab-active');
+
+            const mode = tab.dataset.mode;
+
+            document.getElementById('loginForm').classList.toggle('auth-form-active', mode === 'login');
+            document.getElementById('registerForm').classList.toggle('auth-form-active', mode === 'register');
+        });
+    });
+});
+
+
 })();

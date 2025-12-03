@@ -44,6 +44,10 @@
     <main style="padding-top: 2rem;">
         @yield('content')
     </main>
+    
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/store.js') }}"></script>
+    @stack('scripts')
 
 </body>
 </html>

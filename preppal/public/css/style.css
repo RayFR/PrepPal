@@ -1177,3 +1177,128 @@ body[data-theme="dark"] .plan-card {
   background: #020617;
   border-color: #fbbf24;
 }
+
+/* ---------------------- */
+/* LOGIN PAGE NEW DESIGN  */
+/* ---------------------- */
+
+.auth-wrapper {
+  max-width: 1150px;
+  margin: 4rem auto;
+  display: flex;
+  gap: 2rem;
+  padding: 0 1rem;
+}
+
+.auth-card {
+  flex: 1;
+  background: #fff;
+  padding: 2.2rem 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+body[data-theme="dark"] .auth-card {
+  background: #0b1020;
+  color: #e5e7eb;
+}
+
+.auth-title {
+  margin-bottom: 0.4rem;
+}
+
+.auth-subtitle {
+  color: #555;
+  margin-bottom: 1.4rem;
+  font-size: 0.95rem;
+}
+
+body[data-theme="dark"] .auth-subtitle {
+  color: #9ca3af;
+}
+
+/* TABS */
+.auth-tabs {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.auth-tab {
+  flex: 1;
+  padding: 0.55rem;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  background: #f3f4f6;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+
+.auth-tab-active {
+  background: #ff7a00;
+  color: #fff;
+  border-color: #ff7a00 !important;
+}
+
+/* FORMS */
+.auth-form {
+  display: none;
+}
+
+.auth-form-active {
+  display: block;
+}
+
+.auth-card label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.85rem;
+}
+
+.auth-card input {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+body[data-theme="dark"] .auth-card input {
+  background: #0f172a;
+  border-color: #334155;
+  color: #e5e7eb;
+}
+
+/* INFO CARD */
+.auth-info-card {
+  flex: 1;
+  background: linear-gradient(135deg, rgba(255,122,0,0.15), rgba(0,200,255,0.15));
+  padding: 2.2rem 2.5rem;
+  border-radius: 20px;
+}
+
+body[data-theme="dark"] .auth-info-card {
+  background: linear-gradient(135deg, rgba(255,140,0,0.18), rgba(50,150,255,0.18));
+}
+
+.auth-list {
+  list-style: none;
+  padding: 0;
+}
+
+.auth-list li {
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+}
+
+.auth-footer {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+}
+
+.auth-back {
+  display: inline-block;
+  margin-top: 0.8rem;
+  font-size: 0.9rem;
+}
