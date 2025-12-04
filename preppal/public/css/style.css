@@ -176,12 +176,12 @@ body {
 
 /* --- Hero Section --- */
 .hero {
-  background: url('../images/meal-banner.jpg') center/cover no-repeat;
+  background: url('../images/banner_hero.png') center/cover no-repeat;
   color: #fff;
   text-align: center;
   padding: 5rem 0; /* no left/right padding */
   position: relative;
-  min-height: 320px;
+  min-height: 720px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1614,6 +1614,84 @@ body[data-theme="dark"] .contact-info-card {
 body[data-theme="dark"] .contact-info-footer {
     color: #d1d5db;
 }
+
+/* Force macro list text to white in dark mode */
+body[data-theme="dark"] .macro-list li,
+body[data-theme="dark"] .macro-list li strong,
+body[data-theme="dark"] .macro-list li span {
+    color: #ffffff !important;
+}
+
+body[data-theme="dark"] .macro-list li {
+    background-color: #1f2937 !important;
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+
+/* Fix donut ring inner colour in dark mode */
+body[data-theme="dark"] .ring-inner {
+    background-color: #121826 !important; /* same dark background as site */
+    color: #ffffff !important;
+}
+
+/* Ensure calories number + units are white */
+body[data-theme="dark"] .ring-inner span,
+body[data-theme="dark"] .ring-inner small {
+    color: #ffffff !important;
+}
+
+/* Ensure summary text is readable */
+body[data-theme="dark"] .summary-text h3,
+body[data-theme="dark"] .summary-text p {
+    color: #ffffff !important;
+}
+
+/* Macro card layout */
+.macro-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.macro-card {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    background: #e8eef5;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+.macro-icon {
+    font-size: 2rem;
+    margin-right: 1rem;
+}
+
+.macro-info h4 {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.macro-info p {
+    margin: 0;
+    margin-top: 3px;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+/* Dark mode */
+body[data-theme="dark"] .macro-card {
+    background: #1d2635 !important;
+}
+
+body[data-theme="dark"] .macro-info h4,
+body[data-theme="dark"] .macro-info p {
+    color: white !important;
+}
+
 
 /* Mobile */
 @media(max-width: 850px) {

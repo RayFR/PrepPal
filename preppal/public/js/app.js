@@ -3,38 +3,31 @@
 
 (function () {
 
-  // =========================
-  // REMOVE ALL LOCALSTORAGE AUTH
-  // Laravel handles sessions instead
-  // =========================
+
 
   function updateAuthUI() {
-    // Do nothing – Laravel handles authentication
   }
 
-  // Navbar auth button → let Laravel handle the link normally
   var authButton = document.getElementById('authButton');
   if (authButton) {
     authButton.removeAttribute('data-mode');
   }
 
-  // Disable JS login override so Laravel receives form POST
+
   var loginForm = document.getElementById('loginForm');
   if (loginForm) {
     loginForm.addEventListener('submit', function () {
-      // Let the form submit normally
+      
     });
   }
 
-  // Disable JS register override so Laravel receives form POST
   var registerForm = document.getElementById('registerForm');
   if (registerForm) {
     registerForm.addEventListener('submit', function () {
-      // Let the form submit normally
     });
   }
 
-  // Auth tabs on login page (KEEP — safe)
+  // Auth tabs on login page 
   var authTabs = document.querySelectorAll('.auth-tab');
   if (authTabs.length) {
     authTabs.forEach(function (tab) {
@@ -53,27 +46,23 @@
     });
   }
 
-  // =========================
+ 
   // CTA keyboard accessibility
-  // =========================
-  var ctas = document.querySelectorAll('.cta');
+ var ctas = document.querySelectorAll('.cta');
   ctas.forEach(function (btn) {
     btn.addEventListener('keyup', function (e) {
       if (e.key === 'Enter') btn.click();
     });
   });
 
-  // =========================
-  // Auto-update footer year
-  // =========================
+
   var yearEl = document.getElementById('year');
   if (yearEl) {
     yearEl.textContent = new Date().getFullYear();
   }
 
-  // =========================
+  
   // THEME TOGGLE
-  // =========================
   var THEME_KEY = 'preppal_theme';
 
   function applyTheme(theme) {
@@ -104,9 +93,7 @@
   initTheme();
   updateAuthUI();
 
-  // =========================
   // CALCULATOR LOGIC (UNCHANGED)
-  // =========================
   var calorieForm = document.getElementById('calorieForm');
   var calorieResultText = document.getElementById('calorieResultText');
   var macroList = document.getElementById('macroResultList');
@@ -115,22 +102,32 @@
 
   if (calorieForm && calorieResultText && macroList && planOutput && recommendedBtn) {
 
-    var PLAN_CONFIG = {
-      loss: { name: 'Fat Loss Meal Prep Plan', price: '49.99', image: 'images/chicken-bowl.png' },
-      muscle: { name: 'Lean Muscle Meal Prep Plan', price: '59.99', image: 'images/chicken-bowl.png' },
-      maintain: { name: 'Maintenance Meal Prep Plan', price: '54.99', image: 'images/vegan-bowl.png' },
-      fibre: { name: 'High Fibre Meal Prep Plan', price: '52.99', image: 'images/vegan-bowl.png' }
-    };
+   var PLAN_CONFIG = {
+  loss: {
+    name: 'Fat Loss Meal Prep Plan',
+    price: '49.99',
+    image: '/images/fat_loss_plan.png'
+  },
 
-    function getActivityFactor(level) {
-      switch (level) {
-        case 'light': return 1.375;
-        case 'moderate': return 1.55;
-        case 'very': return 1.725;
-        case 'sedentary':
-        default: return 1.2;
-      }
-    }
+  muscle: {
+    name: 'Lean Muscle Meal Prep Plan',
+    price: '59.99',
+    image: '/images/lean_muscle_plan.jpg'
+  },
+
+  maintain: {
+    name: 'Maintenance Meal Prep Plan',
+    price: '54.99',
+    image: '/images/maintainance_plan.jpg'
+  },
+
+  fibre: {
+    name: 'High Fibre Meal Prep Plan',
+    price: '52.99',
+    image: '/images/high_fibre_plan.jpg'
+  }
+};
+
 
     function calculateTargets(age, sex, height, weight, activity, goal) {
       var bmr = 10 * weight + 6.25 * height - 5 * age + (sex === 'male' ? 5 : -161);

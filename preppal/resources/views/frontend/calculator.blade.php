@@ -95,12 +95,42 @@
                 </div>
             </div>
 
-            <ul id="macroResultList" class="macro-list">
-                <li><strong>Calories</strong><span>–</span></li>
-                <li><strong>Protein</strong><span>–</span></li>
-                <li><strong>Carbs</strong><span>–</span></li>
-                <li><strong>Fats</strong><span>–</span></li>
-            </ul>
+           
+
+    <div class="macro-card">
+        <span class="macro-icon">🔥</span>
+        <div class="macro-info">
+            <h4>Calories</h4>
+            <p id="macroCalories">–</p>
+        </div>
+    </div>
+
+    <div class="macro-card">
+        <span class="macro-icon">💪</span>
+        <div class="macro-info">
+            <h4>Protein</h4>
+            <p id="macroProtein">–</p>
+        </div>
+    </div>
+
+    <div class="macro-card">
+        <span class="macro-icon">🍚</span>
+        <div class="macro-info">
+            <h4>Carbs</h4>
+            <p id="macroCarbs">–</p>
+        </div>
+    </div>
+
+    <div class="macro-card">
+        <span class="macro-icon">🥑</span>
+        <div class="macro-info">
+            <h4>Fats</h4>
+            <p id="macroFats">–</p>
+        </div>
+    </div>
+
+</div>
+
 
             <p id="caloriePlanOutput" class="plan-card">
                 <strong>Recommended PrepPal plan:</strong> –
