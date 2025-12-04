@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CheckoutController;
 
 // home/index page
 Route::get('/', function () {
@@ -18,10 +20,9 @@ Route::get('/store', function () {
     return view('frontend.store');
 })->name('store');
 
-// store page
-Route::get('/contact', function () {
-    return view('frontend.contact');
-})->name('contact');
+// contact page (correct controller version)
+Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 // checkout page
 Route::get('/checkout', function () {
@@ -38,7 +39,6 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::post('/register', [AuthController::class, 'register'])->name('register');
-
 
 // Dashboard (auth required)
 Route::get('/dashboard', [AuthController::class, 'dashboard'])

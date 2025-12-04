@@ -10,7 +10,7 @@ class ContactController extends Controller
     // Show the contact page
     public function index()
     {
-        return view('contact');
+        return view('frontend.contact');
     }
 
     // Handle form submission

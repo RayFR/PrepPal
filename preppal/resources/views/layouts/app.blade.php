@@ -20,7 +20,8 @@
                 <a href="{{ route('home') }}">Home</a>
                 <a href="{{ route('store') }}">Store</a>
                 <a href="{{ route('calculator') }}">Calculator</a>
-                <a href="{{ route('contact') }}">Contact</a>
+                <a href="{{ route('contact.index') }}">Contact</a>
+
 
                 <!-- Global cart button -->
                 <span id="cartDisplay">Cart (0)</span>
