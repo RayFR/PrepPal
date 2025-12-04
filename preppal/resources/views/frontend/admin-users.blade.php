@@ -1,5 +1,5 @@
 <!--
-  Students & IDs: Agraj Khanna (240195519) / Gurpreet Singh Sidhu ()
+  Students & IDs: Agraj Khanna (240195519) / Gurpreet Singh Sidhu (230237915)
   File: calculator.html
   Description: Admin-User Functionality
   Date: Nov 2025
