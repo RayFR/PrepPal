@@ -1,19 +1,10 @@
-<!--
+{{-- 
   Students & IDs: Agraj Khanna (240195519) / Gurpreet Singh Sidhu (230237915)
   File: calculator.html
   Description: contact page for website
   Date: Nov 2025
--->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>PrepPal • Contact</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css" />
-</head>
-<body>
+--}}
+
 @extends('layouts.app')
 
 @section('title', 'Calculator')
@@ -38,7 +29,17 @@
     <p>If you have questions about meal plans, subscriptions or your account, send us a message below.</p>
 
     <section class="card contact-card">
-      <form id="contactForm" class="contact-form" autocomplete="off">
+
+      {{-- Success Message --}}
+      @if(session('success'))
+        <div class="alert alert-success" style="margin-bottom: 1rem;">
+          {{ session('success') }}
+        </div>
+      @endif
+
+      <form action="{{ route('contact.store') }}" method="POST" class="contact-form" autocomplete="off">
+        @csrf
+
         <label for="contactName">Name</label>
         <input id="contactName" name="name" type="text" required placeholder="Your name" />
 
@@ -52,8 +53,9 @@
       </form>
 
       <p class="contact-note">
-        Your message is stored securely as part of this demo project (localStorage only). In a real deployment this would send directly to the support inbox.
+        Your message will be securely stored in our system.
       </p>
+
     </section>
   </main>
 
@@ -61,52 +63,4 @@
     <div class="container">© <span id="year"></span> PrepPal — Eat better, live easier.</div>
   </footer>
 
-  <script src="js/app.js"></script>
-  <script src="js/store.js"></script>
-  <script>
-    // Simple localStorage-based "inbox"
-    (function () {
-      var CONTACT_KEY = 'preppal_contactMessages';
-      var form = document.getElementById('contactForm');
-      if (!form) return;
-
-      function loadMessages() {
-        try {
-          var raw = localStorage.getItem(CONTACT_KEY);
-          if (!raw) return [];
-          var list = JSON.parse(raw);
-          return Array.isArray(list) ? list : [];
-        } catch (e) {
-          return [];
-        }
-      }
-      function saveMessages(list) {
-        localStorage.setItem(CONTACT_KEY, JSON.stringify(list || []));
-      }
-
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        var name = document.getElementById('contactName').value.trim();
-        var email = document.getElementById('contactEmail').value.trim();
-        var message = document.getElementById('contactMessage').value.trim();
-        if (!name || !email || !message) return;
-
-        var list = loadMessages();
-        list.push({
-          id: 'msg_' + Date.now(),
-          name: name,
-          email: email,
-          message: message,
-          createdAt: new Date().toISOString()
-        });
-        saveMessages(list);
-
-        alert('Thank you! Your message has been sent.');
-        form.reset();
-      });
-    })();
-  </script>
-
 @endsection
-</body>
-</html>
