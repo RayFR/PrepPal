@@ -106,9 +106,11 @@ body {
   text-decoration: none;
 }
 
+/*67*/
+
 .brand-badge {
-  width: 150px;
-  height: 40px;
+  width: 180px;
+  height: 500px;
   background: url('../images/preppal-logo.png') center/contain no-repeat;
   display: inline-block;
 }
