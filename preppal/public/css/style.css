@@ -181,7 +181,7 @@ body {
   text-align: center;
   padding: 5rem 0; /* no left/right padding */
   position: relative;
-  min-height: 720px;
+  min-height: 420px;
   display: flex;
   align-items: center;
   justify-content: center;
