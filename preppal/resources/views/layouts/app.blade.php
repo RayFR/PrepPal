@@ -18,15 +18,12 @@
 
             <nav class="nav-links">
                 <a href="{{ route('home') }}">Home</a>
-                <a href="{{ route('store') }}">Store</a>
-                <a href="{{ route('calculator') }}">Calculator</a>
                 <a href="{{ route('contact.index') }}">Contact</a>
 
-
-                <!-- Global cart button -->
-                <span id="cartDisplay">Cart (0)</span>
-
                 @auth
+                    <a href="{{ route('store') }}">Store</a>
+                    <a href="{{ route('calculator') }}">Calculator</a>
+                    <span id="cartDisplay">Cart (0)</span>
                     <span>Hi, {{ auth()->user()->name }}</span>
                     <form action="{{ route('logout') }}" method="POST" style="display:inline;">
                         @csrf
