@@ -1,56 +1,71 @@
-{{-- 
-  Students & IDs: Agraj Khanna (240195519) / Gurpreet Singh Sidhu (230237915)
-  File: calculator.html
-  Description: contact page for website
-  Date: Nov 2025
---}}
+<!--
+  Students & IDs: Agraj Khanna (240195519)/ Gurpreet Singh Sidhu (230237915)
+  File: contact.blade.php
+  Description: Contact Page
+  Date: Dec 2025
+-->
 
 @extends('layouts.app')
 
-@section('title', 'Contact')
+@section('title', 'Contact Us')
 
 @section('content')
 
-<div class="container main-content">
+<div class="contact-hero">
+    <div class="contact-hero-inner">
+        <h1>Contact PrepPal</h1>
+        <p>Have a question about meals, delivery, or your account? We're here to help.</p>
+    </div>
+</div>
 
-    <h2>Contact PrepPal</h2>
-    <p>If you have questions about meal plans, subscriptions, or your account, send us a message below.</p>
+<div class="contact-wrapper">
 
-    <section class="card contact-card">
+    <div class="contact-card">
+        <h2 class="contact-title">Send Us a Message</h2>
+        <p class="contact-subtext">Our support team responds within 24 hours.</p>
 
-        {{-- Success Message --}}
+        {{-- Success message placeholder --}}
         @if(session('success'))
-            <div class="alert alert-success" style="margin-bottom: 1rem;">
+            <div class="contact-success">
                 {{ session('success') }}
             </div>
         @endif
 
-        <form action="{{ route('contact.store') }}" method="POST" class="contact-form" autocomplete="off">
+        <form action="{{ route('contact.store') }}" method="POST" class="contact-form">
             @csrf
 
-            <label for="contactName">Name</label>
-            <input id="contactName" name="name" type="text" required placeholder="Your name" />
+            <label>Your Name</label>
+            <input type="text" name="name" required placeholder="John Doe">
 
-            <label for="contactEmail" style="margin-top:.75rem;">Email</label>
-            <input id="contactEmail" name="email" type="email" required placeholder="you@example.com" />
+            <label>Email Address</label>
+            <input type="email" name="email" required placeholder="john@example.com">
 
-            <label for="contactMessage" style="margin-top:.75rem;">Message</label>
-            <textarea id="contactMessage" name="message" rows="5" required placeholder="How can we help?"></textarea>
+            <label>Message</label>
+            <textarea name="message" rows="5" required placeholder="How can we help?"></textarea>
 
-            <button class="cta" type="submit" style="margin-top:1.1rem;">Send message</button>
+            <button class="contact-btn" type="submit">Send Message</button>
         </form>
 
         <p class="contact-note">
-            Your message will be securely stored in our system.
+            Prefer email? Reach us at 
+            <span class="highlight">support@preppal.com</span>
         </p>
+    </div>
 
-    </section>
+    <div class="contact-info-card">
+        <h3>Why Contact Us?</h3>
+
+        <ul class="contact-info-list">
+            <li>📦 Order questions & changes</li>
+            <li>🥗 Meal or dietary inquiries</li>
+            <li>💳 Billing & payment support</li>
+            <li>🚚 Delivery & tracking issues</li>
+            <li>👤 Account support</li>
+        </ul>
+
+        <p class="contact-info-footer">We're here to help you every step of the way.</p>
+    </div>
 
 </div>
-@if(session('success'))
-<script>
-    alert("{{ session('success') }}");
-</script>
-@endif
 
 @endsection

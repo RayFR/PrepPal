@@ -1,3 +1,10 @@
+<!--
+  Students & IDs: Agraj Khanna (240195519)/ Gurpreet Singh Sidhu (230237915)
+  File: login.blade.php
+  Description: Login Page
+  Date: Dec 2025
+-->
+
 @extends('layouts.app')
 
 @section('title', 'Sign In')

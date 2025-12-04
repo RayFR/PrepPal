@@ -1302,3 +1302,323 @@ body[data-theme="dark"] .auth-info-card {
   margin-top: 0.8rem;
   font-size: 0.9rem;
 }
+
+/* Improved Checkout Styling  Agraj khanna (240195519) Gurpreet Singh Sidhu (230237915) */
+
+.checkout-wrapper {
+    max-width: 1100px;
+    margin: 3rem auto;
+    text-align: center;
+    padding: 0 1rem;
+}
+
+.checkout-title {
+    font-size: 2.6rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.checkout-subtitle {
+    color: #6b7280;
+    margin-bottom: 2.5rem;
+}
+
+.checkout-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+}
+
+.checkout-card {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+    text-align: left;
+}
+
+body[data-theme="dark"] .checkout-card {
+    background: #0b1020;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+}
+
+.checkout-heading {
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+    font-weight: 700;
+    color: #ff7a00;
+}
+
+/* ORDER SUMMARY LIST */
+.checkout-items-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.checkout-item-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+body[data-theme="dark"] .checkout-item-row {
+    border-bottom-color: #1f2937;
+}
+
+.checkout-thumb {
+    width: 55px;
+    height: 55px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.checkout-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.checkout-item-name {
+    font-weight: 600;
+    flex: 1;
+}
+
+.checkout-item-price {
+    font-weight: 600;
+}
+
+/* TOTAL BOX */
+.checkout-total-box {
+    background: #fff7ec;
+    border-left: 6px solid #ff9800;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-top: 1.5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+body[data-theme="dark"] .checkout-total-box {
+    background: #1f2937;
+}
+
+/* EMPTY MESSAGE */
+.checkout-empty {
+    padding: 1rem;
+    background: #fff3e0;
+    border-radius: 10px;
+    margin-top: 1rem;
+    text-align: center;
+    color: #444;
+    display: none;
+}
+
+body[data-theme="dark"] .checkout-empty {
+    background: #1f2937;
+    color: #e5e7eb;
+}
+
+/* FORM */
+.form-grid label {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+}
+
+.form-grid input,
+.form-grid textarea {
+    width: 100%;
+    padding: 0.55rem 0.7rem;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    font-size: 0.95rem;
+}
+
+body[data-theme="dark"] .form-grid input,
+body[data-theme="dark"] .form-grid textarea {
+    background: #0f172a;
+    border-color: #334155;
+    color: #fff;
+}
+
+/* SUBMIT BUTTON */
+.place-order-btn {
+    margin-top: 1.5rem;
+    width: 100%;
+    background: #ff7a00;
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 999px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.place-order-btn:hover {
+    background: #ff8f1c;
+    transform: translateY(-2px);
+}
+
+/* RESPONSIVE */
+@media(max-width: 850px) {
+    .checkout-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* ============================
+   CONTACT PAGE REDESIGN
+============================ */
+
+.contact-hero {
+    background: linear-gradient(135deg, #ff7a00, #ff9f40);
+    padding: 3rem 1rem;
+    color: #fff;
+    text-align: center;
+}
+
+.contact-hero-inner h1 {
+    font-size: 2.4rem;
+    margin-bottom: 0.4rem;
+}
+
+.contact-hero-inner p {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+.contact-wrapper {
+    max-width: 1100px;
+    margin: 3rem auto;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 2rem;
+    padding: 0 1rem;
+}
+
+/* Contact form card */
+.contact-card {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.07);
+}
+
+body[data-theme="dark"] .contact-card {
+    background: #0b1020;
+}
+
+.contact-title {
+    font-size: 1.8rem;
+    color: #ff7a00;
+    margin-bottom: 0.3rem;
+}
+
+.contact-subtext {
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+.contact-success {
+    background: #e8ffe6;
+    color: #2b7a26;
+    padding: 0.7rem 1rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+body[data-theme="dark"] .contact-success {
+    background: #1f3b1d;
+    color: #a3ff95;
+}
+
+/* Contact form inputs */
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    font-family: inherit;
+}
+
+body[data-theme="dark"] .contact-form input,
+body[data-theme="dark"] .contact-form textarea {
+    background: #0f172a;
+    border-color: #334155;
+    color: #fff;
+}
+
+/* Contact button */
+.contact-btn {
+    width: 100%;
+    background: #ff7a00;
+    color: white;
+    padding: 0.9rem;
+    border-radius: 999px;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.contact-btn:hover {
+    background: #ff8f1c;
+    transform: translateY(-2px);
+}
+
+/* Side info card */
+.contact-info-card {
+    background: #fff7ec;
+    padding: 2rem;
+    border-radius: 20px;
+    border-left: 5px solid #ff9800;
+}
+
+body[data-theme="dark"] .contact-info-card {
+    background: #1f2937;
+    border-left-color: #fbbf24;
+}
+
+.contact-info-card h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+}
+
+.contact-info-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.3rem;
+    font-size: 1rem;
+}
+
+.contact-info-list li {
+    margin-bottom: 0.8rem;
+}
+
+.contact-info-footer {
+    color: #555;
+}
+
+body[data-theme="dark"] .contact-info-footer {
+    color: #d1d5db;
+}
+
+/* Mobile */
+@media(max-width: 850px) {
+    .contact-wrapper {
+        grid-template-columns: 1fr;
+    }
+}
+
