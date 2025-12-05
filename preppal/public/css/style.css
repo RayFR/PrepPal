@@ -332,6 +332,7 @@ body {
   color: #333;
   margin-bottom: 0.75rem;
   font-size: 1.7rem;
+  text-align: center
 }
 
 .main-content p {
@@ -339,6 +340,7 @@ body {
   margin: 0 auto;
   font-size: 0.98rem;
   color: var(--color-text-subtle);
+  text-align: center
 }
 
 /* Pills navigation under hero */
@@ -993,7 +995,7 @@ body {
   color: #4b5563;
 }
 
-.store-search-input {
+.-search-input {
   width: 100%;
   max-width: 420px;
   padding: 0.45rem 0.6rem;
