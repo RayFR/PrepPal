@@ -63,7 +63,7 @@
       @foreach($products->where('category', 'supplement') as $product)
           <div class="card" data-product-card="true">
 
-              <img src="{{ asset($product->image) }}" class="product-image">
+              <img src="{{ asset($product->image_path) }}" class="product-image">
 
               <h3>{{ $product->name }}</h3>
 
