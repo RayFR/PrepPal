@@ -23,9 +23,6 @@
         />
     </div>
 
-    <h2>Meal Prep Plans</h2>
-    <p>Choose a weekly PrepPal plan that matches your goal.</p>
-
 <h2>Meal Prep Plans</h2>
 <p>Choose a weekly PrepPal plan that matches your goal.</p>
 
@@ -34,7 +31,7 @@
       @foreach($products->where('category', 'meal') as $product)
           <div class="card" data-product-card="true">
 
-              <img src="{{ asset($product->image) }}" class="product-image">
+              <img src="{{ asset($product->image_path) }}" class="product-image">
 
               <h3>{{ $product->name }}</h3>
 
