@@ -13,6 +13,7 @@
   Description: Basic styling for layout, navigation, and footer.
   Date: Oct 30, Thursday, 2025
 */
+
 /*
   Student & ID: Musab Ahmed Rashid (230084799)
   Role: Designer
@@ -28,6 +29,7 @@
   Description: Paired with Musab to complete styling for PrepPal frontend
   Date: Nov 2025
 */
+
 /* --- CSS Variables / Global Tokens --- */
 :root {
   /* Brand Colors */
@@ -994,8 +996,7 @@ body {
   margin-bottom: 0.35rem;
   color: #4b5563;
 }
-
-.-search-input {
+.store-search-input {
   width: 100%;
   max-width: 420px;
   padding: 0.45rem 0.6rem;
@@ -1006,6 +1007,7 @@ body {
   box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
   box-sizing: border-box;
 }
+
 
 .admin-table-card {
   margin-top: 2rem;
