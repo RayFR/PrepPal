@@ -994,8 +994,7 @@ body {
   margin-bottom: 0.35rem;
   color: #4b5563;
 }
-
-.-search-input {
+.store-search-input {
   width: 100%;
   max-width: 420px;
   padding: 0.45rem 0.6rem;
@@ -1006,6 +1005,7 @@ body {
   box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
   box-sizing: border-box;
 }
+
 
 .admin-table-card {
   margin-top: 2rem;
