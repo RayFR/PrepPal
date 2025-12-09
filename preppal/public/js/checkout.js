@@ -82,9 +82,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     renderCart();
 
+    document.querySelector('.place-order-btn').addEventListener('click', function (e) {
+        alert("Order placed!");
+        localStorage.removeItem("preppalCart");
+        window.location.href = "/";
+    });
+
+
     // SUBMIT ORDER TO LARAVEL
     form.addEventListener('submit', async function (e) {
         e.preventDefault();
+        
 
         if (!cartItems.length) {
             alert("Your cart is empty.");
@@ -98,7 +106,6 @@ document.addEventListener("DOMContentLoaded", function () {
             city: document.getElementById('coCity').value,
             postcode: document.getElementById('coPostcode').value,
             notes: document.getElementById('coNotes').value,
-            items: cartItems
         };
 
         const response = await fetch('/checkout', {
