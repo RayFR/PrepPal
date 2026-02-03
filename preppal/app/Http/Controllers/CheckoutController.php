@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Product;
 
 class CheckoutController extends Controller
 {
@@ -44,10 +45,10 @@ class CheckoutController extends Controller
         foreach ($validated['items'] as $item) {
             OrderItem::create([
                 'order_id' => $order->id,
-                'product_type' => $item['type'],
-                'product_id' => $item['id'],
+                'product_type' => $product['category'],
+                'product_id' => $product['id'],
                 'quantity' => $item['qty'],
-                'price' => $item['price']
+                'price' => $product['price']
             ]);
         }
 

@@ -1,131 +1,90 @@
 /*
-  Student & ID: (Agraj Khanna 240195519 ID / Gurpreet Singh Sidhu 230237915 ID)
-  Description: Checkout Implementation (Laravel backend version)
+  Students & IDs: Agraj Khanna / Gurpreet Singh Sidhu
+  Description: Checkout page
 */
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener('DOMContentLoaded', function () {
+  const itemsEl = document.getElementById('checkoutItems');
+  const totalEl = document.getElementById('checkoutTotal');
+  const emptyMsg = document.getElementById('checkoutEmptyMessage');
+  const form = document.getElementById('checkoutForm');
 
-    const CART_KEY = 'preppalCart';
+  if (!itemsEl || !totalEl || !form) return;
 
-    function loadCart() {
-        try {
-            return JSON.parse(localStorage.getItem(CART_KEY)) || [];
-        } catch {
-            return [];
-        }
+  function renderCart() {
+    const items = Cart.getItems();
+    itemsEl.innerHTML = '';
+
+    if (items.length === 0) {
+      emptyMsg.style.display = 'block';
+      form.style.display = 'none';
+      totalEl.textContent = 'Total: £0.00';
+      return;
     }
 
-    const itemsEl = document.getElementById('checkoutItems');
-    const totalEl = document.getElementById('checkoutTotal');
-    const emptyMsg = document.getElementById('checkoutEmptyMessage');
-    const form = document.getElementById('checkoutForm');
+    emptyMsg.style.display = 'none';
+    form.style.display = 'block';
 
-    if (!itemsEl || !totalEl || !form) return;
+    let total = 0;
+    items.forEach(item => {
+      const li = document.createElement('li');
+      li.className = 'checkout-item-row';
 
-    const cartItems = loadCart();
+      li.innerHTML = `
+        <div class="checkout-thumb">
+          <img src="${item.image}" alt="${item.name}">
+        </div>
+        <span class="checkout-item-name">${item.name} × ${item.qty}</span>
+        <span class="checkout-item-price">£${(item.price*item.qty).toFixed(2)}</span>
+      `;
 
+      total += item.price * item.qty;
+      itemsEl.appendChild(li);
+    });
 
-    // RENDER CART TO PAGE
-    function renderCart() {
+    totalEl.textContent = `Total: £${total.toFixed(2)}`;
+  }
 
-        itemsEl.innerHTML = '';
+  renderCart();
 
-        if (!cartItems.length) {
-            emptyMsg.style.display = 'block';
-            form.style.display = 'none';
-            totalEl.textContent = "Total: £0.00";
-            return;
-        }
+  // --- Submit order ---
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const items = Cart.getItems();
+    if (items.length === 0) return alert('Your cart is empty.');
 
-        emptyMsg.style.display = 'none';
-        form.style.display = 'block';
+    const payload = {
+      items: items.map(i => ({ id: i.id, price: i.price, qty: i.qty, type: i.category || 'meal' })),
+      name: document.getElementById('coName').value,
+      email: document.getElementById('coEmail').value,
+      address: document.getElementById('coAddress').value,
+      city: document.getElementById('coCity').value,
+      postcode: document.getElementById('coPostcode').value,
+      notes: document.getElementById('coNotes').value,
+    };
 
-        let total = 0;
+    try {
+      const response = await fetch('/checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+        },
+        body: JSON.stringify(payload)
+      });
 
-        cartItems.forEach(item => {
+      const data = await response.json();
 
-            const li = document.createElement('li');
-            li.className = 'checkout-item-row';
-
-            // Thumbnail
-            const thumb = document.createElement('div');
-            thumb.className = 'checkout-thumb';
-
-            const img = document.createElement('img');
-            img.src = item.image || '';
-            img.alt = item.name;
-            thumb.appendChild(img);
-
-            // Item name + qty
-            const name = document.createElement('span');
-            name.className = 'checkout-item-name';
-            name.textContent = `${item.name} × ${item.qty}`;
-
-            // Price
-            const price = document.createElement('span');
-            price.className = 'checkout-item-price';
-            const lineTotal = (item.price || 0) * (item.qty || 0);
-            price.textContent = `£${lineTotal.toFixed(2)}`;
-
-            total += lineTotal;
-
-            li.appendChild(thumb);
-            li.appendChild(name);
-            li.appendChild(price);
-
-            itemsEl.appendChild(li);
-
-        });
-
-        totalEl.textContent = `Total: £${total.toFixed(2)}`;
+      if (data.success) {
+        Cart.clear();
+        alert('Order placed successfully!');
+        window.location.href = '/orders';
+      } else {
+        alert('Something went wrong placing your order.');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Error submitting order.');
     }
-
-    renderCart();
-
-    document.querySelector('.place-order-btn').addEventListener('click', function (e) {
-        alert("Order placed!");
-        localStorage.removeItem("preppalCart");
-        window.location.href = "/";
-    });
-
-
-    // SUBMIT ORDER TO LARAVEL
-    form.addEventListener('submit', async function (e) {
-        e.preventDefault();
-        
-
-        if (!cartItems.length) {
-            alert("Your cart is empty.");
-            return;
-        }
-
-        const payload = {
-            name: document.getElementById('coName').value,
-            email: document.getElementById('coEmail').value,
-            address: document.getElementById('coAddress').value,
-            city: document.getElementById('coCity').value,
-            postcode: document.getElementById('coPostcode').value,
-            notes: document.getElementById('coNotes').value,
-        };
-
-        const response = await fetch('/checkout', {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
-            },
-            body: JSON.stringify(payload)
-        });
-
-        const data = await response.json();
-
-        if (data.success) {
-            localStorage.removeItem('preppalCart');
-            alert("Order placed successfully!");
-            window.location.href = "/orders";
-        } else {
-            alert("Something went wrong placing your order.");
-        }
-    });
-
+  });
 });
