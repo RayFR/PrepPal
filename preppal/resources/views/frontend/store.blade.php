@@ -44,7 +44,7 @@
                 data-id="{{ $product->id }}"
                 data-name="{{ $product->name }}"
                 data-price="{{ $product->price }}"
-                data-image="{{ asset($product->image) }}"
+                data-image="{{ asset($product->image_path) }}"
               >Add to cart</a>
           </div>
       @endforeach
