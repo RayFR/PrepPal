@@ -9,13 +9,13 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-    // this func shows the login page views
+    // Show login page
     public function showLogin()
     {
         return view('frontend.login');
     }
 
-    // this function handles the login request  
+    // Handle login request
     public function login(Request $request)
     {
         $data = $request->validate([
@@ -28,20 +28,22 @@ class AuthController extends Controller
             return redirect()->route('home');
         }
 
-        return back()->withErrors(['email' => 'Invalid login details']);
+        return back()->withErrors([
+            'email' => 'Invalid login details'
+        ]);
     }
 
-    // this function handles the signup request and saves a user  
+    // Handle registration request
     public function register(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|confirmed|min:6'
         ]);
 
         $user = User::create([
-            'name' => $data['name'],
+            'username' => $data['name'], // ✅ maps form "name" → DB "username"
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
@@ -51,17 +53,17 @@ class AuthController extends Controller
         return redirect()->route('home');
     }
 
-
-    // this func shows the dashboard page views
+    // Show dashboard
     public function dashboard()
     {
         return view('frontend.dashboard');
     }
 
-    // handles the logout request and will redirect to login page
+    // Handle logout
     public function logout(Request $request)
     {
         Auth::logout();
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
