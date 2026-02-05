@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ProductController;
+
 
 use App\Models\Product;
 
@@ -23,10 +25,7 @@ Route::get('/calculator', function () {
 ->name('calculator');
 
 // store page
-Route::get('/store', function () {
-    $products = Product::all();
-    return view('frontend.store', compact('products'));
-})->name('store');
+Route::get('/store', [ProductController::class, 'index'])->name('store');
 
 
 Route::middleware('auth')->group(function () {
@@ -57,6 +56,12 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
+
+Route::get('/product/{id}', [ProductController::class, 'show'])
+    ->middleware('auth')
+    ->name('product.show');
+
 
 
 

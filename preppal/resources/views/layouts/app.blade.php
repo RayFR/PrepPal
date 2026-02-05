@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title')</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>@yield('title', config('app.name', 'PrepPal'))</title>
+
+    {{-- Your CSS --}}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
 </head>
+
 <body>
 
     <header class="nav">
@@ -25,6 +32,7 @@
                     <a href="{{ route('calculator') }}">Calculator</a>
                     <span id="cartDisplay">Cart (0)</span>
                     <span>Hi, {{ auth()->user()->name }}</span>
+
                     <form action="{{ route('logout') }}" method="POST" style="display:inline;">
                         @csrf
                         <button type="submit" class="logout-btn">Logout</button>
