@@ -52,7 +52,7 @@ class AuthController extends Controller
     }
 
 
-    // this func shows the dashboard page views
+    // this function shows the dashboard page views
     public function dashboard()
     {
         return view('frontend.dashboard');

@@ -1768,3 +1768,299 @@ body[data-theme="dark"] .btn-ghost{
     width: 100%;
   }
 }
+/* =========================================================
+   STORE FILTER BAR — FINAL (anti-overlap + premium)
+   Put at BOTTOM of your main CSS so it overrides old rules
+   ========================================================= */
+
+.store-filters{
+  padding: 26px;
+  border-radius: 26px;
+  background:
+    radial-gradient(900px 220px at 12% 0%,
+      rgba(255,138,0,0.16),
+      rgba(255,255,255,0.045) 55%,
+      rgba(255,255,255,0.03) 100%);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow:
+    0 18px 60px rgba(0,0,0,0.45),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+  backdrop-filter: blur(12px);
+}
+
+.store-filters .filter-grid{
+  display:grid;
+  grid-template-columns: 2.0fr 1.05fr 1.35fr 1.0fr auto;
+  gap: 22px;
+  align-items:end;
+}
+
+/* Field stack */
+.store-filters .field{
+  display:flex;
+  flex-direction:column;
+  gap: 10px;
+  min-width: 0;
+}
+
+/* Keep labels aligned */
+.store-filters .field label{
+  height: 22px;
+  display:flex;
+  align-items:flex-end;
+  margin: 0;
+  font-weight: 900;
+  font-size: 16px;
+  letter-spacing: 0.2px;
+  color: rgba(255,255,255,0.90);
+}
+
+/* Inputs/selects consistent look */
+.store-filters .field input,
+.store-filters .field select{
+  height: 60px;
+  width: 100%;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.16);
+  color: rgba(255,255,255,0.96);
+  padding: 0 16px;
+  outline: none;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    0 10px 30px rgba(0,0,0,0.25);
+  transition: border-color .16s ease, background .16s ease, box-shadow .16s ease, transform .08s ease;
+}
+
+.store-filters .field input::placeholder{
+  color: rgba(255,255,255,0.55);
+}
+
+.store-filters .field input:hover,
+.store-filters .field select:hover{
+  border-color: rgba(255,255,255,0.22);
+  transform: translateY(-1px);
+}
+
+.store-filters .field input:focus,
+.store-filters .field select:focus{
+  border-color: rgba(255,138,0,0.70);
+  background: rgba(255,255,255,0.09);
+  box-shadow:
+    0 0 0 4px rgba(255,138,0,0.15),
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    0 14px 38px rgba(0,0,0,0.28);
+}
+
+/* Combined price control */
+.store-filters .price-range-shell{
+  height: 60px;
+  display:grid;
+  grid-template-columns: 1fr 1px 1fr;
+  align-items:center;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.16);
+  overflow:hidden;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    0 10px 30px rgba(0,0,0,0.25);
+}
+
+.store-filters .price-range-shell input{
+  height: 100%;
+  width: 100%;
+  border: 0 !important;
+  background: transparent !important;
+  padding: 0 16px;
+  color: rgba(255,255,255,0.96);
+  outline: none;
+}
+
+.store-filters .price-range-shell input::placeholder{
+  color: rgba(255,255,255,0.55);
+  font-weight: 800;
+}
+
+.store-filters .price-divider{
+  width: 1px;
+  height: 65%;
+  background: rgba(255,255,255,0.20);
+}
+
+.store-filters .price-range-shell:focus-within{
+  border-color: rgba(255,138,0,0.70);
+  background: rgba(255,255,255,0.09);
+  box-shadow:
+    0 0 0 4px rgba(255,138,0,0.15),
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    0 14px 38px rgba(0,0,0,0.28);
+}
+
+/* Actions */
+.store-filters .actions-field{ padding-top: 22px; min-width: 260px; }
+.store-filters .filter-actions{ display:flex; gap:12px; align-items:center; }
+
+.store-filters .filter-actions .btn{
+  height: 60px;
+  padding: 0 22px;
+  border-radius: 18px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-weight: 950;
+  letter-spacing: 0.2px;
+  cursor:pointer;
+  user-select:none;
+  white-space:nowrap;
+  transition: transform .08s ease, filter .16s ease, box-shadow .16s ease, border-color .16s ease;
+  min-width: 110px;
+}
+
+.store-filters .filter-actions .btn:active{
+  transform: translateY(1px);
+}
+
+.store-filters .filter-actions .btn-primary{
+  border: none;
+  color: #0b0f1a;
+  background: linear-gradient(135deg, #ff8a00 0%, #ffb000 100%);
+  box-shadow:
+    0 16px 40px rgba(255,138,0,0.22),
+    inset 0 1px 0 rgba(255,255,255,0.35);
+}
+
+.store-filters .filter-actions .btn-primary:hover{
+  filter: brightness(1.03);
+}
+
+.store-filters .filter-actions .btn-ghost{
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.16);
+  color: rgba(255,255,255,0.95);
+  box-shadow:
+    0 14px 34px rgba(0,0,0,0.22),
+    inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.store-filters .filter-actions .btn-ghost:hover{
+  border-color: rgba(255,255,255,0.22);
+  filter: brightness(1.05);
+}
+
+/* Anti-overlap minimums (prevents "squeezing" on mid screens) */
+.store-filters .field:nth-child(1){ min-width: 320px; } /* Search */
+.store-filters .field:nth-child(2){ min-width: 180px; } /* Category */
+.store-filters .field.price-range{ min-width: 260px; }  /* Price */
+.store-filters .field:nth-child(4){ min-width: 190px; } /* Sort */
+
+/* Responsive: wrap cleanly instead of crushing */
+@media (max-width: 1200px){
+  .store-filters .filter-grid{
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .store-filters .actions-field{
+    grid-column: 1 / -1;
+    padding-top: 0;
+    display:flex;
+    justify-content:flex-end;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 560px){
+  .store-filters{
+    padding: 18px;
+    border-radius: 22px;
+  }
+  .store-filters .filter-grid{
+    grid-template-columns: 1fr;
+  }
+  .store-filters .actions-field{
+    justify-content: stretch;
+  }
+  .store-filters .filter-actions{
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+/* Screen-reader only label helper */
+.sr-only{
+  position:absolute;
+  width:1px;
+  height:1px;
+  padding:0;
+  margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border:0;
+}
+
+/* =========================
+   FIX: stop overlap + stop button cutting off
+   Paste at VERY BOTTOM
+   ========================= */
+
+/* Let grid items shrink properly instead of spilling into other columns */
+.store-filters .filter-grid > *{
+  min-width: 0;
+}
+
+/* Reduce min-width forcing overflow (remove squeeze behaviour) */
+.store-filters .field:nth-child(1),
+.store-filters .field:nth-child(2),
+.store-filters .field.price-range,
+.store-filters .field:nth-child(4),
+.store-filters .actions-field{
+  min-width: 0 !important;
+}
+
+/* Ensure price shell never visually overlaps other columns */
+.store-filters .price-range-shell{
+  width: 100%;
+  min-width: 0;
+}
+
+/* Make Actions a wrap-to-next-row item on medium widths */
+@media (max-width: 1400px){
+  .store-filters .filter-grid{
+    grid-template-columns: 2.1fr 1.1fr 1.4fr 1.1fr; /* Search, Category, Price, Sort */
+    gap: 18px;
+  }
+
+  /* Actions goes full width row under */
+  .store-filters .actions-field{
+    grid-column: 1 / -1;
+    padding-top: 0;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+/* Smaller screens: 2 columns */
+@media (max-width: 1100px){
+  .store-filters .filter-grid{
+    grid-template-columns: 1fr 1fr;
+  }
+  .store-filters .actions-field{
+    grid-column: 1 / -1;
+    justify-content: flex-end;
+  }
+}
+
+/* Mobile: 1 column */
+@media (max-width: 560px){
+  .store-filters .filter-grid{
+    grid-template-columns: 1fr;
+  }
+  .store-filters .actions-field{
+    justify-content: stretch;
+  }
+  .store-filters .filter-actions{
+    width: 100%;
+    justify-content: space-between;
+  }
+}
