@@ -43,6 +43,7 @@ class AuthController extends Controller
         ]);
 
         $user = User::create([
+            'name' => $data['name'], // ✅ maps form "name" → DB "name"
             'username' => $data['name'], // ✅ maps form "name" → DB "username"
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
