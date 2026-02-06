@@ -20,11 +20,11 @@
             <h2 class="checkout-heading">Order Summary</h2>
 
             <ul id="checkoutItems" class="checkout-items-list">
-                {{-- dynamically populated by checkout.js --}}
             </ul>
 
             <div id="checkoutEmptyMessage" class="checkout-empty">
-                Your cart is empty.
+                <p>Your cart is empty.</p>
+                <a href="{{ route('store') }}">Back to Store.</a>
             </div>
 
             <div id="checkoutTotal" class="checkout-total-box">

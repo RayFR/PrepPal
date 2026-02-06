@@ -1,20 +1,12 @@
-/*
-  Students & IDs: Agraj Khanna / Gurpreet Singh Sidhu
-  Description: Global cart manager
-  - Tracks items (id, name, price, image, qty)
-  - Persists to localStorage
-  - Exposes API for other scripts
-*/
-
-const Cart = (function () {
+window.Cart = (function () {
   const STORAGE_KEY = 'preppalCart';
   let items = [];
 
-  // --- Storage ---
   function load() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      items = raw ? JSON.parse(raw) : [];
+      const parsed = raw ? JSON.parse(raw) : [];
+      items = Array.isArray(parsed) ? parsed : [];
     } catch {
       items = [];
     }
@@ -24,19 +16,28 @@ const Cart = (function () {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
   }
 
-  // --- Operations ---
   function addItem(id, name, price, image) {
-    const existing = items.find(item => item.id == id);
-    if (existing) {
-      existing.qty += 1;
+    const sid = String(id);
+    const p = Number(price) || 0;
+
+    const found = items.find(i => String(i.id) === sid);
+    if (found) {
+      found.qty = (Number(found.qty) || 0) + 1;
     } else {
-      items.push({ id, name, price, image, qty: 1 });
+      items.push({
+        id: sid,
+        name: name || 'Item',
+        price: p,
+        image: image || '',
+        qty: 1
+      });
     }
     save();
   }
 
   function removeItem(id) {
-    items = items.filter(item => item.id != id);
+    const sid = String(id);
+    items = items.filter(i => String(i.id) !== sid);
     save();
   }
 
@@ -46,26 +47,23 @@ const Cart = (function () {
   }
 
   function getItems() {
-    return [...items]; // return a copy
+    return items.map(i => ({ ...i }));
   }
 
   function getCount() {
-    return items.reduce((sum, item) => sum + item.qty, 0);
+    return items.reduce((s, i) => s + (Number(i.qty) || 0), 0);
   }
 
   function getTotal() {
-    return items.reduce((sum, item) => sum + item.price * item.qty, 0);
+    return items.reduce((s, i) => s + (Number(i.price) || 0) * (Number(i.qty) || 0), 0);
   }
 
-  // init load
+  // allows other scripts to update if they want to
+  function reload() {
+    load();
+  }
+
   load();
 
-  return {
-    addItem,
-    removeItem,
-    clear,
-    getItems,
-    getCount,
-    getTotal,
-  };
+  return { addItem, removeItem, clear, getItems, getCount, getTotal, reload };
 })();
