@@ -1,9 +1,4 @@
-/*
-  Students & IDs: Agraj Khanna / Gurpreet Singh Sidhu
-  Description: Checkout page
-*/
-
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
   const itemsEl = document.getElementById('checkoutItems');
   const totalEl = document.getElementById('checkoutTotal');
   const emptyMsg = document.getElementById('checkoutEmptyMessage');
@@ -11,11 +6,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (!itemsEl || !totalEl || !form) return;
 
-  function renderCart() {
+  function render() {
+    Cart.reload();
     const items = Cart.getItems();
     itemsEl.innerHTML = '';
 
-    if (items.length === 0) {
+    if (!items.length) {
       emptyMsg.style.display = 'block';
       form.style.display = 'none';
       totalEl.textContent = 'Total: £0.00';
@@ -27,34 +23,42 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let total = 0;
     items.forEach(item => {
+      const price = Number(item.price) || 0;
+      const qty = Number(item.qty) || 0;
+      total += price * qty;
+
       const li = document.createElement('li');
       li.className = 'checkout-item-row';
-
       li.innerHTML = `
         <div class="checkout-thumb">
-          <img src="${item.image}" alt="${item.name}">
+          <img src="${item.image || ''}" alt="${item.name}">
         </div>
-        <span class="checkout-item-name">${item.name} × ${item.qty}</span>
-        <span class="checkout-item-price">£${(item.price*item.qty).toFixed(2)}</span>
+        <span class="checkout-item-name">${item.name} × ${qty}</span>
+        <span class="checkout-item-price">£${(price * qty).toFixed(2)}</span>
       `;
-
-      total += item.price * item.qty;
       itemsEl.appendChild(li);
     });
 
     totalEl.textContent = `Total: £${total.toFixed(2)}`;
   }
 
-  renderCart();
+  render();
 
-  // --- Submit order ---
-  form.addEventListener('submit', async function (e) {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    Cart.reload();
     const items = Cart.getItems();
-    if (items.length === 0) return alert('Your cart is empty.');
+
+    if (!items.length) return alert('Your cart is empty.');
 
     const payload = {
-      items: items.map(i => ({ id: i.id, price: i.price, qty: i.qty, type: i.category || 'meal' })),
+      items: items.map(i => ({
+        id: Number(i.id),
+        qty: Number(i.qty),
+        price: Number(i.price),
+        type: 'product'
+      })),
       name: document.getElementById('coName').value,
       email: document.getElementById('coEmail').value,
       address: document.getElementById('coAddress').value,
@@ -63,28 +67,23 @@ document.addEventListener('DOMContentLoaded', function () {
       notes: document.getElementById('coNotes').value,
     };
 
-    try {
-      const response = await fetch('/checkout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-        },
-        body: JSON.stringify(payload)
-      });
+    const res = await fetch('/checkout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+      },
+      body: JSON.stringify(payload)
+    });
 
-      const data = await response.json();
+    const data = await res.json();
 
-      if (data.success) {
-        Cart.clear();
-        alert('Order placed successfully!');
-        window.location.href = '/orders';
-      } else {
-        alert('Something went wrong placing your order.');
-      }
-    } catch (err) {
-      console.error(err);
-      alert('Error submitting order.');
+    if (data.success) {
+      Cart.clear();
+      alert('Order placed successfully!');
+      window.location.href = '/orders';
+    } else {
+      alert('Something went wrong placing your order.');
     }
   });
 });
