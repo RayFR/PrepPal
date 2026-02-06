@@ -43,7 +43,7 @@ class AuthController extends Controller
         ]);
 
         $user = User::create([
-            'name' => $data['name'], // ✅ maps form "name" → DB "name"
+            'name' => $data['name'], // ✅ maps form "name" → DB "username"
             'username' => $data['name'], // ✅ maps form "name" → DB "username"
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
@@ -54,7 +54,8 @@ class AuthController extends Controller
         return redirect()->route('home');
     }
 
-    // Show dashboard
+
+    // this function shows the dashboard page views
     public function dashboard()
     {
         return view('frontend.dashboard');

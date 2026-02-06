@@ -1,7 +1,9 @@
-<!--Students & IDs: Agraj Khanna (240195519) / Gurpreet Singh Sidhu (230237915)
+<!--
+  Students & IDs: Agraj Khanna (240195519) / Gurpreet Singh Sidhu (230237915)
   File: store.blade.php
   Description: Store Page containing all of our products
-  Date: Dec 2025 -->
+  Date: Dec 2025
+-->
 
 @extends('layouts.app')
 
@@ -11,12 +13,11 @@
 
 @section('content')
 @php
-    // Pull filter values once (keeps Blade clean and reduces editor "reds")
-    $q = request()->query('q', '');
-    $category = request()->query('category', 'all');
+    $q         = request()->query('q', '');
+    $category  = request()->query('category', 'all');
     $min_price = request()->query('min_price', '');
     $max_price = request()->query('max_price', '');
-    $sort = request()->query('sort', 'newest');
+    $sort      = request()->query('sort', 'newest');
 @endphp
 
 <div class="container">
@@ -43,98 +44,55 @@
             <div class="field">
                 <label for="category">Category</label>
                 <select id="category" name="category">
-
-                    {{-- all --}}
-                    @if($category === 'all')
-                        <option value="all" selected>All</option>
-                    @else
-                        <option value="all">All</option>
-                    @endif
-
-                    {{-- meal --}}
-                    @if($category === 'meal')
-                        <option value="meal" selected>Meal Plans</option>
-                    @else
-                        <option value="meal">Meal Plans</option>
-                    @endif
-
-                    {{-- supplement --}}
-                    @if($category === 'supplement')
-                        <option value="supplement" selected>Supplements</option>
-                    @else
-                        <option value="supplement">Supplements</option>
-                    @endif
-
+                    <option value="all" {{ $category === 'all' ? 'selected' : '' }}>All</option>
+                    <option value="meal" {{ $category === 'meal' ? 'selected' : '' }}>Meal Plans</option>
+                    <option value="supplement" {{ $category === 'supplement' ? 'selected' : '' }}>Supplements</option>
                 </select>
             </div>
 
-            {{-- Min --}}
-            <div class="field">
-                <label for="min_price">Min £</label>
-                <input
-                    id="min_price"
-                    name="min_price"
-                    type="number"
-                    step="0.01"
-                    min="0"
-                    value="{{ $min_price }}"
-                    placeholder="0"
-                >
-            </div>
+            {{-- Price (£) — combined --}}
+            <div class="field price-range">
+                <label>Price (£)</label>
 
-            {{-- Max --}}
-            <div class="field">
-                <label for="max_price">Max £</label>
-                <input
-                    id="max_price"
-                    name="max_price"
-                    type="number"
-                    step="0.01"
-                    min="0"
-                    value="{{ $max_price }}"
-                    placeholder="200"
-                >
+                <div class="price-range-shell">
+                    <input
+                        id="min_price"
+                        name="min_price"
+                        type="number"
+                        step="0.01"
+                        min="0"
+                        value="{{ $min_price }}"
+                        placeholder="Min"
+                    >
+
+                    <span class="price-divider"></span>
+
+                    <input
+                        id="max_price"
+                        name="max_price"
+                        type="number"
+                        step="0.01"
+                        min="0"
+                        value="{{ $max_price }}"
+                        placeholder="Max"
+                    >
+                </div>
             </div>
 
             {{-- Sort --}}
             <div class="field">
                 <label for="sort">Sort</label>
                 <select id="sort" name="sort">
-
-                    {{-- newest --}}
-                    @if($sort === 'newest')
-                        <option value="newest" selected>Newest</option>
-                    @else
-                        <option value="newest">Newest</option>
-                    @endif
-
-                    {{-- price_asc --}}
-                    @if($sort === 'price_asc')
-                        <option value="price_asc" selected>Price: Low → High</option>
-                    @else
-                        <option value="price_asc">Price: Low → High</option>
-                    @endif
-
-                    {{-- price_desc --}}
-                    @if($sort === 'price_desc')
-                        <option value="price_desc" selected>Price: High → Low</option>
-                    @else
-                        <option value="price_desc">Price: High → Low</option>
-                    @endif
-
-                    {{-- name_asc --}}
-                    @if($sort === 'name_asc')
-                        <option value="name_asc" selected>Name: A → Z</option>
-                    @else
-                        <option value="name_asc">Name: A → Z</option>
-                    @endif
-
+                    <option value="newest" {{ $sort === 'newest' ? 'selected' : '' }}>Newest</option>
+                    <option value="price_asc" {{ $sort === 'price_asc' ? 'selected' : '' }}>Price: Low → High</option>
+                    <option value="price_desc" {{ $sort === 'price_desc' ? 'selected' : '' }}>Price: High → Low</option>
+                    <option value="name_asc" {{ $sort === 'name_asc' ? 'selected' : '' }}>Name: A → Z</option>
                 </select>
             </div>
 
             {{-- Actions --}}
-            <div class="field">
-                <label>&nbsp;</label>
+            <div class="field actions-field">
+                <label class="sr-only" for="storeFiltersForm">Actions</label>
                 <div class="filter-actions">
                     <button type="submit" class="btn btn-primary">Apply</button>
                     <a href="{{ route('store') }}" class="btn btn-ghost">Reset</a>
