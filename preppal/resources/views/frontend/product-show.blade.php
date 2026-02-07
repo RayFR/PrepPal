@@ -60,20 +60,23 @@
 
       <div class="pp-actions">
         <div class="pp-qty">
-          <button type="button" class="pp-qty-btn" data-qty="-1">−</button>
+          <button type="button" class="pp-qty-btn" data-qty="-1" aria-label="Decrease quantity">−</button>
           <input class="pp-qty-input" type="number" min="1" value="1">
-          <button type="button" class="pp-qty-btn" data-qty="+1">+</button>
+          <button type="button" class="pp-qty-btn" data-qty="+1" aria-label="Increase quantity">+</button>
         </div>
 
-        <a class="cta add-to-cart pp-add"
-           href="#"
-           data-id="{{ $product->id }}"
-           data-name="{{ $product->name }}"
-           data-price="{{ $product->price }}"
-           data-image="{{ asset($product->image_path) }}"
+        {{-- use a BUTTON (more reliable than href="#") --}}
+        <button
+          type="button"
+          class="cta pp-add add-to-cart"
+          data-id="{{ $product->id }}"
+          data-name="{{ $product->name }}"
+          data-price="{{ $product->price }}"
+          data-image="{{ asset($product->image_path) }}"
+          data-qty="1"
         >
           Add to cart
-        </a>
+        </button>
       </div>
 
       <div class="pp-trust">
@@ -114,4 +117,39 @@
 
   </div>
 </main>
+
+{{-- Qty buttons + keep add-to-cart qty synced --}}
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const qtyWrap = document.querySelector('.pp-qty');
+    const qtyInput = document.querySelector('.pp-qty-input');
+    const addBtn = document.querySelector('.pp-add.add-to-cart');
+
+    if (!qtyWrap || !qtyInput || !addBtn) return;
+
+    const clampQty = (n) => {
+      const v = Number.isFinite(n) ? n : 1;
+      return Math.max(1, Math.floor(v));
+    };
+
+    const sync = () => {
+      addBtn.dataset.qty = String(clampQty(parseInt(qtyInput.value || '1', 10)));
+    };
+
+    qtyWrap.addEventListener('click', (e) => {
+      const btn = e.target.closest('.pp-qty-btn');
+      if (!btn) return;
+
+      const delta = btn.dataset.qty === '+1' ? 1 : -1;
+      const current = clampQty(parseInt(qtyInput.value || '1', 10));
+      qtyInput.value = String(clampQty(current + delta));
+      sync();
+    });
+
+    qtyInput.addEventListener('input', sync);
+    qtyInput.addEventListener('change', sync);
+
+    sync();
+  });
+</script>
 @endsection

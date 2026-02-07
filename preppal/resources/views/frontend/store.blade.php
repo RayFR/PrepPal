@@ -7,9 +7,7 @@
 
 @extends('layouts.app')
 
-@section('title')
-    Store
-@endsection
+@section('title', 'Store')
 
 @section('content')
 @php
@@ -50,7 +48,7 @@
                 </select>
             </div>
 
-            {{-- Price (£) — combined --}}
+            {{-- Price (£) --}}
             <div class="field price-range">
                 <label>Price (£)</label>
 
@@ -103,7 +101,7 @@
     </form>
 
     {{-- PRODUCTS GRID --}}
-    <div class="admin-dashboard" style="gap: 1rem;">
+    <div class="admin-dashboard store-grid" style="gap: 1rem;">
         @forelse($products as $product)
             <div class="card" data-product-card="true">
 

@@ -5,16 +5,14 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\HomeController;
+
 
 
 use App\Models\Product;
 
 
-// home/index page
-Route::get('/', function () {
-    return view('frontend.home');
-})
-->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
 // calc page

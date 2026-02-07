@@ -10,7 +10,12 @@ class Product extends Model
         'name',
         'description',
         'price',
-        'image_path',
         'category',
+        'image',
+    ];
+
+    // Ensures comparisons + formatting behave as numbers
+    protected $casts = [
+        'price' => 'decimal:2',
     ];
 }
