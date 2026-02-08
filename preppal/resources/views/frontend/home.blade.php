@@ -245,6 +245,129 @@
     </div>
   </section>
 
+{{-- =========================
+    TESTIMONIALS
+   ========================= --}}
+<section class="main-content" style="padding-top: 1rem; text-align:left;">
+  <div class="container">
+
+    <div class="reveal" style="
+      display:flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    ">
+      <div>
+        <h2 style="text-align:left; margin-bottom: 6px;">What people are saying</h2>
+        <p style="text-align:left; margin:0; max-width: 70ch;">
+          Real feedback from students and gym-goers using PrepPal to stay consistent, save time, and hit their goals.
+        </p>
+      </div>
+      <span class="pill pill-soft">★ 4.8 average rating</span>
+    </div>
+
+    <div class="reveal pp-test-grid" style="
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.1rem;
+    ">
+
+      @php
+        $avatarFallback = asset('images/banner_hero.png');
+      @endphp
+
+      {{-- Testimonial 1 --}}
+      <div class="card" style="border-radius: 22px; padding: 1.1rem;">
+        <div style="display:flex; gap: 12px; align-items:center; margin-bottom: 10px;">
+          <img
+            src="{{ $avatarFallback }}"
+            alt="Testimonial avatar"
+            style="width:46px; height:46px; border-radius:999px; object-fit:cover; border:1px solid var(--color-border-lighter);"
+            loading="lazy"
+          >
+          <div>
+            <div style="font-weight: 800; line-height:1.1;">Amelia R.</div>
+            <div style="opacity:.82; font-size:.95rem;">Student • Cutting</div>
+          </div>
+        </div>
+
+        <div style="opacity:.95; margin-bottom: 10px;">
+          <span style="letter-spacing:.5px;">★★★★★</span>
+        </div>
+
+        <p style="margin:0; opacity:.9;">
+          “The weekly structure is the best part. I’m not guessing meals anymore — I just follow it and stay on track.”
+        </p>
+      </div>
+
+      {{-- Testimonial 2 --}}
+      <div class="card" style="border-radius: 22px; padding: 1.1rem;">
+        <div style="display:flex; gap: 12px; align-items:center; margin-bottom: 10px;">
+          <img
+            src="{{ $avatarFallback }}"
+            alt="Testimonial avatar"
+            style="width:46px; height:46px; border-radius:999px; object-fit:cover; border:1px solid var(--color-border-lighter);"
+            loading="lazy"
+          >
+          <div>
+            <div style="font-weight: 800; line-height:1.1;">Jordan K.</div>
+            <div style="opacity:.82; font-size:.95rem;">Gym-goer • Lean bulk</div>
+          </div>
+        </div>
+
+        <div style="opacity:.95; margin-bottom: 10px;">
+          <span style="letter-spacing:.5px;">★★★★★</span>
+        </div>
+
+        <p style="margin:0; opacity:.9;">
+          “Prep is quick and the portions are consistent. It’s made it way easier to hit macros without overthinking.”
+        </p>
+      </div>
+
+      {{-- Testimonial 3 --}}
+      <div class="card" style="border-radius: 22px; padding: 1.1rem;">
+        <div style="display:flex; gap: 12px; align-items:center; margin-bottom: 10px;">
+          <img
+            src="{{ $avatarFallback }}"
+            alt="Testimonial avatar"
+            style="width:46px; height:46px; border-radius:999px; object-fit:cover; border:1px solid var(--color-border-lighter);"
+            loading="lazy"
+          >
+          <div>
+            <div style="font-weight: 800; line-height:1.1;">Sana M.</div>
+            <div style="opacity:.82; font-size:.95rem;">Busy schedule • Maintenance</div>
+          </div>
+        </div>
+
+        <div style="opacity:.95; margin-bottom: 10px;">
+          <span style="letter-spacing:.5px;">★★★★☆</span>
+        </div>
+
+        <p style="margin:0; opacity:.9;">
+          “The plans fit around my week. It feels organised, clean, and realistic — especially when time is tight.”
+        </p>
+      </div>
+
+    </div>
+
+    <div class="reveal" style="margin-top: 14px; display:flex; gap:10px; flex-wrap:wrap;">
+      <a href="{{ route('store') }}" class="primary-cta">Browse plans</a>
+      <a href="{{ route('store') }}" class="pill-link">See all reviews →</a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  @media (max-width: 980px){
+    .pp-test-grid{
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>
+
   {{-- =========================
       FEATURED PRODUCTS
      ========================= --}}
@@ -319,24 +442,27 @@
         align-items: start;
       " class="home-faq-grid">
 
-        <div class="card reveal">
-  <h2 style="text-align:left; margin-top:0;">We’ve doubled your weekly choice</h2>
-  <p style="text-align:left; margin-left:0;">
-    Explore new recipes, repeat favourites, and stay on track with a plan that fits your routine.
+        <div class="card reveal pp-faq-card">
+
+  <h2 class="pp-faq-title" style="text-align:left; margin-top:0;">FAQs</h2>
+  <p class="pp-faq-sub" style="text-align:left; margin-left:0;">
+    Quick answers to the most common questions — built for busy schedules and simple plan switching.
   </p>
 
   <div class="pp-faq">
-    <details class="pp-qa" open>
-      <summary class="pp-q">
+
+    <details class="pp-faq-item">
+      <summary class="pp-faq-q">
         <span>How long do the meals take?</span>
-        <span class="pp-chevron" aria-hidden="true">⌄</span>
+        <span class="pp-faq-icon" aria-hidden="true">⌄</span>
       </summary>
 
-      <div class="pp-a">
+      <div class="pp-faq-a">
         <p>
           Most plans are built for busy schedules — simple steps, repeatable ingredients,
           and portion-friendly meals that keep prep smooth and stress low.
         </p>
+
         <ul>
           <li><strong>Typical:</strong> 20–40 minutes (cook + portion)</li>
           <li><strong>Quick options:</strong> 10–20 minutes on hectic days</li>
@@ -346,29 +472,32 @@
       </div>
     </details>
 
-    <details class="pp-qa">
-      <summary class="pp-q">
+    <details class="pp-faq-item">
+      <summary class="pp-faq-q">
         <span>Can I switch plans later?</span>
-        <span class="pp-chevron" aria-hidden="true">⌄</span>
+        <span class="pp-faq-icon" aria-hidden="true">⌄</span>
       </summary>
 
-      <div class="pp-a">
+      <div class="pp-faq-a">
         <p>
-          Yes — you can swap goals anytime (fat loss ↔ muscle ↔ maintenance) and your plan will still
-          stay structured week-to-week.
+          Yes — you can swap goals anytime (fat loss ↔ muscle ↔ maintenance) while keeping the same
+          weekly structure so it stays consistent.
         </p>
+
         <ul>
-          <li>Change goals whenever your routine changes</li>
-          <li>Keep the same “weekly structure” (so it stays consistent)</li>
-          <li>No hassle — pick a new plan and continue</li>
+          <li>Switch whenever your routine changes</li>
+          <li>Keep the same weekly structure (so it stays simple)</li>
+          <li>Choose a new plan and continue</li>
         </ul>
       </div>
     </details>
+
   </div>
 
   <div style="margin-top: 16px;">
     <a href="{{ route('store') }}" class="primary-cta">Learn more</a>
   </div>
+
 </div>
 
         <div class="card reveal">
