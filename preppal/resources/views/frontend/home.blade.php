@@ -246,127 +246,205 @@
   </section>
 
 {{-- =========================
-    TESTIMONIALS
+    TESTIMONIALS (Auto Carousel + Arrows)
    ========================= --}}
-<section class="main-content" style="padding-top: 1rem; text-align:left;">
+<section class="main-content pp-testimonials">
   <div class="container">
 
-    <div class="reveal" style="
-      display:flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 12px;
-    ">
-      <div>
-        <h2 style="text-align:left; margin-bottom: 6px;">What people are saying</h2>
-        <p style="text-align:left; margin:0; max-width: 70ch;">
-          Real feedback from students and gym-goers using PrepPal to stay consistent, save time, and hit their goals.
-        </p>
-      </div>
-      <span class="pill pill-soft">★ 4.8 average rating</span>
+    <div class="pp-t-head reveal">
+      <h2 class="pp-t-title">TESTIMONIALS</h2>
+      <div class="pp-t-underline" aria-hidden="true"></div>
+      <p class="pp-t-sub">
+        Real feedback from students and gym-goers using PrepPal to stay consistent.
+      </p>
     </div>
 
-    <div class="reveal pp-test-grid" style="
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1.1rem;
-    ">
+    @php
+      // ✅ Put these files in: public/images/testimonials/
+      // Example: public/images/testimonials/michael.jpg
+      $testimonials = [
+        [
+          'name' => 'Michael Brown',
+          'role' => 'Student • Cutting',
+          'stars' => 5,
+          'quote' => '“Fantastic meal structure. Quick, repeatable, and makes staying consistent much easier.”',
+          'img' => asset('images/testimonials/michael.jpg'),
+        ],
+        [
+          'name' => 'Emily Harris',
+          'role' => 'Gym-goer • Lean bulk',
+          'stars' => 5,
+          'quote' => '“The portions and macros feel spot-on. Prep is simple and the week feels organised.”',
+          'img' => asset('images/testimonials/emily.jpg'),
+        ],
+        [
+          'name' => 'Anthony Thompson',
+          'role' => 'Busy schedule • Maintenance',
+          'stars' => 5,
+          'quote' => '“Best part is not thinking about meals. I just follow the plan and it works.”',
+          'img' => asset('images/testimonials/anthony.jpg'),
+        ],
+        [
+          'name' => 'Sofia K.',
+          'role' => 'Student • High protein',
+          'stars' => 5,
+          'quote' => '“Saves time and money. The structure keeps me on track without feeling restrictive.”',
+          'img' => asset('images/testimonials/sofia.jpg'),
+        ],
+        [
+          'name' => 'Jay P.',
+          'role' => 'Gym-goer • Fat loss',
+          'stars' => 4,
+          'quote' => '“Easy ordering, clean layout, and realistic meals for busy weeks.”',
+          'img' => asset('images/testimonials/jay.jpg'),
+        ],
+        [
+          'name' => 'Amina R.',
+          'role' => 'Student • Maintenance',
+          'stars' => 5,
+          'quote' => '“No guesswork. I track progress and stay consistent week after week.”',
+          'img' => asset('images/testimonials/amina.jpg'),
+        ],
+      ];
+    @endphp
 
-      @php
-        $avatarFallback = asset('images/banner_hero.png');
-      @endphp
+    <div class="pp-t-wrap reveal" id="ppTestimonials">
 
-      {{-- Testimonial 1 --}}
-      <div class="card" style="border-radius: 22px; padding: 1.1rem;">
-        <div style="display:flex; gap: 12px; align-items:center; margin-bottom: 10px;">
-          <img
-            src="{{ $avatarFallback }}"
-            alt="Testimonial avatar"
-            style="width:46px; height:46px; border-radius:999px; object-fit:cover; border:1px solid var(--color-border-lighter);"
-            loading="lazy"
-          >
-          <div>
-            <div style="font-weight: 800; line-height:1.1;">Amelia R.</div>
-            <div style="opacity:.82; font-size:.95rem;">Student • Cutting</div>
-          </div>
+      <button class="pp-t-arrow pp-t-prev" type="button" aria-label="Previous">
+        ‹
+      </button>
+
+      <div class="pp-t-viewport" aria-roledescription="carousel">
+        <div class="pp-t-track" id="ppTestTrack">
+          @foreach($testimonials as $t)
+            <article class="pp-t-card">
+              <img
+                src="{{ $t['img'] }}"
+                alt="{{ $t['name'] }}"
+                class="pp-t-avatar"
+                loading="lazy"
+                onerror="this.onerror=null; this.src='{{ asset('images/banner_hero.png') }}';"
+              />
+
+              <h3 class="pp-t-name">{{ $t['name'] }}</h3>
+
+              <div class="pp-t-stars" aria-label="{{ $t['stars'] }} star rating">
+                {{ str_repeat('★', $t['stars']) }}{{ str_repeat('☆', 5 - $t['stars']) }}
+              </div>
+
+              <p class="pp-t-quote">{{ $t['quote'] }}</p>
+              <div class="pp-t-role">{{ $t['role'] }}</div>
+            </article>
+          @endforeach
         </div>
-
-        <div style="opacity:.95; margin-bottom: 10px;">
-          <span style="letter-spacing:.5px;">★★★★★</span>
-        </div>
-
-        <p style="margin:0; opacity:.9;">
-          “The weekly structure is the best part. I’m not guessing meals anymore — I just follow it and stay on track.”
-        </p>
       </div>
 
-      {{-- Testimonial 2 --}}
-      <div class="card" style="border-radius: 22px; padding: 1.1rem;">
-        <div style="display:flex; gap: 12px; align-items:center; margin-bottom: 10px;">
-          <img
-            src="{{ $avatarFallback }}"
-            alt="Testimonial avatar"
-            style="width:46px; height:46px; border-radius:999px; object-fit:cover; border:1px solid var(--color-border-lighter);"
-            loading="lazy"
-          >
-          <div>
-            <div style="font-weight: 800; line-height:1.1;">Jordan K.</div>
-            <div style="opacity:.82; font-size:.95rem;">Gym-goer • Lean bulk</div>
-          </div>
-        </div>
-
-        <div style="opacity:.95; margin-bottom: 10px;">
-          <span style="letter-spacing:.5px;">★★★★★</span>
-        </div>
-
-        <p style="margin:0; opacity:.9;">
-          “Prep is quick and the portions are consistent. It’s made it way easier to hit macros without overthinking.”
-        </p>
-      </div>
-
-      {{-- Testimonial 3 --}}
-      <div class="card" style="border-radius: 22px; padding: 1.1rem;">
-        <div style="display:flex; gap: 12px; align-items:center; margin-bottom: 10px;">
-          <img
-            src="{{ $avatarFallback }}"
-            alt="Testimonial avatar"
-            style="width:46px; height:46px; border-radius:999px; object-fit:cover; border:1px solid var(--color-border-lighter);"
-            loading="lazy"
-          >
-          <div>
-            <div style="font-weight: 800; line-height:1.1;">Sana M.</div>
-            <div style="opacity:.82; font-size:.95rem;">Busy schedule • Maintenance</div>
-          </div>
-        </div>
-
-        <div style="opacity:.95; margin-bottom: 10px;">
-          <span style="letter-spacing:.5px;">★★★★☆</span>
-        </div>
-
-        <p style="margin:0; opacity:.9;">
-          “The plans fit around my week. It feels organised, clean, and realistic — especially when time is tight.”
-        </p>
-      </div>
-
+      <button class="pp-t-arrow pp-t-next" type="button" aria-label="Next">
+        ›
+      </button>
     </div>
 
-    <div class="reveal" style="margin-top: 14px; display:flex; gap:10px; flex-wrap:wrap;">
-      <a href="{{ route('store') }}" class="primary-cta">Browse plans</a>
-      <a href="{{ route('store') }}" class="pill-link">See all reviews →</a>
-    </div>
+    <div class="pp-t-dots reveal" id="ppTestDots" aria-hidden="true"></div>
 
   </div>
 </section>
 
-<style>
-  @media (max-width: 980px){
-    .pp-test-grid{
-      grid-template-columns: 1fr !important;
+<script>
+  // Testimonials auto-carousel
+  (function(){
+    const root = document.getElementById('ppTestimonials');
+    const track = document.getElementById('ppTestTrack');
+    const dotsWrap = document.getElementById('ppTestDots');
+    if(!root || !track) return;
+
+    const prevBtn = root.querySelector('.pp-t-prev');
+    const nextBtn = root.querySelector('.pp-t-next');
+
+    const GAP = 18;           // must match CSS gap
+    const INTERVAL = 4500;    // auto swap speed
+    let index = 0;
+    let timer = null;
+    let paused = false;
+
+    function perView(){
+      return window.matchMedia('(max-width: 980px)').matches ? 1 : 3;
     }
-  }
-</style>
+
+    function maxStart(){
+      const total = track.children.length;
+      return Math.max(0, total - perView());
+    }
+
+    function stepPx(){
+      const viewport = track.parentElement; // .pp-t-viewport
+      const w = viewport.clientWidth;
+      const per = perView();
+      return (w - GAP * (per - 1)) / per + GAP;
+    }
+
+    function clamp(){
+      const m = maxStart();
+      if(index > m) index = 0;
+      if(index < 0) index = m;
+    }
+
+    function buildDots(){
+      if(!dotsWrap) return;
+      dotsWrap.innerHTML = '';
+      const total = track.children.length;
+      const pages = Math.max(1, Math.ceil(total / perView()));
+      for(let i=0;i<pages;i++){
+        const d = document.createElement('span');
+        d.className = 'pp-t-dot' + (i === 0 ? ' is-on' : '');
+        dotsWrap.appendChild(d);
+      }
+    }
+
+    function setDots(){
+      if(!dotsWrap) return;
+      const dots = dotsWrap.querySelectorAll('.pp-t-dot');
+      const activePage = Math.floor(index / perView());
+      dots.forEach((d,i) => d.classList.toggle('is-on', i === activePage));
+    }
+
+    function render(){
+      clamp();
+      track.style.transform = `translateX(${-index * stepPx()}px)`;
+      setDots();
+    }
+
+    function go(dir){
+      index += (dir === 'prev' ? -perView() : perView());
+      render();
+    }
+
+    function start(){
+      stop();
+      timer = setInterval(() => { if(!paused) go('next'); }, INTERVAL);
+    }
+
+    function stop(){
+      if(timer) clearInterval(timer);
+      timer = null;
+    }
+
+    prevBtn && prevBtn.addEventListener('click', () => { go('prev'); start(); });
+    nextBtn && nextBtn.addEventListener('click', () => { go('next'); start(); });
+
+    root.addEventListener('mouseenter', () => paused = true);
+    root.addEventListener('mouseleave', () => paused = false);
+    root.addEventListener('focusin', () => paused = true);
+    root.addEventListener('focusout', () => paused = false);
+
+    window.addEventListener('resize', () => { buildDots(); render(); });
+
+    buildDots();
+    render();
+
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(!prefersReduced) start();
+  })();
+</script>
 
   {{-- =========================
       FEATURED PRODUCTS
