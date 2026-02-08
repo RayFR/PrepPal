@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (data.success) {
       Cart.clear();
       alert('Order placed successfully!');
-      window.location.href = '/orders';
+      window.location.href = '/store';
     } else {
       alert('Something went wrong placing your order.');
     }
