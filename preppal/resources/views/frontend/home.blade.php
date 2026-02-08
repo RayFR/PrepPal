@@ -65,7 +65,7 @@
 
           <div class="hero-actions" style="justify-content:flex-start;">
             <a href="{{ route('store') }}" class="primary-cta">Browse plans</a>
-            <a href="{{ url('/calorie-planner') }}" class="hero-secondary">Use calorie planner</a>
+            <a href="{{ route('calculator') }}" class="hero-secondary">Use calorie planner</a>
           </div>
 
           {{-- Quick trust row --}}
@@ -320,29 +320,56 @@
       " class="home-faq-grid">
 
         <div class="card reveal">
-          <h2 style="text-align:left; margin-top:0;">We’ve doubled your weekly choice</h2>
-          <p style="text-align:left; margin-left:0;">
-            Explore new recipes, repeat favourites, and stay on track with a plan that fits your routine.
-          </p>
+  <h2 style="text-align:left; margin-top:0;">We’ve doubled your weekly choice</h2>
+  <p style="text-align:left; margin-left:0;">
+    Explore new recipes, repeat favourites, and stay on track with a plan that fits your routine.
+  </p>
 
-          <details style="margin-top: 14px;">
-            <summary style="cursor:pointer; font-weight: 700;">How long do the meals take?</summary>
-            <p style="margin: 10px 0 0; opacity:.9;">
-              Most plans are built for real schedules — quick prep, repeatable portions, minimal stress.
-            </p>
-          </details>
+  <div class="pp-faq">
+    <details class="pp-qa" open>
+      <summary class="pp-q">
+        <span>How long do the meals take?</span>
+        <span class="pp-chevron" aria-hidden="true">⌄</span>
+      </summary>
 
-          <details style="margin-top: 12px;">
-            <summary style="cursor:pointer; font-weight: 700;">Can I switch plans later?</summary>
-            <p style="margin: 10px 0 0; opacity:.9;">
-              Yes — you can swap goals (fat loss ↔ muscle ↔ maintenance) whenever you want.
-            </p>
-          </details>
+      <div class="pp-a">
+        <p>
+          Most plans are built for busy schedules — simple steps, repeatable ingredients,
+          and portion-friendly meals that keep prep smooth and stress low.
+        </p>
+        <ul>
+          <li><strong>Typical:</strong> 20–40 minutes (cook + portion)</li>
+          <li><strong>Quick options:</strong> 10–20 minutes on hectic days</li>
+          <li><strong>Batch prep:</strong> 60–90 minutes for 2–4 meals</li>
+          <li><strong>Time-savers:</strong> fewer pans, easy reheat, repeat ingredients</li>
+        </ul>
+      </div>
+    </details>
 
-          <div style="margin-top: 16px;">
-            <a href="{{ route('store') }}" class="primary-cta">Learn more</a>
-          </div>
-        </div>
+    <details class="pp-qa">
+      <summary class="pp-q">
+        <span>Can I switch plans later?</span>
+        <span class="pp-chevron" aria-hidden="true">⌄</span>
+      </summary>
+
+      <div class="pp-a">
+        <p>
+          Yes — you can swap goals anytime (fat loss ↔ muscle ↔ maintenance) and your plan will still
+          stay structured week-to-week.
+        </p>
+        <ul>
+          <li>Change goals whenever your routine changes</li>
+          <li>Keep the same “weekly structure” (so it stays consistent)</li>
+          <li>No hassle — pick a new plan and continue</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+
+  <div style="margin-top: 16px;">
+    <a href="{{ route('store') }}" class="primary-cta">Learn more</a>
+  </div>
+</div>
 
         <div class="card reveal">
           <h2 style="text-align:left; margin-top:0;">Why students & gym-goers use PrepPal</h2>

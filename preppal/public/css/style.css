@@ -2619,3 +2619,67 @@ body[data-theme="dark"] .store-filters select option:checked{
   }
 }
 
+/* FAQ styling (neat + structured) */
+.pp-faq{
+  margin-top: 14px;
+  display: grid;
+  gap: 12px;
+}
+
+.pp-qa{
+  border: 1px solid var(--color-border-lighter);
+  border-radius: 16px;
+  background: rgba(255,255,255,0.03);
+  overflow: hidden;
+}
+
+.pp-q{
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 14px;
+  font-weight: 800;
+}
+
+.pp-qa summary::-webkit-details-marker{ display:none; }
+
+.pp-chevron{
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--color-border-lighter);
+  background: rgba(0,0,0,0.14);
+  transform: rotate(0deg);
+  transition: transform .22s ease;
+}
+
+.pp-qa[open] .pp-chevron{
+  transform: rotate(180deg);
+}
+
+.pp-a{
+  padding: 0 14px 14px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.pp-a p{
+  margin: 12px 0 10px;
+  opacity: .92;
+}
+
+.pp-a ul{
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 6px;
+  opacity: .9;
+}
+
+.pp-qa:hover{
+  background: rgba(255,255,255,0.05);
+}
