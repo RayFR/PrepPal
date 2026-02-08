@@ -1,65 +1,54 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\HomeController;
 
+use App\Http\Controllers\CartController;
 
 
-use App\Models\Product;
 
-
+// HOME (public)
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+// CONTACT (public)
+Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
-// calc page
-Route::get('/calculator', function () {
-    return view('frontend.calculator');
-})
-->middleware('auth')
-->name('calculator');
+// AUTH (public)
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
 
-// store page
-Route::get('/store', [ProductController::class, 'index'])->name('store');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
 
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+// PROTECTED PAGES (must be logged in)
 Route::middleware('auth')->group(function () {
+
+    // STORE + PRODUCT PAGES
+    Route::get('/store', [ProductController::class, 'index'])->name('store');
+    Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
+
+    // CALCULATOR
+    Route::get('/calculator', function () {
+        return view('frontend.calculator');
+    })->name('calculator');
+
+    // CHECKOUT
+    Route::get('/checkout', function () {
+        return view('frontend.checkout');
+    })->name('checkout');
+
+    Route::post('/checkout', [CheckoutController::class, 'store']);
+
+    // CART (only keep if you actually have CartController)
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
     Route::patch('/cart/{cartItem}', [CartController::class, 'update'])->name('cart.update');
     Route::delete('/cart/{cartItem}', [CartController::class, 'destroy'])->name('cart.delete');
 });
-
-// contact page (correct controller version)
-Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
-Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
-
-// checkout page
-Route::get('/checkout', function () {
-    return view('frontend.checkout');
-})
-->middleware('auth')
-->name('checkout');
-
-Route::post('/checkout', [CheckoutController::class, 'store'])
-->middleware('auth');
-
-// Auth pages
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
-
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-Route::post('/register', [AuthController::class, 'register'])->name('register');
-Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
-
-Route::get('/product/{id}', [ProductController::class, 'show'])
-    ->middleware('auth')
-    ->name('product.show');
-
-
-
-

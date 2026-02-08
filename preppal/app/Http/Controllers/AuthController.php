@@ -25,12 +25,15 @@ class AuthController extends Controller
 
         if (Auth::attempt($data)) {
             $request->session()->regenerate();
-            return redirect()->route('home');
+
+            // ✅ send user back to the page they originally wanted (e.g. /store)
+            // fallback: store
+            return redirect()->intended(route('store'));
         }
 
         return back()->withErrors([
             'email' => 'Invalid login details'
-        ]);
+        ])->withInput();
     }
 
     // Handle registration request
@@ -43,19 +46,19 @@ class AuthController extends Controller
         ]);
 
         $user = User::create([
-            'name' => $data['name'], // ✅ maps form "name" → DB "username"
-            'username' => $data['name'], // ✅ maps form "name" → DB "username"
+            'name' => $data['name'],
+            'username' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
 
         Auth::login($user);
 
-        return redirect()->route('home');
+        // ✅ same behavior for sign up: go to intended URL, fallback store
+        return redirect()->intended(route('store'));
     }
 
-
-    // this function shows the dashboard page views
+    // Dashboard view
     public function dashboard()
     {
         return view('frontend.dashboard');
@@ -69,6 +72,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/login');
+        return redirect()->route('login');
     }
 }
