@@ -752,6 +752,13 @@ body {
   gap: 0.35rem;
 }
 
+/* Make the custom property animatable (smooth ring fill) */
+@property --progress {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
 .ring-graphic {
   --progress: 0deg;
   width: 120px;
@@ -763,7 +770,15 @@ body {
   background:
     radial-gradient(var(--color-bg-white) 60%, transparent 61%),
     conic-gradient(var(--color-primary) var(--progress), #ffe0b2 0deg 360deg);
+
+
+  /* smooth fill animation */
+  transition: --progress 1.2s cubic-bezier(.2,.8,.2,1);
+
+  /* optional glow */
+  filter: drop-shadow(0 0 10px rgba(255, 122, 0, 0.35));
 }
+
 
 .ring-inner {
   width: 75%;
@@ -2835,4 +2850,941 @@ body[data-theme="dark"] .store-filters select option:checked{
   .pp-t-wrap{ grid-template-columns: 44px 1fr 44px; }
   .pp-t-arrow{ width: 44px; height: 44px; font-size: 1.8rem; }
   .pp-t-card{ flex: 0 0 100%; min-height: 300px; }
+}
+
+/* ===========================
+   MFP-STYLE CALCULATOR THEME
+   Paste at END of style.css
+=========================== */
+
+.mfp{
+  max-width: 1100px;
+}
+
+.mfp-header{
+  display:flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.mfp-title{
+  margin: 0;
+  font-size: 1.6rem;
+  letter-spacing: 0.2px;
+}
+
+.mfp-subtitle{
+  margin: .35rem 0 0;
+  color: var(--color-text-subtle);
+  max-width: 60ch;
+}
+
+.mfp-badges{
+  display:flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.mfp-badge{
+  font-size: .82rem;
+  padding: .35rem .6rem;
+  border-radius: 999px;
+  background: rgba(0,0,0,.05);
+  border: 1px solid rgba(0,0,0,.08);
+}
+
+.mfp-layout{
+  display:grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+@media (max-width: 980px){
+  .mfp-header{ flex-direction: column; }
+  .mfp-badges{ justify-content: flex-start; }
+  .mfp-layout{ grid-template-columns: 1fr; }
+}
+
+.mfp-card{
+  background: var(--color-bg-white);
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 18px;
+  box-shadow: 0 12px 26px rgba(0,0,0,.08);
+  overflow: hidden;
+}
+
+.mfp-card-header{
+  padding: 1rem 1rem .75rem;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+
+.mfp-card-header h2{
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.mfp-card-header p{
+  margin: .35rem 0 0;
+  color: var(--color-text-subtle);
+  font-size: .92rem;
+}
+
+.mfp-results-header{
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.mfp-status{
+  font-size: .82rem;
+  padding: .35rem .6rem;
+  border-radius: 999px;
+  background: rgba(255, 122, 0, 0.10);
+  border: 1px solid rgba(255, 122, 0, 0.25);
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.mfp-form{
+  padding: 1rem;
+}
+
+.mfp-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .85rem;
+}
+
+@media (max-width: 620px){
+  .mfp-grid{ grid-template-columns: 1fr; }
+}
+
+.mfp-field label{
+  display:block;
+  font-weight: 700;
+  font-size: .92rem;
+  margin-bottom: .35rem;
+}
+
+.mfp-field input,
+.mfp-field select{
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,.12);
+  padding: .8rem .85rem;
+  background: var(--color-bg-white);
+  transition: box-shadow .15s ease, border-color .15s ease;
+}
+
+.mfp-field input:focus,
+.mfp-field select:focus{
+  outline:none;
+  border-color: rgba(255, 122, 0, 0.55);
+  box-shadow: 0 0 0 4px rgba(255, 122, 0, 0.14);
+}
+
+.mfp-inline{
+  position: relative;
+}
+
+.mfp-unit{
+  position:absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: 700;
+  color: var(--color-text-subtle);
+  font-size: .85rem;
+  opacity: .8;
+}
+
+.mfp-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width: 100%;
+  border-radius: 14px;
+  padding: .85rem 1rem;
+  font-weight: 800;
+  text-decoration: none;
+  border: 1px solid rgba(0,0,0,.12);
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+
+.mfp-btn--primary{
+  background: var(--color-primary);
+  color: #fff;
+  border-color: rgba(255,122,0,.4);
+  box-shadow: 0 12px 22px rgba(255, 122, 0, .18);
+  margin-top: .95rem;
+}
+
+.mfp-btn--primary:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 16px 26px rgba(255, 122, 0, .22);
+}
+
+.mfp-btn--ghost{
+  background: rgba(0,0,0,.02);
+  margin-top: .8rem;
+}
+
+.mfp-help{
+  margin-top: .85rem;
+  padding: .85rem 1rem;
+  border-radius: 14px;
+  background: rgba(0,0,0,.03);
+  border: 1px solid rgba(0,0,0,.06);
+  color: var(--color-text-subtle);
+  font-size: .9rem;
+}
+
+.mfp-results{
+  padding: 1rem;
+}
+
+/* KPI + ring section */
+.mfp-ring-wrap{
+  display:flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.mfp-ring{
+  width: 120px;
+  height: 120px;
+}
+
+.mfp-ring-note{
+  min-width: 0;
+}
+
+.mfp-ring-title{
+  font-weight: 900;
+  font-size: 1rem;
+}
+
+.mfp-ring-sub{
+  margin-top: .25rem;
+  color: var(--color-text-subtle);
+  font-size: .9rem;
+}
+
+/* Macros */
+.mfp-macros{
+  display:grid;
+  gap: .85rem;
+  margin-top: 1rem;
+}
+
+.mfp-macro{
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 16px;
+  padding: .85rem .9rem;
+  background: rgba(0,0,0,.02);
+}
+
+.mfp-macro--total{
+  background: rgba(255,122,0,.06);
+  border-color: rgba(255,122,0,.20);
+}
+
+.mfp-macro-top{
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: .55rem;
+}
+
+.mfp-macro-top span{
+  font-weight: 800;
+}
+
+.mfp-macro-top strong{
+  font-size: 1.05rem;
+}
+
+.mfp-bar{
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(0,0,0,.08);
+  overflow:hidden;
+}
+
+.mfp-fill{
+  display:block;
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: var(--color-primary);
+  transition: width .5s ease;
+}
+
+.mfp-mini-note{
+  margin-top: .55rem;
+  color: var(--color-text-subtle);
+  font-size: .88rem;
+}
+
+.mfp-divider{
+  height: 1px;
+  background: rgba(0,0,0,.08);
+  margin: 1rem 0;
+}
+
+/* Plan */
+.mfp-plan-title{
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.mfp-plan-text{
+  margin: .35rem 0 0;
+  color: var(--color-text-subtle);
+}
+
+.mfp-plan-head{
+  display:flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: start;
+}
+
+.mfp-pill{
+  font-size: .82rem;
+  padding: .35rem .6rem;
+  border-radius: 999px;
+  background: rgba(0,0,0,.05);
+  border: 1px solid rgba(0,0,0,.08);
+  white-space: nowrap;
+}
+
+.mfp-plan-card{
+  display:flex;
+  gap: .9rem;
+  align-items: center;
+  margin-top: .85rem;
+  padding: .85rem;
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,.08);
+  background: #fff;
+}
+
+.mfp-plan-img{
+  width: 76px;
+  height: 76px;
+  border-radius: 14px;
+  object-fit: cover;
+  border: 1px solid rgba(0,0,0,.08);
+}
+
+.mfp-plan-price{
+  font-weight: 900;
+  font-size: 1.1rem;
+}
+
+.mfp-plan-meta{
+  margin-top: .25rem;
+  color: var(--color-text-subtle);
+  font-size: .9rem;
+}
+
+.mfp-footnote{
+  margin-top: .85rem;
+  padding: .85rem 1rem;
+  border-radius: 14px;
+  background: rgba(0,0,0,.03);
+  border: 1px solid rgba(0,0,0,.06);
+  color: var(--color-text-subtle);
+  font-size: .9rem;
+}
+
+/* Dark mode tweaks (keeps it tidy) */
+body[data-theme="dark"] .mfp-card{
+  background: rgba(15, 23, 42, 0.85);
+  border-color: rgba(255,255,255,.10);
+  box-shadow: 0 16px 28px rgba(0,0,0,.45);
+}
+
+body[data-theme="dark"] .mfp-card-header{
+  border-bottom-color: rgba(255,255,255,.08);
+}
+
+body[data-theme="dark"] .mfp-badge,
+body[data-theme="dark"] .mfp-pill{
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.10);
+}
+
+body[data-theme="dark"] .mfp-field input,
+body[data-theme="dark"] .mfp-field select{
+  background: rgba(2, 6, 23, 0.55);
+  border-color: rgba(255,255,255,.10);
+}
+
+body[data-theme="dark"] .mfp-help,
+body[data-theme="dark"] .mfp-footnote,
+body[data-theme="dark"] .mfp-macro{
+  background: rgba(255,255,255,.05);
+  border-color: rgba(255,255,255,.08);
+}
+
+body[data-theme="dark"] .mfp-plan-card{
+  background: rgba(2, 6, 23, 0.35);
+  border-color: rgba(255,255,255,.10);
+}
+
+body[data-theme="dark"] .mfp-divider{
+  background: rgba(255,255,255,.10);
+}
+
+/* Calculator recommended plan button (clean + premium) */
+.reco-btn{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .6rem;
+  padding: 0.95rem 1rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 122, 0, 0.35);
+  background: linear-gradient(180deg, rgba(255, 122, 0, 1), rgba(255, 145, 0, 1));
+  color: #fff;
+  font-weight: 900;
+  letter-spacing: .2px;
+  cursor: pointer;
+  box-shadow: 0 14px 26px rgba(255, 122, 0, 0.18);
+  transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+}
+
+.reco-btn__icon{
+  display: inline-flex;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: rgba(0,0,0,.18);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.25);
+}
+
+.reco-btn__text{
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.reco-btn__sub{
+  font-size: .9rem;
+  font-weight: 800;
+  opacity: .9;
+}
+
+.reco-btn:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 18px 32px rgba(255, 122, 0, 0.22);
+  filter: brightness(1.02);
+}
+
+.reco-btn:active{
+  transform: translateY(0px);
+  box-shadow: 0 12px 22px rgba(255, 122, 0, 0.18);
+}
+
+body[data-theme="dark"] .reco-btn{
+  border-color: rgba(251,191,36,.35);
+  box-shadow: 0 18px 34px rgba(0,0,0,.45);
+}
+
+/* ===========================
+   Calculator CTA polish
+=========================== */
+
+/* CTA: nicer spacing, glow, hover lift, and subtle sheen */
+.reco-btn{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .85rem;                 /* more breathing space */
+  padding: 1.05rem 1.2rem;     /* slightly taller */
+  border-radius: 18px;
+
+  /* glow + depth */
+  box-shadow:
+    0 16px 30px rgba(255, 122, 0, 0.20),
+    0 0 0 1px rgba(255, 255, 255, 0.10) inset;
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0);
+  transition: transform .14s ease, box-shadow .14s ease, filter .14s ease;
+}
+
+/* subtle moving sheen across the button */
+.reco-btn::after{
+  content:"";
+  position:absolute;
+  inset:-40%;
+  background: linear-gradient(90deg,
+    transparent 35%,
+    rgba(255,255,255,0.22) 50%,
+    transparent 65%
+  );
+  transform: rotate(16deg) translateX(-60%);
+  transition: transform .6s ease;
+  pointer-events:none;
+  opacity: .9;
+}
+
+.reco-btn:hover{
+  transform: translateY(-2px);
+  filter: brightness(1.03);
+  box-shadow:
+    0 22px 40px rgba(255, 122, 0, 0.26),
+    0 0 28px rgba(255, 122, 0, 0.18),
+    0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+}
+
+.reco-btn:hover::after{
+  transform: rotate(16deg) translateX(55%);
+}
+
+.reco-btn:active{
+  transform: translateY(0px);
+  box-shadow:
+    0 14px 26px rgba(255, 122, 0, 0.18),
+    0 0 0 1px rgba(255, 255, 255, 0.10) inset;
+}
+
+/* icon badge: cleaner and more “app” */
+.reco-btn__icon{
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.18);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.22),
+    0 10px 18px rgba(0,0,0,0.18);
+  font-size: 1.05rem;
+}
+
+/* text: better hierarchy and spacing */
+.reco-btn__text{
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: 0.2px;
+  line-height: 1;
+}
+
+.reco-btn__sub{
+  font-size: .95rem;
+  font-weight: 800;
+  opacity: 0.92;
+  line-height: 1;
+  margin-left: .15rem; /* tiny spacing so it doesn’t feel cramped */
+}
+
+/* On small screens, keep it tidy */
+@media (max-width: 520px){
+  .reco-btn{
+    flex-wrap: wrap;
+    gap: .55rem;
+    padding: .95rem 1rem;
+  }
+  .reco-btn__sub{
+    margin-left: 0;
+  }
+}
+
+/* ===========================
+   Note box readability upgrade
+=========================== */
+
+.mfp-footnote{
+  margin-top: 1rem;
+  border-radius: 16px;
+  padding: 0.95rem 1rem;
+  border: 1px solid rgba(255, 122, 0, 0.18);
+  background: rgba(255, 122, 0, 0.08); /* warm tint so it pops */
+  color: rgba(255,255,255,0.88);
+  line-height: 1.6;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.18);
+  position: relative;
+  overflow: hidden;
+}
+
+/* left accent + icon feel */
+.mfp-footnote::before{
+  content:"";
+  position:absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, rgba(255,122,0,0.9), rgba(251,191,36,0.8));
+  opacity: .9;
+}
+
+.mfp-footnote strong{
+  color: rgba(255,255,255,0.98);
+}
+
+/* Dark mode: make it even clearer */
+body[data-theme="dark"] .mfp-footnote{
+  background: rgba(255, 122, 0, 0.10);
+  border-color: rgba(251, 191, 36, 0.22);
+  color: rgba(255,255,255,0.90);
+}
+
+/* --- CTA spacing fix + label styling --- */
+.reco-btn{
+  justify-content: center;          /* override any base button justify */
+  text-align: center;
+}
+
+.reco-btn__label{
+  display: inline-flex;
+  align-items: baseline;
+  gap: .45rem;                      /* controlled spacing between words */
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: .2px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.reco-btn__muted{
+  font-size: .95rem;
+  font-weight: 800;
+  opacity: .92;
+}
+
+/* Mobile: allow wrapping if needed */
+@media (max-width: 420px){
+  .reco-btn__label{
+    white-space: normal;
+    line-height: 1.15;
+  }
+}
+
+/* ===========================
+   Cart toast + animations
+=========================== */
+
+#toastContainer{
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  display: grid;
+  gap: 10px;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.toast{
+  pointer-events: none;
+  background: rgba(15, 23, 42, 0.92);
+  border: 1px solid rgba(255, 122, 0, 0.25);
+  color: rgba(255,255,255,0.92);
+  padding: 12px 14px;
+  border-radius: 14px;
+  min-width: 240px;
+  max-width: 340px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transform: translateY(10px);
+  opacity: 0;
+  animation: toastIn .22s ease forwards;
+}
+
+.toast__icon{
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  background: rgba(255, 122, 0, 0.18);
+  border: 1px solid rgba(255, 122, 0, 0.25);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toast__text{
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.toast__sub{
+  display: block;
+  margin-top: 2px;
+  font-weight: 700;
+  opacity: .75;
+  font-size: .9rem;
+}
+
+@keyframes toastIn{
+  to{ transform: translateY(0); opacity: 1; }
+}
+
+@keyframes toastOut{
+  to{ transform: translateY(10px); opacity: 0; }
+}
+
+/* Cart icon wiggle */
+@keyframes cartWiggle{
+  0%{ transform: translateY(0) rotate(0deg); }
+  25%{ transform: translateY(-2px) rotate(-4deg); }
+  50%{ transform: translateY(0) rotate(4deg); }
+  75%{ transform: translateY(-1px) rotate(-2deg); }
+  100%{ transform: translateY(0) rotate(0deg); }
+}
+.cart-wiggle{
+  animation: cartWiggle .45s ease;
+}
+
+/* Button “pop” when added */
+@keyframes btnPop{
+  0%{ transform: scale(1); }
+  35%{ transform: scale(1.03); }
+  100%{ transform: scale(1); }
+}
+.btn-pop{
+  animation: btnPop .25s ease;
+}
+
+/* ===========================
+   Calculator CTA text polish
+=========================== */
+
+/* Force the button to behave like a proper app CTA */
+.reco-btn{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 14px !important;
+
+  padding: 18px 22px !important;
+  border-radius: 22px !important;
+
+  text-align: left !important;
+  letter-spacing: normal !important;   /* kills weird spaced letters */
+  text-transform: none !important;
+}
+
+/* Icon chip */
+.reco-btn__icon{
+  width: 44px;
+  height: 44px;
+  border-radius: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0,0,0,0.18);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.22);
+  flex: 0 0 auto;
+  font-size: 1.05rem;
+}
+
+/* Text block */
+.reco-btn__copy{
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+/* Main title */
+.reco-btn__title{
+  font-size: 1.1rem;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: 0.2px; /* controlled, not excessive */
+  white-space: nowrap;   /* prevents awkward wraps */
+}
+
+/* Sub line */
+.reco-btn__subtitle{
+  font-size: 0.92rem;
+  font-weight: 700;
+  opacity: 0.9;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+/* Responsive: allow wrap on small screens */
+@media (max-width: 520px){
+  .reco-btn{
+    padding: 16px 18px !important;
+  }
+  .reco-btn__title,
+  .reco-btn__subtitle{
+    white-space: normal;
+  }
+}
+
+/* Force-hide recommended plan button until JS shows it */
+#recommendedPlanAdd[hidden]{
+  display: none !important;
+}
+
+/* ===========================
+   Calculator dark-mode readability fix
+   (inputs + helper/tips text)
+=========================== */
+
+body[data-theme="dark"] .mfp .mfp-card-header p,
+body[data-theme="dark"] .mfp .mfp-subtitle,
+body[data-theme="dark"] .mfp .mfp-help,
+body[data-theme="dark"] .mfp .mfp-mini-note,
+body[data-theme="dark"] .mfp .mfp-ring-sub,
+body[data-theme="dark"] .mfp .mfp-plan-meta{
+  color: rgba(255,255,255,0.78) !important;
+}
+
+/* Headings / main labels */
+body[data-theme="dark"] .mfp .mfp-card-header h2,
+body[data-theme="dark"] .mfp .mfp-field label,
+body[data-theme="dark"] .mfp .mfp-ring-title,
+body[data-theme="dark"] .mfp .mfp-macro-top span{
+  color: rgba(255,255,255,0.92) !important;
+}
+
+/* INPUTS: typed text */
+body[data-theme="dark"] .mfp .mfp-field input,
+body[data-theme="dark"] .mfp .mfp-field select{
+  color: rgba(255,255,255,0.92) !important;
+  background: rgba(255,255,255,0.04) !important;
+  border-color: rgba(255,255,255,0.10) !important;
+}
+
+/* INPUTS: placeholder text */
+body[data-theme="dark"] .mfp .mfp-field input::placeholder{
+  color: rgba(255,255,255,0.50) !important;
+}
+
+/* Select dropdown arrow / value visibility (some browsers dim it) */
+body[data-theme="dark"] .mfp .mfp-field select{
+  color-scheme: dark;
+}
+
+/* Tip box background a bit clearer */
+body[data-theme="dark"] .mfp .mfp-help{
+  background: rgba(255,255,255,0.06) !important;
+  border: 1px solid rgba(255,255,255,0.10) !important;
+}
+
+/* Make the Tip box match the Note styling */
+.mfp-help{
+  border-radius: 16px;
+  padding: 0.95rem 1rem;
+  border: 1px solid rgba(255, 122, 0, 0.18);
+  background: rgba(255, 122, 0, 0.08);
+  color: rgba(255,255,255,0.88);
+  line-height: 1.6;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.18);
+  position: relative;
+  overflow: hidden;
+}
+
+.mfp-help::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:4px;
+  background: linear-gradient(180deg, rgba(255,122,0,0.9), rgba(251,191,36,0.8));
+  opacity:.9;
+}
+
+.mfp-help strong{
+  color: rgba(255,255,255,0.98);
+}
+
+/* Tip box: add the same orange glow/shine as the Note */
+.mfp-help{
+  border: 1px solid rgba(255, 122, 0, 0.22) !important;
+  background: rgba(255, 122, 0, 0.08) !important;
+
+  /* ✅ orange glow like the note */
+  box-shadow:
+    0 14px 28px rgba(0,0,0,0.22),
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset,
+    0 0 26px rgba(255, 122, 0, 0.18) !important;
+
+  position: relative;
+  overflow: hidden;
+}
+
+/* orange side accent */
+.mfp-help::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:4px;
+  background: linear-gradient(180deg, rgba(255,122,0,0.95), rgba(251,191,36,0.85));
+  opacity:.95;
+}
+
+/* optional subtle top sheen (premium look) */
+.mfp-help::after{
+  content:"";
+  position:absolute;
+  inset:-40%;
+  background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.14), transparent 55%);
+  pointer-events:none;
+  opacity:.7;
+}
+
+/* ===========================
+   Tip/Note visibility in LIGHT MODE
+   (when dark mode is NOT active)
+=========================== */
+
+/* Tip box (light mode) */
+body:not([data-theme="dark"]) .mfp-help{
+  background: rgba(255, 122, 0, 0.10) !important;
+  border: 1px solid rgba(255, 122, 0, 0.35) !important;
+  color: rgba(20, 20, 20, 0.88) !important;
+
+  box-shadow:
+    0 16px 28px rgba(0,0,0,0.10),
+    0 0 22px rgba(255, 122, 0, 0.14) !important;
+}
+
+body:not([data-theme="dark"]) .mfp-help strong{
+  color: rgba(10, 10, 10, 0.95) !important;
+}
+
+/* Note box (light mode) */
+body:not([data-theme="dark"]) .mfp-footnote{
+  background: rgba(255, 122, 0, 0.10) !important;
+  border: 1px solid rgba(255, 122, 0, 0.35) !important;
+  color: rgba(20, 20, 20, 0.88) !important;
+
+  box-shadow:
+    0 16px 28px rgba(0,0,0,0.10),
+    0 0 22px rgba(255, 122, 0, 0.14) !important;
+}
+
+body:not([data-theme="dark"]) .mfp-footnote strong{
+  color: rgba(10, 10, 10, 0.95) !important;
+}
+
+/* Keep the orange left accent visible in light mode too */
+body:not([data-theme="dark"]) .mfp-help::before,
+body:not([data-theme="dark"]) .mfp-footnote::before{
+  opacity: 1 !important;
 }
