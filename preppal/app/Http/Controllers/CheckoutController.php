@@ -12,49 +12,52 @@ class CheckoutController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'items' => 'required|array',
-            'items.*.id' => 'required|integer',
-            'items.*.price' => 'required|numeric',
-            'items.*.qty' => 'required|integer',
-            'items.*.type' => 'required|string',
-            'address' => 'required|string',
-            'city' => 'required|string',
-            'postcode' => 'required|string',
-            'name' => 'required|string',
-            'email' => 'required|string'
+            'items' => 'required|array|min:1',
+            'items.*.id' => 'required|integer|exists:products,id',
+            'items.*.qty' => 'required|integer|min:1',
+
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'address' => 'required|string|max:500',
+            'city' => 'required|string|max:255',
+            'postcode' => 'required|string|max:20',
+            'notes' => 'nullable|string|max:1000',
         ]);
 
-        // Calculate total
-        $total = collect($validated['items'])->sum(function ($item) {
-            return $item['price'] * $item['qty'];
-        });
+        $items = collect($validated['items']);
+        $products = Product::whereIn('id', $items->pluck('id'))->get()->keyBy('id');
 
-        // Create the order
+        $total = 0;
+        foreach ($items as $it) {
+            $product = $products[$it['id']];
+            $total += $product->price * $it['qty'];
+        }
+
         $order = Order::create([
             'user_id' => auth()->id(),
-            'customer_name' => $validated['name'],
-            'customer_email' => $validated['email'],
-            'shipping_address' => $validated['address'],
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'address' => $validated['address'],
             'city' => $validated['city'],
             'postcode' => $validated['postcode'],
+            'delivery_notes' => $validated['notes'] ?? null,
             'total_price' => $total,
-            'payment_status' => 'pending'
         ]);
 
-        // Insert items
-        foreach ($validated['items'] as $item) {
+        foreach ($items as $it) {
+            $product = $products[$it['id']];
+
             OrderItem::create([
                 'order_id' => $order->id,
-                'product_type' => $product['category'],
-                'product_id' => $product['id'],
-                'quantity' => $item['qty'],
-                'price' => $product['price']
+                'product_id' => $product->id,
+                'quantity' => $it['qty'],
+                'price' => $product->price,
             ]);
         }
 
         return response()->json([
             'success' => true,
-            'order_id' => $order->id
+            'order_id' => $order->id,
         ]);
     }
 }

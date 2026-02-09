@@ -72,7 +72,7 @@
                     </div>
                 </div>
 
-                <button type="submit" class="place-order-btn">
+                <button href="{{ route('store') }}" type="submit" class="place-order-btn">
                     Place Order
                 </button>
             </form>
