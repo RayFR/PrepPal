@@ -65,7 +65,7 @@
 
           <div class="hero-actions" style="justify-content:flex-start;">
             <a href="{{ route('store') }}" class="primary-cta">Browse plans</a>
-            <a href="{{ url('/calorie-planner') }}" class="hero-secondary">Use calorie planner</a>
+            <a href="{{ route('calculator') }}" class="hero-secondary">Use calorie planner</a>
           </div>
 
           {{-- Quick trust row --}}
@@ -245,6 +245,207 @@
     </div>
   </section>
 
+{{-- =========================
+    TESTIMONIALS (Auto Carousel + Arrows)
+   ========================= --}}
+<section class="main-content pp-testimonials">
+  <div class="container">
+
+    <div class="pp-t-head reveal">
+      <h2 class="pp-t-title">TESTIMONIALS</h2>
+      <div class="pp-t-underline" aria-hidden="true"></div>
+      <p class="pp-t-sub">
+        Real feedback from students and gym-goers using PrepPal to stay consistent.
+      </p>
+    </div>
+
+    @php
+      // ✅ Put these files in: public/images/testimonials/
+      // Example: public/images/testimonials/michael.jpg
+      $testimonials = [
+        [
+          'name' => 'Michael Brown',
+          'role' => 'Student • Cutting',
+          'stars' => 5,
+          'quote' => '“Fantastic meal structure. Quick, repeatable, and makes staying consistent much easier.”',
+          'img' => asset('images/testimonials/michael.jpg'),
+        ],
+        [
+          'name' => 'Emily Harris',
+          'role' => 'Gym-goer • Lean bulk',
+          'stars' => 5,
+          'quote' => '“The portions and macros feel spot-on. Prep is simple and the week feels organised.”',
+          'img' => asset('images/testimonials/emily.jpg'),
+        ],
+        [
+          'name' => 'Anthony Thompson',
+          'role' => 'Busy schedule • Maintenance',
+          'stars' => 5,
+          'quote' => '“Best part is not thinking about meals. I just follow the plan and it works.”',
+          'img' => asset('images/testimonials/anthony.jpg'),
+        ],
+        [
+          'name' => 'Sofia K.',
+          'role' => 'Student • High protein',
+          'stars' => 5,
+          'quote' => '“Saves time and money. The structure keeps me on track without feeling restrictive.”',
+          'img' => asset('images/testimonials/sofia.jpg'),
+        ],
+        [
+          'name' => 'Jay P.',
+          'role' => 'Gym-goer • Fat loss',
+          'stars' => 4,
+          'quote' => '“Easy ordering, clean layout, and realistic meals for busy weeks.”',
+          'img' => asset('images/testimonials/jay.jpg'),
+        ],
+        [
+          'name' => 'Amina R.',
+          'role' => 'Student • Maintenance',
+          'stars' => 5,
+          'quote' => '“No guesswork. I track progress and stay consistent week after week.”',
+          'img' => asset('images/testimonials/amina.jpg'),
+        ],
+      ];
+    @endphp
+
+    <div class="pp-t-wrap reveal" id="ppTestimonials">
+
+      <button class="pp-t-arrow pp-t-prev" type="button" aria-label="Previous">
+        ‹
+      </button>
+
+      <div class="pp-t-viewport" aria-roledescription="carousel">
+        <div class="pp-t-track" id="ppTestTrack">
+          @foreach($testimonials as $t)
+            <article class="pp-t-card">
+              <img
+                src="{{ $t['img'] }}"
+                alt="{{ $t['name'] }}"
+                class="pp-t-avatar"
+                loading="lazy"
+                onerror="this.onerror=null; this.src='{{ asset('images/banner_hero.png') }}';"
+              />
+
+              <h3 class="pp-t-name">{{ $t['name'] }}</h3>
+
+              <div class="pp-t-stars" aria-label="{{ $t['stars'] }} star rating">
+                {{ str_repeat('★', $t['stars']) }}{{ str_repeat('☆', 5 - $t['stars']) }}
+              </div>
+
+              <p class="pp-t-quote">{{ $t['quote'] }}</p>
+              <div class="pp-t-role">{{ $t['role'] }}</div>
+            </article>
+          @endforeach
+        </div>
+      </div>
+
+      <button class="pp-t-arrow pp-t-next" type="button" aria-label="Next">
+        ›
+      </button>
+    </div>
+
+    <div class="pp-t-dots reveal" id="ppTestDots" aria-hidden="true"></div>
+
+  </div>
+</section>
+
+<script>
+  // Testimonials auto-carousel
+  (function(){
+    const root = document.getElementById('ppTestimonials');
+    const track = document.getElementById('ppTestTrack');
+    const dotsWrap = document.getElementById('ppTestDots');
+    if(!root || !track) return;
+
+    const prevBtn = root.querySelector('.pp-t-prev');
+    const nextBtn = root.querySelector('.pp-t-next');
+
+    const GAP = 18;           // must match CSS gap
+    const INTERVAL = 4500;    // auto swap speed
+    let index = 0;
+    let timer = null;
+    let paused = false;
+
+    function perView(){
+      return window.matchMedia('(max-width: 980px)').matches ? 1 : 3;
+    }
+
+    function maxStart(){
+      const total = track.children.length;
+      return Math.max(0, total - perView());
+    }
+
+    function stepPx(){
+      const viewport = track.parentElement; // .pp-t-viewport
+      const w = viewport.clientWidth;
+      const per = perView();
+      return (w - GAP * (per - 1)) / per + GAP;
+    }
+
+    function clamp(){
+      const m = maxStart();
+      if(index > m) index = 0;
+      if(index < 0) index = m;
+    }
+
+    function buildDots(){
+      if(!dotsWrap) return;
+      dotsWrap.innerHTML = '';
+      const total = track.children.length;
+      const pages = Math.max(1, Math.ceil(total / perView()));
+      for(let i=0;i<pages;i++){
+        const d = document.createElement('span');
+        d.className = 'pp-t-dot' + (i === 0 ? ' is-on' : '');
+        dotsWrap.appendChild(d);
+      }
+    }
+
+    function setDots(){
+      if(!dotsWrap) return;
+      const dots = dotsWrap.querySelectorAll('.pp-t-dot');
+      const activePage = Math.floor(index / perView());
+      dots.forEach((d,i) => d.classList.toggle('is-on', i === activePage));
+    }
+
+    function render(){
+      clamp();
+      track.style.transform = `translateX(${-index * stepPx()}px)`;
+      setDots();
+    }
+
+    function go(dir){
+      index += (dir === 'prev' ? -perView() : perView());
+      render();
+    }
+
+    function start(){
+      stop();
+      timer = setInterval(() => { if(!paused) go('next'); }, INTERVAL);
+    }
+
+    function stop(){
+      if(timer) clearInterval(timer);
+      timer = null;
+    }
+
+    prevBtn && prevBtn.addEventListener('click', () => { go('prev'); start(); });
+    nextBtn && nextBtn.addEventListener('click', () => { go('next'); start(); });
+
+    root.addEventListener('mouseenter', () => paused = true);
+    root.addEventListener('mouseleave', () => paused = false);
+    root.addEventListener('focusin', () => paused = true);
+    root.addEventListener('focusout', () => paused = false);
+
+    window.addEventListener('resize', () => { buildDots(); render(); });
+
+    buildDots();
+    render();
+
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(!prefersReduced) start();
+  })();
+</script>
+
   {{-- =========================
       FEATURED PRODUCTS
      ========================= --}}
@@ -319,30 +520,63 @@
         align-items: start;
       " class="home-faq-grid">
 
-        <div class="card reveal">
-          <h2 style="text-align:left; margin-top:0;">We’ve doubled your weekly choice</h2>
-          <p style="text-align:left; margin-left:0;">
-            Explore new recipes, repeat favourites, and stay on track with a plan that fits your routine.
-          </p>
+        <div class="card reveal pp-faq-card">
 
-          <details style="margin-top: 14px;">
-            <summary style="cursor:pointer; font-weight: 700;">How long do the meals take?</summary>
-            <p style="margin: 10px 0 0; opacity:.9;">
-              Most plans are built for real schedules — quick prep, repeatable portions, minimal stress.
-            </p>
-          </details>
+  <h2 class="pp-faq-title" style="text-align:left; margin-top:0;">FAQs</h2>
+  <p class="pp-faq-sub" style="text-align:left; margin-left:0;">
+    Quick answers to the most common questions — built for busy schedules and simple plan switching.
+  </p>
 
-          <details style="margin-top: 12px;">
-            <summary style="cursor:pointer; font-weight: 700;">Can I switch plans later?</summary>
-            <p style="margin: 10px 0 0; opacity:.9;">
-              Yes — you can swap goals (fat loss ↔ muscle ↔ maintenance) whenever you want.
-            </p>
-          </details>
+  <div class="pp-faq">
 
-          <div style="margin-top: 16px;">
-            <a href="{{ route('store') }}" class="primary-cta">Learn more</a>
-          </div>
-        </div>
+    <details class="pp-faq-item">
+      <summary class="pp-faq-q">
+        <span>How long do the meals take?</span>
+        <span class="pp-faq-icon" aria-hidden="true">⌄</span>
+      </summary>
+
+      <div class="pp-faq-a">
+        <p>
+          Most plans are built for busy schedules — simple steps, repeatable ingredients,
+          and portion-friendly meals that keep prep smooth and stress low.
+        </p>
+
+        <ul>
+          <li><strong>Typical:</strong> 20–40 minutes (cook + portion)</li>
+          <li><strong>Quick options:</strong> 10–20 minutes on hectic days</li>
+          <li><strong>Batch prep:</strong> 60–90 minutes for 2–4 meals</li>
+          <li><strong>Time-savers:</strong> fewer pans, easy reheat, repeat ingredients</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="pp-faq-item">
+      <summary class="pp-faq-q">
+        <span>Can I switch plans later?</span>
+        <span class="pp-faq-icon" aria-hidden="true">⌄</span>
+      </summary>
+
+      <div class="pp-faq-a">
+        <p>
+          Yes — you can swap goals anytime (fat loss ↔ muscle ↔ maintenance) while keeping the same
+          weekly structure so it stays consistent.
+        </p>
+
+        <ul>
+          <li>Switch whenever your routine changes</li>
+          <li>Keep the same weekly structure (so it stays simple)</li>
+          <li>Choose a new plan and continue</li>
+        </ul>
+      </div>
+    </details>
+
+  </div>
+
+  <div style="margin-top: 16px;">
+    <a href="{{ route('store') }}" class="primary-cta">Learn more</a>
+  </div>
+
+</div>
 
         <div class="card reveal">
           <h2 style="text-align:left; margin-top:0;">Why students & gym-goers use PrepPal</h2>

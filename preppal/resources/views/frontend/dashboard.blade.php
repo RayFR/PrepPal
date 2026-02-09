@@ -1,13 +1,11 @@
 <!--
   Student&ID: Gurpreet Singh Sidhu(230237915)
-  File: dashboard.html
   Description: Minimal user dashboard with summary stats.
   Date: October 30, Thursday, 2025
 -->
 <!--
   Student & ID: Musab Ahmed Rashid (230084799)
   Role: Designer
-  File: dashboard.html
   Description: Admin dashboard displaying key metrics and data cards.
   Date: Nov 2025
 -->
