@@ -223,3 +223,16 @@
   });
 
 })();
+
+// Subtle glow-follow on header
+(() => {
+  const hero = document.querySelector('.calc-hero');
+  if (!hero) return;
+
+  hero.addEventListener('mousemove', (e) => {
+    const r = hero.getBoundingClientRect();
+    const x = ((e.clientX - r.left) / r.width) * 100;
+    hero.style.setProperty('--mx', `${x}%`);
+  });
+})();
+

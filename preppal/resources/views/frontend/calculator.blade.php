@@ -5,16 +5,11 @@
 @section('content')
 <main class="container main-content mfp">
 
+    {{-- ✅ SINGLE header only (removed the duplicate calc-hero block) --}}
     <div class="mfp-header">
         <div>
             <h1 class="mfp-title">Calorie & Macro Calculator</h1>
             <p class="mfp-subtitle">Get a daily target and macros based on your goal. Clean, simple, accurate enough for planning.</p>
-        </div>
-
-        <div class="mfp-badges">
-            <span class="mfp-badge">Mifflin–St Jeor</span>
-            <span class="mfp-badge">Macros Split</span>
-            <span class="mfp-badge">PrepPal Plan</span>
         </div>
     </div>
 
