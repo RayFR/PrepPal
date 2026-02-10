@@ -95,7 +95,28 @@
           <summary>Description</summary>
           <p>{{ $product->description }}</p>
         </details>
+        <details>
+  <summary>Write a Review</summary>
+  <form method="POST" action="/products/{{ $product->id }}/reviews" class="pp-review-form">
+    @csrf
+    <div style="margin-bottom: 1rem;">
+      <label style="display: block; margin-bottom: 0.5rem;">Rating</label>
+      <select name="rating" required class="form-control">
+        <option value="5">⭐⭐⭐⭐⭐</option>
+        <option value="4">⭐⭐⭐⭐</option>
+        <option value="3">⭐⭐⭐</option>
+        <option value="2">⭐⭐</option>
+        <option value="1">⭐</option>
+      </select>
+    </div>
 
+    <div style="margin-bottom: 1rem;">
+      <textarea name="comment" placeholder="Write your review (optional)" style="width: 100%; min-height: 80px;"></textarea>
+    </div>
+
+    <button type="submit" class="cta" style="width: 100%;">Submit Review</button>
+  </form>
+</details>
         <details>
           <summary>How to use</summary>
           <p>
