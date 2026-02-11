@@ -4208,3 +4208,57 @@ input[type="number"]{
   margin-left: auto !important;
   margin-right: auto !important;
 }
+/* =========================
+   Review Form – Theme Aware
+========================= */
+
+.pp-review-form select,
+.pp-review-form textarea {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  border: 1px solid var(--color-primary-border);
+  transition: 
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+/* ---------- LIGHT MODE ---------- */
+body:not([data-theme="dark"]) .pp-review-form select,
+body:not([data-theme="dark"]) .pp-review-form textarea {
+  background-color: #fff7ed; /* warm light orange */
+  color: #111827;
+}
+
+/* ---------- DARK MODE ---------- */
+body[data-theme="dark"] .pp-review-form select,
+body[data-theme="dark"] .pp-review-form textarea {
+  background-color: #1f2933; /* dark slate */
+  color: #e5e7eb;
+  border-color: #374151;
+}
+
+/* ---------- FOCUS STATES ---------- */
+.pp-review-form select:focus,
+.pp-review-form textarea:focus {
+  outline: none;
+}
+
+/* Light focus */
+body:not([data-theme="dark"]) .pp-review-form select:focus,
+body:not([data-theme="dark"]) .pp-review-form textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.25);
+}
+
+/* Dark focus */
+body[data-theme="dark"] .pp-review-form select:focus,
+body[data-theme="dark"] .pp-review-form textarea:focus {
+  border-color: var(--color-dark-primary);
+  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.3);
+}
+
