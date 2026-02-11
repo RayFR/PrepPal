@@ -95,13 +95,15 @@
           <summary>Description</summary>
           <p>{{ $product->description }}</p>
         </details>
-        <details>
+<details>
   <summary>Write a Review</summary>
+
   <form method="POST" action="/products/{{ $product->id }}/reviews" class="pp-review-form">
     @csrf
-    <div style="margin-bottom: 1rem;">
-      <label style="display: block; margin-bottom: 0.5rem;">Rating</label>
-      <select name="rating" required class="form-control">
+
+    <div class="pp-review-field">
+      <label>Rating</label>
+      <select name="rating" required>
         <option value="5">⭐⭐⭐⭐⭐</option>
         <option value="4">⭐⭐⭐⭐</option>
         <option value="3">⭐⭐⭐</option>
@@ -110,13 +112,16 @@
       </select>
     </div>
 
-    <div style="margin-bottom: 1rem;">
-      <textarea name="comment" placeholder="Write your review (optional)" style="width: 100%; min-height: 80px;"></textarea>
+    <div class="pp-review-field">
+      <textarea name="comment" placeholder="Write your review (optional)"></textarea>
     </div>
 
-    <button type="submit" class="cta" style="width: 100%;">Submit Review</button>
+    <button type="submit" class="cta pp-review-submit">
+      Submit Review
+    </button>
   </form>
 </details>
+
         <details>
           <summary>How to use</summary>
           <p>
