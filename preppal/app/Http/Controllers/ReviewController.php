@@ -13,18 +13,22 @@ public function store(Request $request, $id)
         'comment' => 'nullable|string',
     ]);
 
-    Review::updateOrCreate(
-        [
-            'user_id' => auth()->id(),
-            'product_id' => $id,
-        ],
-        [
-            'rating' => $request->rating,
-            'comment' => $request->comment,
-        ]
-    );
+    $review = Review::where('user_id', auth()->id())
+        ->where('product_id', $id)
+        ->first();
+
+    if (!$review) {
+        $review = new Review();
+        $review->user_id = auth()->id();
+        $review->product_id = $id;
+    }
+
+    $review->rating = $request->rating;
+    $review->comment = $request->comment;
+    $review->save();
 
     return back()->with('success', 'Review submitted!');
 }
+
 
 }
