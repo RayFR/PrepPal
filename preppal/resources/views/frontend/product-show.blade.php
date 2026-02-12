@@ -98,6 +98,13 @@
 <details>
   <summary>Write a Review</summary>
 
+  {{-- ✅ Success message --}}
+  @if(session('success'))
+    <p style="color: green; margin: 10px 0;">
+      {{ session('success') }}
+    </p>
+  @endif
+
   <form method="POST" action="/products/{{ $product->id }}/reviews" class="pp-review-form">
     @csrf
 
@@ -121,6 +128,7 @@
     </button>
   </form>
 </details>
+
 
         <details>
           <summary>How to use</summary>
