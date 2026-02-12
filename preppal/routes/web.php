@@ -9,6 +9,10 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\HomeController;
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ReviewController;
+
+Route::post('/products/{id}/reviews', [ReviewController::class, 'store'])
+    ->middleware('auth');
 
 
 
