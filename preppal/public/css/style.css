@@ -4262,3 +4262,71 @@ body[data-theme="dark"] .pp-review-form textarea:focus {
   box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.3);
 }
 
+/* =====================
+   Reviews List
+===================== */
+
+.pp-reviews {
+  margin-top: 2rem;
+}
+
+.pp-reviews-title {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.pp-no-reviews {
+  opacity: 0.7;
+  font-size: 0.9rem;
+}
+
+.pp-review-card {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--color-primary-border);
+}
+
+.pp-review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pp-review-user {
+  font-size: 0.95rem;
+}
+
+.pp-review-stars {
+  color: #f59e0b; /* amber */
+  letter-spacing: 1px;
+}
+
+.pp-review-comment {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.pp-review-meta {
+  font-size: 0.75rem;
+  opacity: 0.6;
+}
+
+/* Owner actions */
+.pp-review-actions {
+  margin-top: 0.4rem;
+  font-size: 0.8rem;
+}
+
+.pp-review-actions a,
+.pp-review-actions button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--color-primary);
+  cursor: pointer;
+}
+
+.pp-review-actions form {
+  display: inline;
+}
+
+

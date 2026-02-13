@@ -129,6 +129,58 @@
   </form>
 </details>
 
+{{-- ================= REVIEWS LIST ================= --}}
+<section class="pp-reviews">
+  <h3 class="pp-reviews-title">
+    Customer Reviews ({{ $product->reviews->count() }})
+  </h3>
+
+  @if ($product->reviews->isEmpty())
+    <p class="pp-no-reviews">
+      No reviews yet. Be the first to review this product.
+    </p>
+  @else
+    @foreach ($product->reviews as $review)
+      <article class="pp-review-card">
+
+        <div class="pp-review-header">
+          <strong class="pp-review-user">
+            {{ $review->user->name }}
+          </strong>
+
+          <span class="pp-review-stars">
+            @for ($i = 1; $i <= 5; $i++)
+              {{ $i <= $review->rating ? '★' : '☆' }}
+            @endfor
+          </span>
+        </div>
+
+        @if ($review->comment)
+          <p class="pp-review-comment">
+            {{ $review->comment }}
+          </p>
+        @endif
+
+        <div class="pp-review-meta">
+          Reviewed {{ $review->created_at->diffForHumans() }}
+        </div>
+
+        @if (auth()->id() === $review->user_id)
+          <div class="pp-review-actions">
+            <a href="#" class="pp-review-edit">Edit</a>
+            <span>·</span>
+            <form method="POST" action="#" class="pp-review-delete">
+              @csrf
+              @method('DELETE')
+              <button type="submit">Delete</button>
+            </form>
+          </div>
+        @endif
+
+      </article>
+    @endforeach
+  @endif
+</section>
 
         <details>
           <summary>How to use</summary>
