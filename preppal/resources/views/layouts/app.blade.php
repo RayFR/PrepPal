@@ -70,11 +70,14 @@
 
     </div>
 
-    <!-- Scripts loaded after HTML -->
+        <!-- Scripts loaded after HTML -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/cart.js') }}"></script>
-    <script src="{{ asset('js/store.js') }}"></script> 
-    <script src="{{ asset('js/checkout.js') }}"></script> 
+    <script src="{{ asset('js/store.js') }}"></script>
+    <script src="{{ asset('js/checkout.js') }}"></script>
+
+    {{-- Page-specific scripts (e.g., calculator.js) --}}
+    @stack('scripts')
 
 </body>
 </html>

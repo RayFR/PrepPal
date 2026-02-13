@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Review;
 
 class Product extends Model
 {
@@ -18,4 +19,10 @@ class Product extends Model
     protected $casts = [
         'price' => 'decimal:2',
     ];
+
+    public function reviews()
+{
+    return $this->hasMany(Review::class);
+}
+
 }

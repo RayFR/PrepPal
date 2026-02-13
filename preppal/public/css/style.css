@@ -752,6 +752,13 @@ body {
   gap: 0.35rem;
 }
 
+/* Make the custom property animatable (smooth ring fill) */
+@property --progress {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
 .ring-graphic {
   --progress: 0deg;
   width: 120px;
@@ -763,7 +770,15 @@ body {
   background:
     radial-gradient(var(--color-bg-white) 60%, transparent 61%),
     conic-gradient(var(--color-primary) var(--progress), #ffe0b2 0deg 360deg);
+
+
+  /* smooth fill animation */
+  transition: --progress 1.2s cubic-bezier(.2,.8,.2,1);
+
+  /* optional glow */
+  filter: drop-shadow(0 0 10px rgba(255, 122, 0, 0.35));
 }
+
 
 .ring-inner {
   width: 75%;
@@ -1088,38 +1103,87 @@ body {
 /* --- Checkout Page --- */
 .checkout-wrapper {
   max-width: var(--max-width-container);
-  margin: 3rem auto;
-  text-align: center;
+  margin: 2.5rem auto 3.5rem;
   padding: 0 1rem;
 }
 
+.checkout-hero {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
 .checkout-title {
-  font-size: 2.6rem;
-  font-weight: 700;
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
   margin-bottom: 0.5rem;
 }
 
 .checkout-subtitle {
   color: #6b7280;
-  margin-bottom: 2.5rem;
+  margin: 0 auto 1.25rem;
+  max-width: 60ch;
+  line-height: 1.6;
+}
+
+.checkout-trustbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+  margin-top: 0.75rem;
+}
+
+.trust-pill {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+  backdrop-filter: blur(8px);
 }
 
 .checkout-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2.5rem;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 2rem;
+  align-items: start;
 }
 
 .checkout-card {
   padding: 2rem;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+  border-radius: 18px;
+  box-shadow: 0 14px 45px rgba(0,0,0,0.20);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+}
+
+.checkout-card-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.checkout-mini {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.65);
 }
 
 .checkout-heading {
-  font-size: 1.8rem;
-  margin-bottom: 1.2rem;
-  font-weight: 700;
+  font-size: 1.9rem;
+  margin: 0;
+  font-weight: 800;
   color: var(--color-primary);
+}
+
+.checkout-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.10);
+  margin: 1.2rem 0;
 }
 
 /* ORDER SUMMARY LIST */
@@ -1134,14 +1198,20 @@ body {
   align-items: center;
   gap: 1rem;
   padding: 0.9rem 0;
-  border-bottom: 1px solid var(--color-border-lighter);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.checkout-item-row:last-child {
+  border-bottom: none;
 }
 
 .checkout-thumb {
-  width: 55px;
-  height: 55px;
-  border-radius: 10px;
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
   overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.12);
+  flex: 0 0 auto;
 }
 
 .checkout-thumb img {
@@ -1150,55 +1220,682 @@ body {
   object-fit: cover;
 }
 
-.checkout-item-name {
-  font-weight: 600;
+.checkout-item-main {
   flex: 1;
+  text-align: left;
+}
+
+.checkout-item-name {
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-text-light);
+}
+
+.checkout-item-meta {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.65);
+  margin-top: 0.15rem;
 }
 
 .checkout-item-price {
+  font-weight: 800;
+  color: var(--color-text-light);
+}
+
+/* SUMMARY ROWS */
+.checkout-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.4rem 0;
+  color: rgba(255,255,255,0.80);
   font-weight: 600;
+}
+
+.checkout-green {
+  color: #34d399;
+  font-weight: 800;
 }
 
 /* TOTAL BOX */
 .checkout-total-box {
-  background: #fff7ec;
+  background: rgba(255, 152, 0, 0.12);
+  border: 1px solid rgba(255, 152, 0, 0.28);
   border-left: 6px solid #ff9800;
-  padding: 1rem;
-  border-radius: 10px;
-  margin-top: 1.5rem;
-  font-size: 1.25rem;
-  font-weight: 700;
+  padding: 1rem 1.1rem;
+  border-radius: 14px;
+  margin-top: 1rem;
+  font-size: 1.3rem;
+  font-weight: 900;
+  text-align: left;
+  color: var(--color-text-light);
 }
 
 /* EMPTY MESSAGE */
 .checkout-empty {
   padding: 1rem;
-  background: var(--color-primary-bg-light);
-  border-radius: 10px;
+  background: rgba(255, 122, 0, 0.10);
+  border: 1px solid rgba(255, 122, 0, 0.22);
+  border-radius: 14px;
   margin-top: 1rem;
   text-align: center;
-  color: #444;
+  color: rgba(255,255,255,0.9);
   display: none;
+}
+
+.checkout-link {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.checkout-link:hover {
+  text-decoration: underline;
+}
+
+/* PROMO */
+.checkout-promo {
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.checkout-promo-label {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.80);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.checkout-promo-row {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.checkout-promo-row input {
+  flex: 1;
+  background: rgba(0,0,0,0.20);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: var(--color-text-light);
+  border-radius: 12px;
+  padding: 0.75rem 0.9rem;
+}
+
+.promo-btn {
+  background: rgba(255, 122, 0, 0.16);
+  border: 1px solid rgba(255, 122, 0, 0.35);
+  color: var(--color-text-light);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.promo-btn:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 122, 0, 0.22);
+}
+
+.promo-msg {
+  display: none;
+  margin-top: 0.6rem;
+  font-size: 0.95rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.85);
+}
+
+.promo-msg.ok {
+  border-color: rgba(52, 211, 153, 0.35);
+  background: rgba(52, 211, 153, 0.10);
+}
+
+.promo-msg.bad {
+  border-color: rgba(239, 68, 68, 0.35);
+  background: rgba(239, 68, 68, 0.10);
+}
+
+.checkout-note {
+  margin-top: 0.9rem;
+  color: rgba(255,255,255,0.65);
+}
+
+/* SECTIONS */
+.checkout-section {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255,255,255,0.10);
+}
+
+.checkout-section:first-of-type {
+  margin-top: 0.5rem;
+  padding-top: 0;
+  border-top: none;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.section-title h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: rgba(255,255,255,0.92);
+}
+
+.section-badge {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  background: rgba(255, 122, 0, 0.18);
+  border: 1px solid rgba(255, 122, 0, 0.35);
+  color: var(--color-text-light);
+}
+
+/* Form layout (used on checkout, contact, etc.) */
+.checkout-form-card .form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.checkout-form-card .form-span-2 {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 520px) {
+  .checkout-form-card .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .checkout-form-card .form-span-2 {
+    grid-column: auto;
+  }
+}
+
+/* Make checkout form inputs match dark glass look */
+.checkout-form-card .form-grid input,
+.checkout-form-card .form-grid textarea {
+  background: rgba(0,0,0,0.20);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: var(--color-text-light);
+  border-radius: 12px;
+  padding: 0.75rem 0.9rem;
+}
+
+.checkout-form-card .form-grid label {
+  color: rgba(255,255,255,0.82);
+  font-weight: 650;
+}
+
+.checkout-form-card textarea {
+  resize: vertical;
+}
+
+/* PAYMENT METHODS */
+.pay-methods {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.pay-method {
+  display: flex;
+  cursor: pointer;
+}
+
+.pay-method input {
+  display: none;
+}
+
+.pay-method-ui {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.05);
+  transition: 0.2s ease;
+  text-align: left;
+}
+
+.pay-method input:checked + .pay-method-ui {
+  border-color: rgba(255, 122, 0, 0.45);
+  background: rgba(255, 122, 0, 0.12);
+  box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.10);
+}
+
+.pm-title {
+  display: block;
+  font-weight: 900;
+  color: rgba(255,255,255,0.95);
+}
+
+.pm-sub {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.65);
+}
+
+.pay-disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* CARD FIELDS */
+.card-icons {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.card-pill {
+  font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  padding: 0.35rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.80);
+  background: rgba(0,0,0,0.18);
+}
+
+.input-with-icon {
+  position: relative;
+}
+
+.input-with-icon .input-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.75;
+}
+
+.input-with-icon input {
+  padding-left: 2.2rem !important;
+}
+
+.field-hint {
+  margin-top: 0.35rem;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.58);
+}
+
+.checkout-disclaimer {
+  margin-top: 1rem;
+  padding: 0.9rem 1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.72);
+  text-align: left;
+}
+
+.checkout-disclaimer strong {
+  color: rgba(255,255,255,0.92);
+}
+
+/* ACTIONS */
+.checkout-actions {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255,255,255,0.10);
+}
+
+.checkout-error {
+  display: none;
+  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  background: rgba(239, 68, 68, 0.10);
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 0.9rem;
+  text-align: left;
 }
 
 /* SUBMIT BUTTON */
 .place-order-btn {
-  margin-top: 1.5rem;
   width: 100%;
   background: var(--color-primary);
   color: white;
   border: none;
-  padding: 1rem;
+  padding: 1.05rem 1.2rem;
   border-radius: 999px;
   font-size: 1.2rem;
-  font-weight: 600;
+  font-weight: 800;
   cursor: pointer;
   transition: 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 12px 35px rgba(255, 122, 0, 0.22);
 }
 
 .place-order-btn:hover {
   background: #ff8f1c;
   transform: translateY(-2px);
+}
+
+.place-order-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.place-order-btn .btn-spinner {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  border: 2px solid rgba(255,255,255,0.55);
+  border-top-color: rgba(255,255,255,0.0);
+  display: none;
+  margin-left: 0.6rem;
+  vertical-align: middle;
+  animation: spin 0.7s linear infinite;
+}
+
+.place-order-btn.is-loading .btn-spinner {
+  display: inline-block;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.checkout-smallprint {
+  margin-top: 0.8rem;
+  color: rgba(255,255,255,0.62);
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+  .checkout-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .pay-methods {
+    grid-template-columns: 1fr;
+  }
+  .checkout-title {
+    font-size: 2.4rem;
+  }
+}
+
+/* ============================
+   CHECKOUT – LIGHT MODE FIX
+   ============================ */
+
+body[data-theme="light"] .checkout-wrapper {
+  color: #111827;
+}
+
+body[data-theme="light"] .checkout-title {
+  color: #111827;
+}
+
+body[data-theme="light"] .checkout-subtitle {
+  color: #4b5563;
+}
+
+body[data-theme="light"] .checkout-trustbar .trust-pill {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(17, 24, 39, 0.10);
+  color: #111827;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* Cards become proper white cards */
+body[data-theme="light"] .checkout-card {
+  background: #ffffff;
+  border: 1px solid rgba(17, 24, 39, 0.10);
+  box-shadow: 0 14px 45px rgba(0,0,0,0.10);
+  backdrop-filter: none; /* stops “washed” look in light mode */
+}
+
+body[data-theme="light"] .checkout-mini {
+  color: #6b7280;
+}
+
+body[data-theme="light"] .checkout-divider {
+  background: rgba(17, 24, 39, 0.10);
+}
+
+/* Order items */
+body[data-theme="light"] .checkout-item-name {
+  color: #111827;
+}
+body[data-theme="light"] .checkout-item-meta {
+  color: #6b7280;
+}
+body[data-theme="light"] .checkout-item-price {
+  color: #111827;
+}
+
+body[data-theme="light"] .checkout-thumb {
+  border: 1px solid rgba(17, 24, 39, 0.10);
+}
+
+/* Summary rows */
+body[data-theme="light"] .checkout-summary-row {
+  color: #374151;
+}
+
+/* Total box stays “highlighted” but readable */
+body[data-theme="light"] .checkout-total-box {
+  color: #111827;
+  background: rgba(255, 152, 0, 0.12);
+  border: 1px solid rgba(255, 152, 0, 0.35);
+}
+
+/* Notes + small print */
+body[data-theme="light"] .checkout-note,
+body[data-theme="light"] .checkout-smallprint {
+  color: #6b7280;
+}
+
+/* Promo */
+body[data-theme="light"] .checkout-promo-label {
+  color: #374151;
+}
+
+body[data-theme="light"] .checkout-promo-row input {
+  background: #f9fafb;
+  border: 1px solid rgba(17, 24, 39, 0.15);
+  color: #111827;
+}
+
+body[data-theme="light"] .checkout-promo-row input::placeholder {
+  color: #9ca3af;
+}
+
+body[data-theme="light"] .promo-btn {
+  background: rgba(255, 122, 0, 0.14);
+  border: 1px solid rgba(255, 122, 0, 0.35);
+  color: #111827;
+}
+
+body[data-theme="light"] .promo-msg {
+  background: #f9fafb;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  color: #111827;
+}
+
+body[data-theme="light"] .promo-msg.ok {
+  background: rgba(52, 211, 153, 0.12);
+  border-color: rgba(52, 211, 153, 0.35);
+}
+
+body[data-theme="light"] .promo-msg.bad {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.35);
+}
+
+/* Section headings */
+body[data-theme="light"] .section-title h3 {
+  color: #111827;
+}
+
+body[data-theme="light"] .section-badge {
+  color: #111827;
+  background: rgba(255, 122, 0, 0.12);
+  border: 1px solid rgba(255, 122, 0, 0.28);
+}
+
+/* Form fields */
+body[data-theme="light"] .checkout-form-card .form-grid label {
+  color: #374151;
+}
+
+body[data-theme="light"] .checkout-form-card .form-grid input,
+body[data-theme="light"] .checkout-form-card .form-grid textarea {
+  background: #f9fafb;
+  border: 1px solid rgba(17, 24, 39, 0.15);
+  color: #111827;
+}
+
+body[data-theme="light"] .checkout-form-card .form-grid input::placeholder,
+body[data-theme="light"] .checkout-form-card .form-grid textarea::placeholder {
+  color: #9ca3af;
+}
+
+body[data-theme="light"] .field-hint {
+  color: #6b7280;
+}
+
+/* Payment method cards */
+body[data-theme="light"] .pay-method-ui {
+  background: #ffffff;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+}
+
+body[data-theme="light"] .pm-title {
+  color: #111827;
+}
+
+body[data-theme="light"] .pm-sub {
+  color: #6b7280;
+}
+
+body[data-theme="light"] .pay-method input:checked + .pay-method-ui {
+  background: rgba(255, 122, 0, 0.10);
+  border-color: rgba(255, 122, 0, 0.35);
+  box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.10);
+}
+
+/* Card brand pills */
+body[data-theme="light"] .card-pill {
+  background: #f9fafb;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  color: #374151;
+}
+
+/* Disclaimer */
+body[data-theme="light"] .checkout-disclaimer {
+  background: #f9fafb;
+  border: 1px solid rgba(17, 24, 39, 0.10);
+  color: #374151;
+}
+
+body[data-theme="light"] .checkout-disclaimer strong {
+  color: #111827;
+}
+
+/* Errors */
+body[data-theme="light"] .checkout-error {
+  color: #111827;
+  background: rgba(239, 68, 68, 0.10);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+/* Button still orange but now contrasts well */
+body[data-theme="light"] .place-order-btn {
+  color: #ffffff;
+}
+
+/* Confirmation page extras */
+.confirm-box {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 14px;
+  padding: 1rem 1.1rem;
+}
+
+.confirm-row {
+  padding: 0.45rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.85);
+}
+
+.confirm-row:last-child {
+  border-bottom: none;
+}
+
+.confirm-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.confirm-btn {
+  display: inline-block;
+  text-decoration: none;
+  font-weight: 900;
+  padding: 0.9rem 1.1rem;
+  border-radius: 999px;
+  transition: 0.2s ease;
+}
+
+.confirm-primary {
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 12px 35px rgba(255, 122, 0, 0.22);
+}
+
+.confirm-primary:hover {
+  transform: translateY(-2px);
+  background: #ff8f1c;
+}
+
+.confirm-secondary {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.9);
+}
+
+.confirm-secondary:hover {
+  transform: translateY(-2px);
+}
+
+/* Light mode confirmation */
+body[data-theme="light"] .confirm-box {
+  background: #f9fafb;
+  border: 1px solid rgba(17, 24, 39, 0.10);
+}
+
+body[data-theme="light"] .confirm-row {
+  color: #111827;
+  border-bottom: 1px solid rgba(17, 24, 39, 0.08);
+}
+
+body[data-theme="light"] .confirm-secondary {
+  background: #ffffff;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  color: #111827;
 }
 
 /* ============================
@@ -2836,3 +3533,1482 @@ body[data-theme="dark"] .store-filters select option:checked{
   .pp-t-arrow{ width: 44px; height: 44px; font-size: 1.8rem; }
   .pp-t-card{ flex: 0 0 100%; min-height: 300px; }
 }
+
+/* ===========================
+   MFP-STYLE CALCULATOR THEME
+   Paste at END of style.css
+=========================== */
+
+.mfp{
+  max-width: 1100px;
+}
+
+.mfp-header{
+  display:flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.mfp-title{
+  margin: 0;
+  font-size: 1.6rem;
+  letter-spacing: 0.2px;
+}
+
+.mfp-subtitle{
+  margin: .35rem 0 0;
+  color: var(--color-text-subtle);
+  max-width: 60ch;
+}
+
+.mfp-badges{
+  display:flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.mfp-badge{
+  font-size: .82rem;
+  padding: .35rem .6rem;
+  border-radius: 999px;
+  background: rgba(0,0,0,.05);
+  border: 1px solid rgba(0,0,0,.08);
+}
+
+.mfp-layout{
+  display:grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+@media (max-width: 980px){
+  .mfp-header{ flex-direction: column; }
+  .mfp-badges{ justify-content: flex-start; }
+  .mfp-layout{ grid-template-columns: 1fr; }
+}
+
+.mfp-card{
+  background: var(--color-bg-white);
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 18px;
+  box-shadow: 0 12px 26px rgba(0,0,0,.08);
+  overflow: hidden;
+}
+
+.mfp-card-header{
+  padding: 1rem 1rem .75rem;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+
+.mfp-card-header h2{
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.mfp-card-header p{
+  margin: .35rem 0 0;
+  color: var(--color-text-subtle);
+  font-size: .92rem;
+}
+
+.mfp-results-header{
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.mfp-status{
+  font-size: .82rem;
+  padding: .35rem .6rem;
+  border-radius: 999px;
+  background: rgba(255, 122, 0, 0.10);
+  border: 1px solid rgba(255, 122, 0, 0.25);
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.mfp-form{
+  padding: 1rem;
+}
+
+.mfp-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .85rem;
+}
+
+@media (max-width: 620px){
+  .mfp-grid{ grid-template-columns: 1fr; }
+}
+
+.mfp-field label{
+  display:block;
+  font-weight: 700;
+  font-size: .92rem;
+  margin-bottom: .35rem;
+}
+
+.mfp-field input,
+.mfp-field select{
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,.12);
+  padding: .8rem .85rem;
+  background: var(--color-bg-white);
+  transition: box-shadow .15s ease, border-color .15s ease;
+}
+
+.mfp-field input:focus,
+.mfp-field select:focus{
+  outline:none;
+  border-color: rgba(255, 122, 0, 0.55);
+  box-shadow: 0 0 0 4px rgba(255, 122, 0, 0.14);
+}
+
+.mfp-inline{
+  position: relative;
+}
+
+.mfp-unit{
+  position:absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: 700;
+  color: var(--color-text-subtle);
+  font-size: .85rem;
+  opacity: .8;
+}
+
+.mfp-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width: 100%;
+  border-radius: 14px;
+  padding: .85rem 1rem;
+  font-weight: 800;
+  text-decoration: none;
+  border: 1px solid rgba(0,0,0,.12);
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+
+.mfp-btn--primary{
+  background: var(--color-primary);
+  color: #fff;
+  border-color: rgba(255,122,0,.4);
+  box-shadow: 0 12px 22px rgba(255, 122, 0, .18);
+  margin-top: .95rem;
+}
+
+.mfp-btn--primary:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 16px 26px rgba(255, 122, 0, .22);
+}
+
+.mfp-btn--ghost{
+  background: rgba(0,0,0,.02);
+  margin-top: .8rem;
+}
+
+.mfp-help{
+  margin-top: .85rem;
+  padding: .85rem 1rem;
+  border-radius: 14px;
+  background: rgba(0,0,0,.03);
+  border: 1px solid rgba(0,0,0,.06);
+  color: var(--color-text-subtle);
+  font-size: .9rem;
+}
+
+.mfp-results{
+  padding: 1rem;
+}
+
+/* KPI + ring section */
+.mfp-ring-wrap{
+  display:flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.mfp-ring{
+  width: 120px;
+  height: 120px;
+}
+
+.mfp-ring-note{
+  min-width: 0;
+}
+
+.mfp-ring-title{
+  font-weight: 900;
+  font-size: 1rem;
+}
+
+.mfp-ring-sub{
+  margin-top: .25rem;
+  color: var(--color-text-subtle);
+  font-size: .9rem;
+}
+
+/* Macros */
+.mfp-macros{
+  display:grid;
+  gap: .85rem;
+  margin-top: 1rem;
+}
+
+.mfp-macro{
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 16px;
+  padding: .85rem .9rem;
+  background: rgba(0,0,0,.02);
+}
+
+.mfp-macro--total{
+  background: rgba(255,122,0,.06);
+  border-color: rgba(255,122,0,.20);
+}
+
+.mfp-macro-top{
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: .55rem;
+}
+
+.mfp-macro-top span{
+  font-weight: 800;
+}
+
+.mfp-macro-top strong{
+  font-size: 1.05rem;
+}
+
+.mfp-bar{
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(0,0,0,.08);
+  overflow:hidden;
+}
+
+.mfp-fill{
+  display:block;
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: var(--color-primary);
+  transition: width .5s ease;
+}
+
+.mfp-mini-note{
+  margin-top: .55rem;
+  color: var(--color-text-subtle);
+  font-size: .88rem;
+}
+
+.mfp-divider{
+  height: 1px;
+  background: rgba(0,0,0,.08);
+  margin: 1rem 0;
+}
+
+/* Plan */
+.mfp-plan-title{
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.mfp-plan-text{
+  margin: .35rem 0 0;
+  color: var(--color-text-subtle);
+}
+
+.mfp-plan-head{
+  display:flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: start;
+}
+
+.mfp-pill{
+  font-size: .82rem;
+  padding: .35rem .6rem;
+  border-radius: 999px;
+  background: rgba(0,0,0,.05);
+  border: 1px solid rgba(0,0,0,.08);
+  white-space: nowrap;
+}
+
+.mfp-plan-card{
+  display:flex;
+  gap: .9rem;
+  align-items: center;
+  margin-top: .85rem;
+  padding: .85rem;
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,.08);
+  background: #fff;
+}
+
+.mfp-plan-img{
+  width: 76px;
+  height: 76px;
+  border-radius: 14px;
+  object-fit: cover;
+  border: 1px solid rgba(0,0,0,.08);
+}
+
+.mfp-plan-price{
+  font-weight: 900;
+  font-size: 1.1rem;
+}
+
+.mfp-plan-meta{
+  margin-top: .25rem;
+  color: var(--color-text-subtle);
+  font-size: .9rem;
+}
+
+.mfp-footnote{
+  margin-top: .85rem;
+  padding: .85rem 1rem;
+  border-radius: 14px;
+  background: rgba(0,0,0,.03);
+  border: 1px solid rgba(0,0,0,.06);
+  color: var(--color-text-subtle);
+  font-size: .9rem;
+}
+
+/* Dark mode tweaks (keeps it tidy) */
+body[data-theme="dark"] .mfp-card{
+  background: rgba(15, 23, 42, 0.85);
+  border-color: rgba(255,255,255,.10);
+  box-shadow: 0 16px 28px rgba(0,0,0,.45);
+}
+
+body[data-theme="dark"] .mfp-card-header{
+  border-bottom-color: rgba(255,255,255,.08);
+}
+
+body[data-theme="dark"] .mfp-badge,
+body[data-theme="dark"] .mfp-pill{
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.10);
+}
+
+body[data-theme="dark"] .mfp-field input,
+body[data-theme="dark"] .mfp-field select{
+  background: rgba(2, 6, 23, 0.55);
+  border-color: rgba(255,255,255,.10);
+}
+
+/* --- FIX: make select text readable in dark mode --- */
+body[data-theme="dark"] .mfp-field input,
+body[data-theme="dark"] .mfp-field select{
+  color: rgba(255,255,255,.92);          /* main text */
+}
+
+body[data-theme="dark"] .mfp-field input::placeholder{
+  color: rgba(255,255,255,.55);          /* placeholder text */
+}
+
+/* Dropdown list items (supported in most browsers) */
+body[data-theme="dark"] .mfp-field select option{
+  background: #0b1224;                   /* dropdown background */
+  color: rgba(255,255,255,.92);          /* dropdown text */
+}
+
+
+body[data-theme="dark"] .mfp-help,
+body[data-theme="dark"] .mfp-footnote,
+body[data-theme="dark"] .mfp-macro{
+  background: rgba(255,255,255,.05);
+  border-color: rgba(255,255,255,.08);
+}
+
+body[data-theme="dark"] .mfp-plan-card{
+  background: rgba(2, 6, 23, 0.35);
+  border-color: rgba(255,255,255,.10);
+}
+
+body[data-theme="dark"] .mfp-divider{
+  background: rgba(255,255,255,.10);
+}
+
+/* Calculator recommended plan button (clean + premium) */
+.reco-btn{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .6rem;
+  padding: 0.95rem 1rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 122, 0, 0.35);
+  background: linear-gradient(180deg, rgba(255, 122, 0, 1), rgba(255, 145, 0, 1));
+  color: #fff;
+  font-weight: 900;
+  letter-spacing: .2px;
+  cursor: pointer;
+  box-shadow: 0 14px 26px rgba(255, 122, 0, 0.18);
+  transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+}
+
+.reco-btn__icon{
+  display: inline-flex;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: rgba(0,0,0,.18);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.25);
+}
+
+.reco-btn__text{
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.reco-btn__sub{
+  font-size: .9rem;
+  font-weight: 800;
+  opacity: .9;
+}
+
+.reco-btn:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 18px 32px rgba(255, 122, 0, 0.22);
+  filter: brightness(1.02);
+}
+
+.reco-btn:active{
+  transform: translateY(0px);
+  box-shadow: 0 12px 22px rgba(255, 122, 0, 0.18);
+}
+
+body[data-theme="dark"] .reco-btn{
+  border-color: rgba(251,191,36,.35);
+  box-shadow: 0 18px 34px rgba(0,0,0,.45);
+}
+
+/* ===========================
+   Calculator CTA polish
+=========================== */
+
+/* CTA: nicer spacing, glow, hover lift, and subtle sheen */
+.reco-btn{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .85rem;                 /* more breathing space */
+  padding: 1.05rem 1.2rem;     /* slightly taller */
+  border-radius: 18px;
+
+  /* glow + depth */
+  box-shadow:
+    0 16px 30px rgba(255, 122, 0, 0.20),
+    0 0 0 1px rgba(255, 255, 255, 0.10) inset;
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0);
+  transition: transform .14s ease, box-shadow .14s ease, filter .14s ease;
+}
+
+/* subtle moving sheen across the button */
+.reco-btn::after{
+  content:"";
+  position:absolute;
+  inset:-40%;
+  background: linear-gradient(90deg,
+    transparent 35%,
+    rgba(255,255,255,0.22) 50%,
+    transparent 65%
+  );
+  transform: rotate(16deg) translateX(-60%);
+  transition: transform .6s ease;
+  pointer-events:none;
+  opacity: .9;
+}
+
+.reco-btn:hover{
+  transform: translateY(-2px);
+  filter: brightness(1.03);
+  box-shadow:
+    0 22px 40px rgba(255, 122, 0, 0.26),
+    0 0 28px rgba(255, 122, 0, 0.18),
+    0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+}
+
+.reco-btn:hover::after{
+  transform: rotate(16deg) translateX(55%);
+}
+
+.reco-btn:active{
+  transform: translateY(0px);
+  box-shadow:
+    0 14px 26px rgba(255, 122, 0, 0.18),
+    0 0 0 1px rgba(255, 255, 255, 0.10) inset;
+}
+
+/* icon badge: cleaner and more “app” */
+.reco-btn__icon{
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.18);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.22),
+    0 10px 18px rgba(0,0,0,0.18);
+  font-size: 1.05rem;
+}
+
+/* text: better hierarchy and spacing */
+.reco-btn__text{
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: 0.2px;
+  line-height: 1;
+}
+
+.reco-btn__sub{
+  font-size: .95rem;
+  font-weight: 800;
+  opacity: 0.92;
+  line-height: 1;
+  margin-left: .15rem; /* tiny spacing so it doesn’t feel cramped */
+}
+
+/* On small screens, keep it tidy */
+@media (max-width: 520px){
+  .reco-btn{
+    flex-wrap: wrap;
+    gap: .55rem;
+    padding: .95rem 1rem;
+  }
+  .reco-btn__sub{
+    margin-left: 0;
+  }
+}
+
+/* ===========================
+   Note box readability upgrade
+=========================== */
+
+.mfp-footnote{
+  margin-top: 1rem;
+  border-radius: 16px;
+  padding: 0.95rem 1rem;
+  border: 1px solid rgba(255, 122, 0, 0.18);
+  background: rgba(255, 122, 0, 0.08); /* warm tint so it pops */
+  color: rgba(255,255,255,0.88);
+  line-height: 1.6;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.18);
+  position: relative;
+  overflow: hidden;
+}
+
+/* left accent + icon feel */
+.mfp-footnote::before{
+  content:"";
+  position:absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, rgba(255,122,0,0.9), rgba(251,191,36,0.8));
+  opacity: .9;
+}
+
+.mfp-footnote strong{
+  color: rgba(255,255,255,0.98);
+}
+
+/* Dark mode: make it even clearer */
+body[data-theme="dark"] .mfp-footnote{
+  background: rgba(255, 122, 0, 0.10);
+  border-color: rgba(251, 191, 36, 0.22);
+  color: rgba(255,255,255,0.90);
+}
+
+/* --- CTA spacing fix + label styling --- */
+.reco-btn{
+  justify-content: center;          /* override any base button justify */
+  text-align: center;
+}
+
+.reco-btn__label{
+  display: inline-flex;
+  align-items: baseline;
+  gap: .45rem;                      /* controlled spacing between words */
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: .2px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.reco-btn__muted{
+  font-size: .95rem;
+  font-weight: 800;
+  opacity: .92;
+}
+
+/* Mobile: allow wrapping if needed */
+@media (max-width: 420px){
+  .reco-btn__label{
+    white-space: normal;
+    line-height: 1.15;
+  }
+}
+
+/* ===========================
+   Cart toast + animations
+=========================== */
+
+#toastContainer{
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  display: grid;
+  gap: 10px;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.toast{
+  pointer-events: none;
+  background: rgba(15, 23, 42, 0.92);
+  border: 1px solid rgba(255, 122, 0, 0.25);
+  color: rgba(255,255,255,0.92);
+  padding: 12px 14px;
+  border-radius: 14px;
+  min-width: 240px;
+  max-width: 340px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transform: translateY(10px);
+  opacity: 0;
+  animation: toastIn .22s ease forwards;
+}
+
+.toast__icon{
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  background: rgba(255, 122, 0, 0.18);
+  border: 1px solid rgba(255, 122, 0, 0.25);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toast__text{
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.toast__sub{
+  display: block;
+  margin-top: 2px;
+  font-weight: 700;
+  opacity: .75;
+  font-size: .9rem;
+}
+
+@keyframes toastIn{
+  to{ transform: translateY(0); opacity: 1; }
+}
+
+@keyframes toastOut{
+  to{ transform: translateY(10px); opacity: 0; }
+}
+
+/* Cart icon wiggle */
+@keyframes cartWiggle{
+  0%{ transform: translateY(0) rotate(0deg); }
+  25%{ transform: translateY(-2px) rotate(-4deg); }
+  50%{ transform: translateY(0) rotate(4deg); }
+  75%{ transform: translateY(-1px) rotate(-2deg); }
+  100%{ transform: translateY(0) rotate(0deg); }
+}
+.cart-wiggle{
+  animation: cartWiggle .45s ease;
+}
+
+/* Button “pop” when added */
+@keyframes btnPop{
+  0%{ transform: scale(1); }
+  35%{ transform: scale(1.03); }
+  100%{ transform: scale(1); }
+}
+.btn-pop{
+  animation: btnPop .25s ease;
+}
+
+/* ===========================
+   Calculator CTA text polish
+=========================== */
+
+/* Force the button to behave like a proper app CTA */
+.reco-btn{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 14px !important;
+
+  padding: 18px 22px !important;
+  border-radius: 22px !important;
+
+  text-align: left !important;
+  letter-spacing: normal !important;   /* kills weird spaced letters */
+  text-transform: none !important;
+}
+
+/* Icon chip */
+.reco-btn__icon{
+  width: 44px;
+  height: 44px;
+  border-radius: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0,0,0,0.18);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.22);
+  flex: 0 0 auto;
+  font-size: 1.05rem;
+}
+
+/* Text block */
+.reco-btn__copy{
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+/* Main title */
+.reco-btn__title{
+  font-size: 1.1rem;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: 0.2px; /* controlled, not excessive */
+  white-space: nowrap;   /* prevents awkward wraps */
+}
+
+/* Sub line */
+.reco-btn__subtitle{
+  font-size: 0.92rem;
+  font-weight: 700;
+  opacity: 0.9;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+/* Responsive: allow wrap on small screens */
+@media (max-width: 520px){
+  .reco-btn{
+    padding: 16px 18px !important;
+  }
+  .reco-btn__title,
+  .reco-btn__subtitle{
+    white-space: normal;
+  }
+}
+
+/* Force-hide recommended plan button until JS shows it */
+#recommendedPlanAdd[hidden]{
+  display: none !important;
+}
+
+/* ===========================
+   Calculator dark-mode readability fix
+   (inputs + helper/tips text)
+=========================== */
+
+body[data-theme="dark"] .mfp .mfp-card-header p,
+body[data-theme="dark"] .mfp .mfp-subtitle,
+body[data-theme="dark"] .mfp .mfp-help,
+body[data-theme="dark"] .mfp .mfp-mini-note,
+body[data-theme="dark"] .mfp .mfp-ring-sub,
+body[data-theme="dark"] .mfp .mfp-plan-meta{
+  color: rgba(255,255,255,0.78) !important;
+}
+
+/* Headings / main labels */
+body[data-theme="dark"] .mfp .mfp-card-header h2,
+body[data-theme="dark"] .mfp .mfp-field label,
+body[data-theme="dark"] .mfp .mfp-ring-title,
+body[data-theme="dark"] .mfp .mfp-macro-top span{
+  color: rgba(255,255,255,0.92) !important;
+}
+
+/* INPUTS: typed text */
+body[data-theme="dark"] .mfp .mfp-field input,
+body[data-theme="dark"] .mfp .mfp-field select{
+  color: rgba(255,255,255,0.92) !important;
+  background: rgba(255,255,255,0.04) !important;
+  border-color: rgba(255,255,255,0.10) !important;
+}
+
+/* INPUTS: placeholder text */
+body[data-theme="dark"] .mfp .mfp-field input::placeholder{
+  color: rgba(255,255,255,0.50) !important;
+}
+
+/* Select dropdown arrow / value visibility (some browsers dim it) */
+body[data-theme="dark"] .mfp .mfp-field select{
+  color-scheme: dark;
+}
+
+/* Tip box background a bit clearer */
+body[data-theme="dark"] .mfp .mfp-help{
+  background: rgba(255,255,255,0.06) !important;
+  border: 1px solid rgba(255,255,255,0.10) !important;
+}
+
+/* Make the Tip box match the Note styling */
+.mfp-help{
+  border-radius: 16px;
+  padding: 0.95rem 1rem;
+  border: 1px solid rgba(255, 122, 0, 0.18);
+  background: rgba(255, 122, 0, 0.08);
+  color: rgba(255,255,255,0.88);
+  line-height: 1.6;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.18);
+  position: relative;
+  overflow: hidden;
+}
+
+.mfp-help::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:4px;
+  background: linear-gradient(180deg, rgba(255,122,0,0.9), rgba(251,191,36,0.8));
+  opacity:.9;
+}
+
+.mfp-help strong{
+  color: rgba(255,255,255,0.98);
+}
+
+/* Tip box: add the same orange glow/shine as the Note */
+.mfp-help{
+  border: 1px solid rgba(255, 122, 0, 0.22) !important;
+  background: rgba(255, 122, 0, 0.08) !important;
+
+  /* ✅ orange glow like the note */
+  box-shadow:
+    0 14px 28px rgba(0,0,0,0.22),
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset,
+    0 0 26px rgba(255, 122, 0, 0.18) !important;
+
+  position: relative;
+  overflow: hidden;
+}
+
+/* orange side accent */
+.mfp-help::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:4px;
+  background: linear-gradient(180deg, rgba(255,122,0,0.95), rgba(251,191,36,0.85));
+  opacity:.95;
+}
+
+/* optional subtle top sheen (premium look) */
+.mfp-help::after{
+  content:"";
+  position:absolute;
+  inset:-40%;
+  background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.14), transparent 55%);
+  pointer-events:none;
+  opacity:.7;
+}
+
+/* ===========================
+   Tip/Note visibility in LIGHT MODE
+   (when dark mode is NOT active)
+=========================== */
+
+/* Tip box (light mode) */
+body:not([data-theme="dark"]) .mfp-help{
+  background: rgba(255, 122, 0, 0.10) !important;
+  border: 1px solid rgba(255, 122, 0, 0.35) !important;
+  color: rgba(20, 20, 20, 0.88) !important;
+
+  box-shadow:
+    0 16px 28px rgba(0,0,0,0.10),
+    0 0 22px rgba(255, 122, 0, 0.14) !important;
+}
+
+body:not([data-theme="dark"]) .mfp-help strong{
+  color: rgba(10, 10, 10, 0.95) !important;
+}
+
+/* Note box (light mode) */
+body:not([data-theme="dark"]) .mfp-footnote{
+  background: rgba(255, 122, 0, 0.10) !important;
+  border: 1px solid rgba(255, 122, 0, 0.35) !important;
+  color: rgba(20, 20, 20, 0.88) !important;
+
+  box-shadow:
+    0 16px 28px rgba(0,0,0,0.10),
+    0 0 22px rgba(255, 122, 0, 0.14) !important;
+}
+
+body:not([data-theme="dark"]) .mfp-footnote strong{
+  color: rgba(10, 10, 10, 0.95) !important;
+}
+
+/* Keep the orange left accent visible in light mode too */
+body:not([data-theme="dark"]) .mfp-help::before,
+body:not([data-theme="dark"]) .mfp-footnote::before{
+  opacity: 1 !important;
+}
+
+/* Remove number input spinners (Chrome/Edge/Safari) */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button{
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Remove number input spinners (Firefox) */
+input[type="number"]{
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* Calculator fields: glow + depth */
+.mfp-field input,
+.mfp-field select{
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+  border: 1px solid rgba(255,255,255,.10);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.06),
+    0 10px 28px rgba(0,0,0,.35);
+}
+
+/* Hover = subtle lift */
+.mfp-field input:hover,
+.mfp-field select:hover{
+  transform: translateY(-1px);
+  border-color: rgba(255,122,0,.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    0 14px 34px rgba(0,0,0,.45),
+    0 0 0 4px rgba(255,122,0,.10);
+}
+
+/* Focus = stronger glow */
+.mfp-field input:focus,
+.mfp-field select:focus{
+  outline: none;
+  border-color: rgba(255,122,0,.65);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.10),
+    0 18px 44px rgba(0,0,0,.50),
+    0 0 0 4px rgba(255,122,0,.18),
+    0 0 22px rgba(255,122,0,.22);
+}
+
+/* ===== Calculator header: cleaner + bold + subtle motion ===== */
+.calc-hero{
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: 2.2rem 1.6rem 1.6rem;
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,.08);
+  background:
+    radial-gradient(700px 180px at 20% 0%, rgba(255,122,0,.18), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  box-shadow: 0 18px 55px rgba(0,0,0,.45);
+  position: relative;
+  overflow: hidden;
+}
+
+.calc-hero::after{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background: radial-gradient(600px 220px at var(--mx, 20%) -10%, rgba(255,122,0,.22), transparent 60%);
+  opacity:.9;
+  pointer-events:none;
+  transition: opacity .2s ease;
+}
+
+.calc-hero:hover::after{ opacity: 1; }
+
+.calc-hero h1{
+  margin: 0;
+  font-size: clamp(2rem, 3.4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: .3px;
+  line-height: 1.08;
+  text-shadow: 0 10px 40px rgba(0,0,0,.55);
+}
+
+.calc-hero .subtitle{
+  margin: .5rem 0 0;
+  color: rgba(255,255,255,.78);
+  font-size: 1.05rem;
+  max-width: 60ch;
+}
+
+.calc-hero .title-accent{
+  position: relative;
+  display: inline-block;
+}
+
+.calc-hero .title-accent::after{
+  content:"";
+  display:block;
+  height: 4px;
+  margin-top: .45rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255,122,0,.0), rgba(255,122,0,.9), rgba(255,122,0,.0));
+  filter: drop-shadow(0 10px 16px rgba(255,122,0,.35));
+}
+
+/* Keep it tidy on small screens */
+@media (max-width: 760px){
+  .calc-hero{ align-items: flex-start; }
+}
+
+/* =========================================================
+   CALCULATOR "PREMIUM" POLISH PACK (drop-in)
+   Paste at END of style.css so it overrides everything
+========================================================= */
+
+/* page width + breathing room */
+.mfp{
+  max-width: 1200px;
+}
+
+.mfp-layout{
+  gap: 1.25rem;
+}
+
+/* HERO banner - looks premium */
+.mfp-header{
+  margin: 1.2rem auto 1.4rem;
+  padding: 1.75rem 1.5rem;
+  border-radius: 26px;
+  border: 1px solid rgba(255,255,255,.10);
+  background:
+    radial-gradient(900px 340px at 10% -20%, rgba(255,122,0,.24), transparent 60%),
+    radial-gradient(700px 260px at 90% 0%, rgba(255,255,255,.08), transparent 55%),
+    linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  box-shadow:
+    0 28px 80px rgba(0,0,0,.55),
+    inset 0 1px 0 rgba(255,255,255,.08);
+  text-align: left; /* looks more pro than centered */
+}
+
+.mfp-title{
+  font-size: clamp(2.2rem, 4vw, 3.3rem);
+  font-weight: 950;
+  letter-spacing: .3px;
+  line-height: 1.03;
+  margin: 0;
+}
+
+.mfp-subtitle{
+  margin: .7rem 0 0;
+  max-width: 68ch;
+  font-size: 1.06rem;
+  color: rgba(255,255,255,.80);
+}
+
+/* Cards: deeper + glass edge + consistent padding */
+.mfp-card{
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,.10);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  box-shadow:
+    0 22px 60px rgba(0,0,0,.55),
+    inset 0 1px 0 rgba(255,255,255,.07);
+}
+
+/* Card headers: more structured */
+.mfp-card-header{
+  padding: 1.1rem 1.15rem .95rem;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.mfp-card-header h2{
+  font-size: 1.25rem;
+  font-weight: 900;
+  letter-spacing: .2px;
+}
+
+.mfp-card-header p{
+  margin-top: .35rem;
+  color: rgba(255,255,255,.72);
+}
+
+/* status pill */
+.mfp-status{
+  background: rgba(255,122,0,.12);
+  border: 1px solid rgba(255,122,0,.25);
+  color: rgba(255,180,90,.95);
+  font-weight: 800;
+}
+
+/* Form spacing */
+.mfp-form{
+  padding: 1.15rem;
+}
+
+.mfp-grid{
+  gap: 1rem;
+}
+
+/* Inputs: more “glass” + glow + consistent height */
+.mfp-field input,
+.mfp-field select{
+  height: 54px;
+  border-radius: 16px;
+  padding: 0 1rem;
+  background: rgba(2,6,23,.55);
+  border: 1px solid rgba(255,255,255,.10);
+  color: rgba(255,255,255,.92);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.06),
+    0 18px 40px rgba(0,0,0,.40);
+}
+
+.mfp-field input::placeholder{
+  color: rgba(255,255,255,.55);
+}
+
+.mfp-field select option{
+  background: #0b1224;
+  color: rgba(255,255,255,.92);
+}
+
+.mfp-field input:hover,
+.mfp-field select:hover{
+  transform: translateY(-1px);
+  border-color: rgba(255,122,0,.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    0 20px 48px rgba(0,0,0,.48),
+    0 0 0 4px rgba(255,122,0,.10);
+}
+
+.mfp-field input:focus,
+.mfp-field select:focus{
+  transform: translateY(-1px);
+  outline: none;
+  border-color: rgba(255,122,0,.65);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.10),
+    0 22px 55px rgba(0,0,0,.52),
+    0 0 0 4px rgba(255,122,0,.18),
+    0 0 22px rgba(255,122,0,.22);
+}
+
+/* Units inside inputs look cleaner */
+.mfp-unit{
+  right: 14px;
+  font-weight: 900;
+  color: rgba(255,255,255,.50);
+}
+
+/* Button: more premium */
+.mfp-btn--primary{
+  height: 56px;
+  border-radius: 16px;
+  font-size: 1.05rem;
+  font-weight: 900;
+  letter-spacing: .25px;
+  background: linear-gradient(180deg, #ff9000, #ff7a00);
+  box-shadow:
+    0 20px 55px rgba(255,122,0,.22),
+    0 10px 24px rgba(0,0,0,.45);
+}
+
+.mfp-btn--primary:hover{
+  transform: translateY(-1px);
+  box-shadow:
+    0 26px 65px rgba(255,122,0,.26),
+    0 12px 28px rgba(0,0,0,.48);
+}
+
+/* Results KPI row: align ring + text better */
+.mfp-kpi{
+  padding: 1.1rem 1.15rem 0;
+}
+
+.mfp-ring-wrap{
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 1rem;
+  align-items: center;
+}
+
+.mfp-ring{
+  width: 140px;
+  height: 140px;
+  border-radius: 999px;
+  box-shadow:
+    0 18px 40px rgba(0,0,0,.45),
+    0 0 0 5px rgba(255,122,0,.12);
+}
+
+.mfp-ring-note .mfp-ring-title{
+  font-weight: 950;
+  font-size: 1.25rem;
+  margin-bottom: .15rem;
+}
+
+.mfp-ring-note .mfp-ring-sub{
+  color: rgba(255,255,255,.72);
+}
+
+/* Macro rows: turn into “stat cards” */
+.mfp-macros{
+  padding: 1rem 1.15rem 1.15rem;
+  display: grid;
+  gap: .85rem;
+}
+
+.mfp-macro{
+  padding: 1rem 1rem;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.09);
+  background: rgba(2,6,23,.35);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+}
+
+.mfp-macro-top{
+  display:flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: .75rem;
+}
+
+.mfp-macro-top span{
+  font-weight: 900;
+  letter-spacing: .2px;
+  font-size: 1.05rem;
+}
+
+.mfp-macro-top strong{
+  font-weight: 950;
+  font-size: 1.05rem;
+  color: rgba(255,255,255,.92);
+}
+
+/* Bars: thinner + cleaner */
+.mfp-bar{
+  margin-top: .7rem;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.08);
+  overflow: hidden;
+}
+
+.mfp-fill{
+  display:block;
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255,122,0,.25), rgba(255,122,0,.95));
+  box-shadow: 0 10px 22px rgba(255,122,0,.18);
+}
+
+/* Divider spacing */
+.mfp-divider{
+  margin: .5rem 1.15rem 1.1rem;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+
+/* Plan block: cleaner */
+.mfp-plan{
+  padding: 0 1.15rem 1.25rem;
+}
+
+.mfp-plan-title{
+  font-weight: 950;
+}
+
+.mfp-plan-text{
+  color: rgba(255,255,255,.72);
+}
+
+.mfp-plan-card{
+  margin-top: .8rem;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.09);
+  background: rgba(2,6,23,.35);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+}
+
+/* Responsive tweaks */
+@media (max-width: 980px){
+  .mfp-header{ text-align: center; }
+  .mfp-ring-wrap{ grid-template-columns: 1fr; justify-items: center; text-align: center; }
+}
+
+/* ===== CALCULATOR HEADER: FORCE CENTER (final override) ===== */
+.mfp-header{
+  display: block !important;                 /* kills the flex split */
+  max-width: var(--max-width-container) !important;
+  margin: 1.2rem auto 1.4rem !important;     /* true centering */
+  text-align: center !important;
+}
+
+.mfp-title,
+.mfp-subtitle{
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+/* =========================
+   Review Form – Theme Aware
+========================= */
+
+.pp-review-form select,
+.pp-review-form textarea {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  border: 1px solid var(--color-primary-border);
+  transition: 
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+/* ---------- LIGHT MODE ---------- */
+body:not([data-theme="dark"]) .pp-review-form select,
+body:not([data-theme="dark"]) .pp-review-form textarea {
+  background-color: #fff7ed; /* warm light orange */
+  color: #111827;
+}
+
+/* ---------- DARK MODE ---------- */
+body[data-theme="dark"] .pp-review-form select,
+body[data-theme="dark"] .pp-review-form textarea {
+  background-color: #1f2933; /* dark slate */
+  color: #e5e7eb;
+  border-color: #374151;
+}
+
+/* ---------- FOCUS STATES ---------- */
+.pp-review-form select:focus,
+.pp-review-form textarea:focus {
+  outline: none;
+}
+
+/* Light focus */
+body:not([data-theme="dark"]) .pp-review-form select:focus,
+body:not([data-theme="dark"]) .pp-review-form textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.25);
+}
+
+/* Dark focus */
+body[data-theme="dark"] .pp-review-form select:focus,
+body[data-theme="dark"] .pp-review-form textarea:focus {
+  border-color: var(--color-dark-primary);
+  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.3);
+}
+
+/* =====================
+   Reviews List
+===================== */
+
+.pp-reviews {
+  margin-top: 2rem;
+}
+
+.pp-reviews-title {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.pp-no-reviews {
+  opacity: 0.7;
+  font-size: 0.9rem;
+}
+
+.pp-review-card {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--color-primary-border);
+}
+
+.pp-review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pp-review-user {
+  font-size: 0.95rem;
+}
+
+.pp-review-stars {
+  color: #f59e0b; /* amber */
+  letter-spacing: 1px;
+}
+
+.pp-review-comment {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.pp-review-meta {
+  font-size: 0.75rem;
+  opacity: 0.6;
+}
+
+/* Owner actions */
+.pp-review-actions {
+  margin-top: 0.4rem;
+  font-size: 0.8rem;
+}
+
+.pp-review-actions a,
+.pp-review-actions button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--color-primary);
+  cursor: pointer;
+}
+
+.pp-review-actions form {
+  display: inline;
+}
+
+

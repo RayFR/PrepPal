@@ -44,7 +44,15 @@
             <input type="email" name="email" value="{{ old('email') }}" required>
 
             <label>Password</label>
-            <input type="password" name="password" required>
+
+            <div class= "password-field">
+            <input id="loginPassword" type="password" name="password" required>
+
+            <label class="show password">
+                <input type="checkbox" onclick="togglePassword('loginPassword', this)">
+                Show password
+</label>
+</div>
 
             <button class="cta auth-btn" type="submit">Sign In</button>
 
@@ -64,10 +72,18 @@
             <input type="email" name="email" value="{{ old('email') }}" required>
 
             <label>Password</label>
-            <input type="password" name="password" required>
+            <input id="registerPassword" type="password" name="password" required>
+            <label class="show-password">
+                <input type="checkbox" onclick="togglePassword('registerPassword', this)">
+                Show password
+</label>
 
             <label>Confirm Password</label>
-            <input type="password" name="password_confirmation" required>
+            <input id="registerConfirmPassword" type="password" name="password_confirmation" required>
+            <label class="show-password">
+                <input type="checkbox" onclick="togglePassword('registerConfirmPassword', this)">
+                Show password
+</label>
 
             <button class="cta auth-btn" type="submit">Create Account</button>
 
@@ -89,4 +105,11 @@
     </div>
 
 </div>
+
+<script>
+    function togglePassword(inputId, checkbox) {
+        const input = document.getElementById(inputId);
+        input.type = checkbox.checked ? 'text' : 'password';
+    } 
+    </script>
 @endsection

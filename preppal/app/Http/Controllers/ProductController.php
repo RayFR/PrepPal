@@ -88,9 +88,15 @@ class ProductController extends Controller
         ));
     }
 
-    public function show($id)
-    {
-        $product = Product::findOrFail($id);
-        return view('frontend.product-show', compact('product'));
-    }
+public function show($id)
+{
+    $product = Product::with([
+        'reviews' => fn ($q) => $q->latest(),
+        'reviews.user'
+    ])->findOrFail($id);
+
+    $averageRating = round($product->reviews->avg('rating'), 1);
+
+    return view('frontend.product-show', compact('product', 'averageRating'));
+}
 }
