@@ -9,12 +9,6 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\HomeController;
 
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\ReviewController;
-
-Route::post('/products/{id}/reviews', [ReviewController::class, 'store'])
-    ->middleware('auth');
-
-
 
 // HOME (public)
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -50,7 +44,11 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/checkout', [CheckoutController::class, 'store']);
 
-    // CART (only keep if you actually have CartController)
+    // ✅ NEW: Confirmation page
+    Route::get('/checkout/confirmation', [CheckoutController::class, 'confirmation'])
+        ->name('checkout.confirmation');
+
+    // CART
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
     Route::patch('/cart/{cartItem}', [CartController::class, 'update'])->name('cart.update');

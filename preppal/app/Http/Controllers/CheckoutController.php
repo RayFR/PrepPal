@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use Illuminate\Support\Carbon;
 
 class CheckoutController extends Controller
 {
@@ -55,9 +56,48 @@ class CheckoutController extends Controller
             ]);
         }
 
+        // store last order id in session (optional, helps confirmation page access)
+        $request->session()->put('last_order_id', $order->id);
+
         return response()->json([
             'success' => true,
             'order_id' => $order->id,
+        ]);
+    }
+
+    public function confirmation(Request $request)
+    {
+        $orderId = (int) $request->query('order_id', 0);
+
+        // fallback to session if query missing
+        if (!$orderId) {
+            $orderId = (int) $request->session()->get('last_order_id', 0);
+        }
+
+        if (!$orderId) {
+            return redirect()->route('store');
+        }
+
+        $order = Order::where('id', $orderId)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+
+        $items = OrderItem::where('order_id', $order->id)->get();
+
+        $products = Product::whereIn('id', $items->pluck('product_id'))
+            ->get()
+            ->keyBy('id');
+
+        // delivery estimate: 2–4 days from now (display range)
+        $from = Carbon::now()->addDays(2)->format('D j M');
+        $to   = Carbon::now()->addDays(4)->format('D j M');
+
+        return view('frontend.checkout-confirmation', [
+            'order' => $order,
+            'items' => $items,
+            'products' => $products,
+            'delivery_from' => $from,
+            'delivery_to' => $to,
         ]);
     }
 }
