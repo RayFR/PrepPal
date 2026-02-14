@@ -167,13 +167,14 @@
 
         @if (auth()->id() === $review->user_id)
           <div class="pp-review-actions">
-            <a href="#" class="pp-review-edit">Edit</a>
-            <span>·</span>
-            <form method="POST" action="#" class="pp-review-delete">
-              @csrf
-              @method('DELETE')
-              <button type="submit">Delete</button>
-            </form>
+          <a href="{{ route('reviews.edit', $review->id) }}" class="pp-review-edit">Edit</a>
+
+          <span>·</span>
+          <form method="POST" action="{{ route('reviews.destroy', $review->id) }}" class="pp-review-delete">
+            @csrf
+            @method('DELETE')
+            <button type="submit">Delete</button>
+          </form>
           </div>
         @endif
 

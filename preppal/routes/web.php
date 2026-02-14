@@ -8,9 +8,21 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReviewController;
+
 
 
 use App\Http\Controllers\CartController;
+
+Route::post('/products/{id}/reviews', [ReviewController::class, 'store'])
+    ->name('reviews.store')
+    ->middleware('auth');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/reviews/{review}/edit', [ReviewController::class, 'edit'])->name('reviews.edit');
+    Route::put('/reviews/{review}', [ReviewController::class, 'update'])->name('reviews.update');
+    Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+});
 
 // HOME (public)
 Route::get('/', [HomeController::class, 'index'])->name('home');
