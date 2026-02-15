@@ -5012,3 +5012,90 @@ body[data-theme="dark"] .pp-review-form textarea:focus {
 }
 
 
+/* =========================
+   Edit Review Page
+========================= */
+
+.pp-review-edit-wrap {
+  max-width: 520px;
+  margin: 2.5rem auto;
+  padding: 1.5rem;
+  border-radius: 18px;
+  border: 1px solid var(--color-primary-border);
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+/* Light mode */
+body:not([data-theme="dark"]) .pp-review-edit-wrap {
+  background: #fff7ed; /* same warm tone as review form */
+}
+
+/* Dark mode */
+body[data-theme="dark"] .pp-review-edit-wrap {
+  background: #1f2933;
+  border-color: #374151;
+}
+
+.pp-review-edit-title {
+  font-size: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+/* Fields */
+.pp-review-edit-wrap label {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 0.3rem;
+  opacity: 0.85;
+}
+
+.pp-review-edit-wrap select,
+.pp-review-edit-wrap textarea {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border-radius: 12px;
+  border: 1px solid var(--color-primary-border);
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Light */
+body:not([data-theme="dark"]) .pp-review-edit-wrap select,
+body:not([data-theme="dark"]) .pp-review-edit-wrap textarea {
+  background: #fff;
+  color: #111827;
+}
+/* Dark */
+body[data-theme="dark"] .pp-review-edit-wrap select,
+body[data-theme="dark"] .pp-review-edit-wrap textarea {
+  background: #111827;
+  color: #e5e7eb;
+  border-color: #374151;
+}
+
+/* Focus */
+.pp-review-edit-wrap select:focus,
+.pp-review-edit-wrap textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.25);
+}
+
+/* Buttons */
+.pp-review-edit-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.2rem;
+}
+
+.pp-review-cancel {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  text-decoration: none;
+}
+
+.pp-review-cancel:hover {
+  opacity: 1;
+}
