@@ -48,9 +48,9 @@
                 </select>
             </div>
 
-            {{-- Price (£) --}}
+            {{-- Price (auto currency) --}}
             <div class="field price-range">
-                <label>Price (£)</label>
+                <label>Price <span id="ppCurrencyLabel" style="opacity:.8; font-weight:600;">£ GBP</span></label>
 
                 <div class="price-range-shell">
                     <input
@@ -118,10 +118,10 @@
                 <p style="opacity:0.85;">{{ $product->description }}</p>
 
                 <h3 style="margin: 0.5rem 0 1rem;">
-                    £{{ number_format($product->price, 2) }}
-                    @if($product->category === 'meal')
-                        <span style="font-size:0.9rem; opacity:0.7;">/ week</span>
-                    @endif
+                    <span
+                        data-money-gbp="{{ $product->price }}"
+                        data-money-suffix="{{ $product->category === 'meal' ? ' / week' : '' }}"
+                    >£{{ number_format($product->price, 2) }}{{ $product->category === 'meal' ? ' / week' : '' }}</span>
                 </h3>
 
                 <button

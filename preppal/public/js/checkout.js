@@ -31,9 +31,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let appliedPromo = null;
 
-  function formatMoney(n) {
-    const num = Number(n) || 0;
-    return `£${num.toFixed(2)}`;
+  // Prices are stored in GBP in cart items; we only convert for display.
+  function formatMoneyGBP(amountGBP) {
+    const n = Number(amountGBP) || 0;
+
+    // If currency.js is present, use it to format in the selected currency.
+    if (window.PPCurrency && typeof window.PPCurrency.format === 'function') {
+      return window.PPCurrency.format(n); // expects GBP
+    }
+
+    // Fallback to GBP.
+    return `£${n.toFixed(2)}`;
   }
 
   function luhnCheck(numStr) {
@@ -94,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return promoInput.value.trim().toUpperCase();
   }
 
-  function applyPromoToTotal(subtotal) {
+  function applyPromoToTotal(subtotalGBP) {
     let discount = 0;
     let label = '';
 
@@ -102,10 +110,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const promo = PROMOS[appliedPromo];
 
       if (promo.type === 'percent') {
-        discount = (subtotal * promo.value) / 100;
+        discount = (subtotalGBP * promo.value) / 100;
         label = promo.label;
       } else if (promo.type === 'fixed') {
-        if (subtotal >= (promo.min || 0)) {
+        if (subtotalGBP >= (promo.min || 0)) {
           discount = promo.value;
           label = promo.label;
         } else {
@@ -126,8 +134,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!items.length) {
       if (emptyMsg) emptyMsg.style.display = 'block';
       form.style.display = 'none';
-      totalEl.textContent = 'Total: £0.00';
-      if (subtotalEl) subtotalEl.textContent = '£0.00';
+      totalEl.textContent = `Total: ${formatMoneyGBP(0)}`;
+      if (subtotalEl) subtotalEl.textContent = formatMoneyGBP(0);
       return;
     }
 
@@ -137,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let subtotal = 0;
 
     items.forEach(item => {
-      const price = Number(item.price) || 0;
+      const price = Number(item.price) || 0; // GBP base
       const qty = Number(item.qty) || 0;
       subtotal += price * qty;
 
@@ -151,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="checkout-item-name">${item.name}</div>
           <div class="checkout-item-meta">Qty: ${qty}</div>
         </div>
-        <div class="checkout-item-price">${formatMoney(price * qty)}</div>
+        <div class="checkout-item-price">${formatMoneyGBP(price * qty)}</div>
       `;
       itemsEl.appendChild(li);
     });
@@ -159,12 +167,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const { discount, label } = applyPromoToTotal(subtotal);
     const total = Math.max(0, subtotal - discount);
 
-    if (subtotalEl) subtotalEl.textContent = formatMoney(subtotal);
-    totalEl.textContent = `Total: ${formatMoney(total)}`;
+    if (subtotalEl) subtotalEl.textContent = formatMoneyGBP(subtotal);
+    totalEl.textContent = `Total: ${formatMoneyGBP(total)}`;
 
     if (promoMsg) {
       if (appliedPromo && PROMOS[appliedPromo]) {
-        promoMsg.textContent = label ? `${label} (−${formatMoney(discount)})` : '';
+        promoMsg.textContent = label ? `${label} (−${formatMoneyGBP(discount)})` : '';
         promoMsg.classList.toggle('ok', !!label);
         promoMsg.classList.toggle('bad', !label);
         promoMsg.style.display = label ? 'block' : 'none';
@@ -246,6 +254,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   render();
 
+  // Re-render totals when currency changes
+  window.addEventListener('pp:currencyChanged', () => {
+    render();
+  });
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     setError('');
@@ -299,7 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // Totals (match UI)
+    // Totals (GBP base — matches what’s stored in Cart)
     let subtotal = 0;
     items.forEach(i => { subtotal += (Number(i.price) || 0) * (Number(i.qty) || 0); });
     const { discount } = applyPromoToTotal(subtotal);
@@ -309,7 +322,7 @@ document.addEventListener('DOMContentLoaded', () => {
       items: items.map(i => ({
         id: Number(i.id),
         qty: Number(i.qty),
-        price: Number(i.price),
+        price: Number(i.price), // GBP
         type: 'product'
       })),
       name: document.getElementById('coName').value,
@@ -320,8 +333,8 @@ document.addEventListener('DOMContentLoaded', () => {
       notes: document.getElementById('coNotes')?.value || '',
 
       promo_code: appliedPromo || null,
-      discount: Number(discount.toFixed(2)),
-      total: Number(total.toFixed(2)),
+      discount: Number(discount.toFixed(2)), // GBP
+      total: Number(total.toFixed(2)),       // GBP
 
       payment_method: 'card',
       card_last4: cn.slice(-4)

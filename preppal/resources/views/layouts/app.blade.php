@@ -19,31 +19,86 @@
     <header class="nav">
         <div class="container nav-inner">
 
-            <a class="brand" href="{{ route('home') }}">
+            <a class="brand" href="{{ route('home') }}" aria-label="PrepPal Home">
                 <span class="brand-badge"></span>
             </a>
 
-            <nav class="nav-links">
-                <a href="{{ route('home') }}">Home</a>
-                <a href="{{ route('contact.index') }}">Contact</a>
+            {{-- PRIMARY LINKS (center) --}}
+            <nav class="nav-links" aria-label="Primary navigation">
+                <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a>
+                <a href="{{ route('contact.index') }}" class="{{ request()->routeIs('contact.index') ? 'active' : '' }}">Contact</a>
 
                 @auth
-                    <a href="{{ route('store') }}">Store</a>
-                    <a href="{{ route('calculator') }}">Calculator</a>
-                    <a href="{{ route('profile.index') }}">Profile</a>
-                    <span id="cartDisplay">Cart (0)</span>
-                    <span>Hi, {{ auth()->user()->name }}</span>
-
-                    <form action="{{ route('logout') }}" method="POST" style="display:inline;">
-                        @csrf
-                        <button type="submit" class="logout-btn">Logout</button>
-                    </form>
+                    <a href="{{ route('store') }}" class="{{ request()->routeIs('store') ? 'active' : '' }}">Store</a>
+                    <a href="{{ route('calculator') }}" class="{{ request()->routeIs('calculator') ? 'active' : '' }}">Calculator</a>
                 @else
-                    <a href="{{ route('login') }}">Login</a>
+                    <a href="{{ route('login') }}" class="{{ request()->routeIs('login') ? 'active' : '' }}">Login</a>
+                @endauth
+            </nav>
+
+            {{-- ACTIONS (right side) --}}
+            <div class="nav-actions" aria-label="Navigation actions">
+
+                @auth
+                    {{-- Currency selector (only on Store / Product / Checkout pages) --}}
+                    @if (
+                        request()->routeIs('store') ||
+                        request()->routeIs('product.show') ||
+                        request()->routeIs('checkout') ||
+                        request()->routeIs('checkout.confirmation')
+                    )
+                        <div class="pp-currency" id="ppCurrency" aria-label="Currency selector">
+                            <button type="button"
+                                    class="pp-currency-btn"
+                                    id="ppCurrencyBtn"
+                                    aria-haspopup="listbox"
+                                    aria-expanded="false">
+                                <span class="pp-currency-flag" id="ppCurrencyFlag" aria-hidden="true"></span>
+                                <span class="pp-currency-code" id="ppCurrencyCode">GBP</span>
+                                <span class="pp-currency-caret" aria-hidden="true">▾</span>
+                            </button>
+
+                            <div class="pp-currency-menu" id="ppCurrencyMenu" role="listbox" tabindex="-1" aria-label="Choose currency"></div>
+                        </div>
+                    @endif
+
+                    <button type="button" id="cartDisplay" aria-label="Open cart" class="cart-hidden">Cart (0)</button>
+
+                    {{-- ✅ PROFILE DROPDOWN (replaces Profile nav link) --}}
+                    <div class="profile-dd" id="profileDD">
+                        <button type="button"
+                                class="profile-dd__btn"
+                                id="profileBtn"
+                                aria-haspopup="menu"
+                                aria-expanded="false">
+                            <span class="profile-dd__avatar" aria-hidden="true">
+                                {{ strtoupper(substr(auth()->user()->name ?? 'U', 0, 1)) }}
+                            </span>
+                            <span class="profile-dd__name" title="{{ auth()->user()->name }}">
+                                {{ auth()->user()->name }}
+                            </span>
+                            <span class="profile-dd__caret" aria-hidden="true">▾</span>
+                        </button>
+
+                        <div class="profile-dd__menu" id="profileMenu" role="menu" aria-label="Profile menu">
+                            <a role="menuitem" href="{{ route('profile.index') }}">My Profile</a>
+
+                            {{-- Optional future links (safe to keep commented) --}}
+                            {{-- <a role="menuitem" href="#">Orders</a> --}}
+                            {{-- <a role="menuitem" href="#">Settings</a> --}}
+
+                            <div class="profile-dd__sep"></div>
+
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="profile-dd__logout" role="menuitem">Logout</button>
+                            </form>
+                        </div>
+                    </div>
                 @endauth
 
-                <button id="themeToggle" class="theme-toggle">☀️</button>
-            </nav>
+                <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle theme">☀️</button>
+            </div>
 
         </div>
     </header>
@@ -70,13 +125,13 @@
 
     </div>
 
-        <!-- Scripts loaded after HTML -->
+    <!-- Scripts loaded after HTML -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/currency.js') }}"></script>
     <script src="{{ asset('js/cart.js') }}"></script>
     <script src="{{ asset('js/store.js') }}"></script>
     <script src="{{ asset('js/checkout.js') }}"></script>
 
-    {{-- Page-specific scripts (e.g., calculator.js) --}}
     @stack('scripts')
 
 </body>

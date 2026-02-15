@@ -9,10 +9,29 @@ document.addEventListener('DOMContentLoaded', () => {
   const clearBtn = cartPanel?.querySelector('.cart-clear');
   const checkoutBtn = cartPanel?.querySelector('.cart-checkout');
 
+  const fmt = (gbp) => {
+    if (window.PPCurrency && typeof window.PPCurrency.format === 'function') {
+      return window.PPCurrency.format(gbp);
+    }
+    const n = Number(gbp) || 0;
+    return `£${n.toFixed(2)}`;
+  };
+
   function updatePill() {
     if (!cartDisplay) return;
+
     Cart.reload();
-    cartDisplay.textContent = `Cart (${Cart.getCount()})`;
+    const count = Cart.getCount();
+
+    cartDisplay.textContent = `Cart (${count})`;
+
+    // ✅ Hide cart until there is at least 1 item
+    if (count <= 0) {
+      cartDisplay.classList.add('cart-hidden');
+      cartPanel?.classList.remove('open'); // also close if it was open
+    } else {
+      cartDisplay.classList.remove('cart-hidden');
+    }
   }
 
   function renderMiniCart() {
@@ -25,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!items.length) {
       cartItemsList.innerHTML = '<li>Your cart is empty.</li>';
-      if (cartTotalEl) cartTotalEl.textContent = 'Total: £0.00';
+      if (cartTotalEl) cartTotalEl.textContent = `Total: ${fmt(0)}`;
       if (cartSummary) cartSummary.textContent = 'You have 0 items in your cart.';
       return;
     }
@@ -45,9 +64,9 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
         <div class="info">
           <span class="name">${item.name}</span>
-          <span class="meta">Qty: ${qty} × £${price.toFixed(2)}</span>
+          <span class="meta">Qty: ${qty} × ${fmt(price)}</span>
         </div>
-        <span class="price">£${lineTotal.toFixed(2)}</span>
+        <span class="price">${fmt(lineTotal)}</span>
         <button type="button" class="remove-item" data-id="${item.id}">Remove</button>
       `;
 
@@ -60,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
       cartItemsList.appendChild(li);
     });
 
-    if (cartTotalEl) cartTotalEl.textContent = `Total: £${total.toFixed(2)}`;
+    if (cartTotalEl) cartTotalEl.textContent = `Total: ${fmt(total)}`;
     if (cartSummary) {
       const c = Cart.getCount();
       cartSummary.textContent = `You have ${c} ${c === 1 ? 'item' : 'items'} in your cart.`;
@@ -69,17 +88,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function togglePanel() {
     if (!cartPanel) return;
+
+    // ✅ Safety: don’t open if cart is empty (even if someone forces it visible)
+    Cart.reload();
+    if (Cart.getCount() <= 0) return;
+
     cartPanel.classList.toggle('open');
   }
 
-  // Add-to-cart buttons
   document.querySelectorAll('.add-to-cart').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
 
       const id = btn.dataset.id;
       const name = btn.dataset.name;
-      const price = parseFloat(btn.dataset.price || '0') || 0;
+      const price = parseFloat(btn.dataset.price || '0') || 0; // still GBP base
       const image = btn.dataset.image || '';
 
       Cart.addItem(id, name, price, image);
@@ -89,7 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Mini cart controls
   cartDisplay?.addEventListener('click', togglePanel);
   closeBtn?.addEventListener('click', () => cartPanel?.classList.remove('open'));
   clearBtn?.addEventListener('click', () => { Cart.clear(); updatePill(); renderMiniCart(); });
@@ -98,7 +120,11 @@ document.addEventListener('DOMContentLoaded', () => {
     window.location.href = '/checkout';
   });
 
-  // Init
   updatePill();
   renderMiniCart();
+
+  // Re-render totals when currency changes
+  window.addEventListener('pp:currencyChanged', () => {
+    renderMiniCart();
+  });
 });

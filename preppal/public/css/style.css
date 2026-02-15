@@ -83,7 +83,10 @@ body {
   padding: 0 1rem;
 }
 
-/* --- Navbar --- */
+/* -------------------------
+   NAVBAR (FIXED LAYOUT)
+-------------------------- */
+
 .nav {
   background: var(--color-bg-white);
   border-bottom: 1px solid var(--color-border-light);
@@ -95,13 +98,319 @@ body {
 
 .nav-inner {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 1rem;
   height: 70px;
   max-width: var(--max-width-container);
   margin: 0 auto;
   padding: 0 1rem;
 }
+
+/* logo – keep behaviour the same */
+.brand {
+  display: flex;
+  align-items: center;
+  height: 35px;
+  text-decoration: none;
+  flex: 0 0 auto;
+}
+
+/* ✅ FIX: this was height: 500px and created a huge clickable overlay that
+   can sit on top of your store filters and redirect clicks to Home */
+.brand-badge {
+  width: 180px;
+  height: 35px; /* ✅ FIXED (was 500px) */
+  background: url('../images/preppal-logo.png') center/contain no-repeat;
+  display: block;
+}
+
+/* PRIMARY LINKS (center) */
+.nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* links */
+.nav-links a {
+  text-decoration: none;
+  color: #444;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.2s ease, opacity 0.2s ease;
+  white-space: nowrap;
+}
+
+.nav-links a.active {
+  color: var(--color-primary);
+  text-decoration: none;
+  position: relative;
+}
+
+.nav-links a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.3rem;
+  width: 100%;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--color-primary);
+}
+
+.nav-links a:hover {
+  color: var(--color-primary);
+  opacity: 0.9;
+}
+
+/* ACTIONS (right side) */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+/* User greeting – prevent ugly wrapping */
+.nav-user {
+  font-weight: 600;
+  opacity: 0.9;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Logout button (was unstyled) */
+.logout-btn {
+  padding: 0.42rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.14);
+  background: rgba(255,255,255,0.92);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.logout-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+}
+
+body[data-theme="dark"] .logout-btn {
+  background: rgba(0,0,0,0.22);
+  border-color: rgba(255,255,255,0.18);
+  color: inherit;
+}
+
+/* Cart pill in navbar */
+#cartDisplay {
+  margin-left: 0.25rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background: var(--color-primary-bg-light);
+  border: 1px solid var(--color-primary-border);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  font-family: inherit;
+  line-height: 1.1;
+}
+
+#cartDisplay:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.25);
+}
+
+/* Hide cart on pages where we add the cart-hidden class */
+#cartDisplay.cart-hidden {
+  display: none;
+}
+
+/* Small cart icon before text */
+#cartDisplay::before {
+  content: "🛒";
+  font-size: 1rem;
+  line-height: 1;
+}
+
+#cartDisplay:hover {
+  background: #ffe0b2;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+
+/* Responsive: stack links on small screens so it never overlaps */
+@media (max-width: 980px) {
+  .nav-inner {
+    height: auto;
+    flex-wrap: wrap;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .nav-actions {
+    margin-left: auto;
+    flex-wrap: wrap;
+  }
+
+  .nav-links {
+    order: 3;
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-top: 0.5rem;
+  }
+
+  .nav-user {
+    max-width: 160px;
+  }
+}
+
+/* -------------------------
+   PROFILE DROPDOWN (TOP RIGHT)
+-------------------------- */
+
+.profile-dd {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.profile-dd__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,0.14);
+  background: rgba(255,255,255,0.92);
+  cursor: pointer;
+  font-weight: 700;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  font-family: inherit;
+  line-height: 1;
+}
+
+.profile-dd__btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.10);
+}
+
+body[data-theme="dark"] .profile-dd__btn {
+  background: rgba(0,0,0,0.22);
+  border-color: rgba(255,255,255,0.18);
+  color: inherit;
+}
+
+.profile-dd__avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary-bg-light);
+  border: 1px solid var(--color-primary-border);
+  color: var(--color-primary);
+  font-weight: 900;
+  flex: 0 0 auto;
+}
+
+body[data-theme="dark"] .profile-dd__avatar {
+  background: rgba(255, 122, 0, 0.12);
+  border-color: rgba(255, 122, 0, 0.35);
+}
+
+.profile-dd__name {
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-dd__caret {
+  opacity: 0.75;
+  font-size: 0.95rem;
+  transform: translateY(1px);
+}
+
+/* Menu */
+.profile-dd__menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 10px);
+  min-width: 210px;
+  background: var(--color-bg-white);
+  border: 1px solid var(--color-border-light);
+  border-radius: 14px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+  padding: 0.4rem;
+  display: none;
+  z-index: 200;
+}
+
+body[data-theme="dark"] .profile-dd__menu {
+  background: rgba(15, 23, 42, 0.95);
+  border-color: rgba(255,255,255,0.12);
+}
+
+.profile-dd.open .profile-dd__menu {
+  display: block;
+}
+
+.profile-dd__menu a,
+.profile-dd__menu button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.65rem 0.7rem;
+  border-radius: 12px;
+  border: 0;
+  background: transparent;
+  text-decoration: none;
+  color: inherit;
+  font-weight: 650;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+}
+
+.profile-dd__menu a:hover,
+.profile-dd__menu button:hover {
+  background: rgba(255, 122, 0, 0.12);
+}
+
+.profile-dd__sep {
+  height: 1px;
+  background: rgba(0,0,0,0.10);
+  margin: 0.35rem 0.25rem;
+}
+
+body[data-theme="dark"] .profile-dd__sep {
+  background: rgba(255,255,255,0.12);
+}
+
+.profile-dd__logout {
+  color: #b91c1c;
+}
+
+body[data-theme="dark"] .profile-dd__logout {
+  color: #ff6b6b;
+}
+
 
 /* logo – keep behaviour the same */
 .brand {
@@ -5012,3 +5321,145 @@ body[data-theme="dark"] .pp-review-form textarea:focus {
 }
 
 
+/* ==========================
+   Currency selector (nav)
+   ========================== */
+.currency-picker {
+  display: inline-flex;
+  align-items: center;
+}
+
+.currency-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,.12);
+  background: rgba(255,255,255,.9);
+  color: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  line-height: 1;
+}
+
+body[data-theme="dark"] .currency-select {
+  background: rgba(20,20,20,.85);
+  border-color: rgba(255,255,255,.14);
+}
+
+/* ==========================
+   Currency dropdown (SVG flags)
+   ========================== */
+.pp-currency {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.pp-currency-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(0,0,0,.18);
+  color: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+}
+
+body:not([data-theme="dark"]) .pp-currency-btn {
+  background: rgba(255,255,255,.9);
+  border: 1px solid rgba(0,0,0,.12);
+}
+
+.pp-currency-flag .pp-flag {
+  width: 22px;
+  height: 16px;
+  display: block;
+}
+
+.pp-currency-code {
+  font-size: 0.95rem;
+  letter-spacing: .02em;
+}
+
+.pp-currency-caret {
+  opacity: .75;
+  transform: translateY(-1px);
+}
+
+.pp-currency-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 260px;
+  padding: 8px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(16,16,16,.92);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 18px 60px rgba(0,0,0,.35);
+  display: none;
+  z-index: 9999;
+}
+
+body:not([data-theme="dark"]) .pp-currency-menu {
+  background: rgba(255,255,255,.98);
+  border: 1px solid rgba(0,0,0,.10);
+}
+
+.pp-currency-menu.open {
+  display: block;
+}
+
+.pp-currency-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 10px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  border-radius: 12px;
+  text-align: left;
+}
+
+.pp-currency-item:hover {
+  background: rgba(255,255,255,.08);
+}
+
+body:not([data-theme="dark"]) .pp-currency-item:hover {
+  background: rgba(0,0,0,.05);
+}
+
+.pp-currency-item.is-selected {
+  outline: 2px solid rgba(255, 183, 77, .65);
+  background: rgba(255, 183, 77, .10);
+}
+
+.pp-currency-item-flag .pp-flag {
+  width: 26px;
+  height: 18px;
+  display: block;
+}
+
+.pp-currency-item-main {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.pp-currency-item-code {
+  font-weight: 800;
+}
+
+.pp-currency-item-label {
+  opacity: .8;
+  font-size: 0.86rem;
+}

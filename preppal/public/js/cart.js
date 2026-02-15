@@ -104,10 +104,30 @@ window.Cart = (function () {
     }, 2200);
   }
 
+  function ensureCartVisibleNow() {
+    const cart = document.getElementById("cartDisplay");
+    if (!cart) return;
+
+    // ✅ If it was hidden (count was 0), show it immediately on first add
+    cart.classList.remove("cart-hidden");
+
+    // Optional: quickly update text right away (store.js will also update)
+    if (window.Cart) {
+      try {
+        window.Cart.reload();
+        cart.textContent = `Cart (${window.Cart.getCount()})`;
+      } catch {}
+    }
+  }
+
   function wiggleCart() {
     // Your nav has id="cartDisplay"
     const cart = document.getElementById("cartDisplay");
     if (!cart) return;
+
+    // ✅ Make sure wiggle can be seen
+    cart.classList.remove("cart-hidden");
+
     cart.classList.remove("cart-wiggle");
     // force reflow
     void cart.offsetWidth;
@@ -131,12 +151,11 @@ window.Cart = (function () {
     window.Cart.addItem = function (id, name, price, image) {
       const result = originalAdd(id, name, price, image);
 
-      // UI feedback
+      ensureCartVisibleNow(); // ✅ show cart pill instantly
       wiggleCart();
       showToast(`Added to cart`, name ? name : "Item added");
 
       // If click came from a button, pop it
-      // We try to detect last clicked add-to-cart button
       if (window.__lastAddToCartEl) {
         popButton(window.__lastAddToCartEl);
         window.__lastAddToCartEl = null;

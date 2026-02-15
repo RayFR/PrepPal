@@ -226,3 +226,39 @@
 
 
 })();
+
+// ------------------------------
+// Profile dropdown (top right)
+// ------------------------------
+document.addEventListener('DOMContentLoaded', () => {
+  const dd = document.getElementById('profileDD');
+  const btn = document.getElementById('profileBtn');
+
+  if (!dd || !btn) return;
+
+  function closeDD() {
+    dd.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+  }
+
+  function toggleDD() {
+    const isOpen = dd.classList.toggle('open');
+    btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  }
+
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleDD();
+  });
+
+  // Close when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!dd.contains(e.target)) closeDD();
+  });
+
+  // Close on ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeDD();
+  });
+});
