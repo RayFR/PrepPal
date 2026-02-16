@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 use App\Models\User;
 
 class AuthController extends Controller
@@ -63,6 +64,33 @@ class AuthController extends Controller
     {
         return view('frontend.dashboard');
     }
+    public function forgotPassword(Request $request)
+    {
+        // Accept either username OR email from the popup
+        $request->validate([
+            'identifier' => 'required|string',
+        ]);
+
+        $identifier = trim($request->identifier);
+
+        // If user typed a username, resolve to email. If they typed email, use it directly.
+        $user = User::where('email', $identifier)
+            ->orWhere('username', $identifier)
+            ->first();
+
+        // Always respond with the same message (prevents user-enumeration)
+        $genericMsg = 'If an account matches that information, we’ve sent a password reset link.';
+
+        if (!$user) {
+            return back()->with('status', $genericMsg);
+        }
+
+        $status = Password::sendResetLink(['email' => $user->email]);
+
+        // Even if sending fails, don’t reveal details
+        return back()->with('status', $genericMsg);
+    }
+
 
     // Handle logout
     public function logout(Request $request)
