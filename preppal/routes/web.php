@@ -9,10 +9,18 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
-
-
-
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\BlogController;
+
+
+Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+
+Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
+
+
+Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])
+    ->name('newsletter.subscribe');
 
 Route::post('/products/{id}/reviews', [ReviewController::class, 'store'])
     ->name('reviews.store')
