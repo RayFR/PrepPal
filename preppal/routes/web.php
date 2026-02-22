@@ -1,15 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+ 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReviewController;
 
-
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\BlogController;
 
@@ -71,4 +72,23 @@ Route::middleware('auth')->group(function () {
     Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
     Route::patch('/cart/{cartItem}', [CartController::class, 'update'])->name('cart.update');
     Route::delete('/cart/{cartItem}', [CartController::class, 'destroy'])->name('cart.delete');
+});
+
+
+// REVIEWS
+Route::middleware('auth')->group(function () {
+
+    // Submit review (refreshes product page)
+    Route::post('/products/{id}/reviews', [ReviewController::class, 'store'])
+        ->name('reviews.store');
+
+    // Edit / Update / Delete review
+    Route::get('/reviews/{review}/edit', [ReviewController::class, 'edit'])
+        ->name('reviews.edit');
+
+    Route::put('/reviews/{review}', [ReviewController::class, 'update'])
+        ->name('reviews.update');
+
+    Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])
+        ->name('reviews.destroy');
 });
