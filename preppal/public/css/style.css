@@ -6521,6 +6521,8 @@ body[data-theme="dark"] .pp-side-item{
   .pp-goal-grid{ grid-template-columns: 1fr; }
 }
 
+
+
 /* ==========================
    PrepPal Pagination
    ========================== */
@@ -6858,5 +6860,134 @@ body[data-theme="dark"] .pp-post-hero{
     0 18px 60px rgba(0,0,0,.5),
     0 0 0 1px rgba(255,122,0,.18),
     0 0 40px rgba(255,122,0,.12);
+}
+
+/* =========================================
+   Advice page image sizing fix (exact classes)
+   ========================================= */
+
+/* Make all image wrappers clip cleanly */
+.pp-advice-featured__media,
+.pp-advice-mini__img,
+.pp-advice-card__cover {
+  position: relative;
+  overflow: hidden;
+  background: #0b1220;
+}
+
+/* FEATURED image */
+.pp-advice-featured__media {
+  min-height: 260px; /* adjust if needed */
+}
+
+.pp-advice-featured__media img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* POPULAR mini cards (your screenshot issue) */
+.pp-advice-mini__img {
+  height: 160px;                 /* <-- main sizing fix */
+  border-radius: 18px 18px 0 0;  /* rounded top */
+}
+
+.pp-advice-mini__img img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;             /* prevents squashing */
+  object-position: center;
+}
+
+/* LATEST grid cards */
+.pp-advice-card__cover {
+  height: 170px;                 /* tweak 160-190px */
+  border-radius: 18px 18px 0 0;
+}
+
+.pp-advice-card__cover img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Keep the category badge above image */
+.pp-advice-badge {
+  position: absolute;
+  z-index: 2;
+}
+
+/* Optional subtle overlay for readability/style */
+.pp-advice-mini__img::after,
+.pp-advice-card__cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(0,0,0,.04), rgba(0,0,0,.16));
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .pp-advice-mini__img {
+    height: 145px;
+  }
+
+  .pp-advice-card__cover {
+    height: 150px;
+  }
+
+  .pp-advice-featured__media {
+    min-height: 210px;
+  }
+}
+
+/* =========================================
+   Blog post hero image (show.blade.php) - FULL IMAGE (no crop)
+   ========================================= */
+
+.pp-post-hero {
+  position: relative;
+  width: 100%;
+  height: 420px;                 /* area the image sits inside */
+  overflow: hidden;
+  border-radius: 22px;
+  background: #0b1220;           /* visible behind image if letterboxed */
+  border: 1px solid rgba(255, 140, 0, 0.25);
+  margin: 14px 0 18px;
+
+  /* center image nicely */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pp-post-hero__img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;           /* ✅ full image visible */
+  object-position: center center;
+}
+
+/* Tablet */
+@media (max-width: 1100px) {
+  .pp-post-hero {
+    height: 340px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .pp-post-hero {
+    height: 240px;
+    border-radius: 16px;
+    margin: 12px 0 16px;
+  }
 }
 
