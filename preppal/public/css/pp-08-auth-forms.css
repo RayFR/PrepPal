@@ -1,0 +1,100 @@
+/* --- Auth Tabs & Forms (login/register) --- */
+.auth-wrapper {
+  max-width: 1150px;
+  margin: 4rem auto;
+  display: flex;
+  gap: 2rem;
+  padding: 0 1rem;
+}
+
+.auth-card, .contact-card, .checkout-card {
+  flex: 1;
+  background: var(--color-bg-white);
+  padding: 2.2rem 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  text-align: left;
+}
+
+.auth-card {
+  padding: 2.2rem 2.5rem;
+}
+
+.auth-tabs {
+  display: flex;
+  gap: 0.6rem;
+  margin: 0.75rem 0 1rem;
+}
+
+.auth-tab {
+  flex: 1;
+  padding: 0.55rem;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  background: #f3f4f6;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.15s ease;
+  font-size: 0.9rem;
+}
+
+.auth-tab-active {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary) !important;
+}
+
+.auth-form {
+  display: none;
+  margin-top: 0.5rem;
+}
+
+.auth-form-active {
+  display: block;
+}
+
+.auth-title {
+  margin-bottom: 0.4rem;
+}
+
+.auth-subtitle {
+  color: var(--color-text-subtle);
+  margin-bottom: 1.4rem;
+  font-size: 0.95rem;
+}
+
+.auth-note {
+  margin-top: 0.9rem;
+  font-size: 0.8rem;
+  color: #777;
+}
+
+/* INFO CARD */
+.auth-info-card {
+  flex: 1;
+  background: linear-gradient(135deg, rgba(255,122,0,0.15), rgba(0,200,255,0.15));
+  padding: 2.2rem 2.5rem;
+  border-radius: 20px;
+}
+
+.auth-list {
+  list-style: none;
+  padding: 0;
+}
+
+.auth-list li {
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+}
+
+.auth-footer {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+}
+
+.auth-back {
+  display: inline-block;
+  margin-top: 0.8rem;
+  font-size: 0.9rem;
+}
+

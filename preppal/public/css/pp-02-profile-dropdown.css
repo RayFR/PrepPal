@@ -1,0 +1,280 @@
+/*PROFILE DROPDOWN (TOP RIGHT)
+-------------------------- */
+
+.profile-dd {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.profile-dd__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,0.14);
+  background: rgba(255,255,255,0.92);
+  cursor: pointer;
+  font-weight: 700;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  font-family: inherit;
+  line-height: 1;
+}
+
+.profile-dd__btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.10);
+}
+
+body[data-theme="dark"] .profile-dd__btn {
+  background: rgba(0,0,0,0.22);
+  border-color: rgba(255,255,255,0.18);
+  color: inherit;
+}
+
+.profile-dd__avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary-bg-light);
+  border: 1px solid var(--color-primary-border);
+  color: var(--color-primary);
+  font-weight: 900;
+  flex: 0 0 auto;
+}
+
+body[data-theme="dark"] .profile-dd__avatar {
+  background: rgba(255, 122, 0, 0.12);
+  border-color: rgba(255, 122, 0, 0.35);
+}
+
+.profile-dd__name {
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile-dd__caret {
+  opacity: 0.75;
+  font-size: 0.95rem;
+  transform: translateY(1px);
+}
+
+/* Menu */
+.profile-dd__menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 10px);
+  min-width: 210px;
+  background: var(--color-bg-white);
+  border: 1px solid var(--color-border-light);
+  border-radius: 14px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+  padding: 0.4rem;
+  display: none;
+  z-index: 200;
+}
+
+body[data-theme="dark"] .profile-dd__menu {
+  background: rgba(15, 23, 42, 0.95);
+  border-color: rgba(255,255,255,0.12);
+}
+
+.profile-dd.open .profile-dd__menu {
+  display: block;
+}
+
+.profile-dd__menu a,
+.profile-dd__menu button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.65rem 0.7rem;
+  border-radius: 12px;
+  border: 0;
+  background: transparent;
+  text-decoration: none;
+  color: inherit;
+  font-weight: 650;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+}
+
+.profile-dd__menu a:hover,
+.profile-dd__menu button:hover {
+  background: rgba(255, 122, 0, 0.12);
+}
+
+.profile-dd__sep {
+  height: 1px;
+  background: rgba(0,0,0,0.10);
+  margin: 0.35rem 0.25rem;
+}
+
+body[data-theme="dark"] .profile-dd__sep {
+  background: rgba(255,255,255,0.12);
+}
+
+.profile-dd__logout {
+  color: #b91c1c;
+}
+
+body[data-theme="dark"] .profile-dd__logout {
+  color: #ff6b6b;
+}
+
+
+/* logo – keep behaviour the same */
+.brand {
+  display: flex;
+  align-items: center;
+  height: 35px;
+  text-decoration: none;
+}
+
+/* ✅ FIX: this was height: 500px and created a huge clickable overlay that
+   can sit on top of your store filters and redirect clicks to Home */
+.brand-badge {
+  width: 180px;
+  height: 35px; /* ✅ FIXED (was 500px) */
+  background: url('../images/preppal-logo.png') center/contain no-repeat;
+  display: block;
+}
+
+/* group nav links nicely */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* links */
+.nav-links a {
+  text-decoration: none;
+  color: #444;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.nav-links a.active {
+  color: var(--color-primary);
+  text-decoration: none;
+  position: relative;
+}
+
+.nav-links a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.3rem;
+  width: 100%;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--color-primary);
+}
+
+.nav-links a:hover {
+  color: var(--color-primary);
+  opacity: 0.9;
+}
+
+/* Cart pill in navbar */
+#cartDisplay {
+  margin-left: 0.5rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background: var(--color-primary-bg-light);
+  border: 1px solid var(--color-primary-border);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+
+
+/* Hide cart on pages where we add the cart-hidden class */
+#cartDisplay.cart-hidden {
+  display: none;
+}
+
+/* Small cart icon before text */
+#cartDisplay::before {
+  content: "🛒";
+  font-size: 1rem;
+  line-height: 1;
+}
+
+#cartDisplay:hover {
+  background: #ffe0b2;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* CTA button (Get Started / Log Out) */
+.cta, .primary-cta {
+  background: var(--color-primary);
+  color: #fff !important;
+  padding: 0.5rem 1.35rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(255, 122, 0, 0.3);
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+
+  /* ✅ FIX: if CTA is an <a>, remove underline */
+  text-decoration: none;
+}
+
+.cta:hover, .primary-cta:hover {
+  background: var(--color-primary-light);
+  box-shadow: 0 10px 24px rgba(255, 122, 0, 0.4);
+  transform: translateY(-1px);
+}
+
+/* Primary button with a bit more "app" feel */
+.primary-cta {
+  gap: 0.4rem;
+  box-shadow: 0 8px 18px rgba(255, 122, 0, 0.35);
+}
+
+.primary-cta:hover {
+  box-shadow: 0 10px 24px rgba(255, 122, 0, 0.45);
+}
+
+/* Theme toggle button in navbar */
+.theme-toggle {
+  border: none;
+  background: transparent;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0.3rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.theme-toggle:hover {
+  background: rgba(0, 0, 0, 0.04);
+  transform: translateY(-1px);
+}
+

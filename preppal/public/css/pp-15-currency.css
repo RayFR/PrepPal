@@ -1,0 +1,144 @@
+/*Currency selector (nav)
+   ========================== */
+.currency-picker {
+  display: inline-flex;
+  align-items: center;
+}
+
+.currency-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,.12);
+  background: rgba(255,255,255,.9);
+  color: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  line-height: 1;
+}
+
+body[data-theme="dark"] .currency-select {
+  background: rgba(20,20,20,.85);
+  border-color: rgba(255,255,255,.14);
+}
+
+/* ==========================
+   Currency dropdown (SVG flags)
+   ========================== */
+.pp-currency {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.pp-currency-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(0,0,0,.18);
+  color: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+}
+
+body:not([data-theme="dark"]) .pp-currency-btn {
+  background: rgba(255,255,255,.9);
+  border: 1px solid rgba(0,0,0,.12);
+}
+
+.pp-currency-flag .pp-flag {
+  width: 22px;
+  height: 16px;
+  display: block;
+}
+
+.pp-currency-code {
+  font-size: 0.95rem;
+  letter-spacing: .02em;
+}
+
+.pp-currency-caret {
+  opacity: .75;
+  transform: translateY(-1px);
+}
+
+.pp-currency-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 260px;
+  padding: 8px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(16,16,16,.92);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 18px 60px rgba(0,0,0,.35);
+  display: none;
+  z-index: 9999;
+}
+
+body:not([data-theme="dark"]) .pp-currency-menu {
+  background: rgba(255,255,255,.98);
+  border: 1px solid rgba(0,0,0,.10);
+}
+
+.pp-currency-menu.open {
+  display: block;
+}
+
+.pp-currency-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 10px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  border-radius: 12px;
+  text-align: left;
+}
+
+.pp-currency-item:hover {
+  background: rgba(255,255,255,.08);
+}
+
+body:not([data-theme="dark"]) .pp-currency-item:hover {
+  background: rgba(0,0,0,.05);
+}
+
+.pp-currency-item.is-selected {
+  outline: 2px solid rgba(255, 183, 77, .65);
+  background: rgba(255, 183, 77, .10);
+}
+
+.pp-currency-item-flag .pp-flag {
+  width: 26px;
+  height: 18px;
+  display: block;
+}
+
+.pp-currency-item-main {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.pp-currency-item-code {
+  font-weight: 800;
+}
+
+.pp-currency-item-label {
+  opacity: .8;
+  font-size: 0.86rem;
+}
+
+/* ==========================
+   

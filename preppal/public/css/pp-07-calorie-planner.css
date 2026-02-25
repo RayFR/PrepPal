@@ -1,0 +1,272 @@
+/* --- Calorie Planner / Calculator --- */
+.calorie-planner {
+  text-align: left;
+  border-top: 4px solid var(--color-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.calorie-planner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -40%;
+  width: 80%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-primary), #ffca28, var(--color-primary));
+  opacity: 0.9;
+}
+
+.calorie-header {
+  margin-bottom: 1rem;
+}
+
+.calorie-header p {
+  margin-bottom: 0.75rem;
+  color: var(--color-text-subtle);
+}
+
+/* Step tags (like mini chips) */
+.calorie-tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.pill-soft {
+  background: var(--color-primary-bg-light);
+  color: var(--color-primary);
+  border: 1px solid #ffe0b2;
+}
+
+/* Inputs (Consolidated) */
+.calorie-form label, .auth-card label, .contact-form label, .form-grid label {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 0.25rem;
+}
+
+.calorie-form input,
+.calorie-form select,
+.auth-card input,
+.contact-form input,
+.contact-form textarea,
+.form-grid input,
+.form-grid textarea {
+  width: 100%;
+  padding: 0.4rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--color-border-light);
+  font-family: inherit;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+}
+
+.calorie-form input, .calorie-form select {
+  padding: 0.4rem 0.5rem;
+  font-size: 0.9rem;
+}
+
+.auth-card input,
+.contact-form input,
+.form-grid input,
+.form-grid textarea {
+  padding: 0.55rem 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.contact-form textarea {
+  resize: vertical;
+}
+
+.calorie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 0.75rem 1rem;
+  margin-top: 0.75rem;
+}
+
+.calorie-results {
+  margin-top: 1.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid #f0f0f0;
+}
+
+/* TOP: ring + text */
+.calorie-summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Circular calorie ring */
+.calorie-ring {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* Make the custom property animatable (smooth ring fill) */
+@property --progress {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.ring-graphic {
+  --progress: 0deg;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(var(--color-bg-white) 60%, transparent 61%),
+    conic-gradient(var(--color-primary) var(--progress), #ffe0b2 0deg 360deg);
+
+
+  /* smooth fill animation */
+  transition: --progress 1.2s cubic-bezier(.2,.8,.2,1);
+
+  /* optional glow */
+  filter: drop-shadow(0 0 10px rgba(255, 122, 0, 0.35));
+}
+
+
+.ring-inner {
+  width: 75%;
+  height: 75%;
+  border-radius: 50%;
+  background: var(--color-bg-white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ring-inner span {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.ring-inner small {
+  font-size: 0.7rem;
+  color: #777;
+}
+
+.ring-caption {
+  font-size: 0.8rem;
+  color: var(--color-text-subtle);
+}
+
+.summary-text h3 {
+  margin: 0 0 0.4rem;
+}
+
+.summary-text p {
+  margin: 0;
+  color: var(--color-text-subtle);
+}
+
+/* Macro cards like chips */
+.macro-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.25rem 0 0.9rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.6rem;
+  font-size: 0.9rem;
+}
+
+.macro-list li {
+  background: #fff7f0;
+  border-radius: 12px;
+  padding: 0.55rem 0.75rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.macro-list li strong {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.macro-list li span {
+  font-weight: 600;
+  color: #333;
+}
+
+/* Plan card */
+.plan-card {
+  background: var(--color-bg-light-gray);
+  border-radius: 10px;
+  padding: 0.75rem 0.9rem;
+  border: 1px dashed #ffcc80;
+  margin-bottom: 0.75rem;
+}
+
+.plan-card strong {
+  color: var(--color-primary);
+}
+
+.plan-add-btn {
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
+}
+
+/* TOP: Ring + Text */
+.macro-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.macro-card {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background: #e8eef5;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+.macro-icon {
+  font-size: 2rem;
+  margin-right: 1rem;
+}
+
+.macro-info h4 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.macro-info p {
+  margin: 0;
+  margin-top: 3px;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+

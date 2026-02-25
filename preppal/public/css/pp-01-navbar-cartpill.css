@@ -1,0 +1,302 @@
+/*NAVBAR (FIXED LAYOUT)
+-------------------------- */
+
+.nav {
+  background: var(--color-bg-white);
+  border-bottom: 1px solid var(--color-border-light);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 70px;
+  max-width: var(--max-width-container);
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* logo – keep behaviour the same */
+.brand {
+  display: flex;
+  align-items: center;
+  height: 35px;
+  text-decoration: none;
+  flex: 0 0 auto;
+}
+
+/* ✅ FIX: this was height: 500px and created a huge clickable overlay that
+   can sit on top of your store filters and redirect clicks to Home */
+.brand-badge {
+  width: 180px;
+  height: 35px; /* ✅ FIXED (was 500px) */
+  background: url('../images/preppal-logo.png') center/contain no-repeat;
+  display: block;
+}
+
+/* PRIMARY LINKS (center) */
+.nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* links */
+.nav-links a {
+  text-decoration: none;
+  color: #444;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: color 0.2s ease, opacity 0.2s ease;
+  white-space: nowrap;
+}
+
+.nav-links a.active {
+  color: var(--color-primary);
+  text-decoration: none;
+  position: relative;
+}
+
+.nav-links a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.3rem;
+  width: 100%;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--color-primary);
+}
+
+.nav-links a:hover {
+  color: var(--color-primary);
+  opacity: 0.9;
+}
+
+/* ACTIONS (right side) */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+/* User greeting – prevent ugly wrapping */
+.nav-user {
+  font-weight: 600;
+  opacity: 0.9;
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Logout button (was unstyled) */
+.logout-btn {
+  padding: 0.42rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.14);
+  background: rgba(255,255,255,0.92);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.logout-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+}
+
+body[data-theme="dark"] .logout-btn {
+  background: rgba(0,0,0,0.22);
+  border-color: rgba(255,255,255,0.18);
+  color: inherit;
+}
+
+/* Cart pill in navbar */
+#cartDisplay {
+  margin-left: 0.25rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background: var(--color-primary-bg-light);
+  border: 1px solid var(--color-primary-border);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  font-family: inherit;
+  line-height: 1.1;
+}
+
+/* =========================================
+   MINI CART PANEL — STRONGER GLOW + BIGGER SIZE
+   (Safe: does NOT change position/transform/display)
+   ========================================= */
+
+#cartPanel,
+.cart-panel{
+  /* Bigger panel */
+  width: 420px !important;          /* was smaller; adjust if you want */
+  max-width: calc(100vw - 24px) !important;
+  padding: 18px 18px 16px !important;
+
+  /* Stronger outline + glow */
+  border: 1px solid rgba(255,122,0,0.35) !important;
+  box-shadow:
+    0 18px 55px rgba(0,0,0,0.72),           /* depth */
+    0 0 0 1px rgba(255,255,255,0.06) inset, /* inner separation */
+    0 0 38px rgba(255,122,0,0.22),          /* orange bloom */
+    0 0 0 2px rgba(255,122,0,0.10) !important; /* subtle ring */
+}
+
+/* When open: even punchier glow */
+#cartPanel.open,
+.cart-panel.open{
+  box-shadow:
+    0 22px 65px rgba(0,0,0,0.78),
+    0 0 0 1px rgba(255,255,255,0.06) inset,
+    0 0 54px rgba(255,122,0,0.30),
+    0 0 0 2px rgba(255,122,0,0.16) !important;
+}
+
+/* Typography spacing */
+#cartPanel h3,
+.cart-panel h3,
+#cartPanel .cart-title,
+.cart-panel .cart-title{
+  font-size: 22px;
+  letter-spacing: .2px;
+  text-shadow: 0 0 18px rgba(255,122,0,0.35);
+  margin-bottom: 8px;
+}
+
+#cartPanel #cartSummary,
+.cart-panel #cartSummary{
+  font-size: 14.5px;
+  opacity: .95;
+}
+
+/* Bigger, less cramped item rows */
+#cartPanel ul,
+.cart-panel ul{
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+#cartPanel li,
+.cart-panel li{
+  padding: 12px 14px;
+  margin: 12px 0;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.30);
+}
+
+#cartPanel .thumb,
+.cart-panel .thumb{
+  width: 52px;
+  height: 52px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.35);
+}
+
+/* Totals + buttons spacing */
+#cartPanel #cartTotal,
+.cart-panel #cartTotal{
+  font-size: 18px;
+  margin-top: 8px;
+  margin-bottom: 10px;
+}
+
+#cartPanel .cart-actions,
+.cart-panel .cart-actions{
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+#cartPanel .cart-actions button,
+.cart-panel .cart-actions button{
+  padding: 10px 16px;
+  border-radius: 14px;
+  font-weight: 800;
+}
+
+/* Mobile: keep it roomy but fit screen */
+@media (max-width: 520px){
+  #cartPanel,
+  .cart-panel{
+    width: calc(100vw - 16px) !important;
+    padding: 16px !important;
+  }
+}
+
+#cartDisplay:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.25);
+}
+
+/* Hide cart on pages where we add the cart-hidden class */
+#cartDisplay.cart-hidden {
+  display: none;
+}
+
+/* Small cart icon before text */
+#cartDisplay::before {
+  content: "🛒";
+  font-size: 1rem;
+  line-height: 1;
+}
+
+#cartDisplay:hover {
+  background: #ffe0b2;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
+}
+
+/* Responsive: stack links on small screens so it never overlaps */
+@media (max-width: 980px) {
+  .nav-inner {
+    height: auto;
+    flex-wrap: wrap;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .nav-actions {
+    margin-left: auto;
+    flex-wrap: wrap;
+  }
+
+  .nav-links {
+    order: 3;
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-top: 0.5rem;
+  }
+
+  .nav-user {
+    max-width: 160px;
+  }
+}
+
+/* -------------------------
+   
