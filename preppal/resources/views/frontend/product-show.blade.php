@@ -3,6 +3,12 @@
 @section('title', $product->name)
 
 @section('content')
+@php
+  $reviewCount = $product->reviews->count();
+  $avg = $reviewCount ? (float) ($averageRating ?? 0) : 0;
+  $roundedStars = $reviewCount ? (int) round($avg) : 0;
+@endphp
+
 <main class="container main-content">
 
   <nav class="pp-breadcrumb">
@@ -32,16 +38,25 @@
       <p class="pp-subtitle">{{ $product->category === 'meal' ? 'Meal Prep Plan' : 'Supplement' }}</p>
 
       <div class="pp-rating">
-        <span class="pp-stars">★★★★★</span>
-        <span class="pp-rating-text">4.8 (128 reviews)</span>
+        <span class="pp-stars">
+          @for ($i = 1; $i <= 5; $i++)
+            {{ $i <= $roundedStars ? '★' : '☆' }}
+          @endfor
+        </span>
+
+        @if ($reviewCount)
+          <span class="pp-rating-text">{{ number_format($avg, 1) }} ({{ $reviewCount }} {{ $reviewCount === 1 ? 'review' : 'reviews' }})</span>
+        @else
+          <span class="pp-rating-text">No reviews yet</span>
+        @endif
       </div>
 
       <div class="pp-price-row">
         <div class="pp-price">
-          £{{ number_format($product->price, 2) }}
-          @if($product->category === 'meal')
-            <span class="pp-per">/ week</span>
-          @endif
+          <span
+            data-money-gbp="{{ $product->price }}"
+            data-money-suffix="{{ $product->category === 'meal' ? ' / week' : '' }}"
+          >£{{ number_format($product->price, 2) }}{{ $product->category === 'meal' ? ' / week' : '' }}</span>
         </div>
         <div class="pp-stock">In stock</div>
       </div>
@@ -95,92 +110,94 @@
           <summary>Description</summary>
           <p>{{ $product->description }}</p>
         </details>
-<details>
-  <summary>Write a Review</summary>
 
-  {{-- ✅ Success message --}}
-  @if(session('success'))
-    <p style="color: green; margin: 10px 0;">
-      {{ session('success') }}
-    </p>
-  @endif
+        <details>
+          <summary>Write a Review</summary>
 
-  <form method="POST" action="/products/{{ $product->id }}/reviews" class="pp-review-form">
-    @csrf
+          {{-- ✅ Success message --}}
+          @if(session('success'))
+            <p style="color: green; margin: 10px 0;">
+              {{ session('success') }}
+            </p>
+          @endif
 
-    <div class="pp-review-field">
-      <label>Rating</label>
-      <select name="rating" required>
-        <option value="5">⭐⭐⭐⭐⭐</option>
-        <option value="4">⭐⭐⭐⭐</option>
-        <option value="3">⭐⭐⭐</option>
-        <option value="2">⭐⭐</option>
-        <option value="1">⭐</option>
-      </select>
-    </div>
+          <form method="POST" action="/products/{{ $product->id }}/reviews" class="pp-review-form">
+            @csrf
 
-    <div class="pp-review-field">
-      <textarea name="comment" placeholder="Write your review (optional)"></textarea>
-    </div>
+            <div class="pp-review-field">
+              <label>Rating</label>
+              <select name="rating" required>
+                <option value="5">⭐⭐⭐⭐⭐</option>
+                <option value="4">⭐⭐⭐⭐</option>
+                <option value="3">⭐⭐⭐</option>
+                <option value="2">⭐⭐</option>
+                <option value="1">⭐</option>
+              </select>
+            </div>
 
-    <button type="submit" class="cta pp-review-submit">
-      Submit Review
-    </button>
-  </form>
-</details>
+            <div class="pp-review-field">
+              <textarea name="comment" placeholder="Write your review (optional)"></textarea>
+            </div>
 
-{{-- ================= REVIEWS LIST ================= --}}
-<section class="pp-reviews">
-  <h3 class="pp-reviews-title">
-    Customer Reviews ({{ $product->reviews->count() }})
-  </h3>
+            <button type="submit" class="cta pp-review-submit">
+              Submit Review
+            </button>
+          </form>
+        </details>
 
-  @if ($product->reviews->isEmpty())
-    <p class="pp-no-reviews">
-      No reviews yet. Be the first to review this product.
-    </p>
-  @else
-    @foreach ($product->reviews as $review)
-      <article class="pp-review-card">
+        {{-- ================= REVIEWS LIST ================= --}}
+        <section class="pp-reviews">
+          <h3 class="pp-reviews-title">
+            Customer Reviews ({{ $reviewCount }})
+          </h3>
 
-        <div class="pp-review-header">
-          <strong class="pp-review-user">
-            {{ $review->user->name }}
-          </strong>
+          @if ($product->reviews->isEmpty())
+            <p class="pp-no-reviews">
+              No reviews yet. Be the first to review this product.
+            </p>
+          @else
+            @foreach ($product->reviews as $review)
+              <article class="pp-review-card">
 
-          <span class="pp-review-stars">
-            @for ($i = 1; $i <= 5; $i++)
-              {{ $i <= $review->rating ? '★' : '☆' }}
-            @endfor
-          </span>
-        </div>
+                <div class="pp-review-header">
+                  <strong class="pp-review-user">
+                    {{ $review->user->name }}
+                  </strong>
 
-        @if ($review->comment)
-          <p class="pp-review-comment">
-            {{ $review->comment }}
-          </p>
-        @endif
+                  <span class="pp-review-stars">
+                    @for ($i = 1; $i <= 5; $i++)
+                      {{ $i <= $review->rating ? '★' : '☆' }}
+                    @endfor
+                  </span>
+                </div>
 
-        <div class="pp-review-meta">
-          Reviewed {{ $review->created_at->diffForHumans() }}
-        </div>
+                @if ($review->comment)
+                  <p class="pp-review-comment">
+                    {{ $review->comment }}
+                  </p>
+                @endif
 
-        @if (auth()->id() === $review->user_id)
-          <div class="pp-review-actions">
-            <a href="#" class="pp-review-edit">Edit</a>
-            <span>·</span>
-            <form method="POST" action="#" class="pp-review-delete">
-              @csrf
-              @method('DELETE')
-              <button type="submit">Delete</button>
-            </form>
-          </div>
-        @endif
+                <div class="pp-review-meta">
+                  Reviewed {{ $review->created_at->diffForHumans() }}
+                </div>
 
-      </article>
-    @endforeach
-  @endif
-</section>
+                @if (auth()->id() === $review->user_id)
+                  <div class="pp-review-actions">
+                    <a href="{{ route('reviews.edit', $review->id) }}" class="pp-review-edit">Edit</a>
+
+                    <span>·</span>
+                    <form method="POST" action="{{ route('reviews.destroy', $review->id) }}" class="pp-review-delete">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit">Delete</button>
+                    </form>
+                  </div>
+                @endif
+
+              </article>
+            @endforeach
+          @endif
+        </section>
 
         <details>
           <summary>How to use</summary>
@@ -204,7 +221,7 @@
   </div>
 </main>
 
-{{-- Qty buttons + keep add-to-cart qty synced --}}
+{{-- Qty buttons + add-to-cart uses selected qty --}}
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const qtyWrap = document.querySelector('.pp-qty');
@@ -234,6 +251,30 @@
 
     qtyInput.addEventListener('input', sync);
     qtyInput.addEventListener('change', sync);
+
+    // Override generic store.js handler so qty works properly on PDP
+    addBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+
+      if (!window.Cart) return;
+
+      const id = addBtn.dataset.id;
+      const name = addBtn.dataset.name;
+      const price = parseFloat(addBtn.dataset.price || '0') || 0; // GBP base
+      const image = addBtn.dataset.image || '';
+      const qty = clampQty(parseInt(addBtn.dataset.qty || '1', 10));
+
+      for (let i = 0; i < qty; i++) {
+        window.Cart.addItem(id, name, price, image);
+      }
+
+      // Update navbar cart pill if present
+      const cartDisplay = document.getElementById('cartDisplay');
+      if (cartDisplay && window.Cart.getCount) {
+        cartDisplay.textContent = `Cart (${window.Cart.getCount()})`;
+      }
+    }, true);
 
     sync();
   });

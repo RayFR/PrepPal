@@ -1,0 +1,99 @@
+/* --- Store & Admin Tables --- */
+.store-search-row {
+  margin: 1.5rem 0 1.75rem;
+  text-align: left;
+}
+
+.store-search-label {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 0.35rem;
+  color: #4b5563;
+}
+
+.store-search-input {
+  width: 100%;
+  max-width: 420px;
+  padding: 0.45rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-border-lighter);
+  font-family: inherit;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+  box-sizing: border-box;
+}
+
+.admin-table-card {
+  margin-top: 2rem;
+  text-align: left;
+}
+
+.admin-table-header {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+.admin-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--color-border-lighter);
+  text-align: left;
+}
+
+.admin-table th {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6b7280;
+}
+
+.admin-table tr:last-child td {
+  border-bottom: none;
+}
+
+.admin-table-note {
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.admin-status-select {
+  padding: 0.2rem 0.4rem;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  font-size: 0.82rem;
+  background: var(--color-bg-light-gray);
+}
+
+.chart-section {
+  text-align: center;
+  margin: 3rem 0;
+}
+
+.chart-placeholder {
+  width: 100%;
+  height: 250px;
+  border: 2px dashed var(--color-primary);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: var(--color-primary);
+  margin-top: 1rem;
+}
+

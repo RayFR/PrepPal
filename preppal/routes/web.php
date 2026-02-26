@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+ 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CheckoutController;
@@ -9,9 +9,20 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ReviewController;
 
-
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\BlogController;
+
+
+Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+
+Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
+
+
+Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])
+    ->name('newsletter.subscribe');
 
 // HOME (public)
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -23,6 +34,8 @@ Route::post('/contact', [ContactController::class, 'store'])->name('contact.stor
 // AUTH (public)
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
+// FORGOT PASSWORD (public)
+Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name('password.forgot');
 
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
@@ -34,7 +47,7 @@ Route::middleware('auth')->group(function () {
     // STORE + PRODUCT PAGES
     Route::get('/store', [ProductController::class, 'index'])->name('store');
     Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
-    
+
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
@@ -64,4 +77,23 @@ Route::middleware('auth')->group(function () {
     Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
     Route::patch('/cart/{cartItem}', [CartController::class, 'update'])->name('cart.update');
     Route::delete('/cart/{cartItem}', [CartController::class, 'destroy'])->name('cart.delete');
+});
+
+
+// REVIEWS
+Route::middleware('auth')->group(function () {
+
+    // Submit review (refreshes product page)
+    Route::post('/products/{id}/reviews', [ReviewController::class, 'store'])
+        ->name('reviews.store');
+
+    // Edit / Update / Delete review
+    Route::get('/reviews/{review}/edit', [ReviewController::class, 'edit'])
+        ->name('reviews.edit');
+
+    Route::put('/reviews/{review}', [ReviewController::class, 'update'])
+        ->name('reviews.update');
+
+    Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])
+        ->name('reviews.destroy');
 });
