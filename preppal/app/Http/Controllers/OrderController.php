@@ -7,6 +7,16 @@ use App\Models\Order;
 
 class OrderController extends Controller
 {
+    public function index()
+    {
+        $orders = Order::where('user_id', auth()->id())
+            ->orderByDesc('id')
+            ->get();
+
+        return view('frontend.orders', compact('orders'));
+    }
+
+
     public function store(Request $request)
     {
         $request->validate([
@@ -42,5 +52,6 @@ class OrderController extends Controller
             'message'  => 'Order placed successfully!',
             'order_id' => $order->id
         ]);
+        
     }
 }

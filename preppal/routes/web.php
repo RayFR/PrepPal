@@ -8,6 +8,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\OrderController;
 
 
 use App\Http\Controllers\CartController;
@@ -42,6 +43,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/calculator', function () {
         return view('frontend.calculator');
     })->name('calculator');
+
+    Route::get('/orders', [OrderController::class, 'index'])
+    ->name('orders.index')
+    ->middleware('auth');
 
     // CHECKOUT
     Route::get('/checkout', function () {

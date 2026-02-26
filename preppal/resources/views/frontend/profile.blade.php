@@ -39,11 +39,13 @@
                     </p>
                 </div>
 
-                <div style="text-align:right;">
+                <div style="text-align:right; display: flex; justify-content: space-between; flex-direction: column;">
                     <p style="margin:0; opacity:0.75; font-size: 0.95rem;">
                         Member since:
                         <strong>{{ optional(auth()->user()->created_at)->format('d M Y') }}</strong>
                     </p>
+                    <a style="margin:0; color: white; text-decoration: none; font-size: 1.1rem;" href="{{ route('orders.index') }}">-> See past orders <-</a>
+
                 </div>
             </div>
         </section>

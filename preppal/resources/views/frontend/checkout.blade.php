@@ -157,7 +157,7 @@
                                 <div class="input-with-icon">
                                     <span class="input-icon" aria-hidden="true">💳</span>
                                     <input type="text" id="coCardNumber" inputmode="numeric" autocomplete="cc-number"
-                                           placeholder="1234 5678 9012 3456" maxlength="19" required>
+                                           placeholder="1234 5678 9012 3456" maxlength="22">
                                 </div>
                                 <div class="field-hint">Numbers only • we format automatically</div>
                             </div>
@@ -165,13 +165,13 @@
                             <div>
                                 <label for="coExpiry">Expiry</label>
                                 <input type="text" id="coExpiry" inputmode="numeric" autocomplete="cc-exp"
-                                       placeholder="MM/YY" maxlength="5" required>
+                                       placeholder="MM/YY" maxlength="5">
                             </div>
 
                             <div>
                                 <label for="coCvc">CVC</label>
                                 <input type="password" id="coCvc" inputmode="numeric" autocomplete="cc-csc"
-                                       placeholder="123" maxlength="4" required>
+                                       placeholder="123" maxlength="4">
                             </div>
                         </div>
                     </div>
