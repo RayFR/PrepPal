@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
     <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
+
+    {{-- ✅ Page-only styles --}}
+    @stack('styles')
 </head>
 
 <body>
@@ -28,7 +31,7 @@
                 <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a>
                 <a href="{{ route('blog.index') }}" class="{{ request()->routeIs('blog.*') ? 'active' : '' }}">Advice</a>
                 <a href="{{ route('contact.index') }}" class="{{ request()->routeIs('contact.index') ? 'active' : '' }}">Contact</a>
-                
+
                 @auth
                     <a href="{{ route('store') }}" class="{{ request()->routeIs('store') ? 'active' : '' }}">Store</a>
                     <a href="{{ route('calculator') }}" class="{{ request()->routeIs('calculator') ? 'active' : '' }}">Calculator</a>
@@ -65,7 +68,7 @@
 
                     <button type="button" id="cartDisplay" aria-label="Open cart" class="cart-hidden">Cart (0)</button>
 
-                    {{-- ✅ PROFILE DROPDOWN (replaces Profile nav link) --}}
+                    {{-- ✅ PROFILE DROPDOWN --}}
                     <div class="profile-dd" id="profileDD">
                         <button type="button"
                                 class="profile-dd__btn"
@@ -122,7 +125,7 @@
 
     </div>
 
-{{-- Newsletter Promo Modal (scroll-triggered + success state) --}}
+{{-- Newsletter Promo Modal --}}
 <div class="pp-newsletter"
      id="ppNewsletter"
      aria-hidden="true"
@@ -134,16 +137,11 @@
     <button class="pp-newsletter__close" type="button" aria-label="Close" data-pp-nl-close>×</button>
 
     <div class="pp-newsletter__grid">
-      {{-- LEFT IMAGE --}}
       <div class="pp-newsletter__media" aria-hidden="true">
-        {{-- ✅ Use your actual image file here --}}
         <img src="{{ asset('images/newspaper.png') }}" alt="" loading="lazy">
       </div>
 
-      {{-- RIGHT SIDE --}}
       <div class="pp-newsletter__content">
-
-        {{-- ✅ AFTER SIGNUP (Success screen like your screenshot) --}}
         @if (session('newsletter_success'))
           <div class="pp-newsletter__success">
             <h2 class="pp-newsletter__title" id="ppNlTitle">
@@ -163,8 +161,6 @@
 
             <button class="pp-newsletter__no" type="button" data-pp-nl-close>Close</button>
           </div>
-
-        {{-- ✅ BEFORE SIGNUP (Email + button) --}}
         @else
           <h2 class="pp-newsletter__title" id="ppNlTitle">Fuel your ambition</h2>
           <p class="pp-newsletter__subtitle">Get <b>15% off</b> your first order</p>
@@ -200,7 +196,6 @@
   </div>
 </div>
 
-
     <!-- Scripts loaded after HTML -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/currency.js') }}"></script>
@@ -208,7 +203,7 @@
     <script src="{{ asset('js/store.js') }}"></script>
     <script src="{{ asset('js/checkout.js') }}"></script>
     <script defer src="{{ asset('js/newsletter.js') }}?v={{ filemtime(public_path('js/newsletter.js')) }}"></script>
-    
+
     @stack('scripts')
 
 </body>
