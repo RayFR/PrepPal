@@ -10,7 +10,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReviewController;
-
+use App\Http\Controllers\Admin\AdminCustomerController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\BlogController;
@@ -79,6 +79,22 @@ Route::middleware('auth')->group(function () {
     Route::delete('/cart/{cartItem}', [CartController::class, 'destroy'])->name('cart.delete');
 });
 
+// ADMIN (must be logged in + admin)
+Route::middleware(['auth', 'admin', 'force_reset'])->prefix('admin')->group(function () {
+
+    // Customers management (CRUD)
+    Route::get('/customers', [AdminCustomerController::class, 'index'])
+        ->name('admin.customers.index');
+
+    Route::get('/customers/{user}/edit', [AdminCustomerController::class, 'edit'])
+        ->name('admin.customers.edit');
+
+    Route::put('/customers/{user}', [AdminCustomerController::class, 'update'])
+        ->name('admin.customers.update');
+
+    Route::delete('/customers/{user}', [AdminCustomerController::class, 'destroy'])
+        ->name('admin.customers.destroy');
+});
 
 // REVIEWS
 Route::middleware('auth')->group(function () {
