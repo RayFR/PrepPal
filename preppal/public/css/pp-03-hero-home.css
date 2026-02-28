@@ -1,83 +1,340 @@
-/* --- Hero Section --- */
+/* =========================================================
+   HERO SECTION (Home)
+   Clean • Premium • No overlap • Fully controlled
+   ========================================================= */
+
+/* =========================
+   QUICK CONTROLS
+   ========================= */
+:root {
+  --hero-min-height: 520px;
+  --hero-padding-y: 5rem;
+
+  --hero-right-max: 480px;   /* adjust card size here */
+  --hero-gap: 40px;          /* space between text & cards */
+  --hero-left-min: 340px;
+  --hero-right-min: 320px;
+}
+
+/* --- Hero background --- */
 .hero {
   background: url('../images/banner_hero.png') center/cover no-repeat;
   color: #fff;
-  text-align: center;
-  padding: 5rem 0; /* no left/right padding */
   position: relative;
-  min-height: 420px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%; /* force full screen width */
-  max-width: none;
-  margin: 0; /* remove any margins */
+  min-height: var(--hero-min-height);
+  padding: var(--hero-padding-y) 0;
+  overflow: hidden;
 }
 
+/* Overlay */
 .hero::before {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.55),
-    rgba(0, 0, 0, 0.7)
+    rgba(0,0,0,0.55),
+    rgba(0,0,0,0.75)
   );
   pointer-events: none;
 }
 
-.hero-text {
+.hero .container {
   position: relative;
   z-index: 1;
-  max-width: 640px;
-  margin: 0 auto;
+  width: 100%;
 }
 
-.hero-text h1 {
-  font-size: 2.6rem;
-  margin-bottom: 0.75rem;
-  letter-spacing: 0.01em;
+/* --- Layout Grid --- */
+.home-hero-grid {
+  display: grid;
+  grid-template-columns:
+    minmax(var(--hero-left-min), 1.1fr)
+    minmax(var(--hero-right-min), 0.9fr);
+  gap: var(--hero-gap);
+  align-items: center;
+  width: 100%;
 }
 
-.hero-text p {
-  font-size: 1.05rem;
-  margin-bottom: 1.75rem;
-  opacity: 0.9;
+.home-hero-grid > * {
+  min-width: 0;
 }
 
-.small-hero {
-  background: linear-gradient(135deg, var(--color-primary) 0%, #ff9f40 100%);
-  color: #fff;
-  padding: 3rem 1rem;
+/* =========================
+   LEFT SIDE
+   ========================= */
+
+.hero-text {
+  text-align: left;
+  max-width: 600px;
 }
 
-.small-hero .hero-text h1 {
-  font-size: 2rem;
-}
-
-/* Hero actions */
-.hero-actions {
-  margin-top: 1.5rem;
+/* Pills */
+.hero-pills {
   display: flex;
-  gap: 0.75rem;
-  justify-content: center;
+  gap: 0.6rem;
   flex-wrap: wrap;
+  margin-bottom: 18px;
 }
 
-.hero-secondary {
-  padding: 0.5rem 1.1rem;
+.pill-soft {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 6px 14px;
   border-radius: 999px;
-  border: 1px solid #ffffff;
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 0.95rem;
-  font-weight: 500;
-  background: transparent;
-  transition: background 0.15s ease, color 0.15s ease;
+  font-size: 0.85rem;
+  backdrop-filter: blur(6px);
 }
 
-.hero-secondary:hover {
-  background: #ffffff;
+/* Headline */
+.hero-text h1 {
+  font-size: 3.3rem;
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 18px;
+}
+
+.hero-text h1 span {
   color: var(--color-primary);
 }
 
+/* Paragraph */
+.hero-text p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 52ch;
+  opacity: 0.95;
+  margin-bottom: 26px;
+}
+
+/* CTA row */
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Secondary button upgrade */
+.hero-secondary {
+  padding: 0.9rem 1.5rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.35);
+  background: rgba(255,255,255,.08);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all .25s ease;
+}
+
+.hero-secondary:hover {
+  background: #fff;
+  color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+/* Trust Row */
+.hero-trust-row {
+  margin-top: 22px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.hero-trust-pill {
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 999px;
+  padding: 8px 14px;
+  background: rgba(0,0,0,.25);
+  backdrop-filter: blur(8px);
+  font-size: 0.9rem;
+}
+
+/* =========================
+   RIGHT SIDE
+   ========================= */
+
+.hero-right {
+  justify-self: end;
+  width: 100%;
+  max-width: var(--hero-right-max);
+}
+
+.pp-swapper {
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+}
+
+.pp-swap-track {
+  width: 100%;
+  overflow: hidden;
+}
+
+.pp-swap-card {
+  max-width: 100%;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 980px) {
+  .home-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .hero-right {
+    justify-self: center;
+    max-width: 420px;
+  }
+
+  .hero-text h1 {
+    font-size: 2.6rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero {
+    padding: 4rem 0;
+  }
+
+  .hero-text h1 {
+    font-size: 2.2rem;
+  }
+
+  .hero-right {
+    max-width: 100%;
+  }
+}
+/* =========================================================
+   FINAL HERO POLISH – Balanced Premium Hybrid
+   ========================================================= */
+
+/* Slightly more breathing space */
+:root {
+  --hero-gap: 40px;
+}
+
+/* Refined glass panel */
+.hero-text {
+  background: linear-gradient(
+    145deg,
+    rgba(15,15,15,0.55),
+    rgba(20,20,20,0.35)
+  );
+  backdrop-filter: blur(14px);
+  padding: 2rem 2.2rem;
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 25px 70px rgba(0,0,0,0.55);
+}
+
+/* Strong headline */
+.hero-text h1 {
+  font-size: 3.2rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.05;
+  animation: heroFadeUp 0.8s ease forwards;
+}
+
+/* Highlight word */
+.hero-text h1 span {
+  color: var(--color-primary);
+  font-weight: 900;
+  text-shadow: 0 0 12px rgba(255,120,0,0.45);
+  position: relative;
+}
+
+/* Softer glow behind highlight */
+.hero-text h1 span::after {
+  content: "";
+  position: absolute;
+  inset: -6px -12px;
+  background: radial-gradient(
+    circle,
+    rgba(255,140,0,0.3),
+    transparent 70%
+  );
+  z-index: -1;
+  filter: blur(10px);
+}
+
+/* Paragraph refinement */
+.hero-text p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  opacity: 0.95;
+}
+
+/* Primary CTA */
+.primary-cta {
+  padding: 1.1rem 1.9rem;
+  font-size: 1.05rem;
+  border-radius: 999px;
+  box-shadow: 0 12px 35px rgba(255,120,0,0.45);
+  transition: all 0.25s ease;
+}
+
+.primary-cta:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 18px 50px rgba(255,120,0,0.65);
+}
+
+/* Secondary CTA */
+.hero-secondary {
+  padding: 1rem 1.6rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.16);
+  border: 1px solid rgba(255,255,255,0.35);
+  color: #fff;
+  font-weight: 600;
+  backdrop-filter: blur(6px);
+  transition: all 0.2s ease;
+}
+
+.hero-secondary:hover {
+  background: #fff;
+  color: var(--color-primary);
+}
+
+/* Pills styling */
+.pill-soft {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.25);
+  font-weight: 600;
+}
+
+/* Elevated active swap card */
+.pp-swap-card.is-active {
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+}
+
+/* Lighter hero overlay */
+.hero::before {
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.6),
+    rgba(0,0,0,0.85)
+  );
+}
+
+/* Subtle fade animation */
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Premium navbar glass */
+nav {
+  backdrop-filter: blur(14px);
+  background: rgba(5,10,30,0.75);
+}

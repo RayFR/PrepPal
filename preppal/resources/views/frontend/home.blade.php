@@ -37,74 +37,50 @@
   {{-- =========================
       HERO (WOW + Swapping Cards)
      ========================= --}}
-  <section class="hero" style="min-height: 520px;">
-    <div class="container" style="width:100%;">
-      <div style="
-        display:grid;
-        grid-template-columns: 1.05fr .95fr;
-        gap: 28px;
-        align-items: center;
-      " class="home-hero-grid">
+  <section class="hero">
+    <div class="container">
+      {{-- ✅ IMPORTANT: removed inline grid styles so your CSS .home-hero-grid controls layout --}}
+      <div class="home-hero-grid">
 
         {{-- LEFT: Copy / CTAs --}}
-        <div class="hero-text reveal" style="text-align:left; max-width:none;">
-          <div style="display:flex; gap:.6rem; flex-wrap:wrap; margin-bottom: 12px;">
+        <div class="hero-text reveal">
+
+          {{-- ✅ Pills row (now controlled by .hero-pills in CSS) --}}
+          <div class="hero-pills">
             <span class="pill pill-soft">8-week meal plans</span>
             <span class="pill pill-soft">Macro-friendly</span>
             <span class="pill pill-soft">Time-saving</span>
           </div>
 
-          <h1 style="margin: 0 0 10px; font-size: 3rem; line-height:1.05;">
+          {{-- ✅ Removed inline styles so .hero-text h1 controls sizing --}}
+          <h1>
             Meal prep made <span style="color: var(--color-primary);">simple</span>.
           </h1>
 
-          <p style="margin: 0 0 18px; max-width: 56ch; opacity:.92;">
+          {{-- ✅ Removed inline styles so .hero-text p controls spacing/width --}}
+          <p>
             Choose a plan, hit your goals, and stay consistent with structured weekly meals.
             Built for fat loss, lean muscle, maintenance, and gut-friendly high fibre.
           </p>
 
-          <div class="hero-actions" style="justify-content:flex-start;">
+          {{-- ✅ Removed inline justify style; .hero-actions handles it --}}
+          <div class="hero-actions">
             <a href="{{ route('store') }}" class="primary-cta">Browse plans</a>
             <a href="{{ route('calculator') }}" class="hero-secondary">Use calorie planner</a>
           </div>
 
-          {{-- Quick trust row --}}
-          <div style="
-            margin-top: 18px;
-            display:flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            align-items:center;
-            opacity: .95;
-          ">
-            <span style="
-              border: 1px solid rgba(255,255,255,.22);
-              border-radius: 999px;
-              padding: 8px 12px;
-              background: rgba(0,0,0,.18);
-              backdrop-filter: blur(8px);
-            ">✅ Quality checked</span>
-
-            <span style="
-              border: 1px solid rgba(255,255,255,.22);
-              border-radius: 999px;
-              padding: 8px 12px;
-              background: rgba(0,0,0,.18);
-              backdrop-filter: blur(8px);
-            ">🚚 Fast UK delivery</span>
-
-            <span style="
-              border: 1px solid rgba(255,255,255,.22);
-              border-radius: 999px;
-              padding: 8px 12px;
-              background: rgba(0,0,0,.18);
-              backdrop-filter: blur(8px);
-            ">🔒 Secure checkout</span>
+          {{-- Quick trust row (left as-is, but moved to a class so it's cleaner) --}}
+          <div class="hero-trust-row">
+            <span class="hero-trust-pill">✅ Quality checked</span>
+            <span class="hero-trust-pill">🚚 Fast UK delivery</span>
+            <span class="hero-trust-pill">🔒 Secure checkout</span>
           </div>
+
         </div>
 
         {{-- RIGHT: HelloFresh-style swapping photo cards --}}
-        <div class="reveal" style="justify-self:end; width: 100%; max-width: 540px;">
+        {{-- ✅ Added hero-right class so your CSS can control sizing --}}
+        <div class="reveal hero-right">
 
           @php
             $swapItems = $featuredSafe->take(6);
@@ -260,8 +236,6 @@
     </div>
 
     @php
-      // ✅ Put these files in: public/images/testimonials/
-      // Example: public/images/testimonials/michael.jpg
       $testimonials = [
         [
           'name' => 'Michael Brown',
@@ -310,9 +284,7 @@
 
     <div class="pp-t-wrap reveal" id="ppTestimonials">
 
-      <button class="pp-t-arrow pp-t-prev" type="button" aria-label="Previous">
-        ‹
-      </button>
+      <button class="pp-t-arrow pp-t-prev" type="button" aria-label="Previous">‹</button>
 
       <div class="pp-t-viewport" aria-roledescription="carousel">
         <div class="pp-t-track" id="ppTestTrack">
@@ -339,9 +311,7 @@
         </div>
       </div>
 
-      <button class="pp-t-arrow pp-t-next" type="button" aria-label="Next">
-        ›
-      </button>
+      <button class="pp-t-arrow pp-t-next" type="button" aria-label="Next">›</button>
     </div>
 
     <div class="pp-t-dots reveal" id="ppTestDots" aria-hidden="true"></div>
@@ -522,61 +492,61 @@
 
         <div class="card reveal pp-faq-card">
 
-  <h2 class="pp-faq-title" style="text-align:left; margin-top:0;">FAQs</h2>
-  <p class="pp-faq-sub" style="text-align:left; margin-left:0;">
-    Quick answers to the most common questions — built for busy schedules and simple plan switching.
-  </p>
+          <h2 class="pp-faq-title" style="text-align:left; margin-top:0;">FAQs</h2>
+          <p class="pp-faq-sub" style="text-align:left; margin-left:0;">
+            Quick answers to the most common questions — built for busy schedules and simple plan switching.
+          </p>
 
-  <div class="pp-faq">
+          <div class="pp-faq">
 
-    <details class="pp-faq-item">
-      <summary class="pp-faq-q">
-        <span>How long do the meals take?</span>
-        <span class="pp-faq-icon" aria-hidden="true">⌄</span>
-      </summary>
+            <details class="pp-faq-item">
+              <summary class="pp-faq-q">
+                <span>How long do the meals take?</span>
+                <span class="pp-faq-icon" aria-hidden="true">⌄</span>
+              </summary>
 
-      <div class="pp-faq-a">
-        <p>
-          Most plans are built for busy schedules — simple steps, repeatable ingredients,
-          and portion-friendly meals that keep prep smooth and stress low.
-        </p>
+              <div class="pp-faq-a">
+                <p>
+                  Most plans are built for busy schedules — simple steps, repeatable ingredients,
+                  and portion-friendly meals that keep prep smooth and stress low.
+                </p>
 
-        <ul>
-          <li><strong>Typical:</strong> 20–40 minutes (cook + portion)</li>
-          <li><strong>Quick options:</strong> 10–20 minutes on hectic days</li>
-          <li><strong>Batch prep:</strong> 60–90 minutes for 2–4 meals</li>
-          <li><strong>Time-savers:</strong> fewer pans, easy reheat, repeat ingredients</li>
-        </ul>
-      </div>
-    </details>
+                <ul>
+                  <li><strong>Typical:</strong> 20–40 minutes (cook + portion)</li>
+                  <li><strong>Quick options:</strong> 10–20 minutes on hectic days</li>
+                  <li><strong>Batch prep:</strong> 60–90 minutes for 2–4 meals</li>
+                  <li><strong>Time-savers:</strong> fewer pans, easy reheat, repeat ingredients</li>
+                </ul>
+              </div>
+            </details>
 
-    <details class="pp-faq-item">
-      <summary class="pp-faq-q">
-        <span>Can I switch plans later?</span>
-        <span class="pp-faq-icon" aria-hidden="true">⌄</span>
-      </summary>
+            <details class="pp-faq-item">
+              <summary class="pp-faq-q">
+                <span>Can I switch plans later?</span>
+                <span class="pp-faq-icon" aria-hidden="true">⌄</span>
+              </summary>
 
-      <div class="pp-faq-a">
-        <p>
-          Yes — you can swap goals anytime (fat loss ↔ muscle ↔ maintenance) while keeping the same
-          weekly structure so it stays consistent.
-        </p>
+              <div class="pp-faq-a">
+                <p>
+                  Yes — you can swap goals anytime (fat loss ↔ muscle ↔ maintenance) while keeping the same
+                  weekly structure so it stays consistent.
+                </p>
 
-        <ul>
-          <li>Switch whenever your routine changes</li>
-          <li>Keep the same weekly structure (so it stays simple)</li>
-          <li>Choose a new plan and continue</li>
-        </ul>
-      </div>
-    </details>
+                <ul>
+                  <li>Switch whenever your routine changes</li>
+                  <li>Keep the same weekly structure (so it stays simple)</li>
+                  <li>Choose a new plan and continue</li>
+                </ul>
+              </div>
+            </details>
 
-  </div>
+          </div>
 
-  <div style="margin-top: 16px;">
-    <a href="{{ route('store') }}" class="primary-cta">Learn more</a>
-  </div>
+          <div style="margin-top: 16px;">
+            <a href="{{ route('store') }}" class="primary-cta">Learn more</a>
+          </div>
 
-</div>
+        </div>
 
         <div class="card reveal">
           <h2 style="text-align:left; margin-top:0;">Why students & gym-goers use PrepPal</h2>
@@ -726,10 +696,28 @@
   .reveal { opacity: 0; transform: translateY(10px); transition: opacity .5s ease, transform .5s ease; }
   .reveal.revealed { opacity: 1; transform: translateY(0); }
 
+  /* ✅ Hero trust row helper classes */
+  .hero-trust-row{
+    margin-top: 18px;
+    display:flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items:center;
+    opacity: .95;
+  }
+  .hero-trust-pill{
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 999px;
+    padding: 8px 12px;
+    background: rgba(0,0,0,.18);
+    backdrop-filter: blur(8px);
+  }
+
   @media (max-width: 980px){
     .home-hero-grid{ grid-template-columns: 1fr !important; }
     .home-faq-grid{ grid-template-columns: 1fr !important; }
     .home-stats{ grid-template-columns: 1fr 1fr !important; }
   }
 </style>
+
 @endsection
