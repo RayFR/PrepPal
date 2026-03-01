@@ -21,7 +21,6 @@
 <header class="nav">
     <div class="container nav-inner">
 
-        {{-- ✅ IMAGE LOGO (FIXED) --}}
         <a class="brand" href="{{ route('home') }}" aria-label="PrepPal Home">
             <span class="brand-badge"></span>
         </a>
@@ -83,6 +82,10 @@
 
                     <div class="profile-dd__menu" id="profileMenu">
                         <a href="{{ route('profile.index') }}">My Profile</a>
+
+                        @if(auth()->user()->is_admin)
+                            <a href="{{ route('admin.customers.index') }}">Admin Dashboard</a>
+                        @endif
 
                         <div class="profile-dd__sep"></div>
 

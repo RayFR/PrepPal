@@ -10,7 +10,10 @@
             <h1 style="margin-bottom: 0.25rem;">Customers</h1>
             <p style="margin-top: 0; opacity: 0.8;">Search, view, edit or delete customer accounts.</p>
         </div>
-        <a href="{{ route('home') }}" style="text-decoration:none;">← Back to site</a>
+        <a href="{{ route('home') }}"
+        style="text-decoration:none; color: white; padding:0.4rem 0.8rem; border-radius:8px; border:1px solid rgba(255,255,255,0.25); font-weight:600;">
+        ← Back to site
+        </a>
     </div>
 
     @if(session('success'))
@@ -86,21 +89,68 @@
                                 {{ optional($c->created_at)->format('d M Y') }}
                             </td>
                             <td style="padding:0.6rem; white-space:nowrap;">
-                                <a href="{{ route('admin.customers.edit', $c->id) }}">Edit</a>
 
-                                <span style="opacity:0.35;"> | </span>
+                                <a href="{{ route('admin.customers.edit', $c->id) }}"
+                                style="
+                                        display:inline-flex;
+                                        align-items:center;
+                                        justify-content:center;
+                                        padding:0.6rem 1rem;
+                                        border-radius:6px;
+                                        background-color:#2563eb;
+                                        color:white;
+                                        text-decoration:none;
+                                        font-weight:600;
+                                        border:none;
+                                        width:100px;
+                                        height:50px;
+                                        cursor:pointer;
+                                        font-family:inherit;
+                                        font-size:0.95rem;
+                                        vertical-align:middle;
+                                        transition: all 0.15s ease;
+                                "
+                                onmouseover="this.style.backgroundColor='#1e4fd1'; this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 10px rgba(0,0,0,0.15)'"
+                                onmouseout="this.style.backgroundColor='#2563eb'; this.style.transform='translateY(0)'; this.style.boxShadow='none'"
+                                >
+                                    Edit
+                                </a>
+
+                                <span style="opacity:0.35; margin:0 4px;">|</span>
 
                                 <form method="POST"
-                                      action="{{ route('admin.customers.destroy', $c->id) }}"
-                                      style="display:inline;"
-                                      onsubmit="return confirm('Delete this user? This cannot be undone.');">
+                                    action="{{ route('admin.customers.destroy', $c->id) }}"
+                                    style="display:inline;"
+                                    onsubmit="return confirm('Delete this user? This cannot be undone.');">
                                     @csrf
                                     @method('DELETE')
+
                                     <button type="submit"
-                                            style="background:none; border:none; padding:0; color:#c00; cursor:pointer;">
+                                        style="
+                                            display:inline-flex;
+                                            align-items:center;
+                                            justify-content:center;
+                                            padding:0.6rem 1rem;
+                                            border-radius:6px;
+                                            background-color:#dc2626;
+                                            color:white;
+                                            font-weight:600;
+                                            border:none;
+                                            width:100px;
+                                            height:50px;
+                                            cursor:pointer;
+                                            font-family:inherit;
+                                            font-size:0.95rem;
+                                            vertical-align:middle;
+                                            transition: all 0.15s ease;
+                                        "
+                                        onmouseover="this.style.backgroundColor='#b91c1c'; this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 10px rgba(0,0,0,0.15)'"
+                                        onmouseout="this.style.backgroundColor='#dc2626'; this.style.transform='translateY(0)'; this.style.boxShadow='none'"
+                                    >
                                         Delete
                                     </button>
                                 </form>
+
                             </td>
                         </tr>
                     @empty
