@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
-use App\Models\User;
+use Illuminate\Validation\Rules\Password as PasswordRule;
 
 class AuthController extends Controller
 {
@@ -20,8 +21,8 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $data = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required'
+            'email'    => ['required', 'email'],
+            'password' => ['required'],
         ]);
 
         if (Auth::attempt($data)) {
@@ -33,7 +34,7 @@ class AuthController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'Invalid login details'
+            'email' => 'Invalid login details',
         ])->withInput();
     }
 
@@ -41,15 +42,23 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|confirmed|min:6'
+            'name'     => ['required', 'string', 'max:255'],
+            'email'    => ['required', 'email', 'unique:users,email'],
+            'password' => [
+                'required',
+                'confirmed',
+                // ✅ min 6 chars + must contain letters, numbers, and symbols (e.g. @)
+                PasswordRule::min(6)->letters()->numbers()->symbols(),
+            ],
+        ], [
+            // Nice readable error message (optional)
+            'password.confirmed' => 'Passwords do not match.',
         ]);
 
         $user = User::create([
-            'name' => $data['name'],
-            'username' => $data['name'],
-            'email' => $data['email'],
+            'name'     => $data['name'],
+            'username' => $data['name'], // keep your existing behavior
+            'email'    => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
 
@@ -64,11 +73,12 @@ class AuthController extends Controller
     {
         return view('frontend.dashboard');
     }
+
     public function forgotPassword(Request $request)
     {
         // Accept either username OR email from the popup
         $request->validate([
-            'identifier' => 'required|string',
+            'identifier' => ['required', 'string'],
         ]);
 
         $identifier = trim($request->identifier);
@@ -85,12 +95,11 @@ class AuthController extends Controller
             return back()->with('status', $genericMsg);
         }
 
-        $status = Password::sendResetLink(['email' => $user->email]);
+        Password::sendResetLink(['email' => $user->email]);
 
         // Even if sending fails, don’t reveal details
         return back()->with('status', $genericMsg);
     }
-
 
     // Handle logout
     public function logout(Request $request)

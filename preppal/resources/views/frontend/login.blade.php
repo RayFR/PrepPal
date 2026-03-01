@@ -14,9 +14,9 @@
 
             {{-- SHOW ERRORS --}}
             @if ($errors->any())
-                <div style="margin: 12px 0; padding: 12px; border: 1px solid #ffb4b4; background:#ffecec; border-radius:10px;">
-                    <b>Something went wrong:</b>
-                    <ul style="margin: 6px 0 0 18px;">
+                <div class="pp-auth-alert" role="alert">
+                    <div class="pp-auth-alert__title">Something went wrong</div>
+                    <ul class="pp-auth-alert__list">
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
                         @endforeach
@@ -44,28 +44,42 @@
                 <input type="email" name="email" value="{{ old('email') }}" required>
 
                 <label>Password</label>
+                <div class="pp-passwrap">
+                    <input
+                        id="loginPassword"
+                        type="password"
+                        name="password"
+                        required
+                        autocomplete="current-password"
+                    />
 
-                <div class="password-field">
-                    <input id="loginPassword" type="password" name="password" required>
-
-                    <label class="show password">
-                        <input type="checkbox" onclick="togglePassword('loginPassword', this)">
-                        Show password
-                    </label>
+                    <button
+                        type="button"
+                        class="pp-pass-toggle"
+                        aria-label="Show password"
+                        data-target="loginPassword"
+                        aria-pressed="false"
+                    >
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M12 5c5.5 0 9.6 4.2 10.9 6.2.2.3.2.7 0 1C21.6 14.8 17.5 19 12 19S2.4 14.8 1.1 12.2c-.2-.3-.2-.7 0-1C2.4 9.2 6.5 5 12 5zm0 2C7.8 7 4.4 10.2 3.2 11.7 4.4 13.2 7.8 17 12 17s7.6-3.8 8.8-5.3C19.6 10.2 16.2 7 12 7zm0 2.2A2.8 2.8 0 1 1 12 14.8a2.8 2.8 0 0 1 0-5.6z"/>
+                        </svg>
+                    </button>
                 </div>
 
                 <button class="cta auth-btn" type="submit">Sign In</button>
-                <div style="margin-top:10px; text-align:right;">
-                    <a href="#" id="forgotLink" style="font-size:14px; text-decoration:underline;">
-                        Forgot password?
-                    </a>
-                </div>
 
-
+                <div class="pp-auth-links">
+  <a href="#" id="forgotLink" class="pp-forgot-link">
+    Forgot password?
+  </a>
+</div>
 
                 <p class="auth-note">Admin demo login: <b>admin@preppal.com / 123456</b></p>
 
-                <a class="auth-back" href="{{ route('home') }}">← Back to site</a>
+                <a class="pp-backlink" href="{{ route('home') }}">
+                    <span class="pp-backlink__icon">←</span>
+                    <span>Back to site</span>
+                </a>
             </form>
 
             {{-- REGISTER FORM --}}
@@ -79,22 +93,43 @@
                 <input type="email" name="email" value="{{ old('email') }}" required>
 
                 <label>Password</label>
-                <input id="registerPassword" type="password" name="password" required>
-                <label class="show-password">
-                    <input type="checkbox" onclick="togglePassword('registerPassword', this)">
-                    Show password
-                </label>
+                <div class="pp-passwrap">
+                    <input id="registerPassword" type="password" name="password" required autocomplete="new-password" />
+                    <button type="button" class="pp-pass-toggle" aria-label="Show password" data-target="registerPassword" aria-pressed="false">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M12 5c5.5 0 9.6 4.2 10.9 6.2.2.3.2.7 0 1C21.6 14.8 17.5 19 12 19S2.4 14.8 1.1 12.2c-.2-.3-.2-.7 0-1C2.4 9.2 6.5 5 12 5zm0 2C7.8 7 4.4 10.2 3.2 11.7 4.4 13.2 7.8 17 12 17s7.6-3.8 8.8-5.3C19.6 10.2 16.2 7 12 7zm0 2.2A2.8 2.8 0 1 1 12 14.8a2.8 2.8 0 0 1 0-5.6z"/>
+                        </svg>
+                    </button>
+                </div>
+
+                {{-- Password rules UI (frontend hint + live checks) --}}
+      <p class="pp-pass-hint" id="ppPassHint">
+        Password must be at least <b>6 characters</b> and include a <b>number</b> and a <b>symbol</b> (e.g. <b>@</b>).
+      </p>
+      <ul class="pp-pass-rules" id="ppPassRules">
+        <li data-rule="len">6+ characters</li>
+        <li data-rule="num">Contains a number</li>
+        <li data-rule="sym">Contains a symbol (@!%…)</li>
+      </ul>
 
                 <label>Confirm Password</label>
-                <input id="registerConfirmPassword" type="password" name="password_confirmation" required>
-                <label class="show-password">
-                    <input type="checkbox" onclick="togglePassword('registerConfirmPassword', this)">
-                    Show password
-                </label>
+                <div class="pp-passwrap">
+                    <input id="registerConfirmPassword" type="password" name="password_confirmation" required autocomplete="new-password" />
+                    <button type="button" class="pp-pass-toggle" aria-label="Show password" data-target="registerConfirmPassword" aria-pressed="false">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M12 5c5.5 0 9.6 4.2 10.9 6.2.2.3.2.7 0 1C21.6 14.8 17.5 19 12 19S2.4 14.8 1.1 12.2c-.2-.3-.2-.7 0-1C2.4 9.2 6.5 5 12 5zm0 2C7.8 7 4.4 10.2 3.2 11.7 4.4 13.2 7.8 17 12 17s7.6-3.8 8.8-5.3C19.6 10.2 16.2 7 12 7zm0 2.2A2.8 2.8 0 1 1 12 14.8a2.8 2.8 0 0 1 0-5.6z"/>
+                        </svg>
+                    </button>
+                </div>
 
-                <button class="cta auth-btn" type="submit">Create Account</button>
+                <div class="pp-auth-actions">
+                    <button class="cta auth-btn" type="submit">Create Account</button>
 
-                <a class="auth-back" href="{{ route('home') }}">← Back to site</a>
+                    <a class="pp-backlink" href="{{ route('home') }}">
+                        <span class="pp-backlink__icon">←</span>
+                        <span>Back to site</span>
+                    </a>
+                </div>
             </form>
 
         </div>
@@ -104,8 +139,7 @@
 
             <ol class="auth-list">
                 <li><strong>01 — Personalised targets</strong><br>Get calorie & macro goals tailored to your lifestyle.</li>
-                <li><strong>02 — Meal prep made easy</strong><br>Choose from fat loss, muscle gain, maintenance or fibre
-                    plans.</li>
+                <li><strong>02 — Meal prep made easy</strong><br>Choose from fat loss, muscle gain, maintenance or fibre plans.</li>
                 <li><strong>03 — All in one place</strong><br>Your cart, orders and plans stay synced while browsing.</li>
             </ol>
 
@@ -113,14 +147,13 @@
         </div>
 
     </div>
+
     {{-- FORGOT PASSWORD MODAL --}}
     <div id="forgotModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:9999;">
-        <div
-            style="background:#fff; width:min(420px, 92vw); margin:12vh auto; padding:18px; border-radius:14px; box-shadow:0 20px 60px rgba(0,0,0,.25);">
+        <div style="background:#fff; width:min(420px, 92vw); margin:12vh auto; padding:18px; border-radius:14px; box-shadow:0 20px 60px rgba(0,0,0,.25);">
             <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
                 <h3 style="margin:0;">Forgot Password</h3>
-                <button type="button" id="fp_close"
-                    style="border:none; background:transparent; font-size:22px; cursor:pointer; line-height:1;">
+                <button type="button" id="fp_close" style="border:none; background:transparent; font-size:22px; cursor:pointer; line-height:1;">
                     &times;
                 </button>
             </div>
@@ -134,7 +167,7 @@
 
                 <label>Username / Email</label>
                 <input type="text" name="identifier" id="fp_identifier" required
-                    style="width:100%; padding:10px; border:1px solid #ddd; border-radius:10px;">
+                       style="width:100%; padding:10px; border:1px solid #ddd; border-radius:10px;">
 
                 <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:14px;">
                     <button type="button" id="fp_cancel" class="cta" style="background:#eee; color:#111;">Cancel</button>
@@ -145,33 +178,22 @@
     </div>
 
     <script>
-        function togglePassword(inputId, checkbox) {
-            const input = document.getElementById(inputId);
-            input.type = checkbox.checked ? 'text' : 'password';
-        }
-
         // ==========================
         // Forgot Password Modal JS
         // ==========================
-
         const forgotLink = document.getElementById('forgotLink');
         const forgotModal = document.getElementById('forgotModal');
         const fpClose = document.getElementById('fp_close');
         const fpCancel = document.getElementById('fp_cancel');
 
         function openModal() {
-            if (forgotModal) {
-                forgotModal.style.display = 'block';
-            }
+            if (forgotModal) forgotModal.style.display = 'block';
         }
 
         function closeModal() {
-            if (forgotModal) {
-                forgotModal.style.display = 'none';
-            }
+            if (forgotModal) forgotModal.style.display = 'none';
         }
 
-        // Open modal
         if (forgotLink) {
             forgotLink.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -179,31 +201,19 @@
             });
         }
 
-        // Close via X
-        if (fpClose) {
-            fpClose.addEventListener('click', closeModal);
-        }
+        if (fpClose) fpClose.addEventListener('click', closeModal);
+        if (fpCancel) fpCancel.addEventListener('click', closeModal);
 
-        // Close via Cancel button
-        if (fpCancel) {
-            fpCancel.addEventListener('click', closeModal);
-        }
-
-        // Close if clicking outside modal box
         if (forgotModal) {
             forgotModal.addEventListener('click', function (e) {
-                if (e.target === forgotModal) {
-                    closeModal();
-                }
+                if (e.target === forgotModal) closeModal();
             });
         }
 
-        // Close with ESC key
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape' && forgotModal && forgotModal.style.display === 'block') {
                 closeModal();
             }
         });
     </script>
-
 @endsection

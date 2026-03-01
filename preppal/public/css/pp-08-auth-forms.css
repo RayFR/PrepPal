@@ -98,3 +98,313 @@
   font-size: 0.9rem;
 }
 
+/* ==========================
+   Auth – checkbox safety
+   ========================== */
+.auth-card input[type="checkbox"]{
+  width: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* ==========================
+   Auth – password eye toggle (orange) – FIXED ALIGNMENT
+   ========================== */
+
+.pp-passwrap{
+  position: relative;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.pp-passwrap input{
+  padding-right: 60px !important;
+  margin-bottom: 0 !important;
+  display: block;
+}
+
+/* eye button - perfectly centered regardless of input height */
+.pp-pass-toggle{
+  position: absolute;
+  right: 14px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+
+  border: 1px solid rgba(255,122,0,.55);
+  background: rgba(255,122,0,.16);
+  color: #ff7a00;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  transition: transform .12s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+
+.pp-pass-toggle:hover{
+  background: rgba(255,122,0,.22);
+  border-color: rgba(255,122,0,.8);
+  box-shadow: 0 0 0 4px rgba(255,122,0,.18);
+}
+
+.pp-pass-toggle:active{
+  transform: scale(0.98);
+}
+
+.pp-pass-toggle svg{
+  display: block;
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  opacity: .95;
+}
+
+/* ==========================
+   Hide browser built-in password reveal (keep our orange icon)
+   ========================== */
+
+/* Edge / IE (legacy) */
+.pp-passwrap input::-ms-reveal,
+.pp-passwrap input::-ms-clear{
+  display: none;
+}
+
+/* Some Chromium builds expose a credential/autofill button */
+.pp-passwrap input::-webkit-credentials-auto-fill-button{
+  visibility: hidden;
+  display: none !important;
+  pointer-events: none;
+}
+
+/* ==========================
+   Auth – Alert / Errors (PrepPal)
+   ========================== */
+
+.pp-auth-alert{
+  border-radius: 16px;
+  padding: 14px 16px;
+  margin: 0 0 16px;
+  border: 1px solid rgba(255,122,0,.35);
+  background: rgba(255,122,0,.10);
+  box-shadow: 0 10px 30px rgba(0,0,0,.18);
+}
+
+.pp-auth-alert__title{
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin: 0 0 6px;
+  color: #ffb26b; /* warm orange text that still reads on dark */
+}
+
+.pp-auth-alert__list{
+  margin: 0;
+  padding-left: 18px;
+  color: rgba(255,255,255,.86);
+}
+
+.pp-auth-alert__list li{
+  margin: 4px 0;
+}
+
+/* light theme */
+body:not([data-theme="dark"]) .pp-auth-alert{
+  background: rgba(255,122,0,.08);
+  border-color: rgba(255,122,0,.35);
+  box-shadow: 0 10px 24px rgba(0,0,0,.08);
+}
+
+body:not([data-theme="dark"]) .pp-auth-alert__title{
+  color: #b45309;
+}
+
+body:not([data-theme="dark"]) .pp-auth-alert__list{
+  color: rgba(0,0,0,.75);
+}
+
+/* ==========================
+   Auth – Back to site link (styled)
+   ========================== */
+
+.pp-backlink{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 10px 14px;
+  border-radius: 999px;
+
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+
+  color: rgba(255,255,255,.85);
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.20);
+  backdrop-filter: blur(10px);
+
+  transition: transform .12s ease, border-color .15s ease, background .15s ease, box-shadow .15s ease, color .15s ease;
+}
+
+.pp-backlink__icon{
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #ff7a00;
+  background: rgba(255,122,0,.14);
+  border: 1px solid rgba(255,122,0,.35);
+}
+
+.pp-backlink:hover{
+  transform: translateY(-1px);
+  color: #fff;
+  border-color: rgba(255,122,0,.55);
+  background: rgba(255,122,0,.10);
+  box-shadow: 0 10px 30px rgba(0,0,0,.22);
+}
+
+.pp-backlink:active{
+  transform: translateY(0);
+}
+
+/* Light theme */
+body:not([data-theme="dark"]) .pp-backlink{
+  color: rgba(0,0,0,.78);
+  background: rgba(255,255,255,.75);
+  border: 1px solid rgba(0,0,0,.10);
+}
+
+body:not([data-theme="dark"]) .pp-backlink:hover{
+  border-color: rgba(255,122,0,.45);
+  background: rgba(255,122,0,.08);
+}
+
+/* ==========================
+   Auth – Forgot password link (styled)
+   ========================== */
+
+.pp-auth-links{
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.pp-forgot-link{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 8px 12px;
+  border-radius: 999px;
+
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 800;
+
+  color: rgba(255,255,255,.88);
+  border: 1px solid rgba(255,122,0,.30);
+  background: rgba(255,122,0,.10);
+  transition: transform .12s ease, border-color .15s ease, background .15s ease, box-shadow .15s ease, color .15s ease;
+}
+
+.pp-forgot-link:hover{
+  transform: translateY(-1px);
+  color: #fff;
+  border-color: rgba(255,122,0,.6);
+  background: rgba(255,122,0,.16);
+  box-shadow: 0 0 0 4px rgba(255,122,0,.14);
+}
+
+.pp-forgot-link:active{
+  transform: translateY(0);
+}
+
+/* Light theme */
+body:not([data-theme="dark"]) .pp-forgot-link{
+  color: rgba(0,0,0,.75);
+  background: rgba(255,122,0,.08);
+  border-color: rgba(255,122,0,.28);
+}
+
+/* ==========================
+   Auth – password rules UI
+   ========================== */
+
+.pp-pass-hint{
+  margin: -6px 0 8px;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,.72);
+}
+
+body:not([data-theme="dark"]) .pp-pass-hint{
+  color: rgba(0,0,0,.65);
+}
+
+.pp-pass-rules{
+  list-style: none;
+  padding: 0;
+  margin: 0 0 14px;
+  display: grid;
+  gap: 6px;
+}
+
+.pp-pass-rules li{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,.75);
+}
+
+.pp-pass-rules li::before{
+  content: "•";
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  color: rgba(255,255,255,.85);
+  background: rgba(255,255,255,.10);
+  border: 1px solid rgba(255,255,255,.12);
+}
+
+.pp-pass-rules li.is-ok{
+  color: rgba(255,255,255,.92);
+}
+
+.pp-pass-rules li.is-ok::before{
+  content: "✓";
+  color: #ff7a00;
+  background: rgba(255,122,0,.14);
+  border-color: rgba(255,122,0,.35);
+}
+
+/* light theme */
+body:not([data-theme="dark"]) .pp-pass-rules li{
+  color: rgba(0,0,0,.65);
+}
+
+body:not([data-theme="dark"]) .pp-pass-rules li::before{
+  color: rgba(0,0,0,.75);
+  background: rgba(0,0,0,.04);
+  border-color: rgba(0,0,0,.10);
+}
+
+body:not([data-theme="dark"]) .pp-pass-rules li.is-ok::before{
+  color: #ff7a00;
+  background: rgba(255,122,0,.10);
+  border-color: rgba(255,122,0,.30);
+}

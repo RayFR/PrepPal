@@ -1,68 +1,16 @@
-// Students & IDs: (Agraj Khanna 240195519 ID / Gurpreet Singh Sidhu 230237915 ID)
-// Global helpers: theme toggle, footer year, calculator logic (AUTH REMOVED FOR LARAVEL)
+// Students & IDs: (Agraj Khanna 240195519 / Gurpreet Singh Sidhu 230237915)
+// Global helpers: theme toggle, footer year, calculator logic
 
 (function () {
-
-
-
-  function updateAuthUI() {
-  }
-
-  var authButton = document.getElementById('authButton');
-  if (authButton) {
-    authButton.removeAttribute('data-mode');
-  }
-
-
-  var loginForm = document.getElementById('loginForm');
-  if (loginForm) {
-    loginForm.addEventListener('submit', function () {
-      
-    });
-  }
-
-  var registerForm = document.getElementById('registerForm');
-  if (registerForm) {
-    registerForm.addEventListener('submit', function () {
-    });
-  }
-
-  // Auth tabs on login page 
-  var authTabs = document.querySelectorAll('.auth-tab');
-  if (authTabs.length) {
-    authTabs.forEach(function (tab) {
-      tab.addEventListener('click', function () {
-        var mode = tab.getAttribute('data-mode');
-        authTabs.forEach(t => t.classList.remove('auth-tab-active'));
-        tab.classList.add('auth-tab-active');
-
-        var forms = document.querySelectorAll('.auth-form');
-        forms.forEach(f => f.classList.remove('auth-form-active'));
-
-        var targetId = mode === 'register' ? 'registerForm' : 'loginForm';
-        var targetForm = document.getElementById(targetId);
-        if (targetForm) targetForm.classList.add('auth-form-active');
-      });
-    });
-  }
-
- 
-  // CTA keyboard accessibility
- var ctas = document.querySelectorAll('.cta');
-  ctas.forEach(function (btn) {
-    btn.addEventListener('keyup', function (e) {
-      if (e.key === 'Enter') btn.click();
-    });
-  });
-
-
+  // ------------------------------
+  // Footer year
+  // ------------------------------
   var yearEl = document.getElementById('year');
-  if (yearEl) {
-    yearEl.textContent = new Date().getFullYear();
-  }
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  
+  // ------------------------------
   // THEME TOGGLE
+  // ------------------------------
   var THEME_KEY = 'preppal_theme';
 
   function applyTheme(theme) {
@@ -70,9 +18,7 @@
     document.body.setAttribute('data-theme', theme);
 
     var toggle = document.getElementById('themeToggle');
-    if (toggle) {
-      toggle.textContent = theme === 'dark' ? '🌙' : '☀️';
-    }
+    if (toggle) toggle.textContent = theme === 'dark' ? '🌙' : '☀️';
   }
 
   function initTheme() {
@@ -91,9 +37,89 @@
   }
 
   initTheme();
-  updateAuthUI();
 
+  // ------------------------------
+  // DOM Ready features
+  // ------------------------------
+  document.addEventListener('DOMContentLoaded', () => {
+    // ------------------------------
+    // Auth tabs (login/register page)
+    // ------------------------------
+    const tabs = document.querySelectorAll('.auth-tab');
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+
+    if (tabs.length && loginForm && registerForm) {
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('auth-tab-active'));
+          tab.classList.add('auth-tab-active');
+
+          const mode = tab.getAttribute('data-mode'); // "login" or "register"
+          loginForm.classList.toggle('auth-form-active', mode === 'login');
+          registerForm.classList.toggle('auth-form-active', mode === 'register');
+        });
+      });
+    }
+
+    // ------------------------------
+    // Password eye toggles (login + register)
+    // ------------------------------
+    document.querySelectorAll('.pp-pass-toggle').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-target');
+        const input = document.getElementById(id);
+        if (!input) return;
+
+        const show = input.type === 'password';
+        input.type = show ? 'text' : 'password';
+
+        btn.setAttribute('aria-pressed', String(show));
+        btn.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+      });
+    });
+
+    // ------------------------------
+    // Register password rules live checker
+    // (6+ chars, contains number, contains symbol)
+    // ------------------------------
+    const pw = document.getElementById('registerPassword');
+    const rulesWrap = document.getElementById('ppPassRules');
+
+    if (pw && rulesWrap) {
+      const ruleLen = rulesWrap.querySelector('[data-rule="len"]');
+      const ruleNum = rulesWrap.querySelector('[data-rule="num"]');
+      const ruleSym = rulesWrap.querySelector('[data-rule="sym"]');
+
+      function refreshRules() {
+        const v = pw.value || "";
+        const okLen = v.length >= 6;
+        const okNum = /\d/.test(v);
+        const okSym = /[^A-Za-z0-9]/.test(v); // any non-alphanumeric symbol
+
+        if (ruleLen) ruleLen.classList.toggle('is-ok', okLen);
+        if (ruleNum) ruleNum.classList.toggle('is-ok', okNum);
+        if (ruleSym) ruleSym.classList.toggle('is-ok', okSym);
+      }
+
+      pw.addEventListener('input', refreshRules);
+      refreshRules();
+    }
+
+    // ------------------------------
+    // CTA keyboard accessibility
+    // ------------------------------
+    var ctas = document.querySelectorAll('.cta');
+    ctas.forEach(function (btn) {
+      btn.addEventListener('keyup', function (e) {
+        if (e.key === 'Enter') btn.click();
+      });
+    });
+  });
+
+  // ------------------------------
   // CALCULATOR LOGIC (UNCHANGED)
+  // ------------------------------
   var calorieForm = document.getElementById('calorieForm');
   var calorieResultText = document.getElementById('calorieResultText');
   var macroList = document.getElementById('macroResultList');
@@ -101,46 +127,38 @@
   var recommendedBtn = document.getElementById('recommendedPlanAdd');
 
   if (calorieForm && calorieResultText && macroList && planOutput && recommendedBtn) {
+    var PLAN_CONFIG = {
+      loss: { name: 'Fat Loss Meal Prep Plan', price: '49.99', image: '/images/fat_loss_plan.png' },
+      muscle: { name: 'Lean Muscle Meal Prep Plan', price: '59.99', image: '/images/lean_muscle_plan.jpg' },
+      maintain: { name: 'Maintenance Meal Prep Plan', price: '54.99', image: '/images/maintainance_plan.jpg' },
+      fibre: { name: 'High Fibre Meal Prep Plan', price: '52.99', image: '/images/high_fibre_plan.jpg' }
+    };
 
-   var PLAN_CONFIG = {
-  loss: {
-    name: 'Fat Loss Meal Prep Plan',
-    price: '49.99',
-    image: '/images/fat_loss_plan.png'
-  },
-
-  muscle: {
-    name: 'Lean Muscle Meal Prep Plan',
-    price: '59.99',
-    image: '/images/lean_muscle_plan.jpg'
-  },
-
-  maintain: {
-    name: 'Maintenance Meal Prep Plan',
-    price: '54.99',
-    image: '/images/maintainance_plan.jpg'
-  },
-
-  fibre: {
-    name: 'High Fibre Meal Prep Plan',
-    price: '52.99',
-    image: '/images/high_fibre_plan.jpg'
-  }
-};
-
+    function getActivityFactor(activity) {
+      switch (activity) {
+        case 'sedentary': return 1.2;
+        case 'light': return 1.375;
+        case 'moderate': return 1.55;
+        case 'active': return 1.725;
+        case 'very_active': return 1.9;
+        default: return 1.2;
+      }
+    }
 
     function calculateTargets(age, sex, height, weight, activity, goal) {
       var bmr = 10 * weight + 6.25 * height - 5 * age + (sex === 'male' ? 5 : -161);
       var maintenance = bmr * getActivityFactor(activity);
-      var targetCalories = goal === 'loss' ? maintenance * 0.8 :
-                           goal === 'muscle' ? maintenance * 1.15 :
-                           goal === 'fibre' ? maintenance * 0.95 :
-                           maintenance;
+
+      var targetCalories =
+        goal === 'loss' ? maintenance * 0.8 :
+        goal === 'muscle' ? maintenance * 1.15 :
+        goal === 'fibre' ? maintenance * 0.95 :
+        maintenance;
 
       var proteinPerKg = goal === 'muscle' ? 2.0 : goal === 'loss' ? 1.8 : 1.6;
-
       var protein = proteinPerKg * weight;
       var fat = (targetCalories * 0.25) / 9;
+
       var remaining = targetCalories - (protein * 4) - (fat * 9);
       var carbs = (remaining < 0 ? targetCalories * 0.2 : remaining) / 4;
 
@@ -167,10 +185,11 @@
       var targets = calculateTargets(age, sex, height, weight, activity, goal);
       var planCfg = PLAN_CONFIG[goal];
 
-      var goalLabel = goal === 'loss' ? 'fat loss' :
-                      goal === 'muscle' ? 'lean muscle gain' :
-                      goal === 'maintain' ? 'weight maintenance' :
-                      'higher fibre and overall health';
+      var goalLabel =
+        goal === 'loss' ? 'fat loss' :
+        goal === 'muscle' ? 'lean muscle gain' :
+        goal === 'maintain' ? 'weight maintenance' :
+        'higher fibre and overall health';
 
       calorieResultText.innerHTML =
         'For <strong>' + goalLabel +
@@ -198,33 +217,13 @@
         recommendedBtn.setAttribute('data-name', planCfg.name);
         recommendedBtn.setAttribute('data-price', planCfg.price);
         recommendedBtn.setAttribute('data-image', planCfg.image);
-        recommendedBtn.textContent =
-          'Add ' + planCfg.name.replace(' Meal Prep Plan', '') + ' to cart';
+        recommendedBtn.textContent = 'Add ' + planCfg.name.replace(' Meal Prep Plan', '') + ' to cart';
       } else {
         planOutput.innerHTML = '<strong>Recommended PrepPal plan:</strong> Please choose a goal.';
         recommendedBtn.style.display = 'none';
       }
-
     });
   }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const tabs = document.querySelectorAll('.auth-tab');
-
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            tabs.forEach(t => t.classList.remove('auth-tab-active'));
-            tab.classList.add('auth-tab-active');
-
-            const mode = tab.dataset.mode;
-
-            document.getElementById('loginForm').classList.toggle('auth-form-active', mode === 'login');
-            document.getElementById('registerForm').classList.toggle('auth-form-active', mode === 'register');
-        });
-    });
-});
-
-
 })();
 
 // ------------------------------
@@ -233,7 +232,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const dd = document.getElementById('profileDD');
   const btn = document.getElementById('profileBtn');
-
   if (!dd || !btn) return;
 
   function closeDD() {
@@ -252,12 +250,10 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleDD();
   });
 
-  // Close when clicking outside
   document.addEventListener('click', (e) => {
     if (!dd.contains(e.target)) closeDD();
   });
 
-  // Close on ESC
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeDD();
   });
