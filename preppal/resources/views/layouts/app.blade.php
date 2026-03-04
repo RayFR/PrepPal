@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
     <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
-
     @stack('styles')
 </head>
 

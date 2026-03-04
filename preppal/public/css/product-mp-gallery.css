@@ -154,3 +154,54 @@ body:not([data-theme="dark"]) .pp-gal-thumb{
   outline: 2px solid rgba(255,140,0,.65);
   outline-offset: 2px;
 }
+
+/* =========================================================
+   PRODUCT PAGE - Breadcrumb bar fix (Light mode)
+   Put at bottom of product-mp-gallery.css
+   ========================================================= */
+
+body:not([data-theme="dark"]) .breadcrumb,
+body:not([data-theme="dark"]) .breadcrumbs,
+body:not([data-theme="dark"]) .pp-breadcrumb,
+body:not([data-theme="dark"]) .pp-breadcrumbs{
+  background: transparent !important;
+  border: 1px solid rgba(15, 23, 42, 0.10) !important;
+  color: rgba(15, 23, 42, 0.85) !important;
+  border-radius: 14px !important;
+  padding: 10px 14px !important;
+  margin: 16px 0 !important;
+}
+
+body:not([data-theme="dark"]) .breadcrumb a,
+body:not([data-theme="dark"]) .breadcrumbs a,
+body:not([data-theme="dark"]) .pp-breadcrumb a,
+body:not([data-theme="dark"]) .pp-breadcrumbs a{
+  color: rgba(15, 23, 42, 0.80) !important;
+  text-decoration: none !important;
+  font-weight: 700 !important;
+}
+
+body:not([data-theme="dark"]) .breadcrumb a:hover,
+body:not([data-theme="dark"]) .breadcrumbs a:hover,
+body:not([data-theme="dark"]) .pp-breadcrumb a:hover,
+body:not([data-theme="dark"]) .pp-breadcrumbs a:hover{
+  color: #ff7a00 !important;
+}
+
+/* separators (/, >, etc) */
+body:not([data-theme="dark"]) .breadcrumb span,
+body:not([data-theme="dark"]) .breadcrumbs span,
+body:not([data-theme="dark"]) .pp-breadcrumb span,
+body:not([data-theme="dark"]) .pp-breadcrumbs span{
+  color: rgba(15, 23, 42, 0.55) !important;
+}
+
+/* Dark mode stays clean */
+body[data-theme="dark"] .breadcrumb,
+body[data-theme="dark"] .breadcrumbs,
+body[data-theme="dark"] .pp-breadcrumb,
+body[data-theme="dark"] .pp-breadcrumbs{
+  background: rgba(255,255,255,0.06) !important;
+  border: 1px solid rgba(255,255,255,0.10) !important;
+  color: rgba(255,255,255,0.85) !important;
+}

@@ -1,0 +1,484 @@
+/* =========================================================
+   PrepPal Account Area (MyProtein-style)
+   File: public/css/pp-account.css
+   Supports: Light + Dark (body[data-theme="dark"])
+   ========================================================= */
+
+/* ---------- Theme variables (scoped to this page) ---------- */
+.pp-acct{
+  /* light defaults */
+  --pp-bg: #ffffff;
+  --pp-card: #ffffff;
+  --pp-border: rgba(15, 23, 42, 0.10);
+  --pp-border-strong: rgba(15, 23, 42, 0.14);
+  --pp-text: #0f172a;
+  --pp-muted: rgba(15, 23, 42, 0.70);
+  --pp-muted2: rgba(15, 23, 42, 0.55);
+  --pp-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+
+  --pp-accent: #ff7a00;
+  --pp-accent-soft: rgba(255, 122, 0, 0.12);
+  --pp-accent-soft2: rgba(255, 122, 0, 0.18);
+
+  --pp-danger: #e54848;
+  --pp-danger-soft: rgba(229, 72, 72, 0.10);
+}
+
+body[data-theme="dark"] .pp-acct{
+  --pp-bg: rgba(0,0,0,0);
+  --pp-card: rgba(255,255,255,0.04);
+  --pp-border: rgba(255,255,255,0.10);
+  --pp-border-strong: rgba(255,255,255,0.14);
+  --pp-text: #ffffff;
+  --pp-muted: rgba(255,255,255,0.78);
+  --pp-muted2: rgba(255,255,255,0.65);
+  --pp-shadow: 0 18px 45px rgba(0,0,0,0.30);
+
+  --pp-accent: #ff7a00;
+  --pp-accent-soft: rgba(255, 122, 0, 0.14);
+  --pp-accent-soft2: rgba(255, 122, 0, 0.22);
+
+  --pp-danger: #ff6b6b;
+  --pp-danger-soft: rgba(255,107,107,0.10);
+}
+
+/* ---------- Base ---------- */
+.pp-acct{
+  max-width: 1200px;
+  margin-bottom: 32px;
+  color: var(--pp-text);
+}
+
+.pp-acct a{ color: inherit; text-decoration: none; }
+.pp-acct a:hover{ text-decoration: none; }
+
+/* Ensure cards look good even if global .card differs */
+.pp-acct .card{
+  background: var(--pp-card);
+  border: 1px solid var(--pp-border);
+  box-shadow: var(--pp-shadow);
+}
+
+/* ---------- Top ---------- */
+.pp-acct__top{ margin: 10px 0 18px; }
+.pp-acct__crumb{
+  font-weight: 900;
+  letter-spacing: .14em;
+  opacity: .75;
+  font-size: .82rem;
+}
+.pp-acct__welcome{
+  margin: 8px 0 6px;
+  font-size: clamp(28px, 3.5vw, 44px);
+  letter-spacing: -0.03em;
+}
+.pp-acct__sub{
+  margin: 0;
+  color: var(--pp-muted);
+}
+
+/* ---------- Alerts ---------- */
+.pp-acct__alert{
+  margin: 14px 0 10px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--pp-border);
+  background: var(--pp-card);
+  box-shadow: var(--pp-shadow);
+}
+.pp-acct__alert ul{ margin: 8px 0 0 18px; }
+.pp-acct__alert--success{
+  border-color: rgba(34,197,94,0.25);
+  background: rgba(34,197,94,0.08);
+}
+.pp-acct__alert--danger{
+  border-color: rgba(239,68,68,0.25);
+  background: rgba(239,68,68,0.08);
+}
+
+/* ---------- Layout ---------- */
+.pp-acct__layout{
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+/* ---------- Sidebar ---------- */
+.pp-acct__side{
+  padding: 16px;
+  border-radius: 18px;
+}
+
+.pp-acct__side-head{
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 12px;
+  align-items: center;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--pp-border);
+  margin-bottom: 12px;
+}
+
+.pp-acct__avatar{
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--pp-border-strong);
+  background: rgba(0,0,0,0.03);
+  display: grid;
+  place-items: center;
+}
+body[data-theme="dark"] .pp-acct__avatar{ background: rgba(255,255,255,0.06); }
+
+.pp-acct__avatar img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.pp-acct__avatar-fallback{
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  font-weight: 950;
+  font-size: 20px;
+  color: #111;
+  background: linear-gradient(135deg, rgba(255,122,0,.35), rgba(255,255,255,.9));
+}
+body[data-theme="dark"] .pp-acct__avatar-fallback{
+  color: #fff;
+  background: linear-gradient(135deg, rgba(255,122,0,.45), rgba(255,255,255,.06));
+}
+
+.pp-acct__name{ font-weight: 950; letter-spacing: -0.02em; }
+.pp-acct__email{ color: var(--pp-muted); font-size: .95rem; }
+.pp-acct__since{ color: var(--pp-muted2); font-size: .85rem; margin-top: 2px; }
+
+.pp-acct__nav{ display: grid; gap: 8px; }
+
+.pp-acct__nav-item{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 1px solid var(--pp-border);
+  background: rgba(0,0,0,0.02);
+  font-weight: 900;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, transform .15s ease;
+}
+body[data-theme="dark"] .pp-acct__nav-item{
+  background: rgba(255,255,255,0.04);
+}
+
+.pp-acct__nav-item:hover{
+  border-color: rgba(255,122,0,0.40);
+  background: var(--pp-accent-soft);
+  transform: translateY(-1px);
+}
+
+.pp-acct__nav-item.is-active{
+  border-color: rgba(255,122,0,0.55);
+  background: var(--pp-accent-soft2);
+}
+
+.pp-acct__nav-item--danger{
+  color: var(--pp-danger);
+  border-color: rgba(239,68,68,0.18);
+  background: var(--pp-danger-soft);
+}
+.pp-acct__nav-item--danger:hover{
+  border-color: rgba(239,68,68,0.35);
+  background: rgba(239,68,68,0.14);
+}
+
+.pp-acct__nav-sep{
+  height: 1px;
+  background: var(--pp-border);
+  margin: 6px 8px;
+}
+
+/* ---------- Main ---------- */
+.pp-acct__main{
+  display: grid;
+  gap: 16px;
+}
+
+/* ---------- Tiles ---------- */
+.pp-acct__tiles{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.pp-tile{
+  padding: 18px;
+  border-radius: 18px;
+  border: 1px solid var(--pp-border);
+  background: var(--pp-card);
+  transition: transform .14s ease, border-color .14s ease, box-shadow .14s ease;
+}
+
+.pp-tile:hover{
+  transform: translateY(-2px);
+  border-color: rgba(255,122,0,0.35);
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.10);
+}
+body[data-theme="dark"] .pp-tile:hover{
+  box-shadow: 0 20px 50px rgba(0,0,0,0.38);
+}
+
+.pp-tile__title{
+  font-weight: 950;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+}
+.pp-tile__text{
+  margin-top: 8px;
+  color: var(--pp-muted);
+  line-height: 1.4;
+}
+.pp-tile__cta{
+  margin-top: 14px;
+  font-weight: 950;
+  color: rgba(255,122,0,0.95);
+}
+
+/* ---------- Panels ---------- */
+.pp-panel{
+  border-radius: 18px;
+  padding: 0;
+  overflow: hidden;
+}
+
+.pp-panel__head{
+  padding: 18px 18px 10px;
+  border-bottom: 1px solid var(--pp-border);
+}
+.pp-panel__head h2{
+  margin: 0;
+  font-size: 1.55rem;
+  letter-spacing: -0.02em;
+}
+.pp-panel__head p{
+  margin: 8px 0 0;
+  color: var(--pp-muted);
+}
+.pp-panel__body{ padding: 18px; }
+
+/* ---------- Forms ---------- */
+.pp-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.pp-grid--3{
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.pp-label{
+  display: block;
+  margin: 0 0 6px;
+  font-weight: 950;
+}
+
+.pp-input{
+  width: 100%;
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 1px solid var(--pp-border-strong);
+  background: rgba(0,0,0,0.03);
+  color: var(--pp-text);
+  outline: none;
+}
+body[data-theme="dark"] .pp-input{
+  background: rgba(0,0,0,0.25);
+  color: #fff;
+}
+
+.pp-input:focus{
+  border-color: rgba(255,122,0,0.60);
+  box-shadow: 0 0 0 4px rgba(255,122,0,0.14);
+}
+
+/* Upload */
+.pp-upload{
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: 1fr 220px;
+  gap: 16px;
+  align-items: start;
+}
+
+.pp-file-hidden{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.pp-upload__row{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.pp-upload__name{ color: var(--pp-muted); font-size: .95rem; }
+.pp-upload__hint{ margin-top: 8px; color: var(--pp-muted2); font-size: .95rem; }
+
+.pp-check{
+  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--pp-muted);
+}
+
+/* Preview */
+.pp-preview{
+  border: 1px solid var(--pp-border);
+  background: rgba(0,0,0,0.02);
+  border-radius: 18px;
+  padding: 12px;
+}
+body[data-theme="dark"] .pp-preview{
+  background: rgba(255,255,255,0.04);
+}
+
+.pp-preview__label{
+  font-weight: 950;
+  color: var(--pp-muted);
+  font-size: .9rem;
+  margin-bottom: 10px;
+}
+.pp-preview img{
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 14px;
+  display: block;
+}
+.pp-preview__fallback{
+  width: 100%;
+  height: 180px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  font-size: 34px;
+  font-weight: 950;
+  color: #111;
+  background: linear-gradient(135deg, rgba(255,122,0,.30), rgba(255,255,255,.92));
+}
+body[data-theme="dark"] .pp-preview__fallback{
+  color: #fff;
+  background: linear-gradient(135deg, rgba(255,122,0,.45), rgba(255,255,255,.06));
+}
+
+/* Buttons */
+.pp-actions{ margin-top: 16px; display: flex; gap: 10px; }
+
+.pp-btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,122,0,0.22);
+  background: rgba(255,122,0,0.12);
+  color: #111;
+  font-weight: 950;
+  cursor: pointer;
+  transition: transform .12s ease, background .12s ease, border-color .12s ease;
+}
+body[data-theme="dark"] .pp-btn{
+  color: #fff;
+  border-color: rgba(255,255,255,0.14);
+  background: rgba(255,128,0,0.18);
+}
+
+.pp-btn:hover{
+  transform: translateY(-1px);
+  border-color: rgba(255,122,0,0.55);
+  background: rgba(255,122,0,0.18);
+}
+
+.pp-btn--ghost{
+  background: rgba(0,0,0,0.03);
+  border-color: var(--pp-border);
+  color: var(--pp-text);
+}
+body[data-theme="dark"] .pp-btn--ghost{
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.14);
+  color: #fff;
+}
+.pp-btn--ghost:hover{
+  border-color: rgba(255,122,0,0.35);
+  background: rgba(255,122,0,0.10);
+}
+
+/* Responsive */
+@media (max-width: 1050px){
+  .pp-acct__layout{ grid-template-columns: 1fr; }
+  .pp-acct__tiles{ grid-template-columns: 1fr; }
+  .pp-upload{ grid-template-columns: 1fr; }
+  .pp-preview img, .pp-preview__fallback{ height: 160px; }
+}
+@media (max-width: 720px){
+  .pp-grid{ grid-template-columns: 1fr; }
+  .pp-grid--3{ grid-template-columns: 1fr; }
+}
+
+/* =========================================================
+   HARD LIGHT MODE OVERRIDE (fix dark panel behind nav)
+   Put at VERY BOTTOM of pp-account.css
+   ========================================================= */
+
+body:not([data-theme="dark"]) .pp-acct__side {
+  background: #fff !important;
+}
+
+body:not([data-theme="dark"]) .pp-acct__side-head {
+  background: transparent !important;
+}
+
+body:not([data-theme="dark"]) .pp-acct__nav {
+  background: #fff !important;
+  padding: 8px !important;
+  border-radius: 16px !important;
+}
+
+body:not([data-theme="dark"]) .pp-acct__nav-item {
+  background: #fff !important;
+  color: #0f172a !important;
+  border: 1px solid rgba(15,23,42,.10) !important;
+  box-shadow: 0 8px 18px rgba(15,23,42,.06) !important;
+}
+
+body:not([data-theme="dark"]) .pp-acct__nav-item.is-active {
+  background: rgba(255,122,0,.14) !important;
+  border-color: rgba(255,122,0,.55) !important;
+  box-shadow: none !important;
+}
+
+body:not([data-theme="dark"]) .pp-acct__nav-item--danger {
+  background: rgba(239,68,68,.08) !important;
+  border-color: rgba(239,68,68,.20) !important;
+  color: #e54848 !important;
+  box-shadow: none !important;
+}
+
+/* kill any accidental overlays/filters */
+body:not([data-theme="dark"]) .pp-acct__side *,
+body:not([data-theme="dark"]) .pp-acct__nav * {
+  filter: none !important;
+}
