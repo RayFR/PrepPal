@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\AdminCustomerController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\Admin\AdminOrderController;
 
 
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
@@ -77,6 +78,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
     Route::patch('/cart/{cartItem}', [CartController::class, 'update'])->name('cart.update');
     Route::delete('/cart/{cartItem}', [CartController::class, 'destroy'])->name('cart.delete');
+
+    Route::get('/orders', [AdminOrderController::class, 'index'])
+    ->name('admin.orders.index');
+
+    Route::get('/orders/{order}', [AdminOrderController::class, 'show'])
+        ->name('admin.orders.show');
+
+    Route::patch('/orders/{order}/status', [AdminOrderController::class, 'updateStatus'])
+        ->name('admin.orders.updateStatus');
 });
 
 // ADMIN (must be logged in + admin)
