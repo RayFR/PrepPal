@@ -55,7 +55,7 @@
           tabs.forEach(t => t.classList.remove('auth-tab-active'));
           tab.classList.add('auth-tab-active');
 
-          const mode = tab.getAttribute('data-mode'); // "login" or "register"
+          const mode = tab.getAttribute('data-mode');
           loginForm.classList.toggle('auth-form-active', mode === 'login');
           registerForm.classList.toggle('auth-form-active', mode === 'register');
         });
@@ -81,10 +81,52 @@
 
     // ------------------------------
     // Register password rules live checker
-    // (6+ chars, contains number, contains symbol)
     // ------------------------------
     const pw = document.getElementById('registerPassword');
+    const confirmPw = document.getElementById('registerConfirmPassword');
     const rulesWrap = document.getElementById('ppPassRules');
+    const registerFormEl = document.getElementById('registerForm');
+
+    function ensureToastContainer() {
+      let container = document.getElementById('toastContainer');
+
+      if (!container) {
+        container = document.createElement('div');
+        container.id = 'toastContainer';
+        document.body.appendChild(container);
+      }
+
+      return container;
+    }
+
+    function showToast(message, subtext) {
+      const container = ensureToastContainer();
+
+      const toast = document.createElement('div');
+      toast.className = 'pp-toast';
+      toast.innerHTML = `
+        <div class="pp-toast__icon">!</div>
+        <div class="pp-toast__content">
+          <div class="pp-toast__title">${message}</div>
+          ${subtext ? `<div class="pp-toast__text">${subtext}</div>` : ''}
+        </div>
+      `;
+
+      container.appendChild(toast);
+
+      requestAnimationFrame(() => {
+        toast.classList.add('show');
+      });
+
+      setTimeout(() => {
+        toast.classList.remove('show');
+        toast.classList.add('hide');
+
+        setTimeout(() => {
+          if (toast.parentNode) toast.parentNode.removeChild(toast);
+        }, 300);
+      }, 2800);
+    }
 
     if (pw && rulesWrap) {
       const ruleLen = rulesWrap.querySelector('[data-rule="len"]');
@@ -95,7 +137,7 @@
         const v = pw.value || "";
         const okLen = v.length >= 6;
         const okNum = /\d/.test(v);
-        const okSym = /[^A-Za-z0-9]/.test(v); // any non-alphanumeric symbol
+        const okSym = /[^A-Za-z0-9]/.test(v);
 
         if (ruleLen) ruleLen.classList.toggle('is-ok', okLen);
         if (ruleNum) ruleNum.classList.toggle('is-ok', okNum);
@@ -104,6 +146,52 @@
 
       pw.addEventListener('input', refreshRules);
       refreshRules();
+    }
+
+    // ------------------------------
+    // Register password match check
+    // ------------------------------
+    if (registerFormEl && pw && confirmPw) {
+      function passwordsMatch() {
+        return pw.value.trim() !== '' && confirmPw.value.trim() !== '' && pw.value === confirmPw.value;
+      }
+
+      function setMismatchState(show) {
+        confirmPw.classList.toggle('pp-input-error', show);
+        pw.classList.toggle('pp-input-error', show && confirmPw.value.trim() !== '');
+      }
+
+      confirmPw.addEventListener('input', () => {
+        if (confirmPw.value.trim() === '') {
+          setMismatchState(false);
+          return;
+        }
+
+        setMismatchState(!passwordsMatch());
+      });
+
+      pw.addEventListener('input', () => {
+        if (confirmPw.value.trim() === '') {
+          setMismatchState(false);
+          return;
+        }
+
+        setMismatchState(!passwordsMatch());
+      });
+
+      registerFormEl.addEventListener('submit', function (e) {
+        if (!passwordsMatch()) {
+          e.preventDefault();
+          setMismatchState(true);
+
+          showToast(
+            "Passwords do not match",
+            "Please make sure both password fields are the same."
+          );
+
+          confirmPw.focus();
+        }
+      });
     }
 
     // ------------------------------
