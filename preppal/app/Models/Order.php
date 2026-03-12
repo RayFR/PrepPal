@@ -15,5 +15,18 @@ class Order extends Model
         'postcode',
         'delivery_notes',
         'total_price',
+        'status',
+        'processed_at',
+        'shipped_at',
     ];
+
+    public function items()
+    {
+        return $this->hasMany(\App\Models\OrderItem::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(\App\Models\User::class);
+    }
 }

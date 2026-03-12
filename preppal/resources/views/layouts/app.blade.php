@@ -83,7 +83,8 @@
                         <a href="{{ route('profile.index') }}">My Profile</a>
 
                         @if(auth()->user()->is_admin)
-                            <a href="{{ route('admin.customers.index') }}">Admin Dashboard</a>
+                            <a href="{{ route('admin.customers.index') }}">Admin Customers</a>
+                            <a href="{{ route('admin.orders.index') }}">Admin Orders</a>
                         @endif
 
                         <div class="profile-dd__sep"></div>
