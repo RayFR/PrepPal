@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
- 
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CheckoutController;
@@ -11,16 +11,13 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\Admin\AdminCustomerController;
+use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\BlogController;
-use App\Http\Controllers\Admin\AdminOrderController;
-
 
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
-
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
-
 
 Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])
     ->name('newsletter.subscribe');
@@ -35,17 +32,13 @@ Route::post('/contact', [ContactController::class, 'store'])->name('contact.stor
 // AUTH (public)
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
-// FORGOT PASSWORD (public)
 Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name('password.forgot');
-
 Route::post('/register', [AuthController::class, 'register'])->name('register');
-
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// PROTECTED PAGES (must be logged in)
+// PROTECTED PAGES
 Route::middleware('auth')->group(function () {
 
-    // STORE + PRODUCT PAGES
     Route::get('/store', [ProductController::class, 'index'])->name('store');
     Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
 
@@ -53,14 +46,13 @@ Route::middleware('auth')->group(function () {
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
 
-    // CALCULATOR
     Route::get('/calculator', function () {
         return view('frontend.calculator');
     })->name('calculator');
 
-    Route::get('/orders', [OrderController::class, 'index'])
-    ->name('orders.index')
-    ->middleware('auth');
+    // CUSTOMER order history
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
 
     // CHECKOUT
     Route::get('/checkout', function () {
@@ -68,8 +60,6 @@ Route::middleware('auth')->group(function () {
     })->name('checkout');
 
     Route::post('/checkout', [CheckoutController::class, 'store']);
-
-    // ✅ NEW: Confirmation page
     Route::get('/checkout/confirmation', [CheckoutController::class, 'confirmation'])
         ->name('checkout.confirmation');
 
@@ -78,48 +68,38 @@ Route::middleware('auth')->group(function () {
     Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
     Route::patch('/cart/{cartItem}', [CartController::class, 'update'])->name('cart.update');
     Route::delete('/cart/{cartItem}', [CartController::class, 'destroy'])->name('cart.delete');
+});
 
+// ADMIN
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+
+    // Customers
+    Route::get('/customers', [AdminCustomerController::class, 'index'])
+        ->name('admin.customers.index');
+    Route::get('/customers/{user}/edit', [AdminCustomerController::class, 'edit'])
+        ->name('admin.customers.edit');
+    Route::put('/customers/{user}', [AdminCustomerController::class, 'update'])
+        ->name('admin.customers.update');
+    Route::delete('/customers/{user}', [AdminCustomerController::class, 'destroy'])
+        ->name('admin.customers.destroy');
+
+    // Orders
     Route::get('/orders', [AdminOrderController::class, 'index'])
-    ->name('admin.orders.index');
-
+        ->name('admin.orders.index');
     Route::get('/orders/{order}', [AdminOrderController::class, 'show'])
         ->name('admin.orders.show');
-
     Route::patch('/orders/{order}/status', [AdminOrderController::class, 'updateStatus'])
         ->name('admin.orders.updateStatus');
 });
 
-// ADMIN (must be logged in + admin)
-Route::middleware(['auth', 'admin', 'force_reset'])->prefix('admin')->group(function () {
-
-    // Customers management (CRUD)
-    Route::get('/customers', [AdminCustomerController::class, 'index'])
-        ->name('admin.customers.index');
-
-    Route::get('/customers/{user}/edit', [AdminCustomerController::class, 'edit'])
-        ->name('admin.customers.edit');
-
-    Route::put('/customers/{user}', [AdminCustomerController::class, 'update'])
-        ->name('admin.customers.update');
-
-    Route::delete('/customers/{user}', [AdminCustomerController::class, 'destroy'])
-        ->name('admin.customers.destroy');
-});
-
 // REVIEWS
 Route::middleware('auth')->group(function () {
-
-    // Submit review (refreshes product page)
     Route::post('/products/{id}/reviews', [ReviewController::class, 'store'])
         ->name('reviews.store');
-
-    // Edit / Update / Delete review
     Route::get('/reviews/{review}/edit', [ReviewController::class, 'edit'])
         ->name('reviews.edit');
-
     Route::put('/reviews/{review}', [ReviewController::class, 'update'])
         ->name('reviews.update');
-
     Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])
         ->name('reviews.destroy');
 });
