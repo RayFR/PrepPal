@@ -16,21 +16,27 @@ class ContactController extends Controller
     // Handle form submission
     public function store(Request $request)
     {
-        // Validate the form input
-        $request->validate([
+        $validated = $request->validate([
             'name'    => 'required|string|max:255',
             'email'   => 'required|email|max:255',
-            'message' => 'required|string',
+            'subject' => 'nullable|string|max:255',
+            'message' => 'required|string|min:10',
         ]);
 
-        // Save message into the database
+        $message = trim((string) $validated['message']);
+
+        if (!empty($validated['subject'])) {
+            $message = '[Topic: ' . $validated['subject'] . ']' . "\n\n" . $message;
+        }
+
         Contact::create([
-            'name'    => $request->name,
-            'email'   => $request->email,
-            'message' => $request->message,
+            'name'    => $validated['name'],
+            'email'   => $validated['email'],
+            'message' => $message,
         ]);
 
-        // Redirect back with a success message
-        return redirect()->back()->with('success', 'Thank you! Your message has been sent.');
+        return redirect()
+            ->route('contact.index')
+            ->with('success', 'Thanks — your message has been sent. Our team will get back to you within 24 hours.');
     }
 }
