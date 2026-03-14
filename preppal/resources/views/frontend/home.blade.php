@@ -1,7 +1,7 @@
 <!--
   Student&ID: Agraj Khanna(240195519)
   File: home.blade.php
-  Description: Homepage with existing hero style preserved and upgraded lower sections
+  Description: Homepage with existing hero style preserved, upgraded lower sections, and branded footer CTA
   Date: Mar 2026
 -->
 
@@ -469,6 +469,148 @@
     </div>
   </section>
 
+  {{-- =========================
+      HOME BOTTOM CTA / FOOTER
+     ========================= --}}
+  <section class="pp-home-bottom-footer">
+    <div class="container">
+      <div class="pp-home-footer-shell reveal" id="home-newsletter-signup">
+
+        <div class="pp-home-footer-grid">
+
+          {{-- LEFT: NEWSLETTER --}}
+          <div class="pp-home-footer-col pp-home-footer-col--newsletter">
+            <div class="pp-home-footer-brand">
+              <img
+                src="{{ asset('images/preppal-logo.png') }}"
+                alt="PrepPal"
+                class="pp-home-footer-brand-logo"
+              >
+            </div>
+
+            <h2 class="pp-home-footer-title">Stay in touch</h2>
+
+            <p class="pp-home-footer-text">
+              Sign up to be the first to hear about new meals, exclusive offers,
+              fitness tips, and fresh advice content.
+            </p>
+
+            @if(session('newsletter_success'))
+              <div class="pp-home-footer-alert pp-home-footer-alert--success" role="status" aria-live="polite">
+                @if(session('newsletter_existing'))
+                  You’re already subscribed with <strong>{{ session('newsletter_email') }}</strong>.
+                @else
+                  Thanks — you’re subscribed with <strong>{{ session('newsletter_email') }}</strong>.
+                @endif
+              </div>
+            @endif
+
+            @if($errors->has('email'))
+              <div class="pp-home-footer-alert pp-home-footer-alert--error" role="alert">
+                {{ $errors->first('email') }}
+              </div>
+            @endif
+
+            <form
+              class="pp-home-footer-form"
+              method="POST"
+              action="{{ route('newsletter.subscribe') }}#home-newsletter-signup"
+            >
+              @csrf
+              <input type="hidden" name="return_fragment" value="home-newsletter-signup">
+
+              <input
+                type="text"
+                class="pp-home-footer-input"
+                name="first_name"
+                placeholder="First name"
+                value="{{ old('first_name') }}"
+              >
+
+              <input
+                type="email"
+                class="pp-home-footer-input"
+                name="email"
+                placeholder="Email address"
+                value="{{ old('email') }}"
+                required
+              >
+
+              <button type="submit" class="pp-home-footer-subscribe">
+                Subscribe
+              </button>
+            </form>
+
+            <p class="pp-home-footer-note">
+              Unsubscribe at any time. We won’t pass your data to third parties.
+            </p>
+          </div>
+
+          {{-- MIDDLE: APP / QUICK CTA --}}
+          <div class="pp-home-footer-col pp-home-footer-col--app">
+            <h2 class="pp-home-footer-title">Download our app</h2>
+
+            <p class="pp-home-footer-text">
+              Quickly manage meals, browse plans, and stay on track in just a few taps.
+            </p>
+
+            <div class="pp-home-footer-rating">
+              <span class="pp-home-footer-stars">★★★★★</span>
+              <span>Excellent</span>
+              <span class="pp-home-footer-divider">|</span>
+              <span>11M+ meals planned</span>
+            </div>
+
+            <div class="pp-home-footer-app-row">
+              <div class="pp-home-footer-qr">
+                <span>QR</span>
+              </div>
+
+              <div class="pp-home-footer-store-buttons">
+                <a href="{{ route('store') }}" class="pp-home-footer-store-btn">
+                  <small>Browse on</small>
+                  <strong>PrepPal Store</strong>
+                </a>
+
+                <a href="{{ route('calculator') }}" class="pp-home-footer-store-btn">
+                  <small>Try the</small>
+                  <strong>Calorie Planner</strong>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {{-- RIGHT: LINKS --}}
+          <div class="pp-home-footer-col pp-home-footer-col--links">
+            <nav class="pp-home-footer-links" aria-label="Footer links">
+              <a href="{{ route('contact.index') }}">Contact</a>
+              <a href="{{ route('blog.index') }}">Advice</a>
+              <a href="{{ route('store') }}">Store</a>
+              <a href="{{ route('calculator') }}">Calculator</a>
+              <a href="{{ route('profile.index') }}">My Profile</a>
+              @if(Route::has('orders.index'))
+                <a href="{{ route('orders.index') }}">My Orders</a>
+              @endif
+            </nav>
+
+            <div class="pp-home-footer-socials" aria-label="Social links">
+              <a href="#" aria-label="Instagram">IG</a>
+              <a href="#" aria-label="TikTok">TT</a>
+              <a href="#" aria-label="X">X</a>
+              <a href="#" aria-label="Facebook">FB</a>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="pp-home-footer-bottom">
+          <p>© PrepPal Ltd 2026 All Rights Reserved.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <script>
@@ -509,7 +651,7 @@
       dotsWrap.innerHTML = '';
       cards.forEach((_, i) => {
         const d = document.createElement('span');
-        d.className = 'pp-swap-dot' + (i === 0 ? ' is-on' : '');
+        d.className = 'pp-swap-dot' + (i === 0 ? 'is-on' : '');
         dotsWrap.appendChild(d);
       });
     }
@@ -551,13 +693,13 @@
     }
 
     swapper.addEventListener('click', (e) => {
-  const btn = e.target.closest('.pp-swap-btn');
-  if (!btn) return;
-  e.preventDefault();
-  e.stopPropagation();
-  go(btn.dataset.dir || 'next');
-  start();
-});
+      const btn = e.target.closest('.pp-swap-btn');
+      if (!btn) return;
+      e.preventDefault();
+      e.stopPropagation();
+      go(btn.dataset.dir || 'next');
+      start();
+    });
 
     swapper.addEventListener('mouseenter', () => isPaused = true);
     swapper.addEventListener('mouseleave', () => isPaused = false);
@@ -570,11 +712,11 @@
   })();
 
   // Testimonials auto-carousel
-  (function(){
+  (function () {
     const root = document.getElementById('ppTestimonials');
     const track = document.getElementById('ppTestTrack');
     const dotsWrap = document.getElementById('ppTestDots');
-    if(!root || !track) return;
+    if (!root || !track) return;
 
     const prevBtn = root.querySelector('.pp-t-prev');
     const nextBtn = root.querySelector('.pp-t-next');
@@ -585,65 +727,65 @@
     let timer = null;
     let paused = false;
 
-    function perView(){
+    function perView() {
       return window.matchMedia('(max-width: 980px)').matches ? 1 : 3;
     }
 
-    function maxStart(){
+    function maxStart() {
       const total = track.children.length;
       return Math.max(0, total - perView());
     }
 
-    function stepPx(){
+    function stepPx() {
       const viewport = track.parentElement;
       const w = viewport.clientWidth;
       const per = perView();
       return (w - GAP * (per - 1)) / per + GAP;
     }
 
-    function clamp(){
+    function clamp() {
       const m = maxStart();
-      if(index > m) index = 0;
-      if(index < 0) index = m;
+      if (index > m) index = 0;
+      if (index < 0) index = m;
     }
 
-    function buildDots(){
-      if(!dotsWrap) return;
+    function buildDots() {
+      if (!dotsWrap) return;
       dotsWrap.innerHTML = '';
       const total = track.children.length;
       const pages = Math.max(1, Math.ceil(total / perView()));
-      for(let i=0;i<pages;i++){
+      for (let i = 0; i < pages; i++) {
         const d = document.createElement('span');
-        d.className = 'pp-t-dot' + (i === 0 ? ' is-on' : '');
+        d.className = 'pp-t-dot' + (i === 0 ? 'is-on' : '');
         dotsWrap.appendChild(d);
       }
     }
 
-    function setDots(){
-      if(!dotsWrap) return;
+    function setDots() {
+      if (!dotsWrap) return;
       const dots = dotsWrap.querySelectorAll('.pp-t-dot');
       const activePage = Math.floor(index / perView());
-      dots.forEach((d,i) => d.classList.toggle('is-on', i === activePage));
+      dots.forEach((d, i) => d.classList.toggle('is-on', i === activePage));
     }
 
-    function render(){
+    function render() {
       clamp();
       track.style.transform = `translateX(${-index * stepPx()}px)`;
       setDots();
     }
 
-    function go(dir){
+    function go(dir) {
       index += (dir === 'prev' ? -perView() : perView());
       render();
     }
 
-    function start(){
+    function start() {
       stop();
-      timer = setInterval(() => { if(!paused) go('next'); }, INTERVAL);
+      timer = setInterval(() => { if (!paused) go('next'); }, INTERVAL);
     }
 
-    function stop(){
-      if(timer) clearInterval(timer);
+    function stop() {
+      if (timer) clearInterval(timer);
       timer = null;
     }
 
@@ -661,7 +803,7 @@
     render();
 
     const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(!prefersReduced) start();
+    if (!prefersReduced) start();
   })();
 </script>
 
@@ -671,6 +813,7 @@
     transform: translateY(12px);
     transition: opacity .5s ease, transform .5s ease;
   }
+
   .reveal.revealed{
     opacity: 1;
     transform: translateY(0);
@@ -745,10 +888,10 @@
 
   .hero-trust-row{
     margin-top: 18px;
-    display:flex;
+    display: flex;
     gap: 10px;
     flex-wrap: wrap;
-    align-items:center;
+    align-items: center;
     opacity: .95;
   }
 
@@ -1354,35 +1497,35 @@
   }
 
   .pp-swap-link{
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-}
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+  }
 
-.pp-swap-controls{
-  position: absolute;
-  right: 16px;
-  top: 16px;
-  z-index: 20;
-  display: flex;
-  gap: 10px;
-  pointer-events: none;
-}
+  .pp-swap-controls{
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    z-index: 20;
+    display: flex;
+    gap: 10px;
+    pointer-events: none;
+  }
 
-.pp-swap-btn{
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  border: 1px solid rgba(255,255,255,.24);
-  background: rgba(0,0,0,.32);
-  color: #fff;
-  font-size: 1.5rem;
-  cursor: pointer;
-  backdrop-filter: blur(8px);
-  position: relative;
-  z-index: 21;
-  pointer-events: auto;
-}
+  .pp-swap-btn{
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.24);
+    background: rgba(0,0,0,.32);
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    position: relative;
+    z-index: 21;
+    pointer-events: auto;
+  }
 
   .pp-swap-dots{
     position: absolute;
@@ -1404,6 +1547,321 @@
 
   .pp-swap-dot.is-on{
     background: var(--color-primary);
+  }
+
+  /* =========================
+     HOME BOTTOM FOOTER CTA
+     ========================= */
+  .pp-home-bottom-footer{
+    padding: 1rem 0 2.8rem;
+  }
+
+  .pp-home-footer-shell{
+    position: relative;
+    overflow: hidden;
+    border-radius: 34px;
+    padding: 2.25rem 1.3rem 1.2rem;
+    background:
+      radial-gradient(circle at top left, rgba(255,255,255,.10), transparent 26%),
+      linear-gradient(135deg, #ef6a39 0%, #f57b3b 42%, #f6893a 100%);
+    color: #fff;
+    box-shadow: 0 22px 48px rgba(239,106,57,.22);
+  }
+
+  .pp-home-footer-shell::before{
+    content: "";
+    position: absolute;
+    inset: -100px auto auto -120px;
+    width: 320px;
+    height: 180px;
+    background: rgba(255,255,255,.08);
+    border-radius: 50%;
+    filter: blur(8px);
+    pointer-events: none;
+  }
+
+  .pp-home-footer-shell::after{
+    content: "";
+    position: absolute;
+    inset: auto -100px -100px auto;
+    width: 260px;
+    height: 260px;
+    background: rgba(255,255,255,.06);
+    border-radius: 50%;
+    filter: blur(12px);
+    pointer-events: none;
+  }
+
+  .pp-home-footer-grid{
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr .72fr;
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .pp-home-footer-col{
+    min-width: 0;
+  }
+
+  .pp-home-footer-brand{
+    margin-bottom: 1rem;
+  }
+
+  .pp-home-footer-brand-logo{
+    width: min(240px, 100%);
+    height: auto;
+    display: block;
+    object-fit: contain;
+    filter:
+      drop-shadow(0 8px 22px rgba(0,0,0,.12))
+      drop-shadow(0 0 18px rgba(255,255,255,.06));
+  }
+
+  .pp-home-footer-title{
+    margin: 0 0 .85rem;
+    font-size: clamp(1.5rem, 2.3vw, 2.4rem);
+    line-height: 1.05;
+    font-weight: 900;
+    color: #fff;
+  }
+
+  .pp-home-footer-text{
+    max-width: 420px;
+    margin: 0 0 1.1rem;
+    font-size: 1rem;
+    line-height: 1.65;
+    color: rgba(255,255,255,.96);
+  }
+
+  .pp-home-footer-form{
+    display: flex;
+    flex-direction: column;
+    gap: .85rem;
+    max-width: 450px;
+  }
+
+  .pp-home-footer-input{
+    width: 100%;
+    border: 0;
+    outline: none;
+    border-radius: 14px;
+    padding: 1rem 1.05rem;
+    font: inherit;
+    color: #1f2937;
+    background: rgba(255,255,255,.95);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.06);
+  }
+
+  .pp-home-footer-input::placeholder{
+    color: #6b7280;
+  }
+
+  .pp-home-footer-input:focus{
+    box-shadow:
+      inset 0 0 0 2px rgba(245,158,11,.55),
+      0 0 0 4px rgba(255,255,255,.14);
+  }
+
+  .pp-home-footer-subscribe{
+    width: 100%;
+    border: 0;
+    border-radius: 999px;
+    padding: 1rem 1.1rem;
+    font: inherit;
+    font-size: 1.05rem;
+    font-weight: 900;
+    cursor: pointer;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: #111827;
+    box-shadow: 0 12px 24px rgba(0,0,0,.12);
+    transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+  }
+
+  .pp-home-footer-subscribe:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 16px 30px rgba(0,0,0,.16);
+    filter: brightness(1.02);
+  }
+
+  .pp-home-footer-note{
+    max-width: 430px;
+    margin: 1rem 0 0;
+    font-size: .96rem;
+    line-height: 1.6;
+    color: rgba(255,255,255,.92);
+  }
+
+  .pp-home-footer-alert{
+    max-width: 450px;
+    margin: 0 0 .9rem;
+    padding: .9rem 1rem;
+    border-radius: 14px;
+    font-size: .94rem;
+    font-weight: 800;
+    border: 1px solid transparent;
+  }
+
+  .pp-home-footer-alert strong{
+    font-weight: 900;
+  }
+
+  .pp-home-footer-alert--success{
+    background: rgba(17,94,89,.18);
+    border-color: rgba(209,250,229,.20);
+    color: #f0fdf4;
+  }
+
+  .pp-home-footer-alert--error{
+    background: rgba(127,29,29,.18);
+    border-color: rgba(254,202,202,.24);
+    color: #fff1f2;
+  }
+
+  .pp-home-footer-rating{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .55rem;
+    margin: 1rem 0 1.2rem;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #fff6ef;
+  }
+
+  .pp-home-footer-stars{
+    letter-spacing: .08em;
+    color: #fff4c6;
+  }
+
+  .pp-home-footer-divider{
+    opacity: .6;
+  }
+
+  .pp-home-footer-app-row{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .pp-home-footer-qr{
+    width: 128px;
+    height: 128px;
+    flex: 0 0 128px;
+    border-radius: 18px;
+    display: grid;
+    place-items: center;
+    background:
+      linear-gradient(135deg, rgba(255,255,255,.96), rgba(255,245,238,.92));
+    color: #ef6a39;
+    font-size: 1.6rem;
+    font-weight: 950;
+    border: 4px solid rgba(255,255,255,.22);
+    box-shadow: 0 10px 24px rgba(0,0,0,.12);
+  }
+
+  .pp-home-footer-store-buttons{
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+  }
+
+  .pp-home-footer-store-btn{
+    min-width: 220px;
+    padding: .8rem 1rem;
+    border-radius: 16px;
+    text-decoration: none;
+    color: #fff;
+    background: rgba(13,17,23,.88);
+    border: 1px solid rgba(255,255,255,.12);
+    box-shadow: 0 10px 18px rgba(0,0,0,.12);
+    transition: transform .18s ease, background .18s ease, border-color .18s ease;
+  }
+
+  .pp-home-footer-store-btn:hover{
+    transform: translateY(-2px);
+    background: rgba(10,14,20,.96);
+    border-color: rgba(255,255,255,.22);
+  }
+
+  .pp-home-footer-store-btn small{
+    display: block;
+    margin-bottom: .15rem;
+    font-size: .78rem;
+    font-weight: 700;
+    color: rgba(255,255,255,.72);
+  }
+
+  .pp-home-footer-store-btn strong{
+    display: block;
+    font-size: 1.05rem;
+    line-height: 1.2;
+    font-weight: 900;
+    color: #fff;
+  }
+
+  .pp-home-footer-links{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: .95rem;
+  }
+
+  .pp-home-footer-links a{
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.02rem;
+    font-weight: 800;
+    transition: opacity .16s ease, transform .16s ease;
+  }
+
+  .pp-home-footer-links a:hover{
+    opacity: .82;
+    transform: translateX(-3px);
+  }
+
+  .pp-home-footer-socials{
+    display: flex;
+    justify-content: flex-end;
+    gap: .75rem;
+    margin-top: 2rem;
+  }
+
+  .pp-home-footer-socials a{
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    text-decoration: none;
+    font-size: .92rem;
+    font-weight: 900;
+    color: #fff;
+    background: rgba(255,255,255,.14);
+    border: 1px solid rgba(255,255,255,.16);
+    backdrop-filter: blur(6px);
+  }
+
+  .pp-home-footer-socials a:hover{
+    background: rgba(255,255,255,.22);
+  }
+
+  .pp-home-footer-bottom{
+    position: relative;
+    z-index: 2;
+    margin-top: 2rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid rgba(255,255,255,.16);
+    text-align: center;
+  }
+
+  .pp-home-footer-bottom p{
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 750;
+    color: rgba(255,255,255,.95);
   }
 
   /* light mode overrides */
@@ -1449,6 +1907,28 @@
     }
   }
 
+  @media (max-width: 1100px){
+    .pp-home-footer-grid{
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .pp-home-footer-col--links{
+      grid-column: 1 / -1;
+    }
+
+    .pp-home-footer-links{
+      align-items: flex-start;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: .9rem 1.2rem;
+    }
+
+    .pp-home-footer-socials{
+      justify-content: flex-start;
+      margin-top: 1.25rem;
+    }
+  }
+
   @media (max-width: 980px){
     .home-hero-grid,
     .pp-home-calc-cta,
@@ -1468,6 +1948,41 @@
     .pp-swap-track,
     .pp-swap-img{
       min-height: 420px;
+    }
+
+    .pp-home-footer-grid{
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .pp-home-footer-links{
+      align-items: flex-start;
+      flex-direction: column;
+      gap: .8rem;
+    }
+
+    .pp-home-footer-socials{
+      justify-content: flex-start;
+    }
+  }
+
+  @media (max-width: 780px){
+    .pp-home-footer-shell{
+      padding: 1.5rem 1rem 1rem;
+      border-radius: 26px;
+    }
+
+    .pp-home-footer-brand-logo{
+      width: min(200px, 100%);
+    }
+
+    .pp-home-footer-app-row{
+      align-items: flex-start;
+    }
+
+    .pp-home-footer-store-btn{
+      min-width: 0;
+      width: 100%;
     }
   }
 
@@ -1507,6 +2022,24 @@
       left: 14px;
       right: 14px;
       bottom: 14px;
+    }
+  }
+
+  @media (max-width: 520px){
+    .pp-home-footer-qr{
+      width: 104px;
+      height: 104px;
+      flex-basis: 104px;
+      font-size: 1.3rem;
+    }
+
+    .pp-home-footer-title{
+      font-size: 1.8rem;
+    }
+
+    .pp-home-footer-text,
+    .pp-home-footer-note{
+      font-size: .95rem;
     }
   }
 </style>
