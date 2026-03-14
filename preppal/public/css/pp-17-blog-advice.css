@@ -1140,3 +1140,74 @@ body[data-theme="dark"] .pp-post-hero{
   .pp-advice-card__cover{ height: 250px; }
 }
 
+.pp-side-form{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pp-side-label{
+  font-size: 13px;
+  font-weight: 800;
+  opacity: .82;
+}
+
+.pp-side-input{
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,.12);
+  background: rgba(255,255,255,.96);
+  color: inherit;
+  padding: 12px 14px;
+  font: inherit;
+  outline: none;
+  transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+body[data-theme="dark"] .pp-side-input{
+  background: rgba(255,255,255,.04);
+  border-color: rgba(255,255,255,.12);
+  color: #fff;
+}
+
+.pp-side-input:focus{
+  border-color: rgba(255,122,0,.9);
+  box-shadow: 0 0 0 3px rgba(255,122,0,.16);
+}
+
+.pp-side-alert{
+  margin: 0 0 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  font-weight: 750;
+  line-height: 1.4;
+  border: 1px solid transparent;
+}
+
+.pp-side-alert strong{
+  font-weight: 900;
+}
+
+.pp-side-alert--success{
+  background: rgba(30, 180, 90, .12);
+  border-color: rgba(30, 180, 90, .28);
+  color: #17753a;
+}
+
+.pp-side-alert--error{
+  background: rgba(220, 50, 50, .10);
+  border-color: rgba(220, 50, 50, .24);
+  color: #a52828;
+}
+
+body[data-theme="dark"] .pp-side-alert--success{
+  background: rgba(30, 180, 90, .16);
+  border-color: rgba(30, 180, 90, .30);
+  color: #89efad;
+}
+
+body[data-theme="dark"] .pp-side-alert--error{
+  background: rgba(220, 50, 50, .16);
+  border-color: rgba(220, 50, 50, .28);
+  color: #ff9d9d;
+}

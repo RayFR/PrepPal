@@ -48,11 +48,45 @@
     <aside class="pp-article-sidebar">
 
       {{-- Newsletter CTA --}}
-      <div class="pp-side-card">
-        <h3 class="pp-side-title">Get exclusive tips</h3>
-        <p class="pp-side-text">Weekly nutrition + meal-prep advice. Early access to offers.</p>
-        <button class="pp-side-btn" type="button" data-pp-nl-open>Join newsletter</button>
-      </div>
+<div class="pp-side-card" id="newsletter-signup">
+  <h3 class="pp-side-title">Get exclusive tips</h3>
+  <p class="pp-side-text">Weekly nutrition + meal-prep advice. Early access to offers.</p>
+
+  @if(session('newsletter_success'))
+    <div class="pp-side-alert pp-side-alert--success" role="status" aria-live="polite">
+      @if(session('newsletter_existing'))
+        You're already subscribed with <strong>{{ session('newsletter_email') }}</strong>.
+      @else
+        Thanks — you're in. We've subscribed <strong>{{ session('newsletter_email') }}</strong>.
+      @endif
+    </div>
+  @endif
+
+  @if($errors->has('email'))
+    <div class="pp-side-alert pp-side-alert--error" role="alert">
+      {{ $errors->first('email') }}
+    </div>
+  @endif
+
+  <form class="pp-side-form" method="POST" action="{{ route('newsletter.subscribe') }}#newsletter-signup">
+    @csrf
+    <input type="hidden" name="return_fragment" value="newsletter-signup">
+
+    <label class="pp-side-label" for="newsletter_email">Email address</label>
+    <input
+      id="newsletter_email"
+      name="email"
+      type="email"
+      class="pp-side-input"
+      placeholder="Enter your email"
+      value="{{ old('email') }}"
+      autocomplete="email"
+      required
+    >
+
+    <button class="pp-side-btn" type="submit">Join newsletter</button>
+  </form>
+</div>
 
       {{-- Related --}}
       @if(isset($related) && $related->count())
