@@ -13,6 +13,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\Admin\AdminCustomerController;
 use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\AdminProductController;
+use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\BlogController;
@@ -110,6 +111,12 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::delete('/products/{product}', [AdminProductController::class, 'destroy'])
         ->name('admin.products.destroy');
+
+    Route::post('/products/{product}/stock/add', [AdminProductController::class, 'addStock'])
+        ->name('admin.products.addStock');
+
+    Route::get('/', [AdminDashboardController::class, 'index'])
+        ->name('admin.dashboard');
 });
 
 // REVIEWS

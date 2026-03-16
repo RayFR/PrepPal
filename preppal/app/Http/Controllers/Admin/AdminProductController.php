@@ -98,4 +98,17 @@ class AdminProductController extends Controller
             ->route('admin.products.index')
             ->with('success', 'Product deleted successfully.');
     }
+
+    public function addStock(Request $request, Product $product)
+    {
+        $data = $request->validate([
+            'add_stock_quantity' => ['required', 'integer', 'min:1'],
+        ]);
+
+        $product->increment('stock', $data['add_stock_quantity']);
+
+        return redirect()
+            ->route('admin.products.edit', $product->id)
+            ->with('success', 'Stock added successfully.');
+    }
 }
