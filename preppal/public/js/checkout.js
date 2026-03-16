@@ -283,32 +283,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Payment validation (demo UI)
-    const cn = (cardNumber?.value || '').replace(/\s/g, '');
-    const exp = parseExpiry(expiry?.value || '');
+    const cn = (cardNumber?.value || '').trim();
+    const ex = (expiry?.value || '').trim();
     const cv = (cvc?.value || '').trim();
     const nm = (cardName?.value || '').trim();
 
-    if (!nm) {
-      setError('Please enter the name on the card.');
-      cardName?.focus();
-      return;
-    }
-
-    if (!luhnCheck(cn)) {
-      setError('Please enter a valid card number.');
-      cardNumber?.focus();
-      return;
-    }
-
-    if (!isExpiryInFuture(exp)) {
-      setError('Please enter a valid expiry date (MM/YY).');
-      expiry?.focus();
-      return;
-    }
-
-    if (!/^\d{3,4}$/.test(cv)) {
-      setError('Please enter a valid CVC.');
-      cvc?.focus();
+    if (!nm || !cn || !ex || !cv) {
+      setError('Please complete your card details.');
+      if (!nm) cardName?.focus();
+      else if (!cn) cardNumber?.focus();
+      else if (!ex) expiry?.focus();
+      else cvc?.focus();
       return;
     }
 

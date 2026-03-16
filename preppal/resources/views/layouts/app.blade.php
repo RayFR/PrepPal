@@ -127,7 +127,6 @@
 <script src="{{ asset('js/currency.js') }}"></script>
 <script src="{{ asset('js/cart.js') }}"></script>
 <script src="{{ asset('js/store.js') }}"></script>
-<script src="{{ asset('js/checkout.js') }}"></script>
 <script defer src="{{ asset('js/newsletter.js') }}"></script>
 
 @stack('scripts')

@@ -117,6 +117,16 @@
 
                 <p style="opacity:0.85;">{{ $product->description }}</p>
 
+                <p>
+                    @if($product->stock <= 0)
+                        <strong style="color:#dc2626;">Out of stock</strong>
+                    @elseif($product->stock <= $product->low_stock_threshold)
+                        <strong style="color:#d97706;">Low stock ({{ $product->stock }} left)</strong>
+                    @else
+                        <strong style="color:#16a34a;">In stock ({{ $product->stock }} available)</strong>
+                    @endif
+                </p>
+
                 <h3 style="margin: 0.5rem 0 1rem;">
                     <span
                         data-money-gbp="{{ $product->price }}"
@@ -124,17 +134,20 @@
                     >£{{ number_format($product->price, 2) }}{{ $product->category === 'meal' ? ' / week' : '' }}</span>
                 </h3>
 
-                <button
-                    type="button"
-                    class="cta add-to-cart"
+                @if($product->stock <= 0)
+                    <span class="cta" style="display:inline-block; opacity:0.6; pointer-events:none;">
+                        Out of stock
+                    </span>
+                @else
+                    <a class="cta add-to-cart"
+                    href="#"
                     data-id="{{ $product->id }}"
                     data-name="{{ $product->name }}"
                     data-price="{{ $product->price }}"
-                    data-image="{{ asset($product->image_path) }}"
-                    style="width:100%; border-radius:10px;"
-                >
+                    data-image="{{ asset($product->image_path) }}">
                     Add to cart
-                </button>
+                    </a>
+                @endif
 
             </div>
         @empty
