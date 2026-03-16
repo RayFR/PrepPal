@@ -12,6 +12,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\Admin\AdminCustomerController;
 use App\Http\Controllers\Admin\AdminOrderController;
+use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\BlogController;
@@ -90,6 +91,25 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         ->name('admin.orders.show');
     Route::patch('/orders/{order}/status', [AdminOrderController::class, 'updateStatus'])
         ->name('admin.orders.updateStatus');
+
+    // Products / Inventory
+    Route::get('/products', [AdminProductController::class, 'index'])
+        ->name('admin.products.index');
+
+    Route::get('/products/create', [AdminProductController::class, 'create'])
+        ->name('admin.products.create');
+
+    Route::post('/products', [AdminProductController::class, 'store'])
+        ->name('admin.products.store');
+
+    Route::get('/products/{product}/edit', [AdminProductController::class, 'edit'])
+        ->name('admin.products.edit');
+
+    Route::put('/products/{product}', [AdminProductController::class, 'update'])
+        ->name('admin.products.update');
+
+    Route::delete('/products/{product}', [AdminProductController::class, 'destroy'])
+        ->name('admin.products.destroy');
 });
 
 // REVIEWS
