@@ -83,8 +83,10 @@
                         <a href="{{ route('profile.index') }}">My Profile</a>
 
                         @if(auth()->user()->is_admin)
+                            <a href="{{ route('admin.dashboard') }}">Admin Dashboard</a>
                             <a href="{{ route('admin.customers.index') }}">Admin Customers</a>
                             <a href="{{ route('admin.orders.index') }}">Admin Orders</a>
+                            <a href="{{ route('admin.products.index') }}">Admin Products</a>
                         @endif
 
                         <div class="profile-dd__sep"></div>
@@ -127,7 +129,6 @@
 <script src="{{ asset('js/currency.js') }}"></script>
 <script src="{{ asset('js/cart.js') }}"></script>
 <script src="{{ asset('js/store.js') }}"></script>
-<script src="{{ asset('js/checkout.js') }}"></script>
 <script defer src="{{ asset('js/newsletter.js') }}"></script>
 
 @stack('scripts')

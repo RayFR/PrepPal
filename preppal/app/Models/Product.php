@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Review;
 
 class Product extends Model
 {
@@ -11,18 +10,22 @@ class Product extends Model
         'name',
         'description',
         'price',
+        'image_path',
         'category',
-        'image',
+        'stock',
+        'low_stock_threshold',
     ];
 
-    // Ensures comparisons + formatting behave as numbers
-    protected $casts = [
-        'price' => 'decimal:2',
-    ];
+    public function stockStatus(): string
+    {
+        if ($this->stock <= 0) {
+            return 'out';
+        }
 
-    public function reviews()
-{
-    return $this->hasMany(Review::class);
-}
+        if ($this->stock <= $this->low_stock_threshold) {
+            return 'low';
+        }
 
+        return 'in';
+    }
 }

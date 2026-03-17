@@ -34,6 +34,17 @@ class CheckoutController extends Controller
             $total += $product->price * $it['qty'];
         }
 
+        foreach ($items as $it) {
+            $product = $products[$it['id']];
+
+            if ($product->stock < $it['qty']) {
+                return response()->json([
+                    'success' => false,
+                    'message' => "{$product->name} does not have enough stock available."
+                ], 422);
+            }
+        }
+
         $order = Order::create([
             'user_id' => auth()->id(),
             'name' => $validated['name'],
@@ -54,6 +65,8 @@ class CheckoutController extends Controller
                 'quantity' => $it['qty'],
                 'price' => $product->price,
             ]);
+
+            $product->decrement('stock', $it['qty']);
         }
 
         // store last order id in session (optional, helps confirmation page access)
