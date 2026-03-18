@@ -1,20 +1,30 @@
-<h2>Edit Review</h2>
+@extends('layouts.app')
 
-<form method="POST" action="{{ route('reviews.update', $review) }}">
-    @csrf
-    @method('PUT')
+@section('title', 'Edit Review')
 
-    <label>Rating</label>
-    <select name="rating" class="form-control" required>
-        @for($i = 1; $i <= 5; $i++)
-            <option value="{{ $i }}" @selected($review->rating == $i)>
-                {{ $i }} ⭐
-            </option>
-        @endfor
-    </select>
+@section('content')
+<div class="container">
 
-    <label class="mt-2">Comment</label>
-    <textarea name="comment" class="form-control">{{ $review->comment }}</textarea>
+    <h2>Edit Review</h2>
 
-    <button class="btn btn-primary mt-3">Update Review</button>
-</form>
+    <form method="POST" action="{{ route('reviews.update', $review) }}" class="pp-review-form">
+        @csrf
+        @method('PUT')
+
+        <label>Rating</label>
+        <select name="rating" required>
+            @for($i = 1; $i <= 5; $i++)
+                <option value="{{ $i }}" @selected($review->rating == $i)">
+                    {{ $i }} ⭐
+                </option>
+            @endfor
+        </select>
+
+        <label class="mt-2">Comment</label>
+        <textarea name="comment">{{ $review->comment }}</textarea>
+
+        <button class="btn btn-primary mt-3">Update Review</button>
+    </form>
+
+</div>
+@endsection

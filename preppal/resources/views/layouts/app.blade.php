@@ -9,6 +9,7 @@
     <title>@yield('title', config('app.name', 'PrepPal'))</title>
 
     {{-- CSS --}}
+    <link rel="stylesheet" href="{{ asset('css/pp-14-reviews.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
     <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
