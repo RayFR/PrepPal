@@ -143,7 +143,7 @@
         <div class="pp-newsletter__backdrop" data-pp-nl-close></div>
 
         <div class="pp-newsletter__dialog" role="dialog" aria-modal="true" aria-labelledby="ppNlTitle">
-            <button class="pp-newsletter__close" type="button" aria-label="Close" data-pp-nl-close">×</button>
+        <button class="pp-newsletter__close" type="button" aria-label="Close" data-pp-nl-close onclick="document.getElementById('ppNewsletter').classList.remove('is-open'); document.getElementById('ppNewsletter').setAttribute('aria-hidden','true'); document.documentElement.style.overflow=''; document.body.style.overflow='';">  ×</button>
 
             <div class="pp-newsletter__grid">
                 <div class="pp-newsletter__media" aria-hidden="true">
@@ -168,7 +168,7 @@
                                 FIND YOUR FUEL
                             </a>
 
-                            <button class="pp-newsletter__no" type="button" data-pp-nl-close">Close</button>
+                            <button class="pp-newsletter__no" type="button" data-pp-nl-close onclick="document.getElementById('ppNewsletter').classList.remove('is-open'); document.getElementById('ppNewsletter').setAttribute('aria-hidden','true'); document.documentElement.style.overflow=''; document.body.style.overflow='';">Close</button>
                         </div>
                     @else
                         <h2 class="pp-newsletter__title" id="ppNlTitle">Fuel your ambition</h2>
@@ -192,7 +192,7 @@
                             >
 
                             <button class="pp-newsletter__btn" type="submit">GET MY 15% OFF</button>
-                            <button class="pp-newsletter__no" type="button" data-pp-nl-close">No, thanks</button>
+                            <button class="pp-newsletter__no" type="button" data-pp-nl-close onclick="document.getElementById('ppNewsletter').classList.remove('is-open'); document.getElementById('ppNewsletter').setAttribute('aria-hidden','true'); document.documentElement.style.overflow=''; document.body.style.overflow='';">No, thanks</button>
 
                             <p class="pp-newsletter__fine">
                                 By providing your email, you agree to our
