@@ -24,6 +24,12 @@
       'stars' => 5,
       'quote' => 'Fantastic meal structure. Quick, repeatable, and makes staying consistent much easier.',
       'img' => asset('images/testimonials/michael.jpg'),
+      'goal' => 'Fat loss',
+      'duration' => '8 weeks',
+      'review_full' => 'PrepPal made my week feel much more organised. I stopped relying on random takeaway meals, had a clear structure to follow, and found it easier to stay in a calorie deficit without feeling like I was guessing all the time.',
+      'before_img' => asset('images/testimonials/michael-before.jpg'),
+      'after_img' => asset('images/testimonials/michael-after.jpg'),
+      'results' => ['Lost 4.5kg', 'Better weekly routine', 'Less takeaway food'],
     ],
     [
       'name' => 'Emily Harris',
@@ -31,6 +37,12 @@
       'stars' => 5,
       'quote' => 'The portions and macros feel spot-on. Prep is simple and the week feels organised.',
       'img' => asset('images/testimonials/emily.jpg'),
+      'goal' => 'Lean muscle',
+      'duration' => '10 weeks',
+      'review_full' => 'I wanted a lean bulk without eating badly or overdoing calories. The structure helped me keep protein high, stay more consistent around training, and remove a lot of the stress from planning meals every day.',
+      'before_img' => asset('images/testimonials/emily-before.jpg'),
+      'after_img' => asset('images/testimonials/emily-after.jpg'),
+      'results' => ['Improved training consistency', 'Higher protein intake', 'More organised meal prep'],
     ],
     [
       'name' => 'Anthony Thompson',
@@ -38,6 +50,12 @@
       'stars' => 5,
       'quote' => 'Best part is not thinking about meals. I just follow the plan and it works.',
       'img' => asset('images/testimonials/anthony.jpg'),
+      'goal' => 'Maintenance',
+      'duration' => '6 weeks',
+      'review_full' => 'My work schedule is busy, so I needed something simple that removed the daily decision-making. PrepPal gave me a straightforward routine that helped me stay steady with my food and energy levels through the week.',
+      'before_img' => asset('images/testimonials/anthony-before.jpg'),
+      'after_img' => asset('images/testimonials/anthony-after.jpg'),
+      'results' => ['More consistency', 'Less food stress', 'Better routine during busy weeks'],
     ],
     [
       'name' => 'Sofia K.',
@@ -45,6 +63,12 @@
       'stars' => 5,
       'quote' => 'Saves time and money. The structure keeps me on track without feeling restrictive.',
       'img' => asset('images/testimonials/sofia.jpg'),
+      'goal' => 'High protein routine',
+      'duration' => '7 weeks',
+      'review_full' => 'As a student, I needed meals that were realistic, affordable, and easy to repeat. PrepPal helped me stay on track, waste less food, and keep my protein intake up without overcomplicating things.',
+      'before_img' => asset('images/testimonials/sofia-before.jpg'),
+      'after_img' => asset('images/testimonials/sofia-after.jpg'),
+      'results' => ['Saved time', 'Better protein intake', 'Less food waste'],
     ],
     [
       'name' => 'Jay P.',
@@ -52,6 +76,12 @@
       'stars' => 4,
       'quote' => 'Easy ordering, clean layout, and realistic meals for busy weeks.',
       'img' => asset('images/testimonials/jay.jpg'),
+      'goal' => 'Fat loss',
+      'duration' => '9 weeks',
+      'review_full' => 'The meals were realistic enough to actually stick to. I liked that the structure felt practical rather than extreme, and it made staying consistent easier around work and training.',
+      'before_img' => asset('images/testimonials/jay-before.jpg'),
+      'after_img' => asset('images/testimonials/jay-after.jpg'),
+      'results' => ['More realistic dieting', 'Easier weekly prep', 'Cleaner food choices'],
     ],
     [
       'name' => 'Amina R.',
@@ -59,6 +89,12 @@
       'stars' => 5,
       'quote' => 'No guesswork. I track progress and stay consistent week after week.',
       'img' => asset('images/testimonials/amina.jpg'),
+      'goal' => 'Maintenance',
+      'duration' => '8 weeks',
+      'review_full' => 'I wanted something that helped me stay balanced rather than constantly switching between extremes. PrepPal gave me enough structure to stay consistent and track my progress in a more relaxed way.',
+      'before_img' => asset('images/testimonials/amina-before.jpg'),
+      'after_img' => asset('images/testimonials/amina-after.jpg'),
+      'results' => ['Steadier routine', 'Better tracking', 'Less overthinking meals'],
     ],
   ];
 @endphp
@@ -366,7 +402,23 @@
         <div class="pp-t-viewport" aria-roledescription="carousel">
           <div class="pp-t-track" id="ppTestTrack">
             @foreach($testimonials as $t)
-              <article class="pp-t-card">
+              <article
+                class="pp-t-card pp-t-card-clickable"
+                tabindex="0"
+                role="button"
+                aria-label="Open review for {{ $t['name'] }}"
+                data-name="{{ $t['name'] }}"
+                data-role="{{ $t['role'] }}"
+                data-stars="{{ $t['stars'] }}"
+                data-quote="{{ $t['quote'] }}"
+                data-goal="{{ $t['goal'] }}"
+                data-duration="{{ $t['duration'] }}"
+                data-review="{{ $t['review_full'] }}"
+                data-avatar="{{ $t['img'] }}"
+                data-before="{{ $t['before_img'] }}"
+                data-after="{{ $t['after_img'] }}"
+                data-results='@json($t["results"])'
+              >
                 <img
                   src="{{ $t['img'] }}"
                   alt="{{ $t['name'] }}"
@@ -383,6 +435,7 @@
 
                 <p class="pp-t-quote">“{{ $t['quote'] }}”</p>
                 <div class="pp-t-role">{{ $t['role'] }}</div>
+                <div class="pp-t-open-hint">Click to view full review &amp; results</div>
               </article>
             @endforeach
           </div>
@@ -394,6 +447,58 @@
       <div class="pp-t-dots reveal" id="ppTestDots" aria-hidden="true"></div>
     </div>
   </section>
+
+  <div class="pp-t-modal" id="ppTestimonialModal" aria-hidden="true">
+    <div class="pp-t-modal__backdrop" data-pp-t-close></div>
+
+    <div class="pp-t-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="ppTModalName">
+      <button type="button" class="pp-t-modal__close" data-pp-t-close aria-label="Close review modal">×</button>
+
+      <div class="pp-t-modal__top">
+        <img id="ppTModalAvatar" src="{{ asset('images/banner_hero.png') }}" alt="" class="pp-t-modal__avatar">
+
+        <div>
+          <h3 id="ppTModalName" class="pp-t-modal__name">Customer Name</h3>
+          <div id="ppTModalRole" class="pp-t-modal__role">Role</div>
+          <div id="ppTModalStars" class="pp-t-modal__stars">★★★★★</div>
+        </div>
+      </div>
+
+      <div class="pp-t-modal__meta">
+        <div class="pp-t-modal__meta-card">
+          <span>Goal</span>
+          <strong id="ppTModalGoal">Goal</strong>
+        </div>
+
+        <div class="pp-t-modal__meta-card">
+          <span>Duration</span>
+          <strong id="ppTModalDuration">8 weeks</strong>
+        </div>
+      </div>
+
+      <div class="pp-t-modal__body">
+        <div class="pp-t-modal__review">
+          <h4>Full review</h4>
+          <p id="ppTModalReview"></p>
+
+          <h4>Key results</h4>
+          <ul id="ppTModalResults" class="pp-t-modal__results"></ul>
+        </div>
+
+        <div class="pp-t-modal__photos">
+          <div class="pp-t-modal__photo-card">
+            <span>Before</span>
+            <img id="ppTModalBefore" src="{{ asset('images/banner_hero.png') }}" alt="Before result photo">
+          </div>
+
+          <div class="pp-t-modal__photo-card">
+            <span>After</span>
+            <img id="ppTModalAfter" src="{{ asset('images/banner_hero.png') }}" alt="After result photo">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <section class="pp-home-section">
     <div class="container">
@@ -779,6 +884,117 @@
 
     const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (!prefersReduced) start();
+  })();
+
+  (function () {
+    const modal = document.getElementById('ppTestimonialModal');
+    if (!modal) return;
+
+    const cards = document.querySelectorAll('.pp-t-card-clickable');
+    const closeEls = modal.querySelectorAll('[data-pp-t-close]');
+
+    const avatar = document.getElementById('ppTModalAvatar');
+    const nameEl = document.getElementById('ppTModalName');
+    const roleEl = document.getElementById('ppTModalRole');
+    const starsEl = document.getElementById('ppTModalStars');
+    const goalEl = document.getElementById('ppTModalGoal');
+    const durationEl = document.getElementById('ppTModalDuration');
+    const reviewEl = document.getElementById('ppTModalReview');
+    const beforeEl = document.getElementById('ppTModalBefore');
+    const afterEl = document.getElementById('ppTModalAfter');
+    const resultsEl = document.getElementById('ppTModalResults');
+
+    const fallbackImg = '{{ asset('images/banner_hero.png') }}';
+    let lastFocused = null;
+
+    function setImage(el, src, alt) {
+      if (!el) return;
+      el.onerror = function () {
+        this.onerror = null;
+        this.src = fallbackImg;
+      };
+      el.src = src || fallbackImg;
+      if (alt) el.alt = alt;
+    }
+
+    function openModal(card) {
+      if (!card) return;
+
+      lastFocused = document.activeElement;
+
+      nameEl.textContent = card.dataset.name || '';
+      roleEl.textContent = card.dataset.role || '';
+      starsEl.textContent =
+        '★'.repeat(Number(card.dataset.stars || 5)) +
+        '☆'.repeat(Math.max(0, 5 - Number(card.dataset.stars || 5)));
+      goalEl.textContent = card.dataset.goal || '';
+      durationEl.textContent = card.dataset.duration || '';
+      reviewEl.textContent = card.dataset.review || '';
+
+      setImage(avatar, card.dataset.avatar, (card.dataset.name || 'Customer') + ' profile photo');
+      setImage(beforeEl, card.dataset.before, 'Before result photo');
+      setImage(afterEl, card.dataset.after, 'After result photo');
+
+      resultsEl.innerHTML = '';
+      let results = [];
+      try {
+        results = JSON.parse(card.dataset.results || '[]');
+      } catch (e) {
+        results = [];
+      }
+
+      if (!Array.isArray(results) || !results.length) {
+        results = ['Structured routine', 'Better consistency', 'Easier meal prep'];
+      }
+
+      results.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        resultsEl.appendChild(li);
+      });
+
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+
+      const closeBtn = modal.querySelector('.pp-t-modal__close');
+      if (closeBtn) closeBtn.focus();
+    }
+
+    function closeModal() {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+
+      if (lastFocused && typeof lastFocused.focus === 'function') {
+        lastFocused.focus();
+      }
+    }
+
+    cards.forEach(card => {
+      card.addEventListener('click', () => openModal(card));
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openModal(card);
+        }
+      });
+    });
+
+    closeEls.forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        closeModal();
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) {
+        closeModal();
+      }
+    });
   })();
 </script>
 @endpush
