@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Order;
 
 class OrderController extends Controller
@@ -13,45 +12,15 @@ class OrderController extends Controller
             ->orderByDesc('id')
             ->get();
 
-        return view('frontend.orders', compact('orders'));
+        return view('frontend.orders.index', compact('orders'));
     }
 
-
-    public function store(Request $request)
+    public function show(Order $order)
     {
-        $request->validate([
-            'name'     => 'required|string',
-            'email'    => 'required|email',
-            'address'  => 'required|string',
-            'city'     => 'required|string',
-            'postcode' => 'required|string',
-            'notes'    => 'nullable|string',
+        abort_unless($order->user_id === auth()->id(), 403);
 
-            // SIMPLE FIELDS
-            'qty'      => 'required|integer|min:1',
-            'total'    => 'required|numeric|min:0',
-        ]);
+        $order->load(['items.product']);
 
-        $order = Order::create([
-            'user_id'        => auth()->id(),
-            'name'           => $request->name,
-            'email'          => $request->email,
-            'address'        => $request->address,
-            'city'           => $request->city,
-            'postcode'       => $request->postcode,
-            'delivery_notes' => $request->notes,
-
-            // SIMPLE ORDER DATA
-            'plan'           => $request->plan,
-            'qty'            => $request->qty,
-            'total_price'    => $request->total,
-        ]);
-
-        return response()->json([
-            'success'  => true,
-            'message'  => 'Order placed successfully!',
-            'order_id' => $order->id
-        ]);
-        
+        return view('frontend.orders.show', compact('order'));
     }
 }

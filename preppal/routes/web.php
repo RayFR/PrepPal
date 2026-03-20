@@ -52,7 +52,6 @@ Route::middleware('auth')->group(function () {
         return view('frontend.calculator');
     })->name('calculator');
 
-    // CUSTOMER order history
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
 
