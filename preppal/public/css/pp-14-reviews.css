@@ -118,5 +118,37 @@ body[data-theme="dark"] .pp-review-form textarea:focus {
   display: inline;
 }
 
+/* =====================
+   Review Button
+===================== */
 
+.pp-review-form button {
+  border: none;
+  border-radius: 12px;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* LIGHT MODE */
+body:not([data-theme="dark"]) .pp-review-form button {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+body:not([data-theme="dark"]) .pp-review-form button:hover {
+  background-color: #ea580c; /* slightly darker orange */
+}
+
+/* DARK MODE */
+body[data-theme="dark"] .pp-review-form button {
+  background-color: var(--color-dark-primary);
+  color: #111827;
+}
+
+body[data-theme="dark"] .pp-review-form button:hover {
+  background-color: #f59e0b;
+}
    

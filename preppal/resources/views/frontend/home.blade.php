@@ -9,6 +9,10 @@
 
 @section('title', 'Home')
 
+@push('styles')
+  <link rel="stylesheet" href="{{ asset('css/pp-18-home-upgrade.css') }}?v={{ filemtime(public_path('css/pp-18-home-upgrade.css')) }}">
+@endpush
+
 @section('content')
 @php
   $featuredSafe = collect($featured ?? []);
@@ -20,6 +24,12 @@
       'stars' => 5,
       'quote' => 'Fantastic meal structure. Quick, repeatable, and makes staying consistent much easier.',
       'img' => asset('images/testimonials/michael.jpg'),
+      'goal' => 'Fat loss',
+      'duration' => '8 weeks',
+      'review_full' => 'PrepPal made my week feel much more organised. I stopped relying on random takeaway meals, had a clear structure to follow, and found it easier to stay in a calorie deficit without feeling like I was guessing all the time.',
+      'before_img' => asset('images/testimonials/michael-before.jpg'),
+      'after_img' => asset('images/testimonials/michael-after.jpg'),
+      'results' => ['Lost 4.5kg', 'Better weekly routine', 'Less takeaway food'],
     ],
     [
       'name' => 'Emily Harris',
@@ -27,6 +37,12 @@
       'stars' => 5,
       'quote' => 'The portions and macros feel spot-on. Prep is simple and the week feels organised.',
       'img' => asset('images/testimonials/emily.jpg'),
+      'goal' => 'Lean muscle',
+      'duration' => '10 weeks',
+      'review_full' => 'I wanted a lean bulk without eating badly or overdoing calories. The structure helped me keep protein high, stay more consistent around training, and remove a lot of the stress from planning meals every day.',
+      'before_img' => asset('images/testimonials/emily-before.jpg'),
+      'after_img' => asset('images/testimonials/emily-after.jpg'),
+      'results' => ['Improved training consistency', 'Higher protein intake', 'More organised meal prep'],
     ],
     [
       'name' => 'Anthony Thompson',
@@ -34,6 +50,12 @@
       'stars' => 5,
       'quote' => 'Best part is not thinking about meals. I just follow the plan and it works.',
       'img' => asset('images/testimonials/anthony.jpg'),
+      'goal' => 'Maintenance',
+      'duration' => '6 weeks',
+      'review_full' => 'My work schedule is busy, so I needed something simple that removed the daily decision-making. PrepPal gave me a straightforward routine that helped me stay steady with my food and energy levels through the week.',
+      'before_img' => asset('images/testimonials/anthony-before.jpg'),
+      'after_img' => asset('images/testimonials/anthony-after.jpg'),
+      'results' => ['More consistency', 'Less food stress', 'Better routine during busy weeks'],
     ],
     [
       'name' => 'Sofia K.',
@@ -41,6 +63,12 @@
       'stars' => 5,
       'quote' => 'Saves time and money. The structure keeps me on track without feeling restrictive.',
       'img' => asset('images/testimonials/sofia.jpg'),
+      'goal' => 'High protein routine',
+      'duration' => '7 weeks',
+      'review_full' => 'As a student, I needed meals that were realistic, affordable, and easy to repeat. PrepPal helped me stay on track, waste less food, and keep my protein intake up without overcomplicating things.',
+      'before_img' => asset('images/testimonials/sofia-before.jpg'),
+      'after_img' => asset('images/testimonials/sofia-after.jpg'),
+      'results' => ['Saved time', 'Better protein intake', 'Less food waste'],
     ],
     [
       'name' => 'Jay P.',
@@ -48,6 +76,12 @@
       'stars' => 4,
       'quote' => 'Easy ordering, clean layout, and realistic meals for busy weeks.',
       'img' => asset('images/testimonials/jay.jpg'),
+      'goal' => 'Fat loss',
+      'duration' => '9 weeks',
+      'review_full' => 'The meals were realistic enough to actually stick to. I liked that the structure felt practical rather than extreme, and it made staying consistent easier around work and training.',
+      'before_img' => asset('images/testimonials/jay-before.jpg'),
+      'after_img' => asset('images/testimonials/jay-after.jpg'),
+      'results' => ['More realistic dieting', 'Easier weekly prep', 'Cleaner food choices'],
     ],
     [
       'name' => 'Amina R.',
@@ -55,15 +89,18 @@
       'stars' => 5,
       'quote' => 'No guesswork. I track progress and stay consistent week after week.',
       'img' => asset('images/testimonials/amina.jpg'),
+      'goal' => 'Maintenance',
+      'duration' => '8 weeks',
+      'review_full' => 'I wanted something that helped me stay balanced rather than constantly switching between extremes. PrepPal gave me enough structure to stay consistent and track my progress in a more relaxed way.',
+      'before_img' => asset('images/testimonials/amina-before.jpg'),
+      'after_img' => asset('images/testimonials/amina-after.jpg'),
+      'results' => ['Steadier routine', 'Better tracking', 'Less overthinking meals'],
     ],
   ];
 @endphp
 
-<main class="pp-home-shell">
+<div class="pp-home-shell">
 
-  {{-- =========================
-      HERO (KEEP SAME / SIMILAR)
-     ========================= --}}
   <section class="hero pp-home-hero-keep">
     <div class="container">
       <div class="home-hero-grid pp-home-hero-grid-keep">
@@ -151,9 +188,6 @@
     </div>
   </section>
 
-  {{-- =========================
-      STATS STRIP
-     ========================= --}}
   <section class="pp-home-section pp-home-section-tight">
     <div class="container">
       <div class="pp-home-stats-strip reveal">
@@ -180,9 +214,6 @@
     </div>
   </section>
 
-  {{-- =========================
-      HOW IT WORKS
-     ========================= --}}
   <section class="pp-home-section">
     <div class="container">
       <div class="pp-home-head reveal">
@@ -222,9 +253,6 @@
     </div>
   </section>
 
-  {{-- =========================
-      GOAL CARDS
-     ========================= --}}
   <section class="pp-home-section pp-home-soft">
     <div class="container">
       <div class="pp-home-head reveal">
@@ -280,9 +308,6 @@
     </div>
   </section>
 
-  {{-- =========================
-      FEATURED PRODUCTS
-     ========================= --}}
   <section class="pp-home-section">
     <div class="container">
       <div class="pp-home-head pp-home-head-row reveal">
@@ -331,9 +356,6 @@
     </div>
   </section>
 
-  {{-- =========================
-      CALCULATOR CTA
-     ========================= --}}
   <section class="pp-home-section pp-home-soft">
     <div class="container">
       <div class="pp-home-calc-cta reveal">
@@ -363,9 +385,6 @@
     </div>
   </section>
 
-  {{-- =========================
-      TESTIMONIALS
-     ========================= --}}
   <section class="pp-home-section">
     <div class="container">
 
@@ -383,7 +402,23 @@
         <div class="pp-t-viewport" aria-roledescription="carousel">
           <div class="pp-t-track" id="ppTestTrack">
             @foreach($testimonials as $t)
-              <article class="pp-t-card">
+              <article
+                class="pp-t-card pp-t-card-clickable"
+                tabindex="0"
+                role="button"
+                aria-label="Open review for {{ $t['name'] }}"
+                data-name="{{ $t['name'] }}"
+                data-role="{{ $t['role'] }}"
+                data-stars="{{ $t['stars'] }}"
+                data-quote="{{ $t['quote'] }}"
+                data-goal="{{ $t['goal'] }}"
+                data-duration="{{ $t['duration'] }}"
+                data-review="{{ $t['review_full'] }}"
+                data-avatar="{{ $t['img'] }}"
+                data-before="{{ $t['before_img'] }}"
+                data-after="{{ $t['after_img'] }}"
+                data-results='@json($t["results"])'
+              >
                 <img
                   src="{{ $t['img'] }}"
                   alt="{{ $t['name'] }}"
@@ -400,6 +435,7 @@
 
                 <p class="pp-t-quote">“{{ $t['quote'] }}”</p>
                 <div class="pp-t-role">{{ $t['role'] }}</div>
+                <div class="pp-t-open-hint">Click to view full review &amp; results</div>
               </article>
             @endforeach
           </div>
@@ -412,9 +448,58 @@
     </div>
   </section>
 
-  {{-- =========================
-      FAQ + FINAL CTA
-     ========================= --}}
+  <div class="pp-t-modal" id="ppTestimonialModal" aria-hidden="true">
+    <div class="pp-t-modal__backdrop" data-pp-t-close></div>
+
+    <div class="pp-t-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="ppTModalName">
+      <button type="button" class="pp-t-modal__close" data-pp-t-close aria-label="Close review modal">×</button>
+
+      <div class="pp-t-modal__top">
+        <img id="ppTModalAvatar" src="{{ asset('images/banner_hero.png') }}" alt="" class="pp-t-modal__avatar">
+
+        <div>
+          <h3 id="ppTModalName" class="pp-t-modal__name">Customer Name</h3>
+          <div id="ppTModalRole" class="pp-t-modal__role">Role</div>
+          <div id="ppTModalStars" class="pp-t-modal__stars">★★★★★</div>
+        </div>
+      </div>
+
+      <div class="pp-t-modal__meta">
+        <div class="pp-t-modal__meta-card">
+          <span>Goal</span>
+          <strong id="ppTModalGoal">Goal</strong>
+        </div>
+
+        <div class="pp-t-modal__meta-card">
+          <span>Duration</span>
+          <strong id="ppTModalDuration">8 weeks</strong>
+        </div>
+      </div>
+
+      <div class="pp-t-modal__body">
+        <div class="pp-t-modal__review">
+          <h4>Full review</h4>
+          <p id="ppTModalReview"></p>
+
+          <h4>Key results</h4>
+          <ul id="ppTModalResults" class="pp-t-modal__results"></ul>
+        </div>
+
+        <div class="pp-t-modal__photos">
+          <div class="pp-t-modal__photo-card">
+            <span>Before</span>
+            <img id="ppTModalBefore" src="{{ asset('images/banner_hero.png') }}" alt="Before result photo">
+          </div>
+
+          <div class="pp-t-modal__photo-card">
+            <span>After</span>
+            <img id="ppTModalAfter" src="{{ asset('images/banner_hero.png') }}" alt="After result photo">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <section class="pp-home-section">
     <div class="container">
       <div class="pp-home-bottom-grid">
@@ -469,16 +554,12 @@
     </div>
   </section>
 
-  {{-- =========================
-      HOME BOTTOM CTA / FOOTER
-     ========================= --}}
   <section class="pp-home-bottom-footer">
     <div class="container">
       <div class="pp-home-footer-shell reveal" id="home-newsletter-signup">
 
         <div class="pp-home-footer-grid">
 
-          {{-- LEFT: NEWSLETTER --}}
           <div class="pp-home-footer-col pp-home-footer-col--newsletter">
             <div class="pp-home-footer-brand">
               <img
@@ -546,7 +627,6 @@
             </p>
           </div>
 
-          {{-- MIDDLE: APP / QUICK CTA --}}
           <div class="pp-home-footer-col pp-home-footer-col--app">
             <h2 class="pp-home-footer-title">Download our app</h2>
 
@@ -580,7 +660,6 @@
             </div>
           </div>
 
-          {{-- RIGHT: LINKS --}}
           <div class="pp-home-footer-col pp-home-footer-col--links">
             <nav class="pp-home-footer-links" aria-label="Footer links">
               <a href="{{ route('contact.index') }}">Contact</a>
@@ -611,10 +690,11 @@
     </div>
   </section>
 
-</main>
+</div>
+@endsection
 
+@push('scripts')
 <script>
-  // Reveal on scroll
   (function () {
     const els = document.querySelectorAll('.reveal');
     if (!('IntersectionObserver' in window)) {
@@ -632,7 +712,6 @@
     els.forEach(el => io.observe(el));
   })();
 
-  // Hero swapping cards
   (function () {
     const swapper = document.querySelector('.pp-swapper');
     if (!swapper) return;
@@ -651,7 +730,7 @@
       dotsWrap.innerHTML = '';
       cards.forEach((_, i) => {
         const d = document.createElement('span');
-        d.className = 'pp-swap-dot' + (i === 0 ? 'is-on' : '');
+        d.className = 'pp-swap-dot' + (i === 0 ? ' is-on' : '');
         dotsWrap.appendChild(d);
       });
     }
@@ -711,7 +790,6 @@
     if (!prefersReduced) start();
   })();
 
-  // Testimonials auto-carousel
   (function () {
     const root = document.getElementById('ppTestimonials');
     const track = document.getElementById('ppTestTrack');
@@ -756,7 +834,7 @@
       const pages = Math.max(1, Math.ceil(total / perView()));
       for (let i = 0; i < pages; i++) {
         const d = document.createElement('span');
-        d.className = 'pp-t-dot' + (i === 0 ? 'is-on' : '');
+        d.className = 'pp-t-dot' + (i === 0 ? ' is-on' : '');
         dotsWrap.appendChild(d);
       }
     }
@@ -781,7 +859,9 @@
 
     function start() {
       stop();
-      timer = setInterval(() => { if (!paused) go('next'); }, INTERVAL);
+      timer = setInterval(() => {
+        if (!paused) go('next');
+      }, INTERVAL);
     }
 
     function stop() {
@@ -805,1242 +885,116 @@
     const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (!prefersReduced) start();
   })();
+
+  (function () {
+    const modal = document.getElementById('ppTestimonialModal');
+    if (!modal) return;
+
+    const cards = document.querySelectorAll('.pp-t-card-clickable');
+    const closeEls = modal.querySelectorAll('[data-pp-t-close]');
+
+    const avatar = document.getElementById('ppTModalAvatar');
+    const nameEl = document.getElementById('ppTModalName');
+    const roleEl = document.getElementById('ppTModalRole');
+    const starsEl = document.getElementById('ppTModalStars');
+    const goalEl = document.getElementById('ppTModalGoal');
+    const durationEl = document.getElementById('ppTModalDuration');
+    const reviewEl = document.getElementById('ppTModalReview');
+    const beforeEl = document.getElementById('ppTModalBefore');
+    const afterEl = document.getElementById('ppTModalAfter');
+    const resultsEl = document.getElementById('ppTModalResults');
+
+    const fallbackImg = '{{ asset('images/banner_hero.png') }}';
+    let lastFocused = null;
+
+    function setImage(el, src, alt) {
+      if (!el) return;
+      el.onerror = function () {
+        this.onerror = null;
+        this.src = fallbackImg;
+      };
+      el.src = src || fallbackImg;
+      if (alt) el.alt = alt;
+    }
+
+    function openModal(card) {
+      if (!card) return;
+
+      lastFocused = document.activeElement;
+
+      nameEl.textContent = card.dataset.name || '';
+      roleEl.textContent = card.dataset.role || '';
+      starsEl.textContent =
+        '★'.repeat(Number(card.dataset.stars || 5)) +
+        '☆'.repeat(Math.max(0, 5 - Number(card.dataset.stars || 5)));
+      goalEl.textContent = card.dataset.goal || '';
+      durationEl.textContent = card.dataset.duration || '';
+      reviewEl.textContent = card.dataset.review || '';
+
+      setImage(avatar, card.dataset.avatar, (card.dataset.name || 'Customer') + ' profile photo');
+      setImage(beforeEl, card.dataset.before, 'Before result photo');
+      setImage(afterEl, card.dataset.after, 'After result photo');
+
+      resultsEl.innerHTML = '';
+      let results = [];
+      try {
+        results = JSON.parse(card.dataset.results || '[]');
+      } catch (e) {
+        results = [];
+      }
+
+      if (!Array.isArray(results) || !results.length) {
+        results = ['Structured routine', 'Better consistency', 'Easier meal prep'];
+      }
+
+      results.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        resultsEl.appendChild(li);
+      });
+
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+
+      const closeBtn = modal.querySelector('.pp-t-modal__close');
+      if (closeBtn) closeBtn.focus();
+    }
+
+    function closeModal() {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+
+      if (lastFocused && typeof lastFocused.focus === 'function') {
+        lastFocused.focus();
+      }
+    }
+
+    cards.forEach(card => {
+      card.addEventListener('click', () => openModal(card));
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openModal(card);
+        }
+      });
+    });
+
+    closeEls.forEach(el => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        closeModal();
+      });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) {
+        closeModal();
+      }
+    });
+  })();
 </script>
-
-<style>
-  .reveal{
-    opacity: 0;
-    transform: translateY(12px);
-    transition: opacity .5s ease, transform .5s ease;
-  }
-
-  .reveal.revealed{
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .pp-home-shell{
-    padding-bottom: 2rem;
-  }
-
-  .pp-home-section{
-    padding: 1.3rem 0 1.4rem;
-  }
-
-  .pp-home-section-tight{
-    padding-top: .35rem;
-  }
-
-  .pp-home-soft{
-    position: relative;
-  }
-
-  .pp-home-head{
-    max-width: 760px;
-    margin-bottom: 1.2rem;
-  }
-
-  .pp-home-head-row{
-    max-width: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: end;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .pp-home-kicker{
-    display: inline-block;
-    margin-bottom: .45rem;
-    font-size: .82rem;
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: .12em;
-    color: var(--color-primary);
-  }
-
-  .pp-home-head h2{
-    margin: 0 0 .4rem;
-    font-size: clamp(1.8rem, 3vw, 2.7rem);
-    line-height: 1.08;
-  }
-
-  .pp-home-head p{
-    margin: 0;
-    line-height: 1.65;
-    opacity: .88;
-    max-width: 64ch;
-  }
-
-  /* keep hero style similar */
-  .pp-home-hero-keep{
-    position: relative;
-  }
-
-  .pp-home-hero-grid-keep{
-    align-items: center;
-  }
-
-  .pp-home-hero-copy-keep{
-    position: relative;
-    z-index: 2;
-  }
-
-  .hero-trust-row{
-    margin-top: 18px;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    align-items: center;
-    opacity: .95;
-  }
-
-  .hero-trust-pill{
-    border: 1px solid rgba(255,255,255,.16);
-    border-radius: 999px;
-    padding: 8px 12px;
-    background: rgba(0,0,0,.22);
-    backdrop-filter: blur(8px);
-  }
-
-  /* stats */
-  .pp-home-stats-strip{
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1rem;
-    padding: 1rem;
-    border-radius: 22px;
-    border: 1px solid rgba(255,255,255,.08);
-    background:
-      radial-gradient(800px 220px at 10% -20%, rgba(255,122,0,.16), transparent 60%),
-      rgba(255,255,255,.04);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 18px 34px rgba(0,0,0,.18);
-  }
-
-  .pp-home-stat-card{
-    padding: .75rem .85rem;
-    border-radius: 18px;
-    border: 1px solid rgba(255,255,255,.08);
-    background: rgba(255,255,255,.04);
-  }
-
-  .pp-home-stat-num{
-    font-size: 1.7rem;
-    font-weight: 900;
-    color: var(--color-primary);
-  }
-
-  .pp-home-stat-label{
-    margin-top: .2rem;
-    opacity: .86;
-    line-height: 1.45;
-  }
-
-  /* steps */
-  .pp-home-steps-grid{
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1rem;
-  }
-
-  .pp-home-step{
-    padding: 1.15rem;
-    border-radius: 22px;
-    border: 1px solid rgba(255,255,255,.08);
-    background: rgba(255,255,255,.04);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 16px 30px rgba(0,0,0,.15);
-  }
-
-  .pp-home-step-no{
-    display: inline-flex;
-    margin-bottom: .7rem;
-    padding: .36rem .6rem;
-    border-radius: 999px;
-    font-size: .78rem;
-    font-weight: 900;
-    color: var(--color-primary);
-    background: rgba(255,122,0,.12);
-    border: 1px solid rgba(255,122,0,.18);
-  }
-
-  .pp-home-step h3{
-    margin: 0 0 .45rem;
-    font-size: 1.15rem;
-  }
-
-  .pp-home-step p{
-    margin: 0;
-    line-height: 1.62;
-    opacity: .85;
-  }
-
-  /* goals */
-  .pp-home-goals-grid{
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1rem;
-  }
-
-  .pp-home-goal{
-    padding: 1.15rem;
-    border-radius: 22px;
-    border: 1px solid rgba(255,255,255,.08);
-    background: rgba(255,255,255,.04);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 16px 30px rgba(0,0,0,.15);
-    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-  }
-
-  .pp-home-goal:hover{
-    transform: translateY(-4px);
-    border-color: rgba(255,122,0,.20);
-    box-shadow: 0 20px 34px rgba(0,0,0,.18);
-  }
-
-  .pp-home-goal-top{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: .7rem;
-    margin-bottom: .85rem;
-  }
-
-  .pp-home-goal-icon{
-    width: 44px;
-    height: 44px;
-    border-radius: 14px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    background: rgba(255,122,0,.12);
-    border: 1px solid rgba(255,122,0,.18);
-  }
-
-  .pp-home-goal-tag{
-    padding: .42rem .72rem;
-    border-radius: 999px;
-    font-size: .79rem;
-    font-weight: 800;
-    background: rgba(255,255,255,.06);
-    border: 1px solid rgba(255,255,255,.08);
-  }
-
-  .pp-home-goal h3{
-    margin: 0 0 .4rem;
-    font-size: 1.14rem;
-  }
-
-  .pp-home-goal p{
-    margin: 0 0 .85rem;
-    line-height: 1.65;
-    opacity: .84;
-  }
-
-  /* links / buttons */
-  .pp-home-link,
-  .pp-home-outline-link{
-    text-decoration: none;
-    font-weight: 800;
-    color: var(--color-primary);
-  }
-
-  .pp-home-link span{
-    display: inline-block;
-    transition: transform .18s ease;
-  }
-
-  .pp-home-link:hover span{
-    transform: translateX(3px);
-  }
-
-  .pp-home-main-btn,
-  .pp-home-btn-small{
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 46px;
-    padding: .82rem 1rem;
-    border-radius: 14px;
-    text-decoration: none;
-    font-weight: 900;
-    color: #fff;
-    background: linear-gradient(180deg, #ff9500, #ff7a00);
-    border: 1px solid rgba(255,122,0,.34);
-    box-shadow: 0 12px 24px rgba(255,122,0,.16);
-    transition: transform .18s ease, box-shadow .18s ease;
-  }
-
-  .pp-home-main-btn:hover,
-  .pp-home-btn-small:hover{
-    transform: translateY(-2px);
-  }
-
-  .pp-home-ghost-btn{
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 46px;
-    padding: .82rem 1rem;
-    border-radius: 14px;
-    text-decoration: none;
-    font-weight: 900;
-    color: inherit;
-    border: 1px solid rgba(255,255,255,.10);
-    background: rgba(255,255,255,.05);
-  }
-
-  /* featured */
-  .pp-home-featured-grid{
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 1rem;
-  }
-
-  .pp-home-product-card,
-  .pp-home-empty-card{
-    display: flex;
-    flex-direction: column;
-    border-radius: 22px;
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,.08);
-    background: rgba(255,255,255,.04);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 16px 30px rgba(0,0,0,.15);
-  }
-
-  .pp-home-empty-card{
-    padding: 1.15rem;
-  }
-
-  .pp-home-empty-card h3{
-    margin: 0 0 .45rem;
-  }
-
-  .pp-home-empty-card p{
-    margin: 0 0 1rem;
-    line-height: 1.65;
-    opacity: .84;
-  }
-
-  .pp-home-product-image-wrap{
-    position: relative;
-    display: block;
-    overflow: hidden;
-    text-decoration: none;
-  }
-
-  .pp-home-product-image{
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    display: block;
-    transition: transform .35s ease;
-  }
-
-  .pp-home-product-card:hover .pp-home-product-image{
-    transform: scale(1.04);
-  }
-
-  .pp-home-product-badge{
-    position: absolute;
-    top: 14px;
-    left: 14px;
-    padding: .45rem .72rem;
-    border-radius: 999px;
-    font-size: .78rem;
-    font-weight: 800;
-    color: #111827;
-    background: rgba(255,255,255,.92);
-  }
-
-  .pp-home-product-body{
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: .55rem;
-    flex: 1;
-  }
-
-  .pp-home-product-body h3{
-    margin: 0;
-    font-size: 1.08rem;
-  }
-
-  .pp-home-product-body p{
-    margin: 0;
-    line-height: 1.58;
-    opacity: .84;
-  }
-
-  .pp-home-product-actions{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: .8rem;
-    flex-wrap: wrap;
-    margin-top: auto;
-    padding-top: .35rem;
-  }
-
-  /* calc cta */
-  .pp-home-calc-cta{
-    display: grid;
-    grid-template-columns: 1.1fr .9fr;
-    gap: 1rem;
-    padding: 1.2rem;
-    border-radius: 24px;
-    border: 1px solid rgba(255,255,255,.08);
-    background:
-      radial-gradient(900px 260px at 8% -10%, rgba(255,122,0,.14), transparent 60%),
-      rgba(255,255,255,.04);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 18px 34px rgba(0,0,0,.18);
-    align-items: center;
-  }
-
-  .pp-home-calc-copy h2{
-    margin: 0 0 .45rem;
-    font-size: clamp(1.7rem, 3vw, 2.5rem);
-  }
-
-  .pp-home-calc-copy p{
-    margin: 0;
-    line-height: 1.68;
-    opacity: .88;
-    max-width: 58ch;
-  }
-
-  .pp-home-calc-actions{
-    display: flex;
-    gap: .8rem;
-    flex-wrap: wrap;
-    margin-top: 1rem;
-  }
-
-  .pp-home-calc-card{
-    padding: 1.05rem 1.1rem;
-    border-radius: 20px;
-    border: 1px solid rgba(255,255,255,.08);
-    background: rgba(255,255,255,.05);
-  }
-
-  .pp-home-calc-chip{
-    display: inline-flex;
-    margin-bottom: .7rem;
-    padding: .42rem .72rem;
-    border-radius: 999px;
-    font-size: .79rem;
-    font-weight: 900;
-    color: var(--color-primary);
-    background: rgba(255,122,0,.12);
-    border: 1px solid rgba(255,122,0,.18);
-  }
-
-  .pp-home-calc-card ul{
-    margin: 0;
-    padding-left: 1.1rem;
-    line-height: 1.85;
-  }
-
-  /* testimonials */
-  .pp-t-wrap{
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-
-  .pp-t-viewport{
-    overflow: hidden;
-    width: 100%;
-  }
-
-  .pp-t-track{
-    display: flex;
-    gap: 18px;
-    transition: transform .45s ease;
-    will-change: transform;
-  }
-
-  .pp-t-card{
-    flex: 0 0 calc((100% - 36px) / 3);
-    min-width: 0;
-    padding: 1.15rem;
-    border-radius: 22px;
-    border: 1px solid rgba(255,255,255,.08);
-    background: rgba(255,255,255,.04);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 16px 30px rgba(0,0,0,.15);
-    text-align: left;
-  }
-
-  .pp-t-avatar{
-    width: 62px;
-    height: 62px;
-    border-radius: 50%;
-    object-fit: cover;
-    display: block;
-    margin-bottom: .8rem;
-    border: 2px solid rgba(255,122,0,.14);
-  }
-
-  .pp-t-name{
-    margin: 0 0 .2rem;
-    font-size: 1.04rem;
-  }
-
-  .pp-t-stars{
-    color: #ff9800;
-    margin-bottom: .55rem;
-    letter-spacing: .05em;
-  }
-
-  .pp-t-quote{
-    margin: 0 0 .6rem;
-    line-height: 1.68;
-    opacity: .88;
-  }
-
-  .pp-t-role{
-    font-size: .92rem;
-    opacity: .76;
-  }
-
-  .pp-t-arrow{
-    width: 46px;
-    height: 46px;
-    flex: 0 0 46px;
-    border-radius: 50%;
-    border: 1px solid rgba(255,255,255,.10);
-    background: rgba(255,255,255,.06);
-    color: inherit;
-    font-size: 1.45rem;
-    cursor: pointer;
-  }
-
-  .pp-t-dots{
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 1rem;
-  }
-
-  .pp-t-dot{
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: rgba(255,255,255,.16);
-  }
-
-  .pp-t-dot.is-on{
-    background: var(--color-primary);
-  }
-
-  /* faq bottom */
-  .pp-home-bottom-grid{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-
-  .pp-home-faq-card,
-  .pp-home-final-card{
-    padding: 1.2rem;
-    border-radius: 24px;
-    border: 1px solid rgba(255,255,255,.08);
-    background: rgba(255,255,255,.04);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 16px 30px rgba(0,0,0,.15);
-  }
-
-  .pp-home-faq-card h2,
-  .pp-home-final-card h2{
-    margin: 0 0 .4rem;
-    font-size: 1.65rem;
-  }
-
-  .pp-home-faq-intro,
-  .pp-home-final-card p{
-    margin: 0;
-    line-height: 1.68;
-    opacity: .85;
-  }
-
-  .pp-home-faq-list{
-    display: grid;
-    gap: .75rem;
-    margin-top: 1rem;
-  }
-
-  .pp-home-faq-item{
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 18px;
-    background: rgba(255,255,255,.04);
-    overflow: hidden;
-  }
-
-  .pp-home-faq-item summary{
-    cursor: pointer;
-    list-style: none;
-    padding: 1rem;
-    font-weight: 800;
-  }
-
-  .pp-home-faq-item summary::-webkit-details-marker{
-    display: none;
-  }
-
-  .pp-home-faq-item p{
-    margin: 0;
-    padding: 0 1rem 1rem;
-    line-height: 1.65;
-    opacity: .84;
-  }
-
-  .pp-home-final-badge{
-    display: inline-flex;
-    margin-bottom: .7rem;
-    padding: .44rem .72rem;
-    border-radius: 999px;
-    font-size: .8rem;
-    font-weight: 900;
-    background: rgba(255,122,0,.12);
-    border: 1px solid rgba(255,122,0,.18);
-    color: var(--color-primary);
-  }
-
-  /* hero swapper existing feel */
-  .pp-swapper{
-    position: relative;
-    min-height: 520px;
-  }
-
-  .pp-swap-track{
-    position: relative;
-    min-height: 520px;
-    height: 100%;
-  }
-
-  .pp-swap-card{
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    border-radius: 28px;
-    opacity: 0;
-    transform: translateX(18px) scale(.97);
-    pointer-events: none;
-    transition: opacity .45s ease, transform .45s ease;
-    box-shadow: 0 24px 52px rgba(0,0,0,.16);
-    background: #111;
-  }
-
-  .pp-swap-card.is-active{
-    opacity: 1;
-    transform: translateX(0) scale(1);
-    pointer-events: auto;
-    z-index: 3;
-  }
-
-  .pp-swap-card.is-next,
-  .pp-swap-card.is-prev{
-    opacity: .22;
-    z-index: 1;
-  }
-
-  .pp-swap-card.is-next{
-    transform: translateX(22px) scale(.97);
-  }
-
-  .pp-swap-card.is-prev{
-    transform: translateX(-22px) scale(.97);
-  }
-
-  .pp-swap-img{
-    width: 100%;
-    height: 100%;
-    min-height: 520px;
-    object-fit: cover;
-    display: block;
-  }
-
-  .pp-swap-overlay{
-    position: absolute;
-    left: 20px;
-    right: 20px;
-    bottom: 20px;
-    z-index: 2;
-    padding: 1rem;
-    border-radius: 20px;
-    color: #fff;
-    background: linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.62));
-    backdrop-filter: blur(8px);
-  }
-
-  .pp-swap-tag{
-    display: inline-flex;
-    margin-bottom: .45rem;
-    padding: .42rem .72rem;
-    border-radius: 999px;
-    font-size: .78rem;
-    font-weight: 900;
-    background: rgba(255,255,255,.15);
-    border: 1px solid rgba(255,255,255,.20);
-  }
-
-  .pp-swap-title{
-    font-size: 1.35rem;
-    font-weight: 900;
-    line-height: 1.1;
-  }
-
-  .pp-swap-link{
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-  }
-
-  .pp-swap-controls{
-    position: absolute;
-    right: 16px;
-    top: 16px;
-    z-index: 20;
-    display: flex;
-    gap: 10px;
-    pointer-events: none;
-  }
-
-  .pp-swap-btn{
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    border: 1px solid rgba(255,255,255,.24);
-    background: rgba(0,0,0,.32);
-    color: #fff;
-    font-size: 1.5rem;
-    cursor: pointer;
-    backdrop-filter: blur(8px);
-    position: relative;
-    z-index: 21;
-    pointer-events: auto;
-  }
-
-  .pp-swap-dots{
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -18px;
-    z-index: 5;
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-  }
-
-  .pp-swap-dot{
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: rgba(255,255,255,.18);
-  }
-
-  .pp-swap-dot.is-on{
-    background: var(--color-primary);
-  }
-
-  /* =========================
-     HOME BOTTOM FOOTER CTA
-     ========================= */
-  .pp-home-bottom-footer{
-    padding: 1rem 0 2.8rem;
-  }
-
-  .pp-home-footer-shell{
-    position: relative;
-    overflow: hidden;
-    border-radius: 34px;
-    padding: 2.25rem 1.3rem 1.2rem;
-    background:
-      radial-gradient(circle at top left, rgba(255,255,255,.10), transparent 26%),
-      linear-gradient(135deg, #ef6a39 0%, #f57b3b 42%, #f6893a 100%);
-    color: #fff;
-    box-shadow: 0 22px 48px rgba(239,106,57,.22);
-  }
-
-  .pp-home-footer-shell::before{
-    content: "";
-    position: absolute;
-    inset: -100px auto auto -120px;
-    width: 320px;
-    height: 180px;
-    background: rgba(255,255,255,.08);
-    border-radius: 50%;
-    filter: blur(8px);
-    pointer-events: none;
-  }
-
-  .pp-home-footer-shell::after{
-    content: "";
-    position: absolute;
-    inset: auto -100px -100px auto;
-    width: 260px;
-    height: 260px;
-    background: rgba(255,255,255,.06);
-    border-radius: 50%;
-    filter: blur(12px);
-    pointer-events: none;
-  }
-
-  .pp-home-footer-grid{
-    position: relative;
-    z-index: 2;
-    display: grid;
-    grid-template-columns: 1.1fr 1fr .72fr;
-    gap: 2rem;
-    align-items: start;
-  }
-
-  .pp-home-footer-col{
-    min-width: 0;
-  }
-
-  .pp-home-footer-brand{
-    margin-bottom: 1rem;
-  }
-
-  .pp-home-footer-brand-logo{
-    width: min(240px, 100%);
-    height: auto;
-    display: block;
-    object-fit: contain;
-    filter:
-      drop-shadow(0 8px 22px rgba(0,0,0,.12))
-      drop-shadow(0 0 18px rgba(255,255,255,.06));
-  }
-
-  .pp-home-footer-title{
-    margin: 0 0 .85rem;
-    font-size: clamp(1.5rem, 2.3vw, 2.4rem);
-    line-height: 1.05;
-    font-weight: 900;
-    color: #fff;
-  }
-
-  .pp-home-footer-text{
-    max-width: 420px;
-    margin: 0 0 1.1rem;
-    font-size: 1rem;
-    line-height: 1.65;
-    color: rgba(255,255,255,.96);
-  }
-
-  .pp-home-footer-form{
-    display: flex;
-    flex-direction: column;
-    gap: .85rem;
-    max-width: 450px;
-  }
-
-  .pp-home-footer-input{
-    width: 100%;
-    border: 0;
-    outline: none;
-    border-radius: 14px;
-    padding: 1rem 1.05rem;
-    font: inherit;
-    color: #1f2937;
-    background: rgba(255,255,255,.95);
-    box-shadow: inset 0 0 0 1px rgba(0,0,0,.06);
-  }
-
-  .pp-home-footer-input::placeholder{
-    color: #6b7280;
-  }
-
-  .pp-home-footer-input:focus{
-    box-shadow:
-      inset 0 0 0 2px rgba(245,158,11,.55),
-      0 0 0 4px rgba(255,255,255,.14);
-  }
-
-  .pp-home-footer-subscribe{
-    width: 100%;
-    border: 0;
-    border-radius: 999px;
-    padding: 1rem 1.1rem;
-    font: inherit;
-    font-size: 1.05rem;
-    font-weight: 900;
-    cursor: pointer;
-    background: linear-gradient(135deg, #fbbf24, #f59e0b);
-    color: #111827;
-    box-shadow: 0 12px 24px rgba(0,0,0,.12);
-    transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
-  }
-
-  .pp-home-footer-subscribe:hover{
-    transform: translateY(-2px);
-    box-shadow: 0 16px 30px rgba(0,0,0,.16);
-    filter: brightness(1.02);
-  }
-
-  .pp-home-footer-note{
-    max-width: 430px;
-    margin: 1rem 0 0;
-    font-size: .96rem;
-    line-height: 1.6;
-    color: rgba(255,255,255,.92);
-  }
-
-  .pp-home-footer-alert{
-    max-width: 450px;
-    margin: 0 0 .9rem;
-    padding: .9rem 1rem;
-    border-radius: 14px;
-    font-size: .94rem;
-    font-weight: 800;
-    border: 1px solid transparent;
-  }
-
-  .pp-home-footer-alert strong{
-    font-weight: 900;
-  }
-
-  .pp-home-footer-alert--success{
-    background: rgba(17,94,89,.18);
-    border-color: rgba(209,250,229,.20);
-    color: #f0fdf4;
-  }
-
-  .pp-home-footer-alert--error{
-    background: rgba(127,29,29,.18);
-    border-color: rgba(254,202,202,.24);
-    color: #fff1f2;
-  }
-
-  .pp-home-footer-rating{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: .55rem;
-    margin: 1rem 0 1.2rem;
-    font-size: 1rem;
-    font-weight: 800;
-    color: #fff6ef;
-  }
-
-  .pp-home-footer-stars{
-    letter-spacing: .08em;
-    color: #fff4c6;
-  }
-
-  .pp-home-footer-divider{
-    opacity: .6;
-  }
-
-  .pp-home-footer-app-row{
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .pp-home-footer-qr{
-    width: 128px;
-    height: 128px;
-    flex: 0 0 128px;
-    border-radius: 18px;
-    display: grid;
-    place-items: center;
-    background:
-      linear-gradient(135deg, rgba(255,255,255,.96), rgba(255,245,238,.92));
-    color: #ef6a39;
-    font-size: 1.6rem;
-    font-weight: 950;
-    border: 4px solid rgba(255,255,255,.22);
-    box-shadow: 0 10px 24px rgba(0,0,0,.12);
-  }
-
-  .pp-home-footer-store-buttons{
-    display: flex;
-    flex-direction: column;
-    gap: .8rem;
-  }
-
-  .pp-home-footer-store-btn{
-    min-width: 220px;
-    padding: .8rem 1rem;
-    border-radius: 16px;
-    text-decoration: none;
-    color: #fff;
-    background: rgba(13,17,23,.88);
-    border: 1px solid rgba(255,255,255,.12);
-    box-shadow: 0 10px 18px rgba(0,0,0,.12);
-    transition: transform .18s ease, background .18s ease, border-color .18s ease;
-  }
-
-  .pp-home-footer-store-btn:hover{
-    transform: translateY(-2px);
-    background: rgba(10,14,20,.96);
-    border-color: rgba(255,255,255,.22);
-  }
-
-  .pp-home-footer-store-btn small{
-    display: block;
-    margin-bottom: .15rem;
-    font-size: .78rem;
-    font-weight: 700;
-    color: rgba(255,255,255,.72);
-  }
-
-  .pp-home-footer-store-btn strong{
-    display: block;
-    font-size: 1.05rem;
-    line-height: 1.2;
-    font-weight: 900;
-    color: #fff;
-  }
-
-  .pp-home-footer-links{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: .95rem;
-  }
-
-  .pp-home-footer-links a{
-    color: #fff;
-    text-decoration: none;
-    font-size: 1.02rem;
-    font-weight: 800;
-    transition: opacity .16s ease, transform .16s ease;
-  }
-
-  .pp-home-footer-links a:hover{
-    opacity: .82;
-    transform: translateX(-3px);
-  }
-
-  .pp-home-footer-socials{
-    display: flex;
-    justify-content: flex-end;
-    gap: .75rem;
-    margin-top: 2rem;
-  }
-
-  .pp-home-footer-socials a{
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    text-decoration: none;
-    font-size: .92rem;
-    font-weight: 900;
-    color: #fff;
-    background: rgba(255,255,255,.14);
-    border: 1px solid rgba(255,255,255,.16);
-    backdrop-filter: blur(6px);
-  }
-
-  .pp-home-footer-socials a:hover{
-    background: rgba(255,255,255,.22);
-  }
-
-  .pp-home-footer-bottom{
-    position: relative;
-    z-index: 2;
-    margin-top: 2rem;
-    padding-top: 1.1rem;
-    border-top: 1px solid rgba(255,255,255,.16);
-    text-align: center;
-  }
-
-  .pp-home-footer-bottom p{
-    margin: 0;
-    font-size: 1rem;
-    font-weight: 750;
-    color: rgba(255,255,255,.95);
-  }
-
-  /* light mode overrides */
-  body:not([data-theme="dark"]) .pp-home-stats-strip,
-  body:not([data-theme="dark"]) .pp-home-step,
-  body:not([data-theme="dark"]) .pp-home-goal,
-  body:not([data-theme="dark"]) .pp-home-product-card,
-  body:not([data-theme="dark"]) .pp-home-empty-card,
-  body:not([data-theme="dark"]) .pp-home-calc-cta,
-  body:not([data-theme="dark"]) .pp-home-calc-card,
-  body:not([data-theme="dark"]) .pp-t-card,
-  body:not([data-theme="dark"]) .pp-t-arrow,
-  body:not([data-theme="dark"]) .pp-home-faq-card,
-  body:not([data-theme="dark"]) .pp-home-final-card,
-  body:not([data-theme="dark"]) .pp-home-faq-item,
-  body:not([data-theme="dark"]) .pp-home-stat-card{
-    background: rgba(255,255,255,.92);
-    border-color: rgba(17,24,39,.08);
-    box-shadow: 0 14px 28px rgba(0,0,0,.07);
-  }
-
-  body:not([data-theme="dark"]) .pp-home-goal-tag,
-  body:not([data-theme="dark"]) .pp-home-ghost-btn{
-    background: rgba(17,24,39,.04);
-    border-color: rgba(17,24,39,.08);
-  }
-
-  body:not([data-theme="dark"]) .pp-home-product-badge{
-    background: rgba(255,255,255,.96);
-    color: #111827;
-  }
-
-  body:not([data-theme="dark"]) .pp-t-dot{
-    background: rgba(17,24,39,.12);
-  }
-
-  /* responsive */
-  @media (max-width: 1180px){
-    .pp-home-steps-grid,
-    .pp-home-goals-grid,
-    .pp-home-featured-grid{
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  @media (max-width: 1100px){
-    .pp-home-footer-grid{
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .pp-home-footer-col--links{
-      grid-column: 1 / -1;
-    }
-
-    .pp-home-footer-links{
-      align-items: flex-start;
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: .9rem 1.2rem;
-    }
-
-    .pp-home-footer-socials{
-      justify-content: flex-start;
-      margin-top: 1.25rem;
-    }
-  }
-
-  @media (max-width: 980px){
-    .home-hero-grid,
-    .pp-home-calc-cta,
-    .pp-home-bottom-grid{
-      grid-template-columns: 1fr !important;
-    }
-
-    .pp-home-stats-strip{
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .pp-t-card{
-      flex: 0 0 100%;
-    }
-
-    .pp-swapper,
-    .pp-swap-track,
-    .pp-swap-img{
-      min-height: 420px;
-    }
-
-    .pp-home-footer-grid{
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-
-    .pp-home-footer-links{
-      align-items: flex-start;
-      flex-direction: column;
-      gap: .8rem;
-    }
-
-    .pp-home-footer-socials{
-      justify-content: flex-start;
-    }
-  }
-
-  @media (max-width: 780px){
-    .pp-home-footer-shell{
-      padding: 1.5rem 1rem 1rem;
-      border-radius: 26px;
-    }
-
-    .pp-home-footer-brand-logo{
-      width: min(200px, 100%);
-    }
-
-    .pp-home-footer-app-row{
-      align-items: flex-start;
-    }
-
-    .pp-home-footer-store-btn{
-      min-width: 0;
-      width: 100%;
-    }
-  }
-
-  @media (max-width: 680px){
-    .pp-home-steps-grid,
-    .pp-home-goals-grid,
-    .pp-home-featured-grid,
-    .pp-home-stats-strip{
-      grid-template-columns: 1fr;
-    }
-
-    .pp-home-section{
-      padding: 1rem 0 1.15rem;
-    }
-
-    .pp-home-head h2{
-      font-size: clamp(1.6rem, 8vw, 2.2rem);
-    }
-
-    .pp-t-wrap{
-      gap: 10px;
-    }
-
-    .pp-t-arrow{
-      width: 40px;
-      height: 40px;
-      flex-basis: 40px;
-    }
-
-    .pp-swapper,
-    .pp-swap-track,
-    .pp-swap-img{
-      min-height: 350px;
-    }
-
-    .pp-swap-overlay{
-      left: 14px;
-      right: 14px;
-      bottom: 14px;
-    }
-  }
-
-  @media (max-width: 520px){
-    .pp-home-footer-qr{
-      width: 104px;
-      height: 104px;
-      flex-basis: 104px;
-      font-size: 1.3rem;
-    }
-
-    .pp-home-footer-title{
-      font-size: 1.8rem;
-    }
-
-    .pp-home-footer-text,
-    .pp-home-footer-note{
-      font-size: .95rem;
-    }
-  }
-</style>
-@endsection
+@endpush
