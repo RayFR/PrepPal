@@ -36,11 +36,11 @@ class ProductController extends Controller
             $query->where('category', $category);
         }
 
-        // Price filters (numeric comparisons)
-        // IMPORTANT: this assumes `price` is stored as a number/decimal in the DB
+        // Price filters
         if ($min !== null) {
             $query->where('price', '>=', $min);
         }
+
         if ($max !== null) {
             $query->where('price', '<=', $max);
         }
@@ -55,6 +55,10 @@ class ProductController extends Controller
                 $query->orderBy('price', 'desc');
                 break;
 
+            case 'name_asc':
+                $query->orderBy('name', 'asc');
+                break;
+
             case 'oldest':
                 $query->orderBy('created_at', 'asc');
                 break;
@@ -65,7 +69,7 @@ class ProductController extends Controller
                 break;
         }
 
-        // Get categories for dropdown (optional but useful)
+        // Get categories for dropdown
         $categories = Product::query()
             ->select('category')
             ->whereNotNull('category')
@@ -74,8 +78,8 @@ class ProductController extends Controller
             ->orderBy('category')
             ->pluck('category');
 
-        // Paginate (change 12 if you want)
-        $products = $query->paginate(12)->withQueryString();
+        // No pagination now - one long grouped page
+        $products = $query->get();
 
         return view('frontend.store', compact(
             'products',
@@ -88,15 +92,15 @@ class ProductController extends Controller
         ));
     }
 
-public function show($id)
-{
-    $product = Product::with([
-        'reviews' => fn ($q) => $q->latest(),
-        'reviews.user'
-    ])->findOrFail($id);
+    public function show($id)
+    {
+        $product = Product::with([
+            'reviews' => fn ($q) => $q->latest(),
+            'reviews.user'
+        ])->findOrFail($id);
 
-    $averageRating = round($product->reviews->avg('rating'), 1);
+        $averageRating = round($product->reviews->avg('rating'), 1);
 
-    return view('frontend.product-show', compact('product', 'averageRating'));
-}
+        return view('frontend.product-show', compact('product', 'averageRating'));
+    }
 }

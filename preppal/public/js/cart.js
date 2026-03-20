@@ -16,28 +16,46 @@ window.Cart = (function () {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
   }
 
-  function addItem(id, name, price, image) {
+  function normaliseMeta(meta = {}) {
+    return {
+      variant: meta.variant ? String(meta.variant).trim() : ''
+    };
+  }
+
+  function makeLineKey(id, meta = {}) {
+    const sid = String(id);
+    const variant = meta.variant ? String(meta.variant).trim().toLowerCase() : '';
+    return variant ? `${sid}::${variant}` : sid;
+  }
+
+  function addItem(id, name, price, image, meta = {}) {
     const sid = String(id);
     const p = Number(price) || 0;
+    const cleanMeta = normaliseMeta(meta);
+    const lineKey = makeLineKey(sid, cleanMeta);
 
-    const found = items.find(i => String(i.id) === sid);
+    const found = items.find(i => (i.lineKey || String(i.id)) === lineKey);
+
     if (found) {
       found.qty = (Number(found.qty) || 0) + 1;
     } else {
       items.push({
         id: sid,
+        lineKey,
         name: name || 'Item',
         price: p,
         image: image || '',
-        qty: 1
+        qty: 1,
+        variant: cleanMeta.variant
       });
     }
+
     save();
   }
 
-  function removeItem(id) {
-    const sid = String(id);
-    items = items.filter(i => String(i.id) !== sid);
+  function removeItem(idOrLineKey) {
+    const key = String(idOrLineKey);
+    items = items.filter(i => (i.lineKey || String(i.id)) !== key);
     save();
   }
 
@@ -58,7 +76,6 @@ window.Cart = (function () {
     return items.reduce((s, i) => s + (Number(i.price) || 0) * (Number(i.qty) || 0), 0);
   }
 
-  // allows other scripts to update if they want to
   function reload() {
     load();
   }
@@ -97,7 +114,6 @@ window.Cart = (function () {
 
     container.appendChild(t);
 
-    // Auto-dismiss
     setTimeout(() => {
       t.style.animation = "toastOut .22s ease forwards";
       setTimeout(() => t.remove(), 240);
@@ -108,10 +124,8 @@ window.Cart = (function () {
     const cart = document.getElementById("cartDisplay");
     if (!cart) return;
 
-    // ✅ If it was hidden (count was 0), show it immediately on first add
     cart.classList.remove("cart-hidden");
 
-    // Optional: quickly update text right away (store.js will also update)
     if (window.Cart) {
       try {
         window.Cart.reload();
@@ -121,15 +135,11 @@ window.Cart = (function () {
   }
 
   function wiggleCart() {
-    // Your nav has id="cartDisplay"
     const cart = document.getElementById("cartDisplay");
     if (!cart) return;
 
-    // ✅ Make sure wiggle can be seen
     cart.classList.remove("cart-hidden");
-
     cart.classList.remove("cart-wiggle");
-    // force reflow
     void cart.offsetWidth;
     cart.classList.add("cart-wiggle");
   }
@@ -141,21 +151,19 @@ window.Cart = (function () {
     buttonEl.classList.add("btn-pop");
   }
 
-  // Wrap Cart.addItem so every add triggers UX
   function hookCart() {
     if (!window.Cart || typeof window.Cart.addItem !== "function") return false;
     if (window.Cart.__uxHooked) return true;
 
     const originalAdd = window.Cart.addItem.bind(window.Cart);
 
-    window.Cart.addItem = function (id, name, price, image) {
-      const result = originalAdd(id, name, price, image);
+    window.Cart.addItem = function (id, name, price, image, meta) {
+      const result = originalAdd(id, name, price, image, meta);
 
-      ensureCartVisibleNow(); // ✅ show cart pill instantly
+      ensureCartVisibleNow();
       wiggleCart();
       showToast(`Added to cart`, name ? name : "Item added");
 
-      // If click came from a button, pop it
       if (window.__lastAddToCartEl) {
         popButton(window.__lastAddToCartEl);
         window.__lastAddToCartEl = null;
@@ -164,7 +172,6 @@ window.Cart = (function () {
       return result;
     };
 
-    // Track last clicked add-to-cart element globally
     document.addEventListener("click", (e) => {
       const btn = e.target.closest(".add-to-cart");
       if (btn) window.__lastAddToCartEl = btn;
@@ -174,9 +181,7 @@ window.Cart = (function () {
     return true;
   }
 
-  // Run after page load (cart.js is already loaded late)
   if (!hookCart()) {
-    // If Cart isn't ready yet for some reason, retry a few times
     let tries = 0;
     const iv = setInterval(() => {
       tries++;
