@@ -19,6 +19,7 @@
 
     $mealProducts = $products->where('category', 'meal')->values();
     $supplementProducts = $products->where('category', 'supplement')->values();
+    $drinkProducts = $products->where('category', 'drink')->values();
 
     /*
     |--------------------------------------------------------------------------
@@ -65,19 +66,20 @@
             'low_stock_threshold' => 2,
         ],
         (object) [
-    'slug' => 'gym-girl-set',
-    'name' => 'PrepPal Gym Girl Set',
-    'description' => 'Matching women’s gym set designed for training, comfort, and style.',
-    'price' => 39.99,
-    'image_path' => 'images/gymgirlset.png',
-    'stock' => 7,
-    'low_stock_threshold' => 2,
-],
+            'slug' => 'gym-girl-set',
+            'name' => 'PrepPal Gym Girl Set',
+            'description' => 'Matching women’s gym set designed for training, comfort, and style.',
+            'price' => 39.99,
+            'image_path' => 'images/gymgirlset.png',
+            'stock' => 7,
+            'low_stock_threshold' => 2,
+        ],
     ]);
 
     $hasVisibleProducts =
-        $mealProducts->isNotEmpty() ||
-        $supplementProducts->isNotEmpty() ||
+        (($category === 'all' || $category === 'meal') && $mealProducts->isNotEmpty()) ||
+        (($category === 'all' || $category === 'supplement') && $supplementProducts->isNotEmpty()) ||
+        (($category === 'all' || $category === 'drink') && $drinkProducts->isNotEmpty()) ||
         (($category === 'all' || $category === 'clothing') && $clothingProducts->isNotEmpty());
 @endphp
 
@@ -108,6 +110,7 @@
                     <option value="all" {{ $category === 'all' ? 'selected' : '' }}>All</option>
                     <option value="meal" {{ $category === 'meal' ? 'selected' : '' }}>Meal Plans</option>
                     <option value="supplement" {{ $category === 'supplement' ? 'selected' : '' }}>Supplements</option>
+                    <option value="drink" {{ $category === 'drink' ? 'selected' : '' }}>Drinks</option>
                     <option value="clothing" {{ $category === 'clothing' ? 'selected' : '' }}>Clothing</option>
                 </select>
             </div>
@@ -268,6 +271,68 @@
                                         data-money-gbp="{{ $product->price }}"
                                         data-money-suffix="{{ $product->category === 'meal' ? ' / week' : '' }}"
                                     >£{{ number_format($product->price, 2) }}{{ $product->category === 'meal' ? ' / week' : '' }}</span>
+                                </h3>
+
+                                @if($product->stock <= 0)
+                                    <span class="cta" style="display:inline-block; opacity:0.6; pointer-events:none;">
+                                        Out of stock
+                                    </span>
+                                @else
+                                    <a
+                                        class="cta add-to-cart"
+                                        href="#"
+                                        data-id="{{ $product->id }}"
+                                        data-name="{{ $product->name }}"
+                                        data-price="{{ $product->price }}"
+                                        data-image="{{ asset($product->image_path) }}"
+                                    >
+                                        Add to cart
+                                    </a>
+                                @endif
+
+                            </div>
+                        @endforeach
+                    </div>
+                </section>
+            @endif
+        @endif
+
+        {{-- DRINKS --}}
+        @if($category === 'all' || $category === 'drink')
+            @if($drinkProducts->isNotEmpty())
+                <section style="margin-top: 2.5rem;">
+                    <h2 style="margin-bottom: 1rem;">Drinks</h2>
+
+                    <div class="admin-dashboard store-grid" style="gap: 1rem;">
+                        @foreach($drinkProducts as $product)
+                            <div class="card" data-product-card="true">
+
+                                <a href="{{ route('product.show', $product->id) }}" class="product-link" style="text-decoration:none; color:inherit;">
+                                    <img
+                                        src="{{ asset($product->image_path) }}"
+                                        alt="{{ $product->name }}"
+                                        loading="lazy"
+                                        class="product-image"
+                                    >
+                                    <h3 style="margin-top:0.75rem;">{{ $product->name }}</h3>
+                                </a>
+
+                                <p style="opacity:0.85;">{{ $product->description }}</p>
+
+                                <p>
+                                    @if($product->stock <= 0)
+                                        <strong style="color:#dc2626;">Out of stock</strong>
+                                    @elseif($product->stock <= $product->low_stock_threshold)
+                                        <strong style="color:#d97706;">Low stock ({{ $product->stock }} left)</strong>
+                                    @else
+                                        <strong style="color:#16a34a;">In stock ({{ $product->stock }} available)</strong>
+                                    @endif
+                                </p>
+
+                                <h3 style="margin: 0.5rem 0 1rem;">
+                                    <span data-money-gbp="{{ $product->price }}">
+                                        £{{ number_format($product->price, 2) }}
+                                    </span>
                                 </h3>
 
                                 @if($product->stock <= 0)
