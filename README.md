@@ -90,25 +90,36 @@ The system supports:
 
 ## Installation
 
-1. Clone repository:
+Clone repository:
 ```bash
 git clone <your-repo-url>
 cd preppal
+```
 
 Install dependencies:
+```bash
 composer install
 npm install
+```
 
 Setup environment:
+```bash
 cp .env.example .env
 php artisan key:generate
 Configure database in .env
+```
 
 Run migrations:
+```bash
 php artisan migrate
+```
 
 Seed products:
+```bash
 php artisan db:seed --class=ProductSeeder
+```
 
 Run server:
+```bash
 php artisan serve
+```
