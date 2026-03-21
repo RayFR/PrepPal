@@ -130,3 +130,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])
         ->name('reviews.destroy');
 });
+
+//Chatbot
+use App\Http\Controllers\ChatbotController;
+
+Route::post('/chatbot/message', [ChatbotController::class, 'send']);

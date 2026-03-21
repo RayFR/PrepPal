@@ -997,4 +997,36 @@
     });
   })();
 </script>
+
+<div id="chatbox" style="position:fixed; bottom:20px; right:20px; width:300px; background:white; border:1px; solid #ccc; padding:10px;">
+  <h4>PrepPal Chat</h4>
+
+  <div id="messages" style="height:200px; overflow-y:auto;"></div>
+
+  <input id="input" type="text" placeholder="Ask something..." style="width:100%;">
+  <button onclick="sendMessage()">Send</button>
+</div>
+
+<script>
+  async function sendMessage() {
+    const input = document.getElementById('input');
+    const msg = input.value;
+    if (!msg) return;
+    const messages = document.getElementById('messages');
+    messages.innerHTML += "<p><b>You:</b>" + msg + "</p>";
+    input.value = "";
+    const res = await fetch('/chatbot/message', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+      },
+      body: JSON.stringify({ message: msg })
+    });
+
+    const data = await res.json();
+
+    messages.innerHTML += "<p><b>Bot:</b>" + data.reply + "</p>";
+  }
+  </script>
 @endpush
