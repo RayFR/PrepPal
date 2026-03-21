@@ -50,8 +50,6 @@
       <nav class="pp-acct__nav">
         <a class="pp-acct__nav-item is-active" href="{{ route('profile.index') }}">Account Home</a>
         <a class="pp-acct__nav-item" href="{{ route('orders.index') }}">My Orders</a>
-        <a class="pp-acct__nav-item" href="#profile">My Profile</a>
-        <a class="pp-acct__nav-item" href="#password">Change Password</a>
 
         <div class="pp-acct__nav-sep"></div>
 
@@ -63,26 +61,6 @@
     </aside>
 
     <section class="pp-acct__main">
-
-      <div class="pp-acct__tiles">
-        <a class="pp-tile card" href="{{ route('orders.index') }}">
-          <div class="pp-tile__title">My Orders</div>
-          <div class="pp-tile__text">View and manage your orders and receipts.</div>
-          <div class="pp-tile__cta">Open</div>
-        </a>
-
-        <a class="pp-tile card" href="#profile">
-          <div class="pp-tile__title">My Profile</div>
-          <div class="pp-tile__text">Update your name, email and profile picture.</div>
-          <div class="pp-tile__cta">Edit</div>
-        </a>
-
-        <a class="pp-tile card" href="#password">
-          <div class="pp-tile__title">Password</div>
-          <div class="pp-tile__text">Change your password and keep your account secure.</div>
-          <div class="pp-tile__cta">Update</div>
-        </a>
-      </div>
 
       <section class="card pp-panel" id="profile">
         <div class="pp-panel__head">

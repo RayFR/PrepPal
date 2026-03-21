@@ -1119,9 +1119,10 @@ body[data-theme="dark"] .pp-post-hero{
 /*Advice card image sizing*/
 
 .pp-advice-card__cover{
-  height: 210px;               
-  overflow: hidden;              
-  border-radius: 24px 24px 0 0;  
+  height: 210px;
+  overflow: hidden;
+  border-radius: 24px 24px 0 0;
+  background: #0b1220;
 }
 
 .pp-advice-card__cover img{
@@ -1129,15 +1130,38 @@ body[data-theme="dark"] .pp-post-hero{
   height: 100%;
   display: block;
   object-fit: cover;
-  object-position: 50% 25%;      
+  object-position: center top;
+}
+
+/* Make the mini cards match too */
+.pp-advice-mini__img{
+  height: 210px;
+  overflow: hidden;
+  border-radius: 24px 24px 0 0;
+  background: #0b1220;
+}
+
+.pp-advice-mini__img img{
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center top;
 }
 
 /* responsive tweaks */
 @media (min-width: 768px){
-  .pp-advice-card__cover{ height: 230px; }
+  .pp-advice-card__cover,
+  .pp-advice-mini__img{
+    height: 230px;
+  }
 }
+
 @media (min-width: 1200px){
-  .pp-advice-card__cover{ height: 250px; }
+  .pp-advice-card__cover,
+  .pp-advice-mini__img{
+    height: 250px;
+  }
 }
 
 .pp-side-form{

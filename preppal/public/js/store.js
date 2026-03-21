@@ -120,11 +120,17 @@ document.addEventListener('DOMContentLoaded', () => {
     window.location.href = '/checkout';
   });
 
+updatePill();
+renderMiniCart();
+
+// Re-render cart when product page custom add-to-cart updates it
+window.addEventListener('pp:cartUpdated', () => {
   updatePill();
   renderMiniCart();
+});
 
-  // Re-render totals when currency changes
-  window.addEventListener('pp:currencyChanged', () => {
-    renderMiniCart();
-  });
+// Re-render totals when currency changes
+window.addEventListener('pp:currencyChanged', () => {
+  renderMiniCart();
+});
 });

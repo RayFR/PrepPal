@@ -9,6 +9,10 @@ class ProductSeeder extends Seeder
 {
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('products')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
         DB::table('products')->insert([
 
             // MEAL PLANS
@@ -85,7 +89,16 @@ class ProductSeeder extends Seeder
                 'category' => 'supplement',
                 'stock' => 35,
                 'low_stock_threshold' => 8,
-            ]
+            ],
+            [
+                'name' => 'Pre-workout Jay Cutler',
+                'description' => 'A high-energy pre-workout formula designed to support focus, intensity, and training performance before tough sessions.',
+                'price' => 29.99,
+                'image_path' => 'images/preworkoutjay.png',
+                'category' => 'supplement',
+                'stock' => 120,
+                'low_stock_threshold' => 8,
+            ],
 
         ]);
     }

@@ -8,8 +8,163 @@
   $avg = $reviewCount ? (float) ($averageRating ?? 0) : 0;
   $roundedStars = $reviewCount ? (int) round($avg) : 0;
 
-  // Always safe fallback
   $mainImgPath = $product->image_path ?: 'images/whey_protein.png';
+
+  $productSlug = strtolower(trim($product->name));
+  $isWheyProtein = $productSlug === 'whey protein 1kg';
+  $isCreatine = $productSlug === 'creatine monohydrate 300g';
+  $isPreWorkout = $productSlug === 'pre-workout jay cutler';
+  $isBcaa = $productSlug === 'bcaa powder 250g';
+
+  $wheyFlavours = [
+    'vanilla' => [
+      'label' => 'Vanilla',
+      'cart_name' => 'Whey Protein 1kg - Vanilla',
+      'image' => asset('images/whey_proteinvanilla.png'),
+      'gallery' => [
+        asset('images/whey_proteinvanilla.png'),
+      ],
+    ],
+    'banana' => [
+      'label' => 'Banana',
+      'cart_name' => 'Whey Protein 1kg - Banana',
+      'image' => asset('images/whey_proteinban.png'),
+      'gallery' => [
+        asset('images/whey_proteinban.png'),
+      ],
+    ],
+    'coffee' => [
+      'label' => 'Coffee',
+      'cart_name' => 'Whey Protein 1kg - Coffee',
+      'image' => asset('images/whey_proteincafe.png'),
+      'gallery' => [
+        asset('images/whey_proteincafe.png'),
+      ],
+    ],
+    'peanut_butter' => [
+      'label' => 'Peanut Butter',
+      'cart_name' => 'Whey Protein 1kg - Peanut Butter',
+      'image' => asset('images/whey_protein.png'),
+      'gallery' => [
+        asset('images/whey_protein.png'),
+      ],
+    ],
+    'chocolate' => [
+      'label' => 'Chocolate',
+      'cart_name' => 'Whey Protein 1kg - Chocolate',
+      'image' => asset('images/whey_proteinchoc.png'),
+      'gallery' => [
+        asset('images/whey_proteinchoc.png'),
+      ],
+    ],
+  ];
+
+  $creatineFlavours = [
+    'cool_blue' => [
+      'label' => 'Cool Blue',
+      'cart_name' => 'Creatine Monohydrate 300g - Cool Blue',
+      'image' => asset('images/creatine_monohydrate.jpg'),
+      'gallery' => [
+        asset('images/creatine_monohydrate.jpg'),
+        asset('images/creatine_monohydrate2.png'),
+        asset('images/creatine_monohydrate-3.png'),
+      ],
+    ],
+    'berry' => [
+      'label' => 'Berry',
+      'cart_name' => 'Creatine Monohydrate 300g - Berry',
+      'image' => asset('images/creatine_monohydrateberry.png'),
+      'gallery' => [
+        asset('images/creatine_monohydrateberry.png'),
+      ],
+    ],
+    'lime' => [
+      'label' => 'Lime',
+      'cart_name' => 'Creatine Monohydrate 300g - Lime',
+      'image' => asset('images/creatine_monohydratelime.png'),
+      'gallery' => [
+        asset('images/creatine_monohydratelime.png'),
+      ],
+    ],
+    'melon' => [
+      'label' => 'Melon',
+      'cart_name' => 'Creatine Monohydrate 300g - Melon',
+      'image' => asset('images/creatine_monohydratemelon.png'),
+      'gallery' => [
+        asset('images/creatine_monohydratemelon.png'),
+      ],
+    ],
+  ];
+
+  $preWorkoutFlavours = [
+    'grape' => [
+      'label' => 'Grape',
+      'cart_name' => 'Pre-workout Jay Cutler - Grape',
+      'image' => asset('images/preworkoutjay.png'),
+      'gallery' => [
+        asset('images/preworkoutjay.png'),
+      ],
+    ],
+    'pineapple' => [
+      'label' => 'Pineapple',
+      'cart_name' => 'Pre-workout Jay Cutler - Pineapple',
+      'image' => asset('images/preworkoutpine.png'),
+      'gallery' => [
+        asset('images/preworkoutpine.png'),
+      ],
+    ],
+    'lemon' => [
+      'label' => 'Lemon',
+      'cart_name' => 'Pre-workout Jay Cutler - Lemon',
+      'image' => asset('images/preworkoutlemon.png'),
+      'gallery' => [
+        asset('images/preworkoutlemon.png'),
+      ],
+    ],
+    'mango' => [
+      'label' => 'Mango',
+      'cart_name' => 'Pre-workout Jay Cutler - Mango',
+      'image' => asset('images/preworkoutmango.png'),
+      'gallery' => [
+        asset('images/preworkoutmango.png'),
+      ],
+    ],
+  ];
+
+  $bcaaFlavours = [
+    'fruit_punch' => [
+      'label' => 'Fruit Punch',
+      'cart_name' => 'BCAA Powder 250g - Fruit Punch',
+      'image' => asset('images/bcaa_powder.jpg'),
+      'gallery' => [
+        asset('images/bcaa_powder.jpg'),
+      ],
+    ],
+    'blueberry' => [
+      'label' => 'Blueberry',
+      'cart_name' => 'BCAA Powder 250g - Blueberry',
+      'image' => asset('images/bcaa_powderblue.png'),
+      'gallery' => [
+        asset('images/bcaa_powderblue.png'),
+      ],
+    ],
+  ];
+
+  $activeFlavours = $isWheyProtein
+    ? $wheyFlavours
+    : ($isCreatine
+        ? $creatineFlavours
+        : ($isPreWorkout
+            ? $preWorkoutFlavours
+            : ($isBcaa ? $bcaaFlavours : [])));
+
+  $defaultFlavourKey = $isWheyProtein
+    ? 'vanilla'
+    : ($isCreatine
+        ? 'berry'
+        : ($isPreWorkout
+            ? 'grape'
+            : ($isBcaa ? 'fruit_punch' : null)));
 @endphp
 
 <main class="container main-content">
@@ -24,14 +179,13 @@
 
   <div class="pp-pdp">
 
-    {{-- LEFT: MyProtein-style slider (frontend-only) --}}
     <section class="pp-pdp-left">
 
       <style>
-        /* ==========================
-           MyProtein-style gallery (scoped)
-           ========================== */
-        .pp-gal { display: grid; gap: 12px; }
+        .pp-gal {
+          display: grid;
+          gap: 12px;
+        }
 
         .pp-gal-frame{
           position: relative;
@@ -40,14 +194,23 @@
           background: rgba(255,255,255,.04);
           border: 1px solid rgba(255,255,255,.10);
           box-shadow: 0 18px 50px rgba(0,0,0,.25);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 0;
         }
+
         body:not([data-theme="dark"]) .pp-gal-frame{
           background: rgba(0,0,0,.02);
           border: 1px solid rgba(0,0,0,.08);
           box-shadow: 0 18px 50px rgba(0,0,0,.10);
         }
 
-        .pp-gal-viewport{ overflow: hidden; width: 100%; }
+        .pp-gal-viewport{
+          overflow: hidden;
+          width: 100%;
+        }
+
         .pp-gal-track{
           display: flex;
           width: 100%;
@@ -55,18 +218,41 @@
           transition: transform .35s ease;
           touch-action: pan-y;
         }
-        .pp-gal-slide{ min-width: 100%; }
+
+        .pp-gal-slide{
+          min-width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
 
         .pp-gal-img{
           width: 100%;
-          height: 560px;
-          object-fit: cover;
+          max-width: 720px;
+          height: auto;
+          max-height: 720px;
+          object-fit: contain;
+          object-position: center;
           display: block;
+          margin: 0 auto;
+          background: transparent;
+          padding: 0;
+          box-sizing: border-box;
         }
-        @media (max-width: 980px){ .pp-gal-img{ height: 440px; } }
-        @media (max-width: 520px){ .pp-gal-img{ height: 340px; } }
 
-        /* overlay arrows */
+        @media (max-width: 980px){
+          .pp-gal-img{
+            max-width: 100%;
+            max-height: 560px;
+          }
+        }
+
+        @media (max-width: 520px){
+          .pp-gal-img{
+            max-height: 420px;
+          }
+        }
+
         .pp-gal-nav{
           position: absolute;
           top: 50%;
@@ -86,12 +272,12 @@
           opacity: 0;
           transition: opacity .18s ease;
         }
+
         .pp-gal-frame:hover .pp-gal-nav{ opacity: 1; }
         .pp-gal-prev{ left: 12px; }
         .pp-gal-next{ right: 12px; }
         .pp-gal-nav[disabled]{ opacity: .25 !important; cursor: not-allowed; }
 
-        /* dots */
         .pp-gal-dots{
           position: absolute;
           left: 50%;
@@ -101,18 +287,20 @@
           gap: 6px;
           z-index: 5;
         }
+
         .pp-gal-dot{
-          width: 7px; height: 7px;
+          width: 7px;
+          height: 7px;
           border-radius: 999px;
           background: rgba(255,255,255,.35);
           border: 1px solid rgba(255,255,255,.25);
         }
+
         .pp-gal-dot.is-active{
           background: rgba(255,140,0,.95);
           border-color: rgba(255,140,0,.65);
         }
 
-        /* thumbs */
         .pp-gal-thumbs{
           display: flex;
           gap: 10px;
@@ -120,6 +308,7 @@
           padding-bottom: 4px;
           scrollbar-width: thin;
         }
+
         .pp-gal-thumb{
           flex: 0 0 auto;
           width: 86px;
@@ -131,32 +320,87 @@
           cursor: pointer;
           padding: 0;
         }
+
         body:not([data-theme="dark"]) .pp-gal-thumb{
           border: 1px solid rgba(0,0,0,.10);
           background: rgba(0,0,0,.02);
         }
+
         .pp-gal-thumb img{
-          width: 100%; height: 100%;
+          width: 100%;
+          height: 100%;
           object-fit: cover;
           display: block;
         }
+
         .pp-gal-thumb.is-active{
           outline: 2px solid rgba(255,140,0,.65);
           outline-offset: 2px;
         }
+
+        .pp-option-group{
+          margin: 18px 0 10px;
+        }
+
+        .pp-option-label{
+          display: block;
+          font-weight: 700;
+          margin-bottom: 10px;
+          color: inherit;
+        }
+
+        .pp-option-select{
+          width: 100%;
+          height: 54px;
+          border-radius: 14px;
+          border: 1px solid rgba(255,255,255,.12);
+          background: #0f1830;
+          color: #ffffff;
+          padding: 0 16px;
+          font-size: 1rem;
+          font-weight: 600;
+          outline: none;
+        }
+
+        .pp-option-select option{
+          background: #0f1830;
+          color: #ffffff;
+        }
+
+        body:not([data-theme="dark"]) .pp-option-select{
+          border: 1px solid rgba(0,0,0,.10);
+          background: #ffffff;
+          color: #111827;
+        }
+
+        body:not([data-theme="dark"]) .pp-option-select option{
+          background: #ffffff;
+          color: #111827;
+        }
+
+        .pp-selected-flavour{
+          margin-top: 8px;
+          font-size: .95rem;
+          opacity: .85;
+        }
       </style>
 
-      <div class="pp-gal"
-           data-pp-gal
-           data-main-src="{{ asset($mainImgPath) }}">
-
+      <div
+        class="pp-gal"
+        data-pp-gal
+        data-main-src="{{ asset($mainImgPath) }}"
+        data-is-whey="{{ $isWheyProtein ? '1' : '0' }}"
+        data-is-creatine="{{ $isCreatine ? '1' : '0' }}"
+        data-is-preworkout="{{ $isPreWorkout ? '1' : '0' }}"
+        data-is-bcaa="{{ $isBcaa ? '1' : '0' }}"
+        data-default-flavour="{{ $defaultFlavourKey }}"
+        data-flavour-images='@json($activeFlavours)'
+      >
         <div class="pp-gal-frame">
           <button type="button" class="pp-gal-nav pp-gal-prev" data-pp-gal-prev aria-label="Previous image">‹</button>
 
           <div class="pp-gal-viewport" data-pp-gal-viewport>
-            <div class="pp-gal-track" data-pp-gal-track>
-              {{-- slides injected by JS --}}
-            </div>
+            <div class="pp-gal-track" data-pp-gal-track></div>
           </div>
 
           <button type="button" class="pp-gal-nav pp-gal-next" data-pp-gal-next aria-label="Next image">›</button>
@@ -169,7 +413,6 @@
 
     </section>
 
-    {{-- RIGHT: Title + buy box (UNCHANGED) --}}
     <aside class="pp-pdp-right">
       <h1 class="pp-title">{{ $product->name }}</h1>
       <p class="pp-subtitle">{{ $product->category === 'meal' ? 'Meal Prep Plan' : 'Supplement' }}</p>
@@ -210,6 +453,22 @@
         @endif
       </ul>
 
+      @if($isWheyProtein || $isCreatine || $isPreWorkout || $isBcaa)
+        <div class="pp-option-group">
+          <label for="ppFlavourSelect" class="pp-option-label">Flavour:</label>
+          <select id="ppFlavourSelect" class="pp-option-select">
+            @foreach($activeFlavours as $key => $flavour)
+              <option value="{{ $key }}" {{ $key === $defaultFlavourKey ? 'selected' : '' }}>
+                {{ $flavour['label'] }}
+              </option>
+            @endforeach
+          </select>
+          <div class="pp-selected-flavour" id="ppSelectedFlavour">
+            Selected flavour: {{ $activeFlavours[$defaultFlavourKey]['label'] }}
+          </div>
+        </div>
+      @endif
+
       <div class="pp-actions">
         <div class="pp-qty">
           <button type="button" class="pp-qty-btn" data-qty="-1" aria-label="Decrease quantity">−</button>
@@ -221,10 +480,12 @@
           type="button"
           class="cta pp-add add-to-cart"
           data-id="{{ $product->id }}"
-          data-name="{{ $product->name }}"
+          data-name="{{ ($isWheyProtein || $isCreatine || $isPreWorkout || $isBcaa) ? $activeFlavours[$defaultFlavourKey]['cart_name'] : $product->name }}"
+          data-base-name="{{ $product->name }}"
           data-price="{{ $product->price }}"
-          data-image="{{ asset($product->image_path) }}"
+          data-image="{{ ($isWheyProtein || $isCreatine || $isPreWorkout || $isBcaa) ? $activeFlavours[$defaultFlavourKey]['image'] : asset($product->image_path) }}"
           data-qty="1"
+          data-variant="{{ ($isWheyProtein || $isCreatine || $isPreWorkout || $isBcaa) ? $activeFlavours[$defaultFlavourKey]['label'] : '' }}"
         >
           Add to cart
         </button>
@@ -280,7 +541,6 @@
           </form>
         </details>
 
-        {{-- ================= REVIEWS LIST ================= --}}
         <section class="pp-reviews">
           <h3 class="pp-reviews-title">
             Customer Reviews ({{ $reviewCount }})
@@ -293,7 +553,6 @@
           @else
             @foreach ($product->reviews as $review)
               <article class="pp-review-card">
-
                 <div class="pp-review-header">
                   <strong class="pp-review-user">
                     {{ $review->user->name }}
@@ -328,7 +587,6 @@
                     </form>
                   </div>
                 @endif
-
               </article>
             @endforeach
           @endif
@@ -358,11 +616,6 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-
-    /* ==========================
-       Gallery (automatic + autoplay)
-       ========================== */
-
     const GALLERY_BY_MAIN = {
       "whey_protein.png": [
         "/images/whey_protein.png",
@@ -397,19 +650,31 @@
       return arr.filter(x => {
         const k = String(x || '').trim();
         if(!k || s.has(k)) return false;
-        s.add(k); return true;
+        s.add(k);
+        return true;
       });
     }
 
     function fileFromUrl(u){
-      const clean = String(u||'').split('?')[0];
+      const clean = String(u || '').split('?')[0];
       return clean.split('/').pop();
     }
 
     document.querySelectorAll('[data-pp-gal]').forEach(root => {
       const mainSrc = root.getAttribute('data-main-src') || '';
-      const mainFile = fileFromUrl(mainSrc);
-      const imgs = uniq((GALLERY_BY_MAIN[mainFile] || [mainSrc]).map(x => x.startsWith('http') ? x : x));
+      const isWhey = root.getAttribute('data-is-whey') === '1';
+      const isCreatine = root.getAttribute('data-is-creatine') === '1';
+      const isPreWorkout = root.getAttribute('data-is-preworkout') === '1';
+      const isBcaa = root.getAttribute('data-is-bcaa') === '1';
+      const usesFlavourGallery = isWhey || isCreatine || isPreWorkout || isBcaa;
+      const defaultFlavour = root.getAttribute('data-default-flavour') || 'vanilla';
+
+      let flavourConfig = {};
+      try {
+        flavourConfig = JSON.parse(root.getAttribute('data-flavour-images') || '{}');
+      } catch {
+        flavourConfig = {};
+      }
 
       const track = root.querySelector('[data-pp-gal-track]');
       const thumbs = root.querySelector('[data-pp-gal-thumbs]');
@@ -418,39 +683,40 @@
       const nextBtn = root.querySelector('[data-pp-gal-next]');
       const viewport = root.querySelector('[data-pp-gal-viewport]');
 
-      if(!track || !viewport || !imgs.length) return;
+      if(!track || !viewport) return;
 
-      track.innerHTML = imgs.map(src => `
-        <div class="pp-gal-slide">
-          <img class="pp-gal-img" src="${src}" alt="Product image">
-        </div>
-      `).join('');
-
-      thumbs.innerHTML = imgs.map((src,i) => `
-        <button type="button" class="pp-gal-thumb ${i===0?'is-active':''}" data-go="${i}">
-          <img src="${src}" alt="Thumb ${i+1}">
-        </button>
-      `).join('');
-
-      dots.innerHTML = imgs.length > 1 ? imgs.map((_,i) => `
-        <span class="pp-gal-dot ${i===0?'is-active':''}" data-dot="${i}"></span>
-      `).join('') : '';
-
+      let imgs = [];
       let index = 0;
       let paused = false;
       let timer = null;
 
+      function currentImagesForFlavour(flavourKey) {
+        if (usesFlavourGallery && flavourConfig[flavourKey]) {
+          if (Array.isArray(flavourConfig[flavourKey].gallery) && flavourConfig[flavourKey].gallery.length) {
+            return uniq(flavourConfig[flavourKey].gallery);
+          }
+
+          if (flavourConfig[flavourKey].image) {
+            return [flavourConfig[flavourKey].image];
+          }
+        }
+
+        const mainFile = fileFromUrl(mainSrc);
+        return uniq((GALLERY_BY_MAIN[mainFile] || [mainSrc]).map(x => x.startsWith('http') ? x : x));
+      }
+
       function setActiveUI(){
         thumbs.querySelectorAll('.pp-gal-thumb').forEach((b,i)=>b.classList.toggle('is-active', i===index));
         dots.querySelectorAll('.pp-gal-dot').forEach((d,i)=>d.classList.toggle('is-active', i===index));
+
         const single = imgs.length <= 1;
-        prevBtn.style.display = single ? 'none' : '';
-        nextBtn.style.display = single ? 'none' : '';
-        dots.style.display = single ? 'none' : '';
+        if (prevBtn) prevBtn.style.display = single ? 'none' : '';
+        if (nextBtn) nextBtn.style.display = single ? 'none' : '';
+        if (dots) dots.style.display = single ? 'none' : '';
       }
 
       function render(){
-        track.style.transform = `translateX(${-index*100}%)`;
+        track.style.transform = `translateX(${-index * 100}%)`;
         setActiveUI();
       }
 
@@ -460,54 +726,108 @@
         render();
       }
 
-      function next(){ go(index >= imgs.length-1 ? 0 : index+1); }
-      function prev(){ go(index <= 0 ? imgs.length-1 : index-1); }
+      function next(){ go(index >= imgs.length - 1 ? 0 : index + 1); }
+      function prev(){ go(index <= 0 ? imgs.length - 1 : index - 1); }
 
-      prevBtn.addEventListener('click', () => { paused = true; prev(); });
-      nextBtn.addEventListener('click', () => { paused = true; next(); });
+      function buildGallery(newImages) {
+        imgs = uniq(newImages);
+        index = 0;
+
+        track.innerHTML = imgs.map(src => `
+          <div class="pp-gal-slide">
+            <img class="pp-gal-img" src="${src}" alt="Product image">
+          </div>
+        `).join('');
+
+        thumbs.innerHTML = imgs.map((src, i) => `
+          <button type="button" class="pp-gal-thumb ${i===0 ? 'is-active' : ''}" data-go="${i}">
+            <img src="${src}" alt="Thumb ${i + 1}">
+          </button>
+        `).join('');
+
+        dots.innerHTML = imgs.length > 1 ? imgs.map((_, i) => `
+          <span class="pp-gal-dot ${i===0 ? 'is-active' : ''}" data-dot="${i}"></span>
+        `).join('') : '';
+
+        render();
+      }
+
+      prevBtn?.addEventListener('click', () => { paused = true; prev(); });
+      nextBtn?.addEventListener('click', () => { paused = true; next(); });
 
       thumbs.addEventListener('click', (e) => {
         const b = e.target.closest('[data-go]');
         if(!b) return;
         paused = true;
-        go(parseInt(b.dataset.go,10) || 0);
+        go(parseInt(b.dataset.go, 10) || 0);
       });
 
       root.addEventListener('mouseenter', ()=> paused = true);
       root.addEventListener('mouseleave', ()=> paused = false);
 
-      // swipe
-      let sx=0, sy=0, down=false;
+      let sx = 0, sy = 0, down = false;
       viewport.addEventListener('touchstart', (ev)=>{
         const t = ev.touches[0];
-        sx=t.clientX; sy=t.clientY; down=true; paused=true;
+        sx = t.clientX;
+        sy = t.clientY;
+        down = true;
+        paused = true;
       }, {passive:true});
+
       viewport.addEventListener('touchend', (ev)=>{
         if(!down) return;
-        down=false;
+        down = false;
         const t = ev.changedTouches[0];
-        const dx=t.clientX-sx;
-        const dy=t.clientY-sy;
+        const dx = t.clientX - sx;
+        const dy = t.clientY - sy;
         if(Math.abs(dy) > Math.abs(dx)) return;
         if(dx > 40) prev();
         if(dx < -40) next();
       }, {passive:true});
 
-      // autoplay
       function start(){
         if(imgs.length <= 1) return;
         timer = setInterval(()=>{ if(!paused) next(); }, 4000);
       }
-      function stop(){ if(timer) clearInterval(timer); timer=null; }
 
-      render();
+      function stop(){
+        if(timer) clearInterval(timer);
+        timer = null;
+      }
+
+      buildGallery(currentImagesForFlavour(defaultFlavour));
       start();
       window.addEventListener('beforeunload', stop);
-    });
 
-    /* ==========================
-       YOUR EXISTING qty + add-to-cart (unchanged)
-       ========================== */
+      const flavourSelect = document.getElementById('ppFlavourSelect');
+      const selectedFlavourText = document.getElementById('ppSelectedFlavour');
+      const addBtn = document.querySelector('.pp-add.add-to-cart');
+
+      if (usesFlavourGallery && flavourSelect && addBtn) {
+        function applyFlavour(flavourKey) {
+          const flavour = flavourConfig[flavourKey];
+          if (!flavour) return;
+
+          addBtn.dataset.variant = flavour.label;
+          addBtn.dataset.name = flavour.cart_name;
+          addBtn.dataset.image = flavour.image;
+
+          if (selectedFlavourText) {
+            selectedFlavourText.textContent = `Selected flavour: ${flavour.label}`;
+          }
+
+          stop();
+          buildGallery(currentImagesForFlavour(flavourKey));
+          start();
+        }
+
+        flavourSelect.addEventListener('change', () => {
+          applyFlavour(flavourSelect.value);
+        });
+
+        applyFlavour(flavourSelect.value);
+      }
+    });
 
     const qtyWrap = document.querySelector('.pp-qty');
     const qtyInput = document.querySelector('.pp-qty-input');
@@ -548,15 +868,18 @@
       const price = parseFloat(addBtn.dataset.price || '0') || 0;
       const image = addBtn.dataset.image || '';
       const qty = clampQty(parseInt(addBtn.dataset.qty || '1', 10));
+      const variant = addBtn.dataset.variant || '';
 
       for (let i = 0; i < qty; i++) {
-        window.Cart.addItem(id, name, price, image);
+        window.Cart.addItem(id, name, price, image, { variant });
       }
 
       const cartDisplay = document.getElementById('cartDisplay');
       if (cartDisplay && window.Cart.getCount) {
         cartDisplay.textContent = `Cart (${window.Cart.getCount()})`;
       }
+
+      window.dispatchEvent(new CustomEvent('pp:cartUpdated'));
     }, true);
 
     sync();

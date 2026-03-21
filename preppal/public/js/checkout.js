@@ -332,25 +332,41 @@ document.addEventListener('DOMContentLoaded', () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+          'Accept': 'application/json'
         },
         body: JSON.stringify(payload)
       });
 
+      const contentType = res.headers.get('content-type') || '';
+
+      if (!res.ok) {
+        if (contentType.includes('application/json')) {
+          const errorData = await res.json();
+          console.log('Checkout error JSON:', errorData);
+          setError(errorData.message || 'Checkout failed.');
+        } else {
+          const errorText = await res.text();
+          console.log('Checkout error HTML/text:', errorText);
+          setError(`Checkout failed (${res.status}). Check Laravel error/logs.`);
+        }
+        return;
+      }
+
       const data = await res.json();
+      console.log('Checkout success:', data);
 
       if (data.success) {
         Cart.clear();
         setError('');
         if (promoMsg) promoMsg.style.display = 'none';
-
-        // ✅ Redirect to confirmation page
         window.location.href = `/checkout/confirmation?order_id=${data.order_id}`;
       } else {
         setError('Something went wrong placing your order.');
       }
     } catch (err) {
-      setError('Network error placing your order. Please try again.');
+      console.error('Checkout exception:', err);
+      setError('Checkout request failed. Check console/network tab.');
     } finally {
       setLoading(false);
     }
