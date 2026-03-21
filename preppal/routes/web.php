@@ -21,6 +21,7 @@ use App\Http\Controllers\BlogController;
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
+
 Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])
     ->name('newsletter.subscribe');
 
@@ -43,6 +44,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/store', [ProductController::class, 'index'])->name('store');
     Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
+    Route::get('/clothing/{slug}', [ProductController::class, 'showClothing'])->name('clothing.show');
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');

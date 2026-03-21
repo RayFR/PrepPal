@@ -1,4 +1,4 @@
-<!--
+<!-- 
   Students & IDs: Agraj Khanna (240195519) / Gurpreet Singh Sidhu (230237915)
   File: store.blade.php
   Description: Store Page containing all of our products
@@ -19,6 +19,66 @@
 
     $mealProducts = $products->where('category', 'meal')->values();
     $supplementProducts = $products->where('category', 'supplement')->values();
+
+    /*
+    |--------------------------------------------------------------------------
+    | Static clothing items
+    |--------------------------------------------------------------------------
+    | These are not from the database yet.
+    | They are displayed manually from the images in public/images.
+    */
+    $clothingProducts = collect([
+        (object) [
+            'slug' => 'performance-tank',
+            'name' => 'PrepPal Performance Tank',
+            'description' => 'Lightweight training tank designed for gym sessions and everyday wear.',
+            'price' => 24.99,
+            'image_path' => 'images/tanktop.png',
+            'stock' => 12,
+            'low_stock_threshold' => 3,
+        ],
+        (object) [
+            'slug' => 'training-shorts',
+            'name' => 'PrepPal Training Shorts',
+            'description' => 'Branded training shorts with a clean athletic fit and front/back product view.',
+            'price' => 29.99,
+            'image_path' => 'images/shortsfront.png',
+            'stock' => 10,
+            'low_stock_threshold' => 3,
+        ],
+        (object) [
+            'slug' => 'zip-hoodie',
+            'name' => 'PrepPal Zip Hoodie',
+            'description' => 'Full-zip hoodie with bold PrepPal branding and a premium training look.',
+            'price' => 44.99,
+            'image_path' => 'images/zipfront.png',
+            'stock' => 8,
+            'low_stock_threshold' => 2,
+        ],
+        (object) [
+            'slug' => 'joggers',
+            'name' => 'PrepPal Joggers',
+            'description' => 'Comfortable branded joggers for training, recovery, or casual wear.',
+            'price' => 34.99,
+            'image_path' => 'images/pants.png',
+            'stock' => 9,
+            'low_stock_threshold' => 2,
+        ],
+        (object) [
+    'slug' => 'gym-girl-set',
+    'name' => 'PrepPal Gym Girl Set',
+    'description' => 'Matching women’s gym set designed for training, comfort, and style.',
+    'price' => 39.99,
+    'image_path' => 'images/gymgirlset.png',
+    'stock' => 7,
+    'low_stock_threshold' => 2,
+],
+    ]);
+
+    $hasVisibleProducts =
+        $mealProducts->isNotEmpty() ||
+        $supplementProducts->isNotEmpty() ||
+        (($category === 'all' || $category === 'clothing') && $clothingProducts->isNotEmpty());
 @endphp
 
 <div class="container">
@@ -48,6 +108,7 @@
                     <option value="all" {{ $category === 'all' ? 'selected' : '' }}>All</option>
                     <option value="meal" {{ $category === 'meal' ? 'selected' : '' }}>Meal Plans</option>
                     <option value="supplement" {{ $category === 'supplement' ? 'selected' : '' }}>Supplements</option>
+                    <option value="clothing" {{ $category === 'clothing' ? 'selected' : '' }}>Clothing</option>
                 </select>
             </div>
 
@@ -103,7 +164,7 @@
         </div>
     </form>
 
-    @if($products->isEmpty())
+    @if(!$hasVisibleProducts)
         <p style="margin-top: 1.5rem;">No products match your filters.</p>
     @else
 
@@ -223,6 +284,65 @@
                                         data-image="{{ asset($product->image_path) }}"
                                     >
                                         Add to cart
+                                    </a>
+                                @endif
+
+                            </div>
+                        @endforeach
+                    </div>
+                </section>
+            @endif
+        @endif
+
+        {{-- CLOTHING --}}
+        @if($category === 'all' || $category === 'clothing')
+            @if($clothingProducts->isNotEmpty())
+                <section style="margin-top: 2.5rem;">
+                    <h2 style="margin-bottom: 1rem;">Clothing</h2>
+
+                    <div class="admin-dashboard store-grid" style="gap: 1rem;">
+                        @foreach($clothingProducts as $item)
+                            <div class="card" data-product-card="true">
+
+                                <a href="{{ route('clothing.show', $item->slug) }}" class="product-link" style="text-decoration:none; color:inherit;">
+                                    <img
+                                        src="{{ asset($item->image_path) }}"
+                                        alt="{{ $item->name }}"
+                                        loading="lazy"
+                                        class="product-image"
+                                    >
+
+                                    <h3 style="margin-top:0.75rem;">{{ $item->name }}</h3>
+                                </a>
+
+                                <p style="opacity:0.85;">{{ $item->description }}</p>
+
+                                <p>
+                                    @if($item->stock <= 0)
+                                        <strong style="color:#dc2626;">Out of stock</strong>
+                                    @elseif($item->stock <= $item->low_stock_threshold)
+                                        <strong style="color:#d97706;">Low stock ({{ $item->stock }} left)</strong>
+                                    @else
+                                        <strong style="color:#16a34a;">In stock ({{ $item->stock }} available)</strong>
+                                    @endif
+                                </p>
+
+                                <h3 style="margin: 0.5rem 0 1rem;">
+                                    <span data-money-gbp="{{ $item->price }}">
+                                        £{{ number_format($item->price, 2) }}
+                                    </span>
+                                </h3>
+
+                                @if($item->stock <= 0)
+                                    <span class="cta" style="display:inline-block; opacity:0.6; pointer-events:none;">
+                                        Out of stock
+                                    </span>
+                                @else
+                                    <a
+                                        class="cta"
+                                        href="{{ route('clothing.show', $item->slug) }}"
+                                    >
+                                        View product
                                     </a>
                                 @endif
 
