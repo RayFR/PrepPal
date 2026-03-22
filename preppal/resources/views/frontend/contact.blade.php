@@ -15,28 +15,31 @@
 
     {{-- HERO --}}
     <section class="pp-contact-hero">
-        <div class="pp-contact-hero__inner">
-            <span class="pp-contact-eyebrow">Support • Orders • Meal Help</span>
-            <div class="pp-contact-hero__brand">
-    <img
-        src="{{ asset('images/preppal-logo.png') }}"
-        alt="PrepPal"
-        class="pp-contact-hero__brand-logo"
-    >
-    <h1 class="pp-contact-hero__title">Contact PrepPal</h1>
-</div>
-            <p class="pp-contact-hero__text">
-                Questions about orders, meals, delivery, billing, or your account?
-                Our team usually replies within 24 hours.
-            </p>
+    <div class="pp-contact-hero__inner">
+        <span class="pp-contact-eyebrow">Support • Orders • Meal Help</span>
 
-            <div class="pp-contact-hero__badges">
-                <span class="pp-contact-badge">Replies within 24h</span>
-                <span class="pp-contact-badge">Order & delivery help</span>
-                <span class="pp-contact-badge">Meal & account support</span>
-            </div>
+        <div class="pp-contact-hero__brand">
+            <img
+                src="{{ asset('images/preppal-logo.png') }}"
+                alt="PrepPal"
+                class="pp-contact-hero__brand-logo"
+            >
         </div>
-    </section>
+
+        <h1 class="pp-contact-hero__title">Contact PrepPal</h1>
+
+        <p class="pp-contact-hero__text">
+            Questions about orders, meals, delivery, billing, or your account?
+            Our team usually replies within 24 hours.
+        </p>
+
+        <div class="pp-contact-hero__badges">
+            <span class="pp-contact-badge">Replies within 24h</span>
+            <span class="pp-contact-badge">Order & delivery help</span>
+            <span class="pp-contact-badge">Meal & account support</span>
+        </div>
+    </div>
+</section>
 
     {{-- MAIN CONTENT --}}
     <div class="pp-contact-shell">

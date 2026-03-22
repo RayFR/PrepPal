@@ -1,61 +1,52 @@
- /*
-  Student & ID: Agraj Khanna (240195519)
-  Role: Leader/Frontend
-  File: style.css
-  Description: Paired with Musab to complete styling for PrepPal frontend
-  Date: Nov 2025
-*/
-
 /*
-  Student&ID: Gurpreet Singh Sidhu(230237915)
-  File: style.css
-  Description: Basic styling for layout, navigation, and footer.
-  Date: Oct 30, Thursday, 2025
+  File: pp-00-tokens-base.css
+  Description: Global design tokens and shared base styles for PrepPal.
+
+  Contributors:
+  - Agraj Khanna (240195519), Leader / Frontend
+  - Gurpreet Singh Sidhu (230237915)
+  - Musab Ahmed Rashid (230084799), Designer
+  - Rohan Hayer (240085807), Designer
 */
 
-/*
-  Student & ID: Musab Ahmed Rashid (230084799)
-  Role: Designer
-  File: style.css
-  Description: Complete styling for PrepPal frontend (Home + Admin pages)
-  Date: Nov 2025
-*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-/*
-  Student & ID: Rohan Hayer (240085807)
-  Role: Designer
-  File: style.css
-  Description: Paired with Musab to complete styling for PrepPal frontend
-  Date: Nov 2025
-*/
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
 
+/* --------------------------
+   GLOBAL TOKENS
+-------------------------- */
 
-*, *::before, *::after { box-sizing: border-box; }
-img { max-width: 100%; height: auto; display: block; }
-
-/* --- CSS Variables / Global Tokens --- */
 :root {
-  /* Brand Colors */
+  /* Brand colors */
   --color-primary: #ff7a00;
   --color-primary-light: #ff9000;
-  --color-primary-bg-light: #fff3e0; /* Lightest background */
-  --color-primary-border: #ffb74d;   /* Light border */
-  --color-dark-primary: #fbbf24;    /* Dark mode primary */
+  --color-primary-bg-light: #fff3e0;
+  --color-primary-border: #ffb74d;
+  --color-dark-primary: #fbbf24;
 
-  /* Text Colors */
+  /* Text colors */
   --color-text-dark: #222;
   --color-text-light: #fafafa;
   --color-text-subtle: #555;
   --color-text-subtle-dark: #9ca3af;
 
-  /* Background Colors (Light Mode) */
+  /* Background colors: light mode */
   --color-bg-body: #fafafa;
   --color-bg-white: #fff;
   --color-bg-light-gray: #f9fafb;
   --color-border-light: #ddd;
   --color-border-lighter: #e5e7eb;
 
-  /* Background Colors (Dark Mode) */
+  /* Background colors: dark mode */
   --color-dark-bg-body: #050816;
   --color-dark-bg-nav: #0b1020;
   --color-dark-bg-card: #111827;
@@ -63,18 +54,21 @@ img { max-width: 100%; height: auto; display: block; }
   --color-dark-bg-form: #0f172a;
   --color-dark-border: #111827;
 
-  /* Font & Spacing */
+  /* Typography and layout */
   --font-family-primary: 'Poppins', Arial, sans-serif;
   --max-width-container: 1100px;
 }
 
-/* --- General Setup --- */
+/* --------------------------
+   BASE LAYOUT
+-------------------------- */
+
 body {
-  font-family: var(--font-family-primary);
   margin: 0;
+  font-family: var(--font-family-primary);
+  line-height: 1.6;
   background-color: var(--color-bg-body);
   color: var(--color-text-dark);
-  line-height: 1.6;
 }
 
 .container {
@@ -82,5 +76,3 @@ body {
   margin: 0 auto;
   padding: 0 1rem;
 }
-
-   

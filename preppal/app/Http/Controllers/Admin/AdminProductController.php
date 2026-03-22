@@ -54,7 +54,7 @@ class AdminProductController extends Controller
             'description' => ['required', 'string'],
             'price' => ['required', 'numeric', 'min:0'],
             'image_path' => ['required', 'string', 'max:255'],
-            'category' => ['required', 'in:meal,supplement'],
+            'category' => ['required', 'in:meal,supplement,drink,clothing,equipment'],
             'stock' => ['required', 'integer', 'min:0'],
             'low_stock_threshold' => ['required', 'integer', 'min:0'],
         ]);
@@ -78,7 +78,7 @@ class AdminProductController extends Controller
             'description' => ['required', 'string'],
             'price' => ['required', 'numeric', 'min:0'],
             'image_path' => ['required', 'string', 'max:255'],
-            'category' => ['required', 'in:meal,supplement'],
+            'category' => ['required', 'in:meal,supplement,drink,clothing,equipment'],
             'stock' => ['required', 'integer', 'min:0'],
             'low_stock_threshold' => ['required', 'integer', 'min:0'],
         ]);

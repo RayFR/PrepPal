@@ -7,15 +7,17 @@ use Illuminate\Support\Facades\DB;
 
 class ProductSeeder extends Seeder
 {
-    public function run()
+    /**
+     * Seed the products table with PrepPal catalogue data.
+     */
+    public function run(): void
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('products')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         DB::table('products')->insert([
-
-            // MEAL PLANS
+            // Meal plans
             [
                 'name' => 'Fat Loss Meal Prep Plan',
                 'description' => 'A structured 8-week fat-loss programme designed for sustainable weight reduction.',
@@ -53,7 +55,7 @@ class ProductSeeder extends Seeder
                 'low_stock_threshold' => 5,
             ],
 
-            // SUPPLEMENTS
+            // Supplements
             [
                 'name' => 'Whey Protein 1kg',
                 'description' => 'A smooth whey protein powder formulated to support lean muscle growth.',
@@ -100,6 +102,126 @@ class ProductSeeder extends Seeder
                 'low_stock_threshold' => 8,
             ],
 
+            // Drinks
+            [
+                'name' => 'Electrolyte Hydration Mix',
+                'description' => 'Hydration powder sachets for workouts.',
+                'price' => 12.99,
+                'image_path' => 'images/preppal_electrolyteSachets.png',
+                'category' => 'drink',
+                'stock' => 30,
+                'low_stock_threshold' => 5,
+            ],
+            [
+                'name' => 'Zero Sugar Electrolyte Drink',
+                'description' => 'Zero sugar hydration drink.',
+                'price' => 2.99,
+                'image_path' => 'images/preppal_zerosugarelectrolyte.png',
+                'category' => 'drink',
+                'stock' => 40,
+                'low_stock_threshold' => 5,
+            ],
+            [
+                'name' => 'Whey Protein Shake',
+                'description' => 'Ready-to-drink protein shake.',
+                'price' => 3.49,
+                'image_path' => 'images/preppal_wheyprotein.png',
+                'category' => 'drink',
+                'stock' => 35,
+                'low_stock_threshold' => 5,
+            ],
+            [
+                'name' => 'Plant-Based Protein Drink',
+                'description' => 'Vegan protein drink.',
+                'price' => 3.79,
+                'image_path' => 'images/preppal_plantbasedprotein.png',
+                'category' => 'drink',
+                'stock' => 25,
+                'low_stock_threshold' => 5,
+            ],
+            [
+                'name' => 'Pre-Workout Energy Drink',
+                'description' => 'Boost energy before workouts.',
+                'price' => 2.49,
+                'image_path' => 'images/preppal_preworkoutdrink.png',
+                'category' => 'drink',
+                'stock' => 50,
+                'low_stock_threshold' => 5,
+            ],
+            [
+                'name' => 'BCAA Energy Drink',
+                'description' => 'Supports endurance and recovery.',
+                'price' => 2.99,
+                'image_path' => 'images/preppal_BCAAenergydrink.png',
+                'category' => 'drink',
+                'stock' => 45,
+                'low_stock_threshold' => 5,
+            ],
+            [
+                'name' => 'Recovery Shake',
+                'description' => 'Post-workout recovery drink.',
+                'price' => 3.99,
+                'image_path' => 'images/Preppal_recoveryshake.png',
+                'category' => 'drink',
+                'stock' => 30,
+                'low_stock_threshold' => 5,
+            ],
+            [
+                'name' => 'Green Smoothie',
+                'description' => 'Healthy detox smoothie.',
+                'price' => 2.79,
+                'image_path' => 'images/preppal_greensmoothie.png',
+                'category' => 'drink',
+                'stock' => 20,
+                'low_stock_threshold' => 5,
+            ],
+
+            // Equipment
+            [
+                'name' => 'PrepPal Performance Shaker',
+                'description' => 'A durable everyday shaker bottle built for protein shakes, intra-workout drinks, and daily hydration. Includes a premium PrepPal branded design and extra gallery views on the product page.',
+                'price' => 9.99,
+                'image_path' => 'images/shaker1.png',
+                'category' => 'equipment',
+                'stock' => 40,
+                'low_stock_threshold' => 6,
+            ],
+            [
+                'name' => 'PrepPal Heavy Duty Lifting Belt',
+                'description' => 'A sturdy lifting belt designed to support heavy compound movements such as squats and deadlifts. Product page includes alternate belt imagery.',
+                'price' => 34.99,
+                'image_path' => 'images/belt1.png',
+                'category' => 'equipment',
+                'stock' => 18,
+                'low_stock_threshold' => 4,
+            ],
+            [
+                'name' => 'PrepPal Wrist Wraps',
+                'description' => 'Supportive wrist wraps built for pressing movements and upper-body sessions. Includes extra product imagery when viewed on the product page.',
+                'price' => 14.99,
+                'image_path' => 'images/wraps1.png',
+                'category' => 'equipment',
+                'stock' => 28,
+                'low_stock_threshold' => 5,
+            ],
+            [
+                'name' => 'PrepPal Liquid Chalk',
+                'description' => 'Grip-focused liquid chalk designed for deadlifts, rows, pull work, and demanding gym sessions.',
+                'price' => 9.99,
+                'image_path' => 'images/chalk.png',
+                'category' => 'equipment',
+                'stock' => 26,
+                'low_stock_threshold' => 5,
+            ],
+            [
+                'name' => 'PrepPal Wrist Straps',
+                'description' => 'Heavy-duty lifting straps made to help reduce grip fatigue during pulling movements. Includes alternate gallery imagery on the product page.',
+                'price' => 12.99,
+                'image_path' => 'images/straps1.png',
+                'category' => 'equipment',
+                'stock' => 24,
+                'low_stock_threshold' => 5,
+            ],
         ]);
     }
 }

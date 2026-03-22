@@ -14,7 +14,9 @@
   <div class="pp-advice-top">
     <div class="pp-advice-top__left">
       <h1 class="pp-advice-h1">Advice</h1>
-      <p class="pp-advice-p">Training, nutrition, recipes and meal-prep guides built for real schedules.</p>
+      <p class="pp-advice-p">
+        Practical training, nutrition, recipes, supplements, and meal-prep guidance designed for real schedules, student life, gym routines, and long-term consistency.
+      </p>
     </div>
 
     <form class="pp-advice-top__search" method="GET" action="{{ route('blog.index') }}">
@@ -52,11 +54,11 @@
     </form>
   </div>
 
-  {{-- ✅ GUIDES BY GOAL (NEW) --}}
+  {{-- GUIDES BY GOAL --}}
   <section class="pp-advice-section">
     <div class="pp-advice-section__head">
       <h2>Guides by goal</h2>
-      <span class="pp-advice-muted">Pick a goal — get a simple path</span>
+      <span class="pp-advice-muted">Pick a goal and follow a clearer path</span>
     </div>
 
     <div class="pp-goal-grid">
@@ -66,7 +68,9 @@
           <span class="pp-goal-emoji">🔥</span>
         </div>
         <h3>Cut without starving</h3>
-        <p>Calories, high-protein meals and consistency tips that actually work.</p>
+        <p>
+          Learn how to create a realistic calorie deficit, keep protein high, manage hunger, and build a structure you can actually stick to across busy weeks.
+        </p>
       </a>
 
       <a class="pp-goal-card" href="{{ route('blog.index', ['section' => 'nutrition', 'q' => 'bulking']) }}">
@@ -75,7 +79,9 @@
           <span class="pp-goal-emoji">💪</span>
         </div>
         <h3>Lean mass setup</h3>
-        <p>Surplus basics, macros, and meal-prep structure for gym growth.</p>
+        <p>
+          Understand surplus basics, meal timing, protein targets, and how to build a cleaner muscle-gain routine without turning your bulk into random overeating.
+        </p>
       </a>
 
       <a class="pp-goal-card" href="{{ route('blog.index', ['section' => 'meal-prep', 'q' => 'meal prep']) }}">
@@ -84,7 +90,9 @@
           <span class="pp-goal-emoji">🍱</span>
         </div>
         <h3>Sunday prep system</h3>
-        <p>Simple weekly routine: shop → prep → store → repeat.</p>
+        <p>
+          Build a simple weekly prep routine covering shopping, batch cooking, storage, reheating, and portion planning so healthy eating becomes faster and easier.
+        </p>
       </a>
 
       <a class="pp-goal-card" href="{{ route('blog.index', ['section' => 'student', 'q' => 'budget']) }}">
@@ -93,7 +101,9 @@
           <span class="pp-goal-emoji">🎓</span>
         </div>
         <h3>Budget-friendly wins</h3>
-        <p>High-protein on a budget + time-saving hacks for busy weeks.</p>
+        <p>
+          Discover high-protein, lower-cost food ideas, time-saving shopping tips, and realistic ways to stay on track with nutrition during lectures, placements, and deadlines.
+        </p>
       </a>
     </div>
   </section>
@@ -122,7 +132,9 @@
           </div>
 
           <h3 class="pp-advice-featured__title">{{ $featured->title }}</h3>
-          <p class="pp-advice-featured__excerpt">{{ $featured->excerpt }}</p>
+          <p class="pp-advice-featured__excerpt">
+            {{ \Illuminate\Support\Str::limit(strip_tags($featured->excerpt ?: $featured->content), 210) }}
+          </p>
 
           <div class="pp-advice-meta">
             <span>{{ optional($featured->published_at)->format('d M Y') ?? $featured->created_at->format('d M Y') }}</span>
@@ -155,7 +167,9 @@
             <div class="pp-advice-mini__body">
               <span class="pp-advice-mini__tag">{{ $p->section }}</span>
               <div class="pp-advice-mini__title">{{ $p->title }}</div>
-              <div class="pp-advice-mini__meta">{{ number_format($p->views) }} views</div>
+              <div class="pp-advice-mini__meta">
+                {{ \Illuminate\Support\Str::limit(strip_tags($p->excerpt ?: $p->content), 95) }}
+              </div>
             </div>
           </a>
         @endforeach
@@ -185,7 +199,9 @@
           <div class="pp-advice-card__body">
             <div class="pp-advice-card__kicker">{{ $sections[$post->section] ?? $post->section }}</div>
             <h3 class="pp-advice-card__title">{{ $post->title }}</h3>
-            <p class="pp-advice-card__excerpt">{{ $post->excerpt }}</p>
+            <p class="pp-advice-card__excerpt">
+              {{ \Illuminate\Support\Str::limit(strip_tags($post->excerpt ?: $post->content), 170) }}
+            </p>
 
             <div class="pp-advice-meta">
               <span>{{ optional($post->published_at)->format('d M Y') ?? $post->created_at->format('d M Y') }}</span>

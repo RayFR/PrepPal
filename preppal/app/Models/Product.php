@@ -13,7 +13,9 @@ class Product extends Model
         'description',
         'price',
         'category',
-        'image',
+        'image_path',
+        'stock',
+        'low_stock_threshold',
     ];
 
     protected $casts = [

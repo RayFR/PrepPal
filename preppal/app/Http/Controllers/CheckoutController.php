@@ -2,17 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\View\View;
 
 class CheckoutController extends Controller
 {
-    public function store(Request $request)
+    /**
+     * Store a new order from the checkout request.
+     */
+    public function store(Request $request): JsonResponse
     {
         $validated = $request->validate([
+<<<<<<< HEAD
             'items' => 'required|array|min:1',
             'items.*.id' => 'required|integer|exists:products,id',
             'items.*.qty' => 'required|integer|min:1',
@@ -23,24 +30,38 @@ class CheckoutController extends Controller
             'city' => 'required|string|min:2|max:255',
             'postcode' => ['required', 'string', 'max:20', 'regex:/^[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}$/i'],
             'notes' => 'nullable|string|max:1000',
+=======
+            'items' => ['required', 'array', 'min:1'],
+            'items.*.id' => ['required', 'integer', 'exists:products,id'],
+            'items.*.qty' => ['required', 'integer', 'min:1'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255'],
+            'address' => ['required', 'string', 'max:500'],
+            'city' => ['required', 'string', 'max:255'],
+            'postcode' => ['required', 'string', 'max:20'],
+            'notes' => ['nullable', 'string', 'max:1000'],
+>>>>>>> 375427e6ce8a3c335059cc45153bb9ef9d4f2781
         ]);
 
         $items = collect($validated['items']);
-        $products = Product::whereIn('id', $items->pluck('id'))->get()->keyBy('id');
+        $products = Product::whereIn('id', $items->pluck('id'))
+            ->get()
+            ->keyBy('id');
 
         $total = 0;
-        foreach ($items as $it) {
-            $product = $products[$it['id']];
-            $total += $product->price * $it['qty'];
+
+        foreach ($items as $item) {
+            $product = $products[$item['id']];
+            $total += $product->price * $item['qty'];
         }
 
-        foreach ($items as $it) {
-            $product = $products[$it['id']];
+        foreach ($items as $item) {
+            $product = $products[$item['id']];
 
-            if ($product->stock < $it['qty']) {
+            if ($product->stock < $item['qty']) {
                 return response()->json([
                     'success' => false,
-                    'message' => "{$product->name} does not have enough stock available."
+                    'message' => "{$product->name} does not have enough stock available.",
                 ], 422);
             }
         }
@@ -56,20 +77,19 @@ class CheckoutController extends Controller
             'total_price' => $total,
         ]);
 
-        foreach ($items as $it) {
-            $product = $products[$it['id']];
+        foreach ($items as $item) {
+            $product = $products[$item['id']];
 
             OrderItem::create([
                 'order_id' => $order->id,
                 'product_id' => $product->id,
-                'quantity' => $it['qty'],
+                'quantity' => $item['qty'],
                 'price' => $product->price,
             ]);
 
-            $product->decrement('stock', $it['qty']);
+            $product->decrement('stock', $item['qty']);
         }
 
-        // store last order id in session (optional, helps confirmation page access)
         $request->session()->put('last_order_id', $order->id);
 
         return response()->json([
@@ -78,16 +98,18 @@ class CheckoutController extends Controller
         ]);
     }
 
-    public function confirmation(Request $request)
+    /**
+     * Display the checkout confirmation page.
+     */
+    public function confirmation(Request $request): View|RedirectResponse
     {
         $orderId = (int) $request->query('order_id', 0);
 
-        // fallback to session if query missing
-        if (!$orderId) {
+        if (! $orderId) {
             $orderId = (int) $request->session()->get('last_order_id', 0);
         }
 
-        if (!$orderId) {
+        if (! $orderId) {
             return redirect()->route('store');
         }
 
@@ -101,9 +123,8 @@ class CheckoutController extends Controller
             ->get()
             ->keyBy('id');
 
-        // delivery estimate: 2–4 days from now (display range)
         $from = Carbon::now()->addDays(2)->format('D j M');
-        $to   = Carbon::now()->addDays(4)->format('D j M');
+        $to = Carbon::now()->addDays(4)->format('D j M');
 
         return view('frontend.checkout-confirmation', [
             'order' => $order,

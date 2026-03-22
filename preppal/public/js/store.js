@@ -17,120 +17,223 @@ document.addEventListener('DOMContentLoaded', () => {
     return `£${n.toFixed(2)}`;
   };
 
+  function safeReloadCart() {
+    if (window.Cart && typeof window.Cart.reload === 'function') {
+      window.Cart.reload();
+    }
+  }
+
+  function getCartItems() {
+    if (!window.Cart || typeof window.Cart.getItems !== 'function') return [];
+    return window.Cart.getItems();
+  }
+
+  function getCartCount() {
+    if (!window.Cart || typeof window.Cart.getCount !== 'function') return 0;
+    return window.Cart.getCount();
+  }
+
   function updatePill() {
     if (!cartDisplay) return;
 
-    Cart.reload();
-    const count = Cart.getCount();
+    safeReloadCart();
+    const count = getCartCount();
 
     cartDisplay.textContent = `Cart (${count})`;
 
-    // ✅ Hide cart until there is at least 1 item
     if (count <= 0) {
       cartDisplay.classList.add('cart-hidden');
-      cartPanel?.classList.remove('open'); // also close if it was open
+      cartPanel?.classList.remove('open');
+      cartPanel?.setAttribute('aria-hidden', 'true');
     } else {
       cartDisplay.classList.remove('cart-hidden');
     }
   }
 
+  function removeCartItem(item) {
+    if (!window.Cart || typeof window.Cart.removeItem !== 'function') return;
+    const key = item.lineKey ? item.lineKey : item.id;
+    window.Cart.removeItem(key);
+    updatePill();
+    renderMiniCart();
+  }
+
+  function increaseCartItem(item) {
+    if (!window.Cart || typeof window.Cart.increaseQty !== 'function') return;
+    const key = item.lineKey ? item.lineKey : item.id;
+    window.Cart.increaseQty(key);
+    updatePill();
+    renderMiniCart();
+  }
+
+  function decreaseCartItem(item) {
+    if (!window.Cart || typeof window.Cart.decreaseQty !== 'function') return;
+    const key = item.lineKey ? item.lineKey : item.id;
+    window.Cart.decreaseQty(key);
+    updatePill();
+    renderMiniCart();
+  }
+
   function renderMiniCart() {
     if (!cartItemsList) return;
 
-    Cart.reload();
-    const items = Cart.getItems();
+    safeReloadCart();
+    const items = getCartItems();
 
     cartItemsList.innerHTML = '';
 
     if (!items.length) {
-      cartItemsList.innerHTML = '<li>Your cart is empty.</li>';
-      if (cartTotalEl) cartTotalEl.textContent = `Total: ${fmt(0)}`;
-      if (cartSummary) cartSummary.textContent = 'You have 0 items in your cart.';
+      cartItemsList.innerHTML = '<li class="cart-empty">Your cart is empty.</li>';
+
+      if (cartTotalEl) {
+        cartTotalEl.textContent = `Total: ${fmt(0)}`;
+      }
+
+      if (cartSummary) {
+        cartSummary.textContent = 'You have 0 items in your cart.';
+      }
+
       return;
     }
 
     let total = 0;
 
-    items.forEach(item => {
+    items.forEach((item) => {
       const price = Number(item.price) || 0;
       const qty = Number(item.qty) || 0;
       const lineTotal = price * qty;
       total += lineTotal;
 
       const li = document.createElement('li');
+      li.className = 'cart-item';
+
+      const variantHtml = item.variant
+        ? `<span class="meta">${item.variant}</span>`
+        : '';
+
       li.innerHTML = `
-        <div class="thumb-wrapper">
-          ${item.image ? `<img class="thumb" src="${item.image}" alt="${item.name}">` : ''}
+        <div class="cart-item__thumb-wrap">
+          ${item.image ? `<img class="cart-item__thumb" src="${item.image}" alt="${item.name}">` : ''}
         </div>
-        <div class="info">
-          <span class="name">${item.name}</span>
-          <span class="meta">Qty: ${qty} × ${fmt(price)}</span>
+
+        <div class="cart-item__body">
+          <span class="cart-item__name">${item.name}</span>
+          ${variantHtml}
+
+          <div class="cart-item__qty-row">
+            <span class="cart-item__qty-label">Quantity</span>
+
+            <div class="cart-item__qty-controls">
+              <button type="button" class="cart-qty-btn cart-qty-minus" aria-label="Decrease quantity">−</button>
+              <span class="cart-item__qty-value">${qty}</span>
+              <button type="button" class="cart-qty-btn cart-qty-plus" aria-label="Increase quantity">+</button>
+            </div>
+          </div>
+
+          <span class="cart-item__unit-price">${fmt(price)} each</span>
         </div>
-        <span class="price">${fmt(lineTotal)}</span>
-        <button type="button" class="remove-item" data-id="${item.id}">Remove</button>
+
+        <div class="cart-item__side">
+          <span class="cart-item__line-total">${fmt(lineTotal)}</span>
+          <button type="button" class="remove-item">Remove</button>
+        </div>
       `;
 
       li.querySelector('.remove-item')?.addEventListener('click', () => {
-        Cart.removeItem(item.id);
-        updatePill();
-        renderMiniCart();
+        removeCartItem(item);
+      });
+
+      li.querySelector('.cart-qty-plus')?.addEventListener('click', () => {
+        increaseCartItem(item);
+      });
+
+      li.querySelector('.cart-qty-minus')?.addEventListener('click', () => {
+        decreaseCartItem(item);
       });
 
       cartItemsList.appendChild(li);
     });
 
-    if (cartTotalEl) cartTotalEl.textContent = `Total: ${fmt(total)}`;
+    if (cartTotalEl) {
+      cartTotalEl.textContent = `Total: ${fmt(total)}`;
+    }
+
     if (cartSummary) {
-      const c = Cart.getCount();
-      cartSummary.textContent = `You have ${c} ${c === 1 ? 'item' : 'items'} in your cart.`;
+      const count = getCartCount();
+      cartSummary.textContent = `You have ${count} ${count === 1 ? 'item' : 'items'} in your cart.`;
     }
   }
 
   function togglePanel() {
     if (!cartPanel) return;
 
-    // ✅ Safety: don’t open if cart is empty (even if someone forces it visible)
-    Cart.reload();
-    if (Cart.getCount() <= 0) return;
+    safeReloadCart();
+    if (getCartCount() <= 0) return;
 
-    cartPanel.classList.toggle('open');
+    const isOpen = cartPanel.classList.toggle('open');
+    cartPanel.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
   }
 
-  document.querySelectorAll('.add-to-cart').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
+  function bindAddToCartButtons() {
+    const buttons = document.querySelectorAll('.add-to-cart');
 
-      const id = btn.dataset.id;
-      const name = btn.dataset.name;
-      const price = parseFloat(btn.dataset.price || '0') || 0; // still GBP base
-      const image = btn.dataset.image || '';
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
 
-      Cart.addItem(id, name, price, image);
+        if (!window.Cart || typeof window.Cart.addItem !== 'function') {
+          console.error('Cart is not available.');
+          return;
+        }
 
-      updatePill();
-      renderMiniCart();
+        const id = btn.dataset.id || '';
+        const name = btn.dataset.name || 'Item';
+        const price = parseFloat(btn.dataset.price || '0') || 0;
+        const image = btn.dataset.image || '';
+        const variant = btn.dataset.variant || '';
+
+        window.Cart.addItem(id, name, price, image, { variant });
+
+        updatePill();
+        renderMiniCart();
+      });
     });
-  });
+  }
 
   cartDisplay?.addEventListener('click', togglePanel);
-  closeBtn?.addEventListener('click', () => cartPanel?.classList.remove('open'));
-  clearBtn?.addEventListener('click', () => { Cart.clear(); updatePill(); renderMiniCart(); });
+
+  closeBtn?.addEventListener('click', () => {
+    cartPanel?.classList.remove('open');
+    cartPanel?.setAttribute('aria-hidden', 'true');
+  });
+
+  clearBtn?.addEventListener('click', () => {
+    if (!window.Cart || typeof window.Cart.clear !== 'function') return;
+
+    window.Cart.clear();
+    updatePill();
+    renderMiniCart();
+  });
+
   checkoutBtn?.addEventListener('click', () => {
-    if (Cart.getCount() === 0) return alert('Your cart is empty.');
+    if (getCartCount() === 0) {
+      alert('Your cart is empty.');
+      return;
+    }
+
     window.location.href = '/checkout';
   });
 
-updatePill();
-renderMiniCart();
-
-// Re-render cart when product page custom add-to-cart updates it
-window.addEventListener('pp:cartUpdated', () => {
+  bindAddToCartButtons();
   updatePill();
   renderMiniCart();
-});
 
-// Re-render totals when currency changes
-window.addEventListener('pp:currencyChanged', () => {
-  renderMiniCart();
-});
+  window.addEventListener('pp:cartUpdated', () => {
+    updatePill();
+    renderMiniCart();
+  });
+
+  window.addEventListener('pp:currencyChanged', () => {
+    renderMiniCart();
+  });
 });

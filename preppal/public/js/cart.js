@@ -59,6 +59,49 @@ window.Cart = (function () {
     save();
   }
 
+  function increaseQty(idOrLineKey) {
+    const key = String(idOrLineKey);
+    const found = items.find(i => (i.lineKey || String(i.id)) === key);
+
+    if (!found) return;
+
+    found.qty = (Number(found.qty) || 0) + 1;
+    save();
+  }
+
+  function decreaseQty(idOrLineKey) {
+    const key = String(idOrLineKey);
+    const found = items.find(i => (i.lineKey || String(i.id)) === key);
+
+    if (!found) return;
+
+    found.qty = (Number(found.qty) || 0) - 1;
+
+    if (found.qty <= 0) {
+      removeItem(key);
+      return;
+    }
+
+    save();
+  }
+
+  function setQty(idOrLineKey, qty) {
+    const key = String(idOrLineKey);
+    const found = items.find(i => (i.lineKey || String(i.id)) === key);
+
+    if (!found) return;
+
+    const nextQty = Math.max(0, parseInt(qty, 10) || 0);
+
+    if (nextQty <= 0) {
+      removeItem(key);
+      return;
+    }
+
+    found.qty = nextQty;
+    save();
+  }
+
   function clear() {
     items = [];
     save();
@@ -82,7 +125,18 @@ window.Cart = (function () {
 
   load();
 
-  return { addItem, removeItem, clear, getItems, getCount, getTotal, reload };
+  return {
+    addItem,
+    removeItem,
+    increaseQty,
+    decreaseQty,
+    setQty,
+    clear,
+    getItems,
+    getCount,
+    getTotal,
+    reload
+  };
 })();
 
 // ===========================
@@ -172,8 +226,8 @@ window.Cart = (function () {
       return result;
     };
 
-    document.addEventListener("click", (e) => {
-      const btn = e.target.closest(".add-to-cart");
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('.add-to-cart');
       if (btn) window.__lastAddToCartEl = btn;
     }, true);
 

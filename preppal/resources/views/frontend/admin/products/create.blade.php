@@ -35,6 +35,9 @@
                     <select name="category" required style="width:100%; padding:0.65rem; border-radius:10px;">
                         <option value="meal" {{ old('category') === 'meal' ? 'selected' : '' }}>Meal</option>
                         <option value="supplement" {{ old('category') === 'supplement' ? 'selected' : '' }}>Supplement</option>
+                        <option value="drink" {{ old('category') === 'drink' ? 'selected' : '' }}>Drink</option>
+                        <option value="clothing" {{ old('category') === 'clothing' ? 'selected' : '' }}>Clothing</option>
+                        <option value="equipment" {{ old('category') === 'equipment' ? 'selected' : '' }}>Equipment</option>
                     </select>
                 </div>
 

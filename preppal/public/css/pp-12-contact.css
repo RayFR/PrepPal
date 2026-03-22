@@ -15,35 +15,6 @@
   padding: 0 1rem;
 }
 
-.pp-contact-hero__logo-bg{
-  position: absolute;
-  inset: 0 1rem 0 1rem;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-}
-
-.pp-contact-hero__logo-bg::before{
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 30px;
-  background:
-    radial-gradient(circle at center, rgba(0,0,0,.10), rgba(0,0,0,.28) 62%, rgba(0,0,0,.40) 100%);
-}
-
-.pp-contact-hero__logo-bg img{
-  width: min(760px, 82%);
-  max-width: 100%;
-  opacity: .16;
-  filter:
-    drop-shadow(0 0 18px rgba(255,140,0,.55))
-    drop-shadow(0 0 48px rgba(255,140,0,.28));
-  transform: translateY(6px);
-}
-
 .pp-contact-hero__inner{
   position: relative;
   z-index: 2;
@@ -57,35 +28,59 @@
   text-align: center;
   color: #fff;
   background:
-    linear-gradient(135deg, rgba(255,122,0,.92), rgba(255,170,70,.90)),
-    radial-gradient(circle at center, rgba(255,255,255,.10), transparent 55%);
-  box-shadow: 0 20px 46px rgba(255,122,0,.20);
+    radial-gradient(circle at top center, rgba(255,140,0,.10), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(255,140,0,.08), transparent 28%),
+    linear-gradient(135deg, #05070d 0%, #091224 55%, #0c1930 100%);
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow:
+    0 22px 50px rgba(0,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,.04);
 }
 
 .pp-contact-eyebrow{
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: .55rem 1rem;
+  padding: .6rem 1rem;
   border-radius: 999px;
   font-size: .88rem;
   font-weight: 850;
   line-height: 1;
   letter-spacing: .02em;
-  background: rgba(255,255,255,.14);
-  border: 1px solid rgba(255,255,255,.24);
-  backdrop-filter: blur(6px);
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.14);
+  color: #ffffff;
+  margin-bottom: 1.1rem;
+}
+
+.pp-contact-hero__brand{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  width: 100%;
   margin-bottom: 1rem;
+}
+
+.pp-contact-hero__brand-logo{
+  width: min(760px, 92vw);
+  max-width: none;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 12px 26px rgba(0,0,0,.26))
+    drop-shadow(0 0 22px rgba(255,140,0,.14));
 }
 
 .pp-contact-hero__title{
   margin: 0;
-  max-width: 900px;
-  font-size: clamp(2.3rem, 6vw, 5rem);
-  line-height: .98;
+  max-width: 1100px;
+  font-size: clamp(2.4rem, 6vw, 4.9rem);
+  line-height: 1;
   font-weight: 900;
   letter-spacing: -.02em;
-  text-shadow: 0 2px 18px rgba(0,0,0,.10);
+  text-shadow: 0 2px 18px rgba(0,0,0,.14);
 }
 
 .pp-contact-hero__text{
@@ -93,7 +88,7 @@
   margin: 1rem auto 0;
   font-size: clamp(1rem, 1.8vw, 1.2rem);
   line-height: 1.65;
-  color: rgba(255,255,255,.96);
+  color: rgba(255,255,255,.88);
   text-wrap: balance;
 }
 
@@ -117,40 +112,10 @@
   font-weight: 850;
   line-height: 1.1;
   text-align: center;
-  background: rgba(0,0,0,.16);
-  border: 1px solid rgba(255,255,255,.16);
-  color: #fff;
-  backdrop-filter: blur(6px);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
-}
-
-.pp-contact-hero__brand{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  width: 100%;
-}
-
-.pp-contact-hero__brand-logo{
-  width: min(420px, 78vw);
-  max-width: 100%;
-  height: auto;
-  display: block;
-  object-fit: contain;
-  filter:
-    drop-shadow(0 8px 24px rgba(0,0,0,.18))
-    drop-shadow(0 0 18px rgba(255,140,0,.22));
-}
-
-.pp-contact-hero__title{
-  margin: 0;
-  max-width: 900px;
-  font-size: clamp(2rem, 5vw, 4rem);
-  line-height: 1;
-  font-weight: 900;
-  letter-spacing: -.02em;
-  text-shadow: 0 2px 18px rgba(0,0,0,.10);
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  color: #ffffff;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
 }
 
 /* LAYOUT */
@@ -559,22 +524,17 @@ body[data-theme="dark"] .pp-contact-alert--error{
     border-radius: 24px;
   }
 
-  .pp-contact-hero__logo-bg{
-    inset: 0 1rem 0 1rem;
-  }
-
-  .pp-contact-hero__logo-bg::before{
-    border-radius: 24px;
-  }
-
-  .pp-contact-hero__logo-bg img{
-    width: 92%;
-    opacity: .13;
-  }
-
   .pp-contact-eyebrow{
     font-size: .8rem;
     padding: .5rem .8rem;
+  }
+
+  .pp-contact-hero__brand-logo{
+    width: min(460px, 90vw);
+  }
+
+  .pp-contact-hero__title{
+    font-size: clamp(2rem, 9vw, 3.2rem);
   }
 
   .pp-contact-hero__text{
@@ -614,33 +574,4 @@ body[data-theme="dark"] .pp-contact-alert--error{
     font-size: 1rem;
     padding: .95rem 1rem;
   }
-}
-
-.pp-contact-hero__brand{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  width: 100%;
-}
-
-.pp-contact-hero__brand-logo{
-  width: min(420px, 78vw);
-  max-width: 100%;
-  height: auto;
-  display: block;
-  object-fit: contain;
-  filter:
-    drop-shadow(0 8px 24px rgba(0,0,0,.18))
-    drop-shadow(0 0 18px rgba(255,140,0,.22));
-}
-
-.pp-contact-hero__title{
-  margin: 0;
-  max-width: 900px;
-  font-size: clamp(2rem, 5vw, 4rem);
-  line-height: 1;
-  font-weight: 900;
-  letter-spacing: -.02em;
-  text-shadow: 0 2px 18px rgba(0,0,0,.10);
 }

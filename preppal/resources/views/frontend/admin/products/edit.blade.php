@@ -26,7 +26,6 @@
         </div>
     @endif
 
-    {{-- Edit product --}}
     <div class="card" style="padding: 1.25rem; border-radius: 12px; margin-top: 1rem;">
         <h2 style="margin-top:0;">Product Details</h2>
 
@@ -45,6 +44,9 @@
                     <select name="category" required style="width:100%; padding:0.65rem; border-radius:10px;">
                         <option value="meal" {{ old('category', $product->category) === 'meal' ? 'selected' : '' }}>Meal</option>
                         <option value="supplement" {{ old('category', $product->category) === 'supplement' ? 'selected' : '' }}>Supplement</option>
+                        <option value="drink" {{ old('category', $product->category) === 'drink' ? 'selected' : '' }}>Drink</option>
+                        <option value="clothing" {{ old('category', $product->category) === 'clothing' ? 'selected' : '' }}>Clothing</option>
+                        <option value="equipment" {{ old('category', $product->category) === 'equipment' ? 'selected' : '' }}>Equipment</option>
                     </select>
                 </div>
 
@@ -82,7 +84,6 @@
         </form>
     </div>
 
-    {{-- Incoming stock --}}
     <div class="card" style="padding: 1.25rem; border-radius: 12px; margin-top: 1rem;">
         <h2 style="margin-top:0;">Incoming Stock</h2>
         <p style="opacity:0.8; margin-top:0;">

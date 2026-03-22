@@ -54,6 +54,9 @@
             <option value="all" {{ $category === 'all' || $category === '' ? 'selected' : '' }}>All categories</option>
             <option value="meal" {{ $category === 'meal' ? 'selected' : '' }}>Meal</option>
             <option value="supplement" {{ $category === 'supplement' ? 'selected' : '' }}>Supplement</option>
+            <option value="drink" {{ $category === 'drink' ? 'selected' : '' }}>Drink</option>
+            <option value="clothing" {{ $category === 'clothing' ? 'selected' : '' }}>Clothing</option>
+            <option value="equipment" {{ $category === 'equipment' ? 'selected' : '' }}>Equipment</option>
         </select>
 
         <select name="stock_status" style="padding:0.65rem; border-radius:10px;">
