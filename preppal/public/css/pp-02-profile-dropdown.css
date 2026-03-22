@@ -162,18 +162,16 @@ body[data-theme="dark"] .profile-dd__logout {
    Let pp-01-navbar-cartpill.css control size.
 -------------------------- */
 
+/* --------------------------
+   BRAND / LOGO
+-------------------------- */
+
 .brand {
-  display: flex;
-  align-items: center;
-  height: auto;
   text-decoration: none;
   flex: 0 0 auto;
 }
 
 .brand-badge {
-  width: 340px;
-  height: 88px;
-  background: url('../images/preppal-logo.png') left center / contain no-repeat;
   display: block;
 }
 
