@@ -15,15 +15,12 @@
 
     @stack('styles')
 </head>
-
 <body>
-
     <header class="nav">
         <div class="container nav-inner">
-
             <a href="{{ route('home') }}" class="brand" aria-label="PrepPal home">
-  <span class="brand-badge"></span>
-</a>
+                <span class="brand-badge"></span>
+            </a>
 
             <nav class="nav-links" aria-label="Primary navigation">
                 <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a>
@@ -59,7 +56,6 @@
             </nav>
 
             <div class="nav-actions" aria-label="Navigation actions">
-
                 @auth
                     @if (
                         request()->routeIs('store') ||
@@ -90,7 +86,7 @@
                         </div>
                     @endif
 
-                    <button type="button" id="cartDisplay" aria-label="Open cart" class="cart-hidden">
+                    <button type="button" id="cartDisplay" class="cart-hidden" aria-label="Open cart">
                         Cart (0)
                     </button>
 
@@ -114,7 +110,7 @@
                         <div class="profile-dd__menu" id="profileMenu" role="menu" aria-label="Profile menu">
                             <a role="menuitem" href="{{ route('profile.index') }}">My Profile</a>
 
-                            @if(auth()->user()->is_admin)
+                            @if (auth()->user()->is_admin)
                                 <a href="{{ route('admin.dashboard') }}">Admin Dashboard</a>
                                 <a href="{{ route('admin.customers.index') }}">Admin Customers</a>
                                 <a href="{{ route('admin.orders.index') }}">Admin Orders</a>
@@ -133,7 +129,6 @@
 
                 <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle theme">☀️</button>
             </div>
-
         </div>
     </header>
 
@@ -165,7 +160,15 @@
         <div class="pp-newsletter__backdrop" data-pp-nl-close></div>
 
         <div class="pp-newsletter__dialog" role="dialog" aria-modal="true" aria-labelledby="ppNlTitle">
-            <button class="pp-newsletter__close" type="button" aria-label="Close" data-pp-nl-close onclick="document.getElementById('ppNewsletter').classList.remove('is-open'); document.getElementById('ppNewsletter').setAttribute('aria-hidden','true'); document.documentElement.style.overflow=''; document.body.style.overflow='';">×</button>
+            <button
+                class="pp-newsletter__close"
+                type="button"
+                aria-label="Close"
+                data-pp-nl-close
+                onclick="document.getElementById('ppNewsletter').classList.remove('is-open'); document.getElementById('ppNewsletter').setAttribute('aria-hidden', 'true'); document.documentElement.style.overflow=''; document.body.style.overflow='';"
+            >
+                ×
+            </button>
 
             <div class="pp-newsletter__grid">
                 <div class="pp-newsletter__media" aria-hidden="true">
@@ -190,7 +193,14 @@
                                 FIND YOUR FUEL
                             </a>
 
-                            <button class="pp-newsletter__no" type="button" data-pp-nl-close onclick="document.getElementById('ppNewsletter').classList.remove('is-open'); document.getElementById('ppNewsletter').setAttribute('aria-hidden','true'); document.documentElement.style.overflow=''; document.body.style.overflow='';">Close</button>
+                            <button
+                                class="pp-newsletter__no"
+                                type="button"
+                                data-pp-nl-close
+                                onclick="document.getElementById('ppNewsletter').classList.remove('is-open'); document.getElementById('ppNewsletter').setAttribute('aria-hidden', 'true'); document.documentElement.style.overflow=''; document.body.style.overflow='';"
+                            >
+                                Close
+                            </button>
                         </div>
                     @else
                         <h2 class="pp-newsletter__title" id="ppNlTitle">Fuel your ambition</h2>
@@ -213,7 +223,14 @@
                             >
 
                             <button class="pp-newsletter__btn" type="submit">GET MY 15% OFF</button>
-                            <button class="pp-newsletter__no" type="button" data-pp-nl-close onclick="document.getElementById('ppNewsletter').classList.remove('is-open'); document.getElementById('ppNewsletter').setAttribute('aria-hidden','true'); document.documentElement.style.overflow=''; document.body.style.overflow='';">No, thanks</button>
+                            <button
+                                class="pp-newsletter__no"
+                                type="button"
+                                data-pp-nl-close
+                                onclick="document.getElementById('ppNewsletter').classList.remove('is-open'); document.getElementById('ppNewsletter').setAttribute('aria-hidden', 'true'); document.documentElement.style.overflow=''; document.body.style.overflow='';"
+                            >
+                                No, thanks
+                            </button>
 
                             <p class="pp-newsletter__fine">
                                 By providing your email, you agree to our

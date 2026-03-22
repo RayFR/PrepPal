@@ -21,7 +21,7 @@
 
   $isMeal = $productCategory === 'meal';
 
-  // Clothing detection
+  // Detect clothing products.
   $isTank = str_contains($productSlug, 'tank');
   $isShorts = str_contains($productSlug, 'shorts');
   $isZip = str_contains($productSlug, 'zip');
@@ -29,7 +29,7 @@
   $isGymGirlSet = str_contains($productSlug, 'gym girl set');
   $isClothing = $productCategory === 'clothing' || $isTank || $isShorts || $isZip || $isPants || $isGymGirlSet;
 
-  // Equipment detection
+  // Detect equipment products.
   $isEquipment = $productCategory === 'equipment';
   $isShaker = $productSlug === 'preppal performance shaker';
   $isBelt = $productSlug === 'preppal heavy duty lifting belt';
@@ -1293,13 +1293,13 @@
     <aside class="pp-pdp-right">
       <h1 class="pp-title">{{ $product->name }}</h1>
       <p class="pp-subtitle">
-        @if($isClothing)
+        @if ($isClothing)
           Clothing
-        @elseif($isEquipment)
+        @elseif ($isEquipment)
           Equipment
-        @elseif($product->category === 'meal')
+        @elseif ($product->category === 'meal')
           Meal Prep Plan
-        @elseif($product->category === 'drink')
+        @elseif ($product->category === 'drink')
           Drink
         @else
           Supplement
@@ -1328,9 +1328,9 @@
           >£{{ number_format($product->price, 2) }}{{ $product->category === 'meal' ? ' / week' : '' }}</span>
         </div>
         <div class="pp-stock">
-          @if(isset($product->stock) && $product->stock <= 0)
+          @if (isset($product->stock) && $product->stock <= 0)
             Out of stock
-          @elseif(isset($product->stock) && isset($product->low_stock_threshold) && $product->stock <= $product->low_stock_threshold)
+          @elseif (isset($product->stock) && isset($product->low_stock_threshold) && $product->stock <= $product->low_stock_threshold)
             Low stock
           @else
             In stock
@@ -1339,15 +1339,15 @@
       </div>
 
       <ul class="pp-benefits">
-        @if($isClothing)
+        @if ($isClothing)
           <li>Comfortable training fit</li>
           <li>Designed for gym and casual wear</li>
           <li>Signature PrepPal branding</li>
-        @elseif($isEquipment)
+        @elseif ($isEquipment)
           <li>Built for regular gym use</li>
           <li>Performance-focused PrepPal design</li>
           <li>Practical training essential</li>
-        @elseif($product->category === 'meal')
+        @elseif ($product->category === 'meal')
           <li>14 chef-prepared meals included</li>
           <li>Choose your protein, carb, and add-ons</li>
           <li>Pause or cancel anytime</li>
@@ -1358,7 +1358,7 @@
         @endif
       </ul>
 
-      @if($isMeal && $mealPlan)
+      @if ($isMeal && $mealPlan)
         <div class="pp-meal-builder" style="
           margin: 1.1rem 0 1.2rem;
           border: 1px solid rgba(255,255,255,0.08);
@@ -1477,7 +1477,7 @@
         </div>
       @endif
 
-      @if($isWheyProtein || $isCreatine || $isPreWorkout || $isBcaa)
+      @if ($isWheyProtein || $isCreatine || $isPreWorkout || $isBcaa)
         <div class="pp-option-group">
           <label for="ppFlavourSelect" class="pp-option-label">Flavour:</label>
           <select id="ppFlavourSelect" class="pp-option-select">
@@ -1493,7 +1493,7 @@
         </div>
       @endif
 
-      @if($isClothing && count($activeFlavours))
+      @if ($isClothing && count($activeFlavours))
         <div class="pp-option-group">
           <label for="ppSizeSelect" class="pp-option-label">Size:</label>
           <select id="ppSizeSelect" class="pp-option-select">
@@ -1525,15 +1525,15 @@
           type="button"
           class="cta pp-add add-to-cart"
           data-id="{{ $product->id }}"
-          data-name="@if($isMeal && $mealPlan){{ $product->name }} - {{ $mealPlan['delivery_options'][$defaultMealDeliveryKey] ?? '' }} / {{ $mealPlan['protein_options'][$defaultMealProteinKey] ?? '' }} / {{ $mealPlan['carb_options'][$defaultMealCarbKey] ?? '' }} / {{ $mealPlan['snack_options'][$defaultMealSnackKey] ?? '' }}@elseif(count($activeFlavours) && $defaultFlavourKey && isset($activeFlavours[$defaultFlavourKey])){{ $activeFlavours[$defaultFlavourKey]['cart_name'] }}@else{{ $product->name }}@endif"
+          data-name="@if ($isMeal && $mealPlan){{ $product->name }} - {{ $mealPlan['delivery_options'][$defaultMealDeliveryKey] ?? '' }} / {{ $mealPlan['protein_options'][$defaultMealProteinKey] ?? '' }} / {{ $mealPlan['carb_options'][$defaultMealCarbKey] ?? '' }} / {{ $mealPlan['snack_options'][$defaultMealSnackKey] ?? '' }}@elseif (count($activeFlavours) && $defaultFlavourKey && isset($activeFlavours[$defaultFlavourKey])){{ $activeFlavours[$defaultFlavourKey]['cart_name'] }}@else{{ $product->name }}@endif"
           data-base-name="{{ $product->name }}"
           data-price="{{ $product->price }}"
           data-image="{{ count($activeFlavours) && $defaultFlavourKey && isset($activeFlavours[$defaultFlavourKey]) ? $activeFlavours[$defaultFlavourKey]['image'] : asset($product->image_path) }}"
           data-qty="1"
-          data-variant="@if($isMeal && $mealPlan){{ ($mealPlan['delivery_options'][$defaultMealDeliveryKey] ?? '') . ' | ' . ($mealPlan['protein_options'][$defaultMealProteinKey] ?? '') . ' | ' . ($mealPlan['carb_options'][$defaultMealCarbKey] ?? '') . ' | ' . ($mealPlan['snack_options'][$defaultMealSnackKey] ?? '') }}@elseif(count($activeFlavours) && $defaultFlavourKey && isset($activeFlavours[$defaultFlavourKey])){{ $activeFlavours[$defaultFlavourKey]['label'] }}@endif"
-          @if(isset($product->stock) && $product->stock <= 0) disabled @endif
+          data-variant="@if ($isMeal && $mealPlan){{ ($mealPlan['delivery_options'][$defaultMealDeliveryKey] ?? '') . ' | ' . ($mealPlan['protein_options'][$defaultMealProteinKey] ?? '') . ' | ' . ($mealPlan['carb_options'][$defaultMealCarbKey] ?? '') . ' | ' . ($mealPlan['snack_options'][$defaultMealSnackKey] ?? '') }}@elseif (count($activeFlavours) && $defaultFlavourKey && isset($activeFlavours[$defaultFlavourKey])){{ $activeFlavours[$defaultFlavourKey]['label'] }}@endif"
+          @if (isset($product->stock) && $product->stock <= 0) disabled @endif
         >
-          @if(isset($product->stock) && $product->stock <= 0)
+          @if (isset($product->stock) && $product->stock <= 0)
             Out of stock
           @else
             Add to cart
@@ -1558,11 +1558,11 @@
           <p>{{ $content['description'] }}</p>
         </details>
 
-        @if(!str_starts_with((string) $product->id, 'clothing-'))
+        @if (!str_starts_with((string) $product->id, 'clothing-'))
           <details>
             <summary>Write a Review</summary>
 
-            @if(session('success'))
+            @if (session('success'))
               <p style="color: green; margin: 10px 0;">
                 {{ session('success') }}
               </p>
@@ -1649,7 +1649,7 @@
           <p>{{ $content['how_to_use'] }}</p>
         </details>
 
-        @if($isWheyProtein)
+        @if ($isWheyProtein)
           <details>
             <summary>Nutritional Information</summary>
 
@@ -1683,7 +1683,7 @@
           </details>
         @endif
 
-        @if($isCreatine)
+        @if ($isCreatine)
           <details>
             <summary>Nutritional Information</summary>
 
@@ -1717,7 +1717,7 @@
           </details>
         @endif
 
-        @if($isPreWorkout)
+        @if ($isPreWorkout)
           <details>
             <summary>Nutritional Information</summary>
 
@@ -1752,7 +1752,7 @@
           </details>
         @endif
 
-        @if($isBcaa)
+        @if ($isBcaa)
           <details>
             <summary>Nutritional Information</summary>
 
@@ -1786,7 +1786,7 @@
           </details>
         @endif
 
-        @if($isMultivitamin)
+        @if ($isMultivitamin)
           <details>
             <summary>Nutritional Information</summary>
 
@@ -1837,7 +1837,7 @@
 
   </div>
 
-  @if($isClothing)
+  @if ($isClothing)
     <div class="pp-size-guide-modal" id="ppSizeGuideModal" aria-hidden="true">
       <div class="pp-size-guide-backdrop" data-size-guide-close></div>
 

@@ -1,8 +1,9 @@
 <!--
-  Student&ID: Agraj Khanna(240195519)
-  File: home.blade.php
-  Description: Homepage with existing hero style preserved, upgraded lower sections, and branded footer CTA
-  Date: Mar 2026
+    Student ID: Agraj Khanna (240195519)
+    File: home.blade.php
+    Description: Homepage view with the existing hero style preserved, upgraded lower sections,
+                 and a branded footer call to action.
+    Date: March 2026
 -->
 
 @extends('layouts.app')
@@ -582,7 +583,7 @@
 
       <div class="pp-home-footer-grid">
 
-        {{-- LEFT --}}
+        {{-- Footer content --}}
         <div class="pp-home-footer-left">
           <p class="pp-home-footer-label">JOIN OUR NEWSLETTER</p>
 
@@ -595,9 +596,9 @@
             and practical fitness advice.
           </p>
 
-          @if(session('newsletter_success'))
+          @if (session('newsletter_success'))
             <div class="pp-home-footer-alert pp-home-footer-alert--success" role="status" aria-live="polite">
-              @if(session('newsletter_existing'))
+              @if (session('newsletter_existing'))
                 You’re already subscribed with <strong>{{ session('newsletter_email') }}</strong>.
               @else
                 Thanks — you’re subscribed with <strong>{{ session('newsletter_email') }}</strong>.
@@ -605,7 +606,7 @@
             </div>
           @endif
 
-          @if($errors->has('email'))
+          @if ($errors->has('email'))
             <div class="pp-home-footer-alert pp-home-footer-alert--error" role="alert">
               {{ $errors->first('email') }}
             </div>
@@ -655,60 +656,58 @@
           </div>
         </div>
 
-        {{-- RIGHT --}}
-<div class="pp-home-footer-right">
-  <div class="pp-home-footer-links-grid">
+        {{-- Footer navigation --}}
+        <div class="pp-home-footer-right">
+          <div class="pp-home-footer-links-grid">
+            <div class="pp-home-footer-link-col">
+              <h3>Shop</h3>
 
-    <div class="pp-home-footer-link-col">
-      <h3>Shop</h3>
+              @auth
+                <a href="{{ route('store', ['category' => 'meal']) }}">Meal Plans</a>
+                <a href="{{ route('store', ['category' => 'supplement']) }}">Supplements</a>
+                <a href="{{ route('store', ['category' => 'drink']) }}">Drinks</a>
+                <a href="{{ route('store', ['category' => 'clothing']) }}">Apparel</a>
+                <a href="{{ route('calculator') }}">Calorie Planner</a>
+              @else
+                <a href="{{ route('login') }}">Meal Plans</a>
+                <a href="{{ route('login') }}">Supplements</a>
+                <a href="{{ route('login') }}">Drinks</a>
+                <a href="{{ route('login') }}">Apparel</a>
+                <a href="{{ route('login') }}">Calorie Planner</a>
+              @endauth
+            </div>
 
-      @auth
-        <a href="{{ route('store', ['category' => 'meal']) }}">Meal Plans</a>
-        <a href="{{ route('store', ['category' => 'supplement']) }}">Supplements</a>
-        <a href="{{ route('store', ['category' => 'drink']) }}">Drinks</a>
-        <a href="{{ route('store', ['category' => 'clothing']) }}">Apparel</a>
-        <a href="{{ route('calculator') }}">Calorie Planner</a>
-      @else
-        <a href="{{ route('login') }}">Meal Plans</a>
-        <a href="{{ route('login') }}">Supplements</a>
-        <a href="{{ route('login') }}">Drinks</a>
-        <a href="{{ route('login') }}">Apparel</a>
-        <a href="{{ route('login') }}">Calorie Planner</a>
-      @endauth
-    </div>
+            <div class="pp-home-footer-link-col">
+              <h3>Support</h3>
+              <a href="{{ route('contact.index') }}">Contact Us</a>
+              <a href="{{ route('blog.index') }}">Advice</a>
+              <a href="{{ route('shipping.delivery') }}">Shipping / Delivery</a>
+              <a href="{{ route('returns') }}">Returns</a>
+              <a href="{{ route('privacy.policy') }}">Privacy Policy</a>
+              <a href="{{ route('terms.conditions') }}">Terms / Conditions</a>
+            </div>
 
-    <div class="pp-home-footer-link-col">
-      <h3>Support</h3>
-      <a href="{{ route('contact.index') }}">Contact Us</a>
-      <a href="{{ route('blog.index') }}">Advice</a>
-      <a href="{{ route('shipping.delivery') }}">Shipping / Delivery</a>
-      <a href="{{ route('returns') }}">Returns</a>
-      <a href="{{ route('privacy.policy') }}">Privacy Policy</a>
-      <a href="{{ route('terms.conditions') }}">Terms / Conditions</a>
-    </div>
+            <div class="pp-home-footer-link-col">
+              <h3>Shop</h3>
 
-    <div class="pp-home-footer-link-col">
-  <h3>Shop</h3>
-
-  @auth
-    <a href="{{ route('store', ['category' => 'meal']) }}">Meal Plans</a>
-    <a href="{{ route('store', ['category' => 'supplement']) }}">Supplements</a>
-    <a href="{{ route('store', ['category' => 'drink']) }}">Drinks</a>
-    <a href="{{ route('store', ['category' => 'equipment']) }}">Equipment</a>
-    <a href="{{ route('store', ['category' => 'clothing']) }}">Apparel</a>
-    <a href="{{ route('calculator') }}">Calorie Planner</a>
-  @else
-    <a href="{{ route('login') }}">Meal Plans</a>
-    <a href="{{ route('login') }}">Supplements</a>
-    <a href="{{ route('login') }}">Drinks</a>
-    <a href="{{ route('login') }}">Equipment</a>
-    <a href="{{ route('login') }}">Apparel</a>
-    <a href="{{ route('login') }}">Calorie Planner</a>
-  @endauth
-</div>
-
-  </div>
-</div>
+              @auth
+                <a href="{{ route('store', ['category' => 'meal']) }}">Meal Plans</a>
+                <a href="{{ route('store', ['category' => 'supplement']) }}">Supplements</a>
+                <a href="{{ route('store', ['category' => 'drink']) }}">Drinks</a>
+                <a href="{{ route('store', ['category' => 'equipment']) }}">Equipment</a>
+                <a href="{{ route('store', ['category' => 'clothing']) }}">Apparel</a>
+                <a href="{{ route('calculator') }}">Calorie Planner</a>
+              @else
+                <a href="{{ route('login') }}">Meal Plans</a>
+                <a href="{{ route('login') }}">Supplements</a>
+                <a href="{{ route('login') }}">Drinks</a>
+                <a href="{{ route('login') }}">Equipment</a>
+                <a href="{{ route('login') }}">Apparel</a>
+                <a href="{{ route('login') }}">Calorie Planner</a>
+              @endauth
+            </div>
+          </div>
+        </div>
 
       </div>
 
