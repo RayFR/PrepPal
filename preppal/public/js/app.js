@@ -18,8 +18,40 @@
     document.body.setAttribute('data-theme', theme);
 
     var toggle = document.getElementById('themeToggle');
-    if (toggle) toggle.textContent = theme === 'dark' ? '🌙' : '☀️';
+    if (toggle) {
+      toggle.setAttribute(
+        'aria-label',
+        theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'
+      );
+    }
   }
+
+  /**
+   * Fills an element with star SVGs (used by testimonial modal on the home page).
+   */
+  window.prepPalRenderStarRating = function (el, rating, max) {
+    if (!el) return;
+    max = max || 5;
+    rating = Math.max(0, Math.min(max, parseInt(rating, 10) || 0));
+    el.className = 'pp-t-modal__stars pp-star-rating';
+    el.setAttribute('role', 'img');
+    el.setAttribute('aria-label', rating + ' out of ' + max + ' stars');
+    var ns = 'http://www.w3.org/2000/svg';
+    el.textContent = '';
+    for (var i = 1; i <= max; i++) {
+      var svg = document.createElementNS(ns, 'svg');
+      svg.setAttribute('class', 'pp-star ' + (i <= rating ? 'pp-star--fill' : 'pp-star--empty'));
+      svg.setAttribute('viewBox', '0 0 24 24');
+      svg.setAttribute('width', '16');
+      svg.setAttribute('height', '16');
+      svg.setAttribute('focusable', 'false');
+      svg.setAttribute('aria-hidden', 'true');
+      var path = document.createElementNS(ns, 'path');
+      path.setAttribute('d', 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z');
+      svg.appendChild(path);
+      el.appendChild(svg);
+    }
+  };
 
   function initTheme() {
     var stored = localStorage.getItem(THEME_KEY) || 'light';
@@ -52,8 +84,12 @@
     if (tabs.length && loginForm && registerForm) {
       tabs.forEach(tab => {
         tab.addEventListener('click', () => {
-          tabs.forEach(t => t.classList.remove('auth-tab-active'));
+          tabs.forEach(t => {
+            t.classList.remove('auth-tab-active');
+            t.setAttribute('aria-selected', 'false');
+          });
           tab.classList.add('auth-tab-active');
+          tab.setAttribute('aria-selected', 'true');
 
           const mode = tab.getAttribute('data-mode');
           loginForm.classList.toggle('auth-form-active', mode === 'login');

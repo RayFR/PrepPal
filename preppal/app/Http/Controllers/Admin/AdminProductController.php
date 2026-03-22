@@ -102,7 +102,7 @@ class AdminProductController extends Controller
     public function addStock(Request $request, Product $product)
     {
         $data = $request->validate([
-            'add_stock_quantity' => ['required', 'integer', 'min:1'],
+            'add_stock_quantity' => ['required', 'integer', 'min:1', 'max:50000'],
         ]);
 
         $product->increment('stock', $data['add_stock_quantity']);

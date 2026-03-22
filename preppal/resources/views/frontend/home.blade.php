@@ -10,6 +10,10 @@
 
 @section('title', 'Home')
 
+@push('head')
+  <link rel="preload" as="image" href="{{ $lcpImageUrl }}">
+@endpush
+
 @push('styles')
   <link rel="stylesheet" href="{{ asset('css/pp-18-home-upgrade.css') }}?v={{ filemtime(public_path('css/pp-18-home-upgrade.css')) }}">
 @endpush
@@ -134,17 +138,14 @@
 
           <div class="hero-trust-row">
             <span class="hero-trust-pill">
-              <span class="hero-trust-icon" aria-hidden="true">✅</span>
               <span>Quality checked</span>
             </span>
 
             <span class="hero-trust-pill">
-              <span class="hero-trust-icon" aria-hidden="true">🚚</span>
               <span>Fast UK delivery</span>
             </span>
 
             <span class="hero-trust-pill">
-              <span class="hero-trust-icon" aria-hidden="true">🔒</span>
               <span>Secure checkout</span>
             </span>
           </div>
@@ -169,7 +170,13 @@
                     src="{{ $p->image_path ? asset($p->image_path) : asset('images/banner_hero.png') }}"
                     alt="{{ $p->name }}"
                     class="pp-swap-img"
-                    loading="lazy"
+                    @if ($i === 0)
+                      fetchpriority="high"
+                      decoding="async"
+                    @else
+                      loading="lazy"
+                      decoding="async"
+                    @endif
                   >
 
                   <div class="pp-swap-overlay">
@@ -181,7 +188,7 @@
                 </article>
               @empty
                 <article class="pp-swap-card is-active">
-                  <img src="{{ asset('images/banner_hero.png') }}" alt="PrepPal preview" class="pp-swap-img">
+                  <img src="{{ asset('images/banner_hero.png') }}" alt="PrepPal preview" class="pp-swap-img" fetchpriority="high" decoding="async">
                   <div class="pp-swap-overlay">
                     <span class="pp-swap-tag">Featured</span>
                     <div class="pp-swap-title">Explore this week’s picks</div>
@@ -284,7 +291,6 @@
       <div class="pp-home-goals-grid reveal">
         <article class="pp-home-goal">
           <div class="pp-home-goal-top">
-            <span class="pp-home-goal-icon">🔥</span>
             <span class="pp-home-goal-tag">Cut phase</span>
           </div>
           <h3>Fat Loss</h3>
@@ -294,7 +300,6 @@
 
         <article class="pp-home-goal">
           <div class="pp-home-goal-top">
-            <span class="pp-home-goal-icon">💪</span>
             <span class="pp-home-goal-tag">Lean bulk</span>
           </div>
           <h3>Lean Muscle</h3>
@@ -304,7 +309,6 @@
 
         <article class="pp-home-goal">
           <div class="pp-home-goal-top">
-            <span class="pp-home-goal-icon">⚖️</span>
             <span class="pp-home-goal-tag">Stay balanced</span>
           </div>
           <h3>Maintenance</h3>
@@ -314,7 +318,6 @@
 
         <article class="pp-home-goal">
           <div class="pp-home-goal-top">
-            <span class="pp-home-goal-icon">🥗</span>
             <span class="pp-home-goal-tag">Everyday routine</span>
           </div>
           <h3>High Protein</h3>
@@ -440,15 +443,14 @@
                   src="{{ $t['img'] }}"
                   alt="{{ $t['name'] }}"
                   class="pp-t-avatar"
-                  loading="lazy"
+                  loading="{{ $loop->first ? 'eager' : 'lazy' }}"
+                  decoding="async"
                   onerror="this.onerror=null; this.src='{{ asset('images/banner_hero.png') }}';"
                 />
 
                 <h3 class="pp-t-name">{{ $t['name'] }}</h3>
 
-                <div class="pp-t-stars" aria-label="{{ $t['stars'] }} star rating">
-                  {{ str_repeat('★', $t['stars']) }}{{ str_repeat('☆', 5 - $t['stars']) }}
-                </div>
+                <x-star-rating :rating="$t['stars']" :max="5" class="pp-t-stars" />
 
                 <p class="pp-t-quote">“{{ $t['quote'] }}”</p>
                 <div class="pp-t-role">{{ $t['role'] }}</div>
@@ -472,12 +474,12 @@
       <button type="button" class="pp-t-modal__close" data-pp-t-close aria-label="Close review modal">×</button>
 
       <div class="pp-t-modal__top">
-        <img id="ppTModalAvatar" src="{{ asset('images/banner_hero.png') }}" alt="" class="pp-t-modal__avatar">
+        <img id="ppTModalAvatar" src="{{ asset('images/banner_hero.png') }}" alt="" class="pp-t-modal__avatar" loading="lazy" decoding="async">
 
         <div>
           <h3 id="ppTModalName" class="pp-t-modal__name">Customer Name</h3>
           <div id="ppTModalRole" class="pp-t-modal__role">Role</div>
-          <div id="ppTModalStars" class="pp-t-modal__stars">★★★★★</div>
+          <x-star-rating id="ppTModalStars" :rating="5" :max="5" class="pp-t-modal__stars" />
         </div>
       </div>
 
@@ -906,7 +908,15 @@
     root.addEventListener('focusin', () => paused = true);
     root.addEventListener('focusout', () => paused = false);
 
-    window.addEventListener('resize', () => { buildDots(); render(); });
+    let resizeT = null;
+    window.addEventListener('resize', () => {
+      window.clearTimeout(resizeT);
+      resizeT = window.setTimeout(() => {
+        resizeT = null;
+        buildDots();
+        render();
+      }, 120);
+    });
 
     buildDots();
     render();
@@ -953,9 +963,11 @@
 
       nameEl.textContent = card.dataset.name || '';
       roleEl.textContent = card.dataset.role || '';
-      starsEl.textContent =
-        '★'.repeat(Number(card.dataset.stars || 5)) +
-        '☆'.repeat(Math.max(0, 5 - Number(card.dataset.stars || 5)));
+      if (typeof window.prepPalRenderStarRating === 'function') {
+        window.prepPalRenderStarRating(starsEl, Number(card.dataset.stars || 5), 5);
+      } else {
+        starsEl.textContent = (Number(card.dataset.stars || 5)) + ' / 5';
+      }
       goalEl.textContent = card.dataset.goal || '';
       durationEl.textContent = card.dataset.duration || '';
       reviewEl.textContent = card.dataset.review || '';
@@ -1031,20 +1043,22 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: 60px;
-  height: 60px;
+  min-width: 60px;
+  height: 44px;
+  padding: 0 14px;
   background: linear-gradient(135deg, #ff7a00, #ff9f1c);
   color: white;
-  font-size: 28px;
+  font-size: 14px;
+  font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
+  border-radius: 999px;
   cursor: pointer;
   box-shadow: 0 8px 20px rgba(0,0,0,0.35);
   z-index: 9999;
 ">
-  💬
+  Chat
 </div>
 
 <div id="chatbox" style="
@@ -1124,41 +1138,57 @@
 </div>
 
 <script>
-  const chatbotToggle = document.getElementById('chatbot-toggle');
-  const chatbox = document.getElementById('chatbox');
-  const chatbotClose = document.getElementById('chatbot-close');
+  (function () {
+    function initChatbot() {
+      const chatbotToggle = document.getElementById('chatbot-toggle');
+      const chatbox = document.getElementById('chatbox');
+      const chatbotClose = document.getElementById('chatbot-close');
+      if (!chatbotToggle || !chatbox || !chatbotClose) return;
 
-  chatbotToggle.addEventListener('click', () => {
-    chatbox.style.display = chatbox.style.display === 'flex' ? 'none' : 'flex';
-  });
+      chatbotToggle.addEventListener('click', () => {
+        chatbox.style.display = chatbox.style.display === 'flex' ? 'none' : 'flex';
+      });
 
-  chatbotClose.addEventListener('click', () => {
-    chatbox.style.display = 'none';
-  });
+      chatbotClose.addEventListener('click', () => {
+        chatbox.style.display = 'none';
+      });
 
-  async function sendMessage() {
-    const input = document.getElementById('input');
-    const msg = input.value.trim();
-    if (!msg) return;
+      window.sendMessage = async function sendMessage() {
+        const input = document.getElementById('input');
+        const msg = input.value.trim();
+        if (!msg) return;
 
-    const messages = document.getElementById('messages');
-    messages.innerHTML += "<p><b>You:</b> " + msg + "</p>";
-    input.value = "";
-    messages.scrollTop = messages.scrollHeight;
+        const messages = document.getElementById('messages');
+        messages.innerHTML += "<p><b>You:</b> " + msg + "</p>";
+        input.value = "";
+        messages.scrollTop = messages.scrollHeight;
 
-    const res = await fetch('/chatbot/message', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-      },
-      body: JSON.stringify({ message: msg })
-    });
+        const res = await fetch('/chatbot/message', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+          },
+          body: JSON.stringify({ message: msg })
+        });
 
-    const data = await res.json();
+        const data = await res.json();
 
-    messages.innerHTML += "<p><b>PrepPal:</b> " + data.reply + "</p>";
-    messages.scrollTop = messages.scrollHeight;
-  }
+        messages.innerHTML += "<p><b>PrepPal:</b> " + data.reply + "</p>";
+        messages.scrollTop = messages.scrollHeight;
+      };
+    }
+
+    if (typeof window.requestIdleCallback === 'function') {
+      window.requestIdleCallback(() => initChatbot(), { timeout: 800 });
+    } else if (document.readyState === 'complete') {
+      window.setTimeout(initChatbot, 0);
+    } else {
+      window.addEventListener('load', function onChatbotLoad() {
+        window.removeEventListener('load', onChatbotLoad);
+        window.setTimeout(initChatbot, 0);
+      });
+    }
+  })();
 </script>
 @endpush

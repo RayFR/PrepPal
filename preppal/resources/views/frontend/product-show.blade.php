@@ -1307,11 +1307,7 @@
       </p>
 
       <div class="pp-rating">
-        <span class="pp-stars">
-          @for ($i = 1; $i <= 5; $i++)
-            {{ $i <= $roundedStars ? '★' : '☆' }}
-          @endfor
-        </span>
+        <x-star-rating :rating="$roundedStars" :max="5" class="pp-stars" />
 
         @if ($reviewCount)
           <span class="pp-rating-text">{{ number_format($avg, 1) }} ({{ $reviewCount }} {{ $reviewCount === 1 ? 'review' : 'reviews' }})</span>
@@ -1542,14 +1538,14 @@
       </div>
 
       <div class="pp-trust">
-        <div class="pp-trust-item">✅ Quality checked</div>
-        <div class="pp-trust-item">🚚 Fast UK delivery</div>
-        <div class="pp-trust-item">🔒 Secure checkout</div>
+        <div class="pp-trust-item">Quality checked</div>
+        <div class="pp-trust-item">Fast UK delivery</div>
+        <div class="pp-trust-item">Secure checkout</div>
       </div>
 
       <div class="pp-ship">
-        <div class="pp-ship-row"><span>🚚</span> <strong>Delivery:</strong>&nbsp;2–4 working days (UK)</div>
-        <div class="pp-ship-row"><span>↩️</span> <strong>Returns:</strong>&nbsp;14-day returns on unopened items</div>
+        <div class="pp-ship-row"><strong>Delivery:</strong>&nbsp;2–4 working days (UK)</div>
+        <div class="pp-ship-row"><strong>Returns:</strong>&nbsp;14-day returns on unopened items</div>
       </div>
 
       <div class="pp-accordion">
@@ -1574,11 +1570,11 @@
               <div class="pp-review-field">
                 <label>Rating</label>
                 <select name="rating" required>
-                  <option value="5">⭐⭐⭐⭐⭐</option>
-                  <option value="4">⭐⭐⭐⭐</option>
-                  <option value="3">⭐⭐⭐</option>
-                  <option value="2">⭐⭐</option>
-                  <option value="1">⭐</option>
+                  <option value="5">5 stars</option>
+                  <option value="4">4 stars</option>
+                  <option value="3">3 stars</option>
+                  <option value="2">2 stars</option>
+                  <option value="1">1 star</option>
                 </select>
               </div>
 
@@ -1610,11 +1606,7 @@
                     {{ $review->user->name ?? 'Customer' }}
                   </strong>
 
-                  <span class="pp-review-stars">
-                    @for ($i = 1; $i <= 5; $i++)
-                      {{ $i <= $review->rating ? '★' : '☆' }}
-                    @endfor
-                  </span>
+                  <x-star-rating :rating="$review->rating" :max="5" class="pp-review-stars" />
                 </div>
 
                 @if ($review->comment)

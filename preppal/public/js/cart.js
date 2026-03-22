@@ -159,7 +159,7 @@ window.Cart = (function () {
     const t = document.createElement("div");
     t.className = "toast";
     t.innerHTML = `
-      <span class="toast__icon">✅</span>
+      <span class="toast__icon" aria-hidden="true"></span>
       <span class="toast__text">
         ${title}
         ${subtitle ? `<span class="toast__sub">${subtitle}</span>` : ``}

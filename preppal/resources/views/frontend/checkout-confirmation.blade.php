@@ -6,16 +6,16 @@
 <div class="checkout-wrapper">
 
     <div class="checkout-hero">
-        <h1 class="checkout-title">Order Confirmed ✅</h1>
+        <h1 class="checkout-title">Order confirmed</h1>
         <p class="checkout-subtitle">
             Thanks, <strong>{{ $order->name }}</strong> — your PrepPal order is in.
             We’ve sent confirmation details to <strong>{{ $order->email }}</strong>.
         </p>
 
         <div class="checkout-trustbar">
-            <div class="trust-pill">🧾 Order #PP-{{ str_pad($order->id, 6, '0', STR_PAD_LEFT) }}</div>
-            <div class="trust-pill">📅 {{ \Illuminate\Support\Carbon::parse($order->created_at)->format('D j M Y, H:i') }}</div>
-            <div class="trust-pill">🚚 Est. delivery: {{ $delivery_from }} – {{ $delivery_to }}</div>
+            <div class="trust-pill">Order #PP-{{ str_pad($order->id, 6, '0', STR_PAD_LEFT) }}</div>
+            <div class="trust-pill">{{ \Illuminate\Support\Carbon::parse($order->created_at)->format('D j M Y, H:i') }}</div>
+            <div class="trust-pill">Est. delivery: {{ $delivery_from }} – {{ $delivery_to }}</div>
         </div>
     </div>
 
@@ -42,8 +42,8 @@
                             @if ($img)
                                 <img src="{{ $img }}" alt="{{ $name }}">
                             @else
-                                <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;opacity:.7;">
-                                    🥗
+                                <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;opacity:.55;font-size:0.75rem;font-weight:700;text-align:center;padding:0.35rem;">
+                                    No image
                                 </div>
                             @endif
                         </div>
@@ -101,7 +101,7 @@
 
             <div class="checkout-section">
                 <div class="section-title">
-                    <span class="section-badge">✓</span>
+                    <span class="section-badge">1</span>
                     <h3>Next steps</h3>
                 </div>
 

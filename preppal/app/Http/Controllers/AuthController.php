@@ -6,8 +6,9 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password as PasswordRule;
 use Illuminate\View\View;
 
@@ -53,11 +54,7 @@ class AuthController extends Controller
             [
                 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'email', 'unique:users,email'],
-                'password' => [
-                    'required',
-                    'confirmed',
-                    PasswordRule::min(6)->letters()->numbers()->symbols(),
-                ],
+                'password' => $this->prepPalPasswordRules(),
             ],
             [
                 'password.confirmed' => 'Passwords do not match.',
@@ -66,9 +63,8 @@ class AuthController extends Controller
 
         $user = User::create([
             'name' => $validated['name'],
-            'username' => $validated['name'],
             'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
+            'password' => $validated['password'],
         ]);
 
         Auth::login($user);
@@ -85,19 +81,17 @@ class AuthController extends Controller
     }
 
     /**
-     * Send a password reset link using either email or username.
+     * Send a password reset link to the account email (users table has no separate username column).
      */
     public function forgotPassword(Request $request): RedirectResponse
     {
+        $trimmed = strtolower(trim((string) $request->input('identifier', '')));
+
         $request->validate([
-            'identifier' => ['required', 'string'],
+            'identifier' => ['required', 'string', 'email', 'max:255'],
         ]);
 
-        $identifier = trim($request->input('identifier'));
-
-        $user = User::where('email', $identifier)
-            ->orWhere('username', $identifier)
-            ->first();
+        $user = User::whereRaw('LOWER(email) = ?', [$trimmed])->first();
 
         $statusMessage = 'If an account matches that information, we’ve sent a password reset link.';
 
@@ -105,11 +99,80 @@ class AuthController extends Controller
             return back()->with('status', $statusMessage);
         }
 
-        Password::sendResetLink([
+        $status = Password::sendResetLink([
             'email' => $user->email,
         ]);
 
+        if ($status !== Password::RESET_LINK_SENT) {
+            return back()
+                ->withErrors(['identifier' => __($status)])
+                ->withInput();
+        }
+
         return back()->with('status', $statusMessage);
+    }
+
+    /**
+     * Show the form for entering a new password (linked from reset email).
+     */
+    public function showResetPasswordForm(Request $request, string $token): View
+    {
+        return view('frontend.auth.reset-password', [
+            'token' => $token,
+            'email' => $request->query('email'),
+        ]);
+    }
+
+    /**
+     * Persist a new password after the user follows the email link.
+     */
+    public function resetPassword(Request $request): RedirectResponse
+    {
+        $request->validate(
+            [
+                'token' => ['required', 'string'],
+                'email' => ['required', 'email', 'max:255'],
+                'password' => $this->prepPalPasswordRules(),
+            ],
+            [
+                'password.confirmed' => 'Passwords do not match.',
+            ]
+        );
+
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function (User $user, string $password) {
+                $user->forceFill([
+                    'password' => $password,
+                ])->setRememberToken(Str::random(60));
+
+                $user->save();
+
+                event(new PasswordReset($user));
+            }
+        );
+
+        if ($status !== Password::PASSWORD_RESET) {
+            return back()
+                ->withErrors(['email' => __($status)])
+                ->withInput();
+        }
+
+        return redirect()
+            ->route('login')
+            ->with('status', __($status));
+    }
+
+    /**
+     * @return array<int, \Illuminate\Contracts\Validation\Rule|string>
+     */
+    protected function prepPalPasswordRules(): array
+    {
+        return [
+            'required',
+            'confirmed',
+            PasswordRule::min(6)->letters()->numbers()->symbols(),
+        ];
     }
 
     /**

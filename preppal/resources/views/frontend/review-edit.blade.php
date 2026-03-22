@@ -15,7 +15,7 @@
         <select name="rating" required>
             @for($i = 1; $i <= 5; $i++)
                 <option value="{{ $i }}" @selected($review->rating == $i)">
-                    {{ $i }} ⭐
+                    {{ $i }} / 5
                 </option>
             @endfor
         </select>

@@ -221,7 +221,7 @@ body[data-theme="dark"] .pp-newsletter__no{ color: rgba(255,255,255,.82); }
 body[data-theme="dark"] .pp-newsletter__fine{ color: rgba(255,255,255,.58); }
 .pp-newsletter__fine a{ color: inherit; font-weight: 800; }
 
-/* ✅ Success state */
+/* Success state */
 .pp-newsletter__code-wrap{
   margin-top: 10px;
   padding: 14px 14px;

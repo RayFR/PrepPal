@@ -816,10 +816,9 @@
   font-size: 1.04rem;
 }
 
-.pp-t-stars {
-  color: #ff9800;
+.pp-t-stars.pp-star-rating {
   margin-bottom: 0.55rem;
-  letter-spacing: 0.05em;
+  color: rgba(255, 152, 0, 0.5);
 }
 
 .pp-t-quote {
@@ -962,9 +961,8 @@
   opacity: 0.78;
 }
 
-.pp-t-modal__stars {
-  color: #ff9800;
-  letter-spacing: 0.06em;
+.pp-t-modal__stars.pp-star-rating {
+  color: rgba(255, 200, 140, 0.55);
 }
 
 .pp-t-modal__meta {
