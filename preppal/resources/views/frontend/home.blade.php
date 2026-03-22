@@ -10,10 +10,6 @@
 
 @section('title', 'Home')
 
-@push('head')
-  <link rel="preload" as="image" href="{{ $lcpImageUrl }}">
-@endpush
-
 @push('styles')
   <link rel="stylesheet" href="{{ asset('css/pp-18-home-upgrade.css') }}?v={{ filemtime(public_path('css/pp-18-home-upgrade.css')) }}">
 @endpush
@@ -24,8 +20,8 @@
 
   $testimonials = [
     [
-      'name' => 'Becky F.',
-      'role' => 'Student • Fat loss',
+      'name' => 'Becky',
+      'role' => 'Transformation • Fat loss',
       'stars' => 5,
       'quote' => 'PrepPal gave me a simple routine to follow and helped me stay much more consistent each week.',
       'img' => asset('images/test/beckyaf.png'),
@@ -37,8 +33,8 @@
       'results' => ['More consistent meals', 'Better weekly routine', 'Improved body confidence'],
     ],
     [
-      'name' => 'Dwayne J.',
-      'role' => 'Gym-goer • Leaning down',
+      'name' => 'Dwayne Johnson',
+      'role' => 'Celebrity highlight • Leaning down',
       'stars' => 5,
       'quote' => 'The structure was simple, practical, and easy to fit around training and work.',
       'img' => asset('images/test/djaf.png'),
@@ -50,8 +46,8 @@
       'results' => ['Cleaner food choices', 'Better routine', 'More consistent training support'],
     ],
     [
-      'name' => 'Jay C.',
-      'role' => 'Gym-goer • Transformation',
+      'name' => 'Jay Cutler',
+      'role' => 'Celebrity highlight • Transformation',
       'stars' => 5,
       'quote' => 'The meals felt realistic and repeatable, which made staying on plan much easier.',
       'img' => asset('images/test/jayaf.png'),
@@ -63,7 +59,7 @@
       'results' => ['Improved consistency', 'Better food structure', 'Noticeable physique progress'],
     ],
     [
-      'name' => 'Paul A.',
+      'name' => 'Paul',
       'role' => 'Busy schedule • Maintenance',
       'stars' => 5,
       'quote' => 'PrepPal made it easier to stay organised and keep meals under control during hectic weeks.',
@@ -76,8 +72,8 @@
       'results' => ['More organised weeks', 'Less food stress', 'Steadier routine'],
     ],
     [
-      'name' => 'Serina W.',
-      'role' => 'Athlete • Fitness focus',
+      'name' => 'Serena Williams',
+      'role' => 'Celebrity highlight • Fitness focus',
       'stars' => 5,
       'quote' => 'I liked how straightforward everything was. It helped me stay structured without overthinking meals.',
       'img' => asset('images/test/serinaaf.png'),
@@ -89,7 +85,7 @@
       'results' => ['Better structure', 'More confidence', 'Improved consistency'],
     ],
     [
-      'name' => 'Sophia L.',
+      'name' => 'Sophia',
       'role' => 'Student • Fat loss',
       'stars' => 5,
       'quote' => 'Simple meals, less guesswork, and a routine that actually felt realistic to follow.',
@@ -138,14 +134,17 @@
 
           <div class="hero-trust-row">
             <span class="hero-trust-pill">
+              <span class="hero-trust-icon" aria-hidden="true">✅</span>
               <span>Quality checked</span>
             </span>
 
             <span class="hero-trust-pill">
+              <span class="hero-trust-icon" aria-hidden="true">🚚</span>
               <span>Fast UK delivery</span>
             </span>
 
             <span class="hero-trust-pill">
+              <span class="hero-trust-icon" aria-hidden="true">🔒</span>
               <span>Secure checkout</span>
             </span>
           </div>
@@ -170,13 +169,7 @@
                     src="{{ $p->image_path ? asset($p->image_path) : asset('images/banner_hero.png') }}"
                     alt="{{ $p->name }}"
                     class="pp-swap-img"
-                    @if ($i === 0)
-                      fetchpriority="high"
-                      decoding="async"
-                    @else
-                      loading="lazy"
-                      decoding="async"
-                    @endif
+                    loading="lazy"
                   >
 
                   <div class="pp-swap-overlay">
@@ -188,7 +181,7 @@
                 </article>
               @empty
                 <article class="pp-swap-card is-active">
-                  <img src="{{ asset('images/banner_hero.png') }}" alt="PrepPal preview" class="pp-swap-img" fetchpriority="high" decoding="async">
+                  <img src="{{ asset('images/banner_hero.png') }}" alt="PrepPal preview" class="pp-swap-img">
                   <div class="pp-swap-overlay">
                     <span class="pp-swap-tag">Featured</span>
                     <div class="pp-swap-title">Explore this week’s picks</div>
@@ -291,6 +284,7 @@
       <div class="pp-home-goals-grid reveal">
         <article class="pp-home-goal">
           <div class="pp-home-goal-top">
+            <span class="pp-home-goal-icon">🔥</span>
             <span class="pp-home-goal-tag">Cut phase</span>
           </div>
           <h3>Fat Loss</h3>
@@ -300,6 +294,7 @@
 
         <article class="pp-home-goal">
           <div class="pp-home-goal-top">
+            <span class="pp-home-goal-icon">💪</span>
             <span class="pp-home-goal-tag">Lean bulk</span>
           </div>
           <h3>Lean Muscle</h3>
@@ -309,6 +304,7 @@
 
         <article class="pp-home-goal">
           <div class="pp-home-goal-top">
+            <span class="pp-home-goal-icon">⚖️</span>
             <span class="pp-home-goal-tag">Stay balanced</span>
           </div>
           <h3>Maintenance</h3>
@@ -318,6 +314,7 @@
 
         <article class="pp-home-goal">
           <div class="pp-home-goal-top">
+            <span class="pp-home-goal-icon">🥗</span>
             <span class="pp-home-goal-tag">Everyday routine</span>
           </div>
           <h3>High Protein</h3>
@@ -409,10 +406,10 @@
     <div class="container">
 
       <div class="pp-home-head reveal">
-        <span class="pp-home-kicker">Testimonials</span>
-        <h2>Feedback from the PrepPal routine</h2>
+        <span class="pp-home-kicker">Testimonials & Celebrities</span>
+        <h2>PrepPal results, reviews & celebrity highlights</h2>
         <p>
-          Realistic, simple feedback from students and gym-goers using PrepPal to stay more consistent.
+          Real transformations, featured celebrity-inspired highlights, and feedback from people using PrepPal to stay more consistent.
         </p>
       </div>
 
@@ -443,14 +440,15 @@
                   src="{{ $t['img'] }}"
                   alt="{{ $t['name'] }}"
                   class="pp-t-avatar"
-                  loading="{{ $loop->first ? 'eager' : 'lazy' }}"
-                  decoding="async"
+                  loading="lazy"
                   onerror="this.onerror=null; this.src='{{ asset('images/banner_hero.png') }}';"
                 />
 
                 <h3 class="pp-t-name">{{ $t['name'] }}</h3>
 
-                <x-star-rating :rating="$t['stars']" :max="5" class="pp-t-stars" />
+                <div class="pp-t-stars" aria-label="{{ $t['stars'] }} star rating">
+                  {{ str_repeat('★', $t['stars']) }}{{ str_repeat('☆', 5 - $t['stars']) }}
+                </div>
 
                 <p class="pp-t-quote">“{{ $t['quote'] }}”</p>
                 <div class="pp-t-role">{{ $t['role'] }}</div>
@@ -474,12 +472,12 @@
       <button type="button" class="pp-t-modal__close" data-pp-t-close aria-label="Close review modal">×</button>
 
       <div class="pp-t-modal__top">
-        <img id="ppTModalAvatar" src="{{ asset('images/banner_hero.png') }}" alt="" class="pp-t-modal__avatar" loading="lazy" decoding="async">
+        <img id="ppTModalAvatar" src="{{ asset('images/banner_hero.png') }}" alt="" class="pp-t-modal__avatar">
 
         <div>
           <h3 id="ppTModalName" class="pp-t-modal__name">Customer Name</h3>
           <div id="ppTModalRole" class="pp-t-modal__role">Role</div>
-          <x-star-rating id="ppTModalStars" :rating="5" :max="5" class="pp-t-modal__stars" />
+          <div id="ppTModalStars" class="pp-t-modal__stars">★★★★★</div>
         </div>
       </div>
 
@@ -908,15 +906,7 @@
     root.addEventListener('focusin', () => paused = true);
     root.addEventListener('focusout', () => paused = false);
 
-    let resizeT = null;
-    window.addEventListener('resize', () => {
-      window.clearTimeout(resizeT);
-      resizeT = window.setTimeout(() => {
-        resizeT = null;
-        buildDots();
-        render();
-      }, 120);
-    });
+    window.addEventListener('resize', () => { buildDots(); render(); });
 
     buildDots();
     render();
@@ -963,11 +953,9 @@
 
       nameEl.textContent = card.dataset.name || '';
       roleEl.textContent = card.dataset.role || '';
-      if (typeof window.prepPalRenderStarRating === 'function') {
-        window.prepPalRenderStarRating(starsEl, Number(card.dataset.stars || 5), 5);
-      } else {
-        starsEl.textContent = (Number(card.dataset.stars || 5)) + ' / 5';
-      }
+      starsEl.textContent =
+        '★'.repeat(Number(card.dataset.stars || 5)) +
+        '☆'.repeat(Math.max(0, 5 - Number(card.dataset.stars || 5)));
       goalEl.textContent = card.dataset.goal || '';
       durationEl.textContent = card.dataset.duration || '';
       reviewEl.textContent = card.dataset.review || '';
@@ -1043,22 +1031,20 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-  min-width: 60px;
-  height: 44px;
-  padding: 0 14px;
+  width: 60px;
+  height: 60px;
   background: linear-gradient(135deg, #ff7a00, #ff9f1c);
   color: white;
-  font-size: 14px;
-  font-weight: 800;
+  font-size: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 999px;
+  border-radius: 50%;
   cursor: pointer;
   box-shadow: 0 8px 20px rgba(0,0,0,0.35);
   z-index: 9999;
 ">
-  Chat
+  💬
 </div>
 
 <div id="chatbox" style="
@@ -1138,57 +1124,41 @@
 </div>
 
 <script>
-  (function () {
-    function initChatbot() {
-      const chatbotToggle = document.getElementById('chatbot-toggle');
-      const chatbox = document.getElementById('chatbox');
-      const chatbotClose = document.getElementById('chatbot-close');
-      if (!chatbotToggle || !chatbox || !chatbotClose) return;
+  const chatbotToggle = document.getElementById('chatbot-toggle');
+  const chatbox = document.getElementById('chatbox');
+  const chatbotClose = document.getElementById('chatbot-close');
 
-      chatbotToggle.addEventListener('click', () => {
-        chatbox.style.display = chatbox.style.display === 'flex' ? 'none' : 'flex';
-      });
+  chatbotToggle.addEventListener('click', () => {
+    chatbox.style.display = chatbox.style.display === 'flex' ? 'none' : 'flex';
+  });
 
-      chatbotClose.addEventListener('click', () => {
-        chatbox.style.display = 'none';
-      });
+  chatbotClose.addEventListener('click', () => {
+    chatbox.style.display = 'none';
+  });
 
-      window.sendMessage = async function sendMessage() {
-        const input = document.getElementById('input');
-        const msg = input.value.trim();
-        if (!msg) return;
+  async function sendMessage() {
+    const input = document.getElementById('input');
+    const msg = input.value.trim();
+    if (!msg) return;
 
-        const messages = document.getElementById('messages');
-        messages.innerHTML += "<p><b>You:</b> " + msg + "</p>";
-        input.value = "";
-        messages.scrollTop = messages.scrollHeight;
+    const messages = document.getElementById('messages');
+    messages.innerHTML += "<p><b>You:</b> " + msg + "</p>";
+    input.value = "";
+    messages.scrollTop = messages.scrollHeight;
 
-        const res = await fetch('/chatbot/message', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-          },
-          body: JSON.stringify({ message: msg })
-        });
+    const res = await fetch('/chatbot/message', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+      },
+      body: JSON.stringify({ message: msg })
+    });
 
-        const data = await res.json();
+    const data = await res.json();
 
-        messages.innerHTML += "<p><b>PrepPal:</b> " + data.reply + "</p>";
-        messages.scrollTop = messages.scrollHeight;
-      };
-    }
-
-    if (typeof window.requestIdleCallback === 'function') {
-      window.requestIdleCallback(() => initChatbot(), { timeout: 800 });
-    } else if (document.readyState === 'complete') {
-      window.setTimeout(initChatbot, 0);
-    } else {
-      window.addEventListener('load', function onChatbotLoad() {
-        window.removeEventListener('load', onChatbotLoad);
-        window.setTimeout(initChatbot, 0);
-      });
-    }
-  })();
+    messages.innerHTML += "<p><b>PrepPal:</b> " + data.reply + "</p>";
+    messages.scrollTop = messages.scrollHeight;
+  }
 </script>
 @endpush

@@ -816,9 +816,10 @@
   font-size: 1.04rem;
 }
 
-.pp-t-stars.pp-star-rating {
+.pp-t-stars {
+  color: #ff9800;
   margin-bottom: 0.55rem;
-  color: rgba(255, 152, 0, 0.5);
+  letter-spacing: 0.05em;
 }
 
 .pp-t-quote {
@@ -961,8 +962,9 @@
   opacity: 0.78;
 }
 
-.pp-t-modal__stars.pp-star-rating {
-  color: rgba(255, 200, 140, 0.55);
+.pp-t-modal__stars {
+  color: #ff9800;
+  letter-spacing: 0.06em;
 }
 
 .pp-t-modal__meta {
@@ -1717,3 +1719,29 @@
   }
 }
 
+/* =========================================
+   TESTIMONIAL MODAL - LIGHT MODE CARD FIX
+   Makes modal boxes white in light mode
+========================================= */
+
+body[data-theme="light"] .pp-t-modal__dialog {
+  background:
+    radial-gradient(900px 240px at 10% -15%, rgba(255, 122, 0, 0.10), transparent 60%),
+    linear-gradient(180deg, #ffffff, #f7f8fc) !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 30px 90px rgba(15, 23, 42, 0.18) !important;
+}
+
+body[data-theme="light"] .pp-t-modal__meta-card,
+body[data-theme="light"] .pp-t-modal__review,
+body[data-theme="light"] .pp-t-modal__photo-card {
+  background: #ffffff !important;
+  border: 1px solid rgba(15, 23, 42, 0.10) !important;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08) !important;
+}
+
+body[data-theme="light"] .pp-t-modal__close {
+  background: #ffffff !important;
+  border: 1px solid rgba(15, 23, 42, 0.10) !important;
+  color: #0f172a !important;
+}
