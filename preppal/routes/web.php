@@ -49,6 +49,8 @@ Route::view('/terms-and-conditions', 'frontend.support.terms-conditions')->name(
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name('password.forgot');
+Route::get('/reset-password/{token}', [AuthController::class, 'showResetPasswordForm'])->name('password.reset');
+Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -66,6 +68,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
+
+    Route::get('/profile/photo', [ProfileController::class, 'avatar'])->name('profile.avatar');
+    Route::post('/profile/photo', [ProfileController::class, 'updateAvatar'])->name('profile.avatar.update');
+    Route::delete('/profile/photo', [ProfileController::class, 'destroyAvatar'])->name('profile.avatar.destroy');
 
     Route::get('/calculator', function () {
         return view('frontend.calculator');

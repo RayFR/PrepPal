@@ -3,100 +3,86 @@
 @section('title', 'Admin - Orders')
 
 @section('content')
-<div class="container" style="max-width: 1150px;">
+<div class="pp-admin">
+    <div class="container pp-admin__inner">
 
-    <div style="display:flex; justify-content:space-between; align-items:flex-end; gap:1rem; flex-wrap:wrap;">
-        <div>
-            <h1 style="margin-bottom:0.25rem;">Orders</h1>
-            <p style="margin-top:0; opacity:0.8;">View and process customer orders.</p>
-        </div>
-        <a href="{{ route('home') }}"
-           style="text-decoration:none; padding:0.4rem 0.8rem; border-radius:8px; border:1px solid rgba(255,255,255,0.25); font-weight:600;">
-            ← Back to site
-        </a>
-    </div>
+        @include('frontend.admin.partials.toolbar')
 
-    @if(session('success'))
-        <div class="alert alert-success" style="margin: 1rem 0;">
-            {{ session('success') }}
-        </div>
-    @endif
+        <header class="pp-admin__hero">
+            <div>
+                <p class="pp-admin__eyebrow">Admin</p>
+                <h1>Orders</h1>
+                <p class="pp-admin__lede">Search, filter by status, and open any order to update fulfilment.</p>
+            </div>
+            <div class="pp-admin__hero-actions">
+                <a href="{{ route('home') }}" class="pp-admin__btn pp-admin__btn--ghost">← Storefront</a>
+            </div>
+        </header>
 
-    <form method="GET" action="{{ route('admin.orders.index') }}" style="display:flex; gap:0.5rem; margin:1rem 0; flex-wrap:wrap;">
-        <input
-            type="text"
-            name="q"
-            value="{{ $q }}"
-            placeholder="Search by order ID, name, email or postcode..."
-            style="flex:1; min-width:260px; padding:0.65rem; border-radius:10px;"
-        >
+        @if (session('success'))
+            <div class="pp-admin__alert pp-admin__alert--success">{{ session('success') }}</div>
+        @endif
 
-        <select name="status" style="padding:0.65rem; border-radius:10px;">
-            <option value="">All statuses</option>
-            <option value="pending" {{ $status === 'pending' ? 'selected' : '' }}>Pending</option>
-            <option value="processing" {{ $status === 'processing' ? 'selected' : '' }}>Processing</option>
-            <option value="shipped" {{ $status === 'shipped' ? 'selected' : '' }}>Shipped</option>
-            <option value="completed" {{ $status === 'completed' ? 'selected' : '' }}>Completed</option>
-            <option value="cancelled" {{ $status === 'cancelled' ? 'selected' : '' }}>Cancelled</option>
-        </select>
+        <form method="GET" action="{{ route('admin.orders.index') }}" class="pp-admin__filters">
+            <input
+                type="text"
+                name="q"
+                value="{{ $q }}"
+                placeholder="Order ID, name, email, postcode…"
+                class="pp-admin__input pp-admin__input--grow"
+            >
+            <select name="status" class="pp-admin__select">
+                <option value="">All statuses</option>
+                <option value="pending" {{ $status === 'pending' ? 'selected' : '' }}>Pending</option>
+                <option value="processing" {{ $status === 'processing' ? 'selected' : '' }}>Processing</option>
+                <option value="shipped" {{ $status === 'shipped' ? 'selected' : '' }}>Shipped</option>
+                <option value="completed" {{ $status === 'completed' ? 'selected' : '' }}>Completed</option>
+                <option value="cancelled" {{ $status === 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+            </select>
+            <button type="submit" class="pp-admin__btn pp-admin__btn--primary">Apply</button>
+            <a href="{{ route('admin.orders.index') }}" class="pp-admin__btn pp-admin__btn--ghost">Clear</a>
+        </form>
 
-        <button type="submit" class="cart-btn" style="padding:0.65rem 1rem; border-radius:10px;">
-            Filter
-        </button>
-
-        <a href="{{ route('admin.orders.index') }}"
-           style="padding:0.65rem 1rem; border-radius:10px; text-decoration:none; border:1px solid rgba(255,255,255,0.25); font-weight:600;">
-            Clear
-        </a>
-    </form>
-
-    <div class="card" style="padding:1rem; border-radius:12px;">
-        <div style="overflow:auto;">
-            <table style="width:100%; border-collapse:collapse;">
-                <thead>
-                    <tr style="text-align:left; opacity:0.9;">
-                        <th style="padding:0.6rem;">Order ID</th>
-                        <th style="padding:0.6rem;">Customer</th>
-                        <th style="padding:0.6rem;">Email</th>
-                        <th style="padding:0.6rem;">Total</th>
-                        <th style="padding:0.6rem;">Status</th>
-                        <th style="padding:0.6rem;">Placed</th>
-                        <th style="padding:0.6rem;">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($orders as $order)
-                        <tr style="border-top:1px solid rgba(0,0,0,0.12);">
-                            <td style="padding:0.6rem;">#{{ $order->id }}</td>
-                            <td style="padding:0.6rem;">{{ $order->name }}</td>
-                            <td style="padding:0.6rem;">{{ $order->email }}</td>
-                            <td style="padding:0.6rem;">£{{ number_format($order->total_price, 2) }}</td>
-                            <td style="padding:0.6rem;">
-                                <span style="font-weight:600;">{{ ucfirst($order->status) }}</span>
-                            </td>
-                            <td style="padding:0.6rem;">{{ optional($order->created_at)->format('d M Y H:i') }}</td>
-                            <td style="padding:0.6rem;">
-                                <a href="{{ route('admin.orders.show', $order->id) }}"
-                                   style="display:inline-flex; align-items:center; justify-content:center; padding:0.5rem 0.8rem; border-radius:6px; background-color:#2563eb; color:white; text-decoration:none; font-weight:600;">
-                                    View
-                                </a>
-                            </td>
-                        </tr>
-                    @empty
+        <div class="pp-admin__panel" style="padding:0; overflow:hidden;">
+            <div class="pp-admin__table-wrap" style="margin:0;">
+                <table class="pp-admin__table">
+                    <thead>
                         <tr>
-                            <td colspan="7" style="padding:1rem; opacity:0.8;">
-                                No orders found.
-                            </td>
+                            <th>Order</th>
+                            <th>Customer</th>
+                            <th>Email</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Placed</th>
+                            <th></th>
                         </tr>
-                    @endforelse
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @forelse ($orders as $order)
+                            <tr>
+                                <td><strong>#{{ $order->id }}</strong></td>
+                                <td>{{ $order->name }}</td>
+                                <td>{{ $order->email }}</td>
+                                <td>£{{ number_format($order->total_price, 2) }}</td>
+                                <td>@include('frontend.admin.partials.order-status-badge', ['status' => $order->status])</td>
+                                <td>{{ optional($order->created_at)->format('d M Y H:i') }}</td>
+                                <td>
+                                    <a href="{{ route('admin.orders.show', $order->id) }}" class="pp-admin__btn pp-admin__btn--primary pp-admin__btn--sm">View</a>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="7" class="pp-admin__lede" style="padding:1.25rem;">No orders match your filters.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+            <div class="pp-admin__pagination" style="padding:0 1rem 1rem;">
+                {{ $orders->links('vendor.pagination.preppal') }}
+            </div>
         </div>
 
-        <div style="margin-top:1rem;">
-            {{ $orders->links() }}
-        </div>
     </div>
-
 </div>
 @endsection

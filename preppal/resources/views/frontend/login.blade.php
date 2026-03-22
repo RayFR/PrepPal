@@ -25,15 +25,15 @@
             @endif
 
             @if (session('status'))
-                <div style="margin: 12px 0; padding: 12px; border: 1px solid #b4ffcc; background:#ecfff2; border-radius:10px;">
+                <div class="pp-auth-status" role="status">
                     {{ session('status') }}
                 </div>
             @endif
 
             {{-- TABS --}}
-            <div class="auth-tabs">
-                <button class="auth-tab auth-tab-active" data-mode="login" type="button">Sign In</button>
-                <button class="auth-tab" data-mode="register" type="button">Create Account</button>
+            <div class="auth-tabs pp-auth-tabs" role="tablist" aria-label="Sign in or register">
+                <button class="auth-tab auth-tab-active pp-auth-tab" type="button" data-mode="login" role="tab" aria-selected="true">Sign In</button>
+                <button class="auth-tab pp-auth-tab" type="button" data-mode="register" role="tab" aria-selected="false">Create Account</button>
             </div>
 
             {{-- LOGIN FORM --}}
@@ -66,7 +66,7 @@
                     </button>
                 </div>
 
-                <button class="cta auth-btn" type="submit">Sign In</button>
+                <button class="pp-auth-submit" type="submit">Sign In</button>
 
                 <div class="pp-auth-links">
   <a href="#" id="forgotLink" class="pp-forgot-link">
@@ -123,7 +123,7 @@
                 </div>
 
                 <div class="pp-auth-actions">
-                    <button class="cta auth-btn" type="submit">Create Account</button>
+                    <button class="pp-auth-submit" type="submit">Create Account</button>
 
                     <a class="pp-backlink" href="{{ route('home') }}">
                         <span class="pp-backlink__icon">←</span>
@@ -143,35 +143,42 @@
                 <li><strong>03 — All in one place</strong><br>Your cart, orders and plans stay synced while browsing.</li>
             </ol>
 
-            <p class="auth-footer">Better eating, one week at a time. 🥗</p>
+            <p class="auth-footer">Better eating, one week at a time.</p>
         </div>
 
     </div>
 
     {{-- FORGOT PASSWORD MODAL --}}
-    <div id="forgotModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:9999;">
-        <div style="background:#fff; width:min(420px, 92vw); margin:12vh auto; padding:18px; border-radius:14px; box-shadow:0 20px 60px rgba(0,0,0,.25);">
-            <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
-                <h3 style="margin:0;">Forgot Password</h3>
-                <button type="button" id="fp_close" style="border:none; background:transparent; font-size:22px; cursor:pointer; line-height:1;">
-                    &times;
-                </button>
+    <div id="forgotModal" class="pp-auth-modal" style="display:none;" aria-hidden="true">
+        <div class="pp-auth-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="ppForgotTitle">
+            <div class="pp-auth-modal__head">
+                <h3 id="ppForgotTitle" class="pp-auth-modal__title">Forgot password</h3>
+                <button type="button" id="fp_close" class="pp-auth-modal__x" aria-label="Close">&times;</button>
             </div>
 
-            <p style="margin:10px 0 14px; color:#555;">
-                Enter your username (or email) and click confirm.
+            <p class="pp-auth-modal__lede">
+                Enter the email address you used to register. If an account exists, we will send a reset link there.
             </p>
 
             <form method="POST" action="{{ route('password.forgot') }}">
                 @csrf
 
-                <label>Username / Email</label>
-                <input type="text" name="identifier" id="fp_identifier" required
-                       style="width:100%; padding:10px; border:1px solid #ddd; border-radius:10px;">
+                <label class="pp-auth-modal__label" for="fp_identifier">Email</label>
+                <input
+                    type="email"
+                    name="identifier"
+                    id="fp_identifier"
+                    class="pp-auth-modal__input"
+                    value="{{ old('identifier') }}"
+                    required
+                    maxlength="255"
+                    autocomplete="email"
+                    inputmode="email"
+                >
 
-                <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:14px;">
-                    <button type="button" id="fp_cancel" class="cta" style="background:#eee; color:#111;">Cancel</button>
-                    <button type="submit" class="cta">Confirm</button>
+                <div class="pp-auth-modal__actions">
+                    <button type="button" id="fp_cancel" class="pp-auth-modal__btn pp-auth-modal__btn--ghost">Cancel</button>
+                    <button type="submit" class="pp-auth-modal__btn pp-auth-modal__btn--primary">Send reset link</button>
                 </div>
             </form>
         </div>
@@ -187,11 +194,17 @@
         const fpCancel = document.getElementById('fp_cancel');
 
         function openModal() {
-            if (forgotModal) forgotModal.style.display = 'block';
+            if (forgotModal) {
+                forgotModal.style.display = 'flex';
+                forgotModal.setAttribute('aria-hidden', 'false');
+            }
         }
 
         function closeModal() {
-            if (forgotModal) forgotModal.style.display = 'none';
+            if (forgotModal) {
+                forgotModal.style.display = 'none';
+                forgotModal.setAttribute('aria-hidden', 'true');
+            }
         }
 
         if (forgotLink) {
@@ -211,9 +224,13 @@
         }
 
         document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape' && forgotModal && forgotModal.style.display === 'block') {
+            if (e.key === 'Escape' && forgotModal && forgotModal.style.display === 'flex') {
                 closeModal();
             }
         });
+
+        @if ($errors->has('identifier'))
+        document.addEventListener('DOMContentLoaded', function () { openModal(); });
+        @endif
     </script>
 @endsection

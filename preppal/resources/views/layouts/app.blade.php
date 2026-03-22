@@ -7,6 +7,8 @@
 
     <title>@yield('title', config('app.name', 'PrepPal'))</title>
 
+    @stack('head')
+
     <link rel="stylesheet" href="{{ asset('css/author_style.css') }}?v={{ filemtime(public_path('css/author_style.css')) }}">
 
     @stack('styles')
@@ -103,7 +105,11 @@
                             aria-expanded="false"
                         >
                             <span class="profile-dd__avatar" aria-hidden="true">
-                                {{ strtoupper(substr(auth()->user()->name ?? 'U', 0, 1)) }}
+                                @if (auth()->user()->avatar_path)
+                                    <img src="{{ asset('storage/' . auth()->user()->avatar_path) }}" alt="">
+                                @else
+                                    {{ strtoupper(substr(auth()->user()->name ?? 'U', 0, 1)) }}
+                                @endif
                             </span>
                             <span class="profile-dd__name" title="{{ auth()->user()->name }}">
                                 {{ auth()->user()->name }}
@@ -112,13 +118,10 @@
                         </button>
 
                         <div class="profile-dd__menu" id="profileMenu" role="menu" aria-label="Profile menu">
-                            <a role="menuitem" href="{{ route('profile.index') }}">My Profile</a>
+                            <a role="menuitem" href="{{ route('profile.index') }}">Profile page</a>
 
                             @if (auth()->user()->is_admin)
-                                <a href="{{ route('admin.dashboard') }}">Admin Dashboard</a>
-                                <a href="{{ route('admin.customers.index') }}">Admin Customers</a>
-                                <a href="{{ route('admin.orders.index') }}">Admin Orders</a>
-                                <a href="{{ route('admin.products.index') }}">Admin Products</a>
+                                <a role="menuitem" href="{{ route('admin.dashboard') }}">Admin dashboard</a>
                             @endif
 
                             <div class="profile-dd__sep"></div>
@@ -131,7 +134,16 @@
                     </div>
                 @endauth
 
-                <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle theme">☀️</button>
+                <button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch theme">
+                    <span class="theme-toggle__icons" aria-hidden="true">
+                        <svg class="theme-toggle__sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+                        </svg>
+                        <svg class="theme-toggle__moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+                        </svg>
+                    </span>
+                </button>
             </div>
         </div>
     </header>
@@ -248,11 +260,15 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/currency.js') }}"></script>
-    <script src="{{ asset('js/cart.js') }}"></script>
-    <script src="{{ asset('js/store.js') }}"></script>
-    <script src="{{ asset('js/checkout.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}?v={{ filemtime(public_path('js/app.js')) }}"></script>
+    @if ($showCurrencySelector ?? false)
+        <script defer src="{{ asset('js/currency.js') }}?v={{ filemtime(public_path('js/currency.js')) }}"></script>
+    @endif
+    <script defer src="{{ asset('js/cart.js') }}?v={{ filemtime(public_path('js/cart.js')) }}"></script>
+    <script defer src="{{ asset('js/store.js') }}?v={{ filemtime(public_path('js/store.js')) }}"></script>
+    @if (request()->routeIs('checkout'))
+        <script defer src="{{ asset('js/checkout.js') }}?v={{ filemtime(public_path('js/checkout.js')) }}"></script>
+    @endif
     <script defer src="{{ asset('js/newsletter.js') }}?v={{ filemtime(public_path('js/newsletter.js')) }}"></script>
 
     @stack('scripts')

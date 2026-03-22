@@ -156,7 +156,6 @@
 
                     <div class="pp-contact-mini-list">
                         <div class="pp-contact-mini-item">
-                            <span class="pp-contact-mini-item__icon">📦</span>
                             <div>
                                 <strong>Order questions & changes</strong>
                                 <p>Help with active orders, updates, and product issues.</p>
@@ -164,7 +163,6 @@
                         </div>
 
                         <div class="pp-contact-mini-item">
-                            <span class="pp-contact-mini-item__icon">🥗</span>
                             <div>
                                 <strong>Meal & dietary support</strong>
                                 <p>Questions about meal choices, ingredients, and nutrition.</p>
@@ -172,7 +170,6 @@
                         </div>
 
                         <div class="pp-contact-mini-item">
-                            <span class="pp-contact-mini-item__icon">💳</span>
                             <div>
                                 <strong>Billing & payments</strong>
                                 <p>Support for payment problems, charges, and account issues.</p>
@@ -180,7 +177,6 @@
                         </div>
 
                         <div class="pp-contact-mini-item">
-                            <span class="pp-contact-mini-item__icon">🚚</span>
                             <div>
                                 <strong>Delivery & tracking</strong>
                                 <p>Late order, tracking updates, or delivery concerns.</p>

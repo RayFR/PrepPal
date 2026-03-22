@@ -103,7 +103,7 @@
         <h2>Performance Overview</h2>
         <p>(Chart integration coming soon)</p>
         <div class="chart-placeholder">
-          <span>📈</span>
+          <span>Chart</span>
         </div>
       </section>
     </main>

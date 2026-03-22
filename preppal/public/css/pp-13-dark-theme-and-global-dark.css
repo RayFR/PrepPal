@@ -318,7 +318,7 @@ body[data-theme="dark"] .macro-info p {
 
 .pp-benefits { margin: 14px 0 0; padding-left: 18px; line-height: 1.7; opacity:.95; }
 
-/* ✅ FIXED: PDP actions layout (tidy, aligned, same height) */
+/* PDP actions layout (tidy, aligned, same height) */
 .pp-actions{
   display: grid;
   grid-template-columns: 260px minmax(220px, 260px);
@@ -697,7 +697,7 @@ body[data-theme="dark"] .store-filters .btn-ghost{
 }
 
 /* =========================================================
-   ✅ STORE GRID — SINGLE SOURCE OF TRUTH (FIXED)
+   STORE GRID — SINGLE SOURCE OF TRUTH (FIXED)
    ========================================================= */
 
 .admin-dashboard.store-grid{
@@ -2485,7 +2485,7 @@ body[data-theme="dark"] .mfp .mfp-help{
   border: 1px solid rgba(255, 122, 0, 0.22) !important;
   background: rgba(255, 122, 0, 0.08) !important;
 
-  /* ✅ orange glow like the note */
+  /* orange glow like the note */
   box-shadow:
     0 14px 28px rgba(0,0,0,0.22),
     0 0 0 1px rgba(255, 255, 255, 0.06) inset,

@@ -5,7 +5,7 @@
 @section('content')
 <main class="container main-content mfp">
 
-    {{-- ✅ SINGLE header only (removed the duplicate calc-hero block) --}}
+    {{-- Single header only (removed the duplicate calc-hero block) --}}
     <div class="mfp-header">
         <div>
             <h1 class="mfp-title">Calorie & Macro Calculator</h1>
@@ -165,7 +165,7 @@
                         </div>
                     </div>
 
-                    {{-- ✅ Hidden until calculator.js reveals it after calculate --}}
+                    {{-- Hidden until calculator.js reveals it after calculate --}}
                     <button
                         type="button"
                         id="recommendedPlanAdd"
@@ -176,7 +176,7 @@
                         hidden
                         disabled
                     >
-                        <span class="reco-btn__icon" aria-hidden="true">🛒</span>
+                        <span class="reco-btn__icon" aria-hidden="true"></span>
 
                         <span class="reco-btn__copy">
                             <span class="reco-btn__title">Add recommended plan</span>

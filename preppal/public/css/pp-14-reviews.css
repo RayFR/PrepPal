@@ -85,8 +85,50 @@ body[data-theme="dark"] .pp-review-form textarea:focus {
 }
 
 .pp-review-stars {
-  color: #f59e0b; /* amber */
+  color: #f59e0b; /* amber — empty star strokes */
   letter-spacing: 1px;
+}
+
+/* ---------- Star rating (product page, reviews, home testimonials) ---------- */
+
+.pp-star-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  flex-wrap: nowrap;
+  line-height: 0;
+  vertical-align: middle;
+}
+
+.pp-star {
+  flex-shrink: 0;
+  display: block;
+}
+
+.pp-star path {
+  vector-effect: non-scaling-stroke;
+}
+
+.pp-star--fill path {
+  fill: #f59e0b;
+  stroke: #d97706;
+  stroke-width: 0.35;
+}
+
+.pp-star--empty path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.2;
+  opacity: 0.42;
+}
+
+body[data-theme="dark"] .pp-star--fill path {
+  fill: #fbbf24;
+  stroke: #f59e0b;
+}
+
+body[data-theme="dark"] .pp-star--empty path {
+  opacity: 0.5;
 }
 
 .pp-review-comment {

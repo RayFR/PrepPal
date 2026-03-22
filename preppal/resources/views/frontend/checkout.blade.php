@@ -17,10 +17,10 @@
         <p class="checkout-subtitle">Review your order, enter delivery details, and complete your PrepPal purchase.</p>
 
         <div class="checkout-trustbar" aria-label="Checkout trust indicators">
-            <div class="trust-pill">🔒 Secure checkout</div>
-            <div class="trust-pill">🚚 Free delivery</div>
-            <div class="trust-pill">❄️ Chilled packaging</div>
-            <div class="trust-pill">↩️ Easy support</div>
+            <div class="trust-pill">Secure checkout</div>
+            <div class="trust-pill">Free delivery</div>
+            <div class="trust-pill">Chilled packaging</div>
+            <div class="trust-pill">Easy support</div>
         </div>
     </div>
 
@@ -153,7 +153,7 @@
                             <div class="form-span-2">
                                 <label for="coCardNumber">Card Number</label>
                                 <div class="input-with-icon">
-                                    <span class="input-icon" aria-hidden="true">💳</span>
+                                    <span class="input-icon" aria-hidden="true"></span>
                                     <input type="text" id="coCardNumber" name="card_number" inputmode="numeric" autocomplete="cc-number"
                                            placeholder="1234 5678 9012 3456" maxlength="22" required>
                                 </div>

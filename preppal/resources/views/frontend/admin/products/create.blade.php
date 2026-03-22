@@ -3,76 +3,79 @@
 @section('title', 'Admin - Add Product')
 
 @section('content')
-<div class="container" style="max-width: 900px;">
-    <a href="{{ route('admin.products.index') }}" style="text-decoration:none;">← Back to products</a>
+<div class="pp-admin">
+    <div class="container pp-admin__inner">
 
-    <h1 style="margin: 1rem 0 0.25rem;">Add Product</h1>
-    <p style="margin-top: 0; opacity: 0.8;">Create a new product and set its stock.</p>
+        @include('frontend.admin.partials.toolbar')
 
-    @if($errors->any())
-        <div class="alert alert-danger" style="margin: 1rem 0;">
-            <strong>Please fix the following:</strong>
-            <ul style="margin: 0.5rem 0 0 1.25rem;">
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+        <a href="{{ route('admin.products.index') }}" class="pp-admin__back">← Back to products</a>
+
+        <header class="pp-admin__hero">
+            <div>
+                <p class="pp-admin__eyebrow">Catalog</p>
+                <h1>Add product</h1>
+                <p class="pp-admin__lede">Create a new SKU with pricing, imagery path, and starting stock.</p>
+            </div>
+        </header>
+
+        @if ($errors->any())
+            <div class="pp-admin__alert pp-admin__alert--danger">
+                <strong>Please fix the following:</strong>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <div class="pp-admin__panel">
+            <form method="POST" action="{{ route('admin.products.store') }}">
+                @csrf
+
+                <div class="pp-admin__form-grid">
+                    <div class="pp-admin__field">
+                        <label class="pp-admin__label" for="name">Name</label>
+                        <input type="text" id="name" name="name" value="{{ old('name') }}" required class="pp-admin__input pp-admin__input--block">
+                    </div>
+                    <div class="pp-admin__field">
+                        <label class="pp-admin__label" for="category">Category</label>
+                        <select id="category" name="category" required class="pp-admin__select pp-admin__input--block">
+                            <option value="meal" {{ old('category') === 'meal' ? 'selected' : '' }}>Meal</option>
+                            <option value="supplement" {{ old('category') === 'supplement' ? 'selected' : '' }}>Supplement</option>
+                            <option value="drink" {{ old('category') === 'drink' ? 'selected' : '' }}>Drink</option>
+                            <option value="clothing" {{ old('category') === 'clothing' ? 'selected' : '' }}>Clothing</option>
+                            <option value="equipment" {{ old('category') === 'equipment' ? 'selected' : '' }}>Equipment</option>
+                        </select>
+                    </div>
+                    <div class="pp-admin__field">
+                        <label class="pp-admin__label" for="price">Price (£)</label>
+                        <input type="number" step="0.01" min="0" id="price" name="price" value="{{ old('price') }}" required class="pp-admin__input pp-admin__input--block">
+                    </div>
+                    <div class="pp-admin__field">
+                        <label class="pp-admin__label" for="image_path">Image path</label>
+                        <input type="text" id="image_path" name="image_path" value="{{ old('image_path') }}" required class="pp-admin__input pp-admin__input--block" placeholder="e.g. images/product.jpg">
+                    </div>
+                    <div class="pp-admin__field">
+                        <label class="pp-admin__label" for="stock">Stock</label>
+                        <input type="number" min="0" id="stock" name="stock" value="{{ old('stock', 0) }}" required class="pp-admin__input pp-admin__input--block">
+                    </div>
+                    <div class="pp-admin__field">
+                        <label class="pp-admin__label" for="low_stock_threshold">Low stock threshold</label>
+                        <input type="number" min="0" id="low_stock_threshold" name="low_stock_threshold" value="{{ old('low_stock_threshold', 5) }}" required class="pp-admin__input pp-admin__input--block">
+                    </div>
+                    <div class="pp-admin__field pp-admin__field--full">
+                        <label class="pp-admin__label" for="description">Description</label>
+                        <textarea id="description" name="description" rows="5" required class="pp-admin__textarea">{{ old('description') }}</textarea>
+                    </div>
+                </div>
+
+                <div class="pp-admin__form-actions">
+                    <button type="submit" class="pp-admin__btn pp-admin__btn--primary">Create product</button>
+                </div>
+            </form>
         </div>
-    @endif
 
-    <div class="card" style="padding: 1.25rem; border-radius: 12px; margin-top: 1rem;">
-        <form method="POST" action="{{ route('admin.products.store') }}">
-            @csrf
-
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                <div>
-                    <label>Name</label>
-                    <input type="text" name="name" value="{{ old('name') }}" required style="width:100%; padding:0.65rem; border-radius:10px;">
-                </div>
-
-                <div>
-                    <label>Category</label>
-                    <select name="category" required style="width:100%; padding:0.65rem; border-radius:10px;">
-                        <option value="meal" {{ old('category') === 'meal' ? 'selected' : '' }}>Meal</option>
-                        <option value="supplement" {{ old('category') === 'supplement' ? 'selected' : '' }}>Supplement</option>
-                        <option value="drink" {{ old('category') === 'drink' ? 'selected' : '' }}>Drink</option>
-                        <option value="clothing" {{ old('category') === 'clothing' ? 'selected' : '' }}>Clothing</option>
-                        <option value="equipment" {{ old('category') === 'equipment' ? 'selected' : '' }}>Equipment</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label>Price (£)</label>
-                    <input type="number" step="0.01" min="0" name="price" value="{{ old('price') }}" required style="width:100%; padding:0.65rem; border-radius:10px;">
-                </div>
-
-                <div>
-                    <label>Image Path</label>
-                    <input type="text" name="image_path" value="{{ old('image_path') }}" required style="width:100%; padding:0.65rem; border-radius:10px;">
-                </div>
-
-                <div>
-                    <label>Stock</label>
-                    <input type="number" min="0" name="stock" value="{{ old('stock', 0) }}" required style="width:100%; padding:0.65rem; border-radius:10px;">
-                </div>
-
-                <div>
-                    <label>Low Stock Threshold</label>
-                    <input type="number" min="0" name="low_stock_threshold" value="{{ old('low_stock_threshold', 5) }}" required style="width:100%; padding:0.65rem; border-radius:10px;">
-                </div>
-
-                <div style="grid-column: 1 / -1;">
-                    <label>Description</label>
-                    <textarea name="description" rows="5" required style="width:100%; padding:0.65rem; border-radius:10px;">{{ old('description') }}</textarea>
-                </div>
-            </div>
-
-            <div style="margin-top: 1rem;">
-                <button type="submit" class="cart-btn" style="padding:0.7rem 1rem; border-radius:10px;">
-                    Create Product
-                </button>
-            </div>
-        </form>
     </div>
 </div>
 @endsection

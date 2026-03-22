@@ -34,6 +34,18 @@ class OrderController extends Controller
             ]);
         }
 
+        if (in_array($order->status, ['cancelled'], true)) {
+            return back()->withErrors([
+                'return' => 'Cancelled orders cannot be returned.',
+            ]);
+        }
+
+        if (! in_array($order->status, ['shipped', 'completed'], true)) {
+            return back()->withErrors([
+                'return' => 'You can request a return once your order has been shipped or completed.',
+            ]);
+        }
+
         $order->return_status = 'requested';
         $order->save();
 

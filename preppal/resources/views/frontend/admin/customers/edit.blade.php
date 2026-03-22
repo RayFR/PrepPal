@@ -3,89 +3,99 @@
 @section('title', 'Admin - Edit Customer')
 
 @section('content')
-<div class="container" style="max-width: 900px;">
+<div class="pp-admin">
+    <div class="container pp-admin__inner">
 
-    <a href="{{ route('admin.customers.index') }}" style="text-decoration:none;">← Back to customers</a>
+        @include('frontend.admin.partials.toolbar')
 
-    <h1 style="margin: 1rem 0 0.25rem;">Edit Customer</h1>
-    <p style="margin-top: 0; opacity: 0.8;">Update customer details and admin/security flags.</p>
+        <a href="{{ route('admin.customers.index') }}" class="pp-admin__back">← Back to customers</a>
 
-    @if($errors->any())
-        <div class="alert alert-danger" style="margin: 1rem 0;">
-            <strong>Please fix the following:</strong>
-            <ul style="margin: 0.5rem 0 0 1.25rem;">
-                @foreach($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+        <header class="pp-admin__hero">
+            <div>
+                <p class="pp-admin__eyebrow">Customer</p>
+                <h1>Edit account</h1>
+                <p class="pp-admin__lede">{{ $user->email }}</p>
+            </div>
+        </header>
+
+        @if ($errors->any())
+            <div class="pp-admin__alert pp-admin__alert--danger">
+                <strong>Please fix the following:</strong>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <div class="pp-admin__panel">
+            <div class="pp-admin__panel-header">
+                <h2>Details</h2>
+            </div>
+            <form method="POST" action="{{ route('admin.customers.update', $user->id) }}">
+                @csrf
+                @method('PUT')
+
+                <div class="pp-admin__form-grid">
+                    <div class="pp-admin__field">
+                        <label class="pp-admin__label" for="name">Name</label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            value="{{ old('name', $user->name) }}"
+                            required
+                            class="pp-admin__input pp-admin__input--block"
+                        >
+                    </div>
+                    <div class="pp-admin__field">
+                        <label class="pp-admin__label" for="email">Email</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value="{{ old('email', $user->email) }}"
+                            required
+                            class="pp-admin__input pp-admin__input--block"
+                        >
+                    </div>
+                </div>
+
+                <div style="margin-top:1rem;">
+                    <label class="pp-admin__check">
+                        <input
+                            type="checkbox"
+                            name="is_admin"
+                            value="1"
+                            {{ old('is_admin', $user->is_admin) ? 'checked' : '' }}
+                        >
+                        Admin user
+                    </label>
+                </div>
+
+                <div class="pp-admin__form-actions">
+                    <button type="submit" class="pp-admin__btn pp-admin__btn--primary">Save changes</button>
+                </div>
+            </form>
         </div>
-    @endif
 
-    <div class="card" style="padding: 1.25rem; border-radius: 12px; margin-top: 1rem;">
-        <form method="POST" action="{{ route('admin.customers.update', $user->id) }}">
-            @csrf
-            @method('PUT')
-
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                <div>
-                    <label style="display:block; margin-bottom:0.35rem;">Name</label>
-                    <input
-                        type="text"
-                        name="name"
-                        value="{{ old('name', $user->name) }}"
-                        required
-                        style="width:100%; padding:0.65rem; border-radius:10px;"
-                    >
-                </div>
-
-                <div>
-                    <label style="display:block; margin-bottom:0.35rem;">Email</label>
-                    <input
-                        type="email"
-                        name="email"
-                        value="{{ old('email', $user->email) }}"
-                        required
-                        style="width:100%; padding:0.65rem; border-radius:10px;"
-                    >
-                </div>
+        <div class="pp-admin__panel pp-admin__panel--danger-zone">
+            <div class="pp-admin__panel-header">
+                <h2>Delete user</h2>
+                <p class="pp-admin__lede" style="margin-top:0.35rem;">Permanently remove this account. This cannot be undone.</p>
             </div>
+            <form
+                method="POST"
+                action="{{ route('admin.customers.destroy', $user->id) }}"
+                onsubmit="return confirm('Delete this user? This cannot be undone.');"
+            >
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="pp-admin__btn pp-admin__btn--danger">Delete user</button>
+            </form>
+        </div>
 
-            <div style="margin-top: 1rem; display:flex; gap:1rem; flex-wrap:wrap;">
-                <label style="display:flex; align-items:center; gap:0.5rem;">
-                    <input
-                        type="checkbox"
-                        name="is_admin"
-                        value="1"
-                        {{ old('is_admin', $user->is_admin) ? 'checked' : '' }}
-                    >
-                    Admin user
-                </label>
-
-            </div>
-
-            <div style="margin-top: 1.25rem;">
-                <button type="submit" class="cart-btn" style="padding:0.7rem 1rem; border-radius:10px;">
-                    Save changes
-                </button>
-            </div>
-        </form>
     </div>
-
-    <div class="card" style="padding: 1.25rem; border-radius: 12px; margin-top: 1rem; border: 1px solid rgba(255,0,0,0.25);">
-        <h2 style="margin-top:0;">Delete user</h2>
-        <p style="opacity:0.85; margin-top:0;">
-            This action cannot be undone.
-        </p>
-
-        <form method="POST" action="{{ route('admin.customers.destroy', $user->id) }}"
-              onsubmit="return confirm('Delete this user? This cannot be undone.');">
-            @csrf
-            @method('DELETE')
-            <button type="submit" style="padding:0.7rem 1rem; border-radius:10px; background:#c00; color:#fff; border:none; cursor:pointer;">
-                Delete user
-            </button>
-        </form>
-    </div>
-
 </div>
 @endsection

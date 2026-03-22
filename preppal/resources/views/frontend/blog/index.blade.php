@@ -65,7 +65,6 @@
       <a class="pp-goal-card" href="{{ route('blog.index', ['section' => 'nutrition', 'q' => 'cutting']) }}">
         <div class="pp-goal-card__top">
           <span class="pp-goal-chip">Cutting</span>
-          <span class="pp-goal-emoji">🔥</span>
         </div>
         <h3>Cut without starving</h3>
         <p>
@@ -76,7 +75,6 @@
       <a class="pp-goal-card" href="{{ route('blog.index', ['section' => 'nutrition', 'q' => 'bulking']) }}">
         <div class="pp-goal-card__top">
           <span class="pp-goal-chip">Bulking</span>
-          <span class="pp-goal-emoji">💪</span>
         </div>
         <h3>Lean mass setup</h3>
         <p>
@@ -87,7 +85,6 @@
       <a class="pp-goal-card" href="{{ route('blog.index', ['section' => 'meal-prep', 'q' => 'meal prep']) }}">
         <div class="pp-goal-card__top">
           <span class="pp-goal-chip">Meal Prep</span>
-          <span class="pp-goal-emoji">🍱</span>
         </div>
         <h3>Sunday prep system</h3>
         <p>
@@ -98,7 +95,6 @@
       <a class="pp-goal-card" href="{{ route('blog.index', ['section' => 'student', 'q' => 'budget']) }}">
         <div class="pp-goal-card__top">
           <span class="pp-goal-chip">Student</span>
-          <span class="pp-goal-emoji">🎓</span>
         </div>
         <h3>Budget-friendly wins</h3>
         <p>
