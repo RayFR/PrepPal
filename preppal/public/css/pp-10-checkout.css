@@ -1,4 +1,11 @@
-/* --- Checkout Page --- */
+/* =========================================================
+   CHECKOUT PAGE
+   ========================================================= */
+
+/* --------------------------
+   CHECKOUT — WRAPPER & HERO
+-------------------------- */
+
 .checkout-wrapper {
   max-width: var(--max-width-container);
   margin: 2.5rem auto 3.5rem;
@@ -18,29 +25,33 @@
 }
 
 .checkout-subtitle {
-  color: #6b7280;
-  margin: 0 auto 1.25rem;
   max-width: 60ch;
+  margin: 0 auto 1.25rem;
   line-height: 1.6;
+  color: #6b7280;
 }
 
 .checkout-trustbar {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.6rem;
   justify-content: center;
+  gap: 0.6rem;
   margin-top: 0.75rem;
 }
 
 .trust-pill {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.09);
   padding: 0.45rem 0.75rem;
   border-radius: 999px;
-  font-size: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.06);
   color: var(--color-text-light);
+  font-size: 0.9rem;
   backdrop-filter: blur(8px);
 }
+
+/* --------------------------
+   CHECKOUT — GRID & CARD
+-------------------------- */
 
 .checkout-grid {
   display: grid;
@@ -52,9 +63,9 @@
 .checkout-card {
   padding: 2rem;
   border-radius: 18px;
-  box-shadow: 0 14px 45px rgba(0,0,0,0.20);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 14px 45px rgba(0, 0, 0, 0.20);
   backdrop-filter: blur(10px);
 }
 
@@ -66,25 +77,28 @@
   margin-bottom: 1rem;
 }
 
-.checkout-mini {
-  font-size: 0.9rem;
-  color: rgba(255,255,255,0.65);
-}
-
 .checkout-heading {
-  font-size: 1.9rem;
   margin: 0;
+  font-size: 1.9rem;
   font-weight: 800;
   color: var(--color-primary);
 }
 
-.checkout-divider {
-  height: 1px;
-  background: rgba(255,255,255,0.10);
-  margin: 1.2rem 0;
+.checkout-mini {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.65);
 }
 
-/* ORDER SUMMARY LIST */
+.checkout-divider {
+  height: 1px;
+  margin: 1.2rem 0;
+  background: rgba(255, 255, 255, 0.10);
+}
+
+/* --------------------------
+   CHECKOUT — ORDER SUMMARY
+-------------------------- */
+
 .checkout-items-list {
   list-style: none;
   padding: 0;
@@ -96,7 +110,7 @@
   align-items: center;
   gap: 1rem;
   padding: 0.9rem 0;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .checkout-item-row:last-child {
@@ -104,12 +118,12 @@
 }
 
 .checkout-thumb {
+  flex: 0 0 auto;
   width: 56px;
   height: 56px;
   border-radius: 12px;
   overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.12);
-  flex: 0 0 auto;
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .checkout-thumb img {
@@ -130,9 +144,9 @@
 }
 
 .checkout-item-meta {
-  font-size: 0.9rem;
-  color: rgba(255,255,255,0.65);
   margin-top: 0.15rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.65);
 }
 
 .checkout-item-price {
@@ -140,68 +154,76 @@
   color: var(--color-text-light);
 }
 
-/* SUMMARY ROWS */
+/* --------------------------
+   CHECKOUT — SUMMARY ROWS & TOTAL
+-------------------------- */
+
 .checkout-summary-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0.4rem 0;
-  color: rgba(255,255,255,0.80);
   font-weight: 600;
+  color: rgba(255, 255, 255, 0.80);
 }
 
 .checkout-green {
-  color: #34d399;
   font-weight: 800;
+  color: #34d399;
 }
 
-/* TOTAL BOX */
 .checkout-total-box {
-  background: rgba(255, 152, 0, 0.12);
-  border: 1px solid rgba(255, 152, 0, 0.28);
-  border-left: 6px solid #ff9800;
+  margin-top: 1rem;
   padding: 1rem 1.1rem;
   border-radius: 14px;
-  margin-top: 1rem;
+  border: 1px solid rgba(255, 152, 0, 0.28);
+  border-left: 6px solid #ff9800;
+  background: rgba(255, 152, 0, 0.12);
   font-size: 1.3rem;
   font-weight: 900;
   text-align: left;
   color: var(--color-text-light);
 }
 
-/* EMPTY MESSAGE */
+/* --------------------------
+   CHECKOUT — EMPTY STATE
+-------------------------- */
+
 .checkout-empty {
-  padding: 1rem;
-  background: rgba(255, 122, 0, 0.10);
-  border: 1px solid rgba(255, 122, 0, 0.22);
-  border-radius: 14px;
-  margin-top: 1rem;
-  text-align: center;
-  color: rgba(255,255,255,0.9);
   display: none;
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 122, 0, 0.22);
+  background: rgba(255, 122, 0, 0.10);
+  text-align: center;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .checkout-link {
+  font-weight: 700;
   color: var(--color-primary);
   text-decoration: none;
-  font-weight: 700;
 }
 
 .checkout-link:hover {
   text-decoration: underline;
 }
 
-/* PROMO */
+/* --------------------------
+   CHECKOUT — PROMO CODE
+-------------------------- */
+
 .checkout-promo {
   margin-top: 1rem;
   text-align: left;
 }
 
 .checkout-promo-label {
-  font-size: 0.9rem;
-  color: rgba(255,255,255,0.80);
   display: block;
   margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.80);
 }
 
 .checkout-promo-row {
@@ -211,19 +233,19 @@
 
 .checkout-promo-row input {
   flex: 1;
-  background: rgba(0,0,0,0.20);
-  border: 1px solid rgba(255,255,255,0.14);
-  color: var(--color-text-light);
-  border-radius: 12px;
   padding: 0.75rem 0.9rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.20);
+  color: var(--color-text-light);
 }
 
 .promo-btn {
-  background: rgba(255, 122, 0, 0.16);
-  border: 1px solid rgba(255, 122, 0, 0.35);
-  color: var(--color-text-light);
-  border-radius: 12px;
   padding: 0.75rem 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 122, 0, 0.35);
+  background: rgba(255, 122, 0, 0.16);
+  color: var(--color-text-light);
   font-weight: 800;
   cursor: pointer;
   transition: 0.2s ease;
@@ -237,12 +259,12 @@
 .promo-msg {
   display: none;
   margin-top: 0.6rem;
-  font-size: 0.95rem;
   padding: 0.6rem 0.75rem;
   border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.05);
-  color: rgba(255,255,255,0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .promo-msg.ok {
@@ -257,14 +279,17 @@
 
 .checkout-note {
   margin-top: 0.9rem;
-  color: rgba(255,255,255,0.65);
+  color: rgba(255, 255, 255, 0.65);
 }
 
-/* SECTIONS */
+/* --------------------------
+   CHECKOUT — SECTIONS
+-------------------------- */
+
 .checkout-section {
   margin-top: 1.25rem;
   padding-top: 1.25rem;
-  border-top: 1px solid rgba(255,255,255,0.10);
+  border-top: 1px solid rgba(255, 255, 255, 0.10);
 }
 
 .checkout-section:first-of-type {
@@ -284,23 +309,26 @@
   margin: 0;
   font-size: 1.2rem;
   font-weight: 800;
-  color: rgba(255,255,255,0.92);
+  color: rgba(255, 255, 255, 0.92);
 }
 
 .section-badge {
-  width: 28px;
-  height: 28px;
-  border-radius: 999px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-weight: 900;
-  background: rgba(255, 122, 0, 0.18);
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
   border: 1px solid rgba(255, 122, 0, 0.35);
+  background: rgba(255, 122, 0, 0.18);
   color: var(--color-text-light);
+  font-weight: 900;
 }
 
-/* Form layout (used on checkout, contact, etc.) */
+/* --------------------------
+   CHECKOUT — FORM GRID
+-------------------------- */
+
 .checkout-form-card .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -311,35 +339,28 @@
   grid-column: 1 / -1;
 }
 
-@media (max-width: 520px) {
-  .checkout-form-card .form-grid {
-    grid-template-columns: 1fr;
-  }
-  .checkout-form-card .form-span-2 {
-    grid-column: auto;
-  }
-}
-
-/* Make checkout form inputs match dark glass look */
 .checkout-form-card .form-grid input,
 .checkout-form-card .form-grid textarea {
-  background: rgba(0,0,0,0.20);
-  border: 1px solid rgba(255,255,255,0.14);
-  color: var(--color-text-light);
-  border-radius: 12px;
   padding: 0.75rem 0.9rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.20);
+  color: var(--color-text-light);
 }
 
 .checkout-form-card .form-grid label {
-  color: rgba(255,255,255,0.82);
   font-weight: 650;
+  color: rgba(255, 255, 255, 0.82);
 }
 
 .checkout-form-card textarea {
   resize: vertical;
 }
 
-/* PAYMENT METHODS */
+/* --------------------------
+   CHECKOUT — PAYMENT METHODS
+-------------------------- */
+
 .pay-methods {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -360,10 +381,10 @@
   width: 100%;
   padding: 0.9rem 1rem;
   border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.05);
-  transition: 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
   text-align: left;
+  transition: 0.2s ease;
 }
 
 .pay-method input:checked + .pay-method-ui {
@@ -375,14 +396,14 @@
 .pm-title {
   display: block;
   font-weight: 900;
-  color: rgba(255,255,255,0.95);
+  color: rgba(255, 255, 255, 0.95);
 }
 
 .pm-sub {
   display: block;
   margin-top: 0.15rem;
   font-size: 0.9rem;
-  color: rgba(255,255,255,0.65);
+  color: rgba(255, 255, 255, 0.65);
 }
 
 .pay-disabled {
@@ -390,7 +411,10 @@
   cursor: not-allowed;
 }
 
-/* CARD FIELDS */
+/* --------------------------
+   CHECKOUT — CARD FIELDS
+-------------------------- */
+
 .card-icons {
   display: flex;
   gap: 0.5rem;
@@ -398,14 +422,14 @@
 }
 
 .card-pill {
+  padding: 0.35rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.18);
+  color: rgba(255, 255, 255, 0.80);
   font-size: 0.8rem;
   font-weight: 900;
   letter-spacing: 0.05em;
-  padding: 0.35rem 0.55rem;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.14);
-  color: rgba(255,255,255,0.80);
-  background: rgba(0,0,0,0.18);
 }
 
 .input-with-icon {
@@ -427,28 +451,42 @@
 .field-hint {
   margin-top: 0.35rem;
   font-size: 0.85rem;
-  color: rgba(255,255,255,0.58);
+  color: rgba(255, 255, 255, 0.58);
 }
 
 .checkout-disclaimer {
   margin-top: 1rem;
   padding: 0.9rem 1rem;
   border-radius: 14px;
-  border: 1px solid rgba(255,255,255,0.10);
-  background: rgba(255,255,255,0.04);
-  color: rgba(255,255,255,0.72);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.04);
   text-align: left;
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .checkout-disclaimer strong {
-  color: rgba(255,255,255,0.92);
+  color: rgba(255, 255, 255, 0.92);
 }
 
-/* ACTIONS */
+/* --------------------------
+   CHECKOUT — ACTIONS & ERRORS
+-------------------------- */
+
 .checkout-actions {
   margin-top: 1.25rem;
   padding-top: 1.25rem;
-  border-top: 1px solid rgba(255,255,255,0.10);
+  border-top: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.checkout-error {
+  display: none;
+  margin-bottom: 0.9rem;
+  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  background: rgba(239, 68, 68, 0.10);
+  text-align: left;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .checkout-field-error {
@@ -456,8 +494,8 @@
   margin: 0.35rem 0 0;
   font-size: 0.85rem;
   font-weight: 600;
-  color: rgba(252, 165, 165, 0.98);
   line-height: 1.35;
+  color: rgba(252, 165, 165, 0.98);
 }
 
 .checkout-field-error.is-visible {
@@ -470,32 +508,24 @@
   box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.12);
 }
 
-.checkout-error {
-  display: none;
-  padding: 0.85rem 1rem;
-  border-radius: 14px;
-  border: 1px solid rgba(239, 68, 68, 0.35);
-  background: rgba(239, 68, 68, 0.10);
-  color: rgba(255,255,255,0.9);
-  margin-bottom: 0.9rem;
-  text-align: left;
-}
+/* --------------------------
+   CHECKOUT — SUBMIT BUTTON
+-------------------------- */
 
-/* SUBMIT BUTTON */
 .place-order-btn {
+  position: relative;
+  overflow: hidden;
   width: 100%;
+  padding: 1.05rem 1.2rem;
+  border: none;
+  border-radius: 999px;
   background: var(--color-primary);
   color: white;
-  border: none;
-  padding: 1.05rem 1.2rem;
-  border-radius: 999px;
   font-size: 1.2rem;
   font-weight: 800;
   cursor: pointer;
-  transition: 0.2s ease;
-  position: relative;
-  overflow: hidden;
   box-shadow: 0 12px 35px rgba(255, 122, 0, 0.22);
+  transition: 0.2s ease;
 }
 
 .place-order-btn:hover {
@@ -510,13 +540,13 @@
 }
 
 .place-order-btn .btn-spinner {
+  display: none;
   width: 18px;
   height: 18px;
-  border-radius: 999px;
-  border: 2px solid rgba(255,255,255,0.55);
-  border-top-color: rgba(255,255,255,0.0);
-  display: none;
   margin-left: 0.6rem;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.55);
+  border-top-color: transparent;
   vertical-align: middle;
   animation: spin 0.7s linear infinite;
 }
@@ -531,26 +561,39 @@
 
 .checkout-smallprint {
   margin-top: 0.8rem;
-  color: rgba(255,255,255,0.62);
   font-size: 0.95rem;
   text-align: center;
+  color: rgba(255, 255, 255, 0.62);
 }
 
-/* Responsive */
+/* --------------------------
+   RESPONSIVE — max 980px
+-------------------------- */
+
 @media (max-width: 980px) {
   .checkout-grid {
     grid-template-columns: 1fr;
   }
 }
 
+/* --------------------------
+   RESPONSIVE — max 520px
+-------------------------- */
+
 @media (max-width: 520px) {
-  .pay-methods {
-    grid-template-columns: 1fr;
-  }
   .checkout-title {
     font-size: 2.4rem;
   }
-}
 
-/* ============================
-   
+  .pay-methods {
+    grid-template-columns: 1fr;
+  }
+
+  .checkout-form-card .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .checkout-form-card .form-span-2 {
+    grid-column: auto;
+  }
+}
