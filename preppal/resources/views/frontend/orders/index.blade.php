@@ -60,6 +60,12 @@
                                             <span>Pending</span>
                                         @endif
                                     </strong>
+
+                                    @if($order->return_status === 'requested')
+                                        <p style="margin:0.25rem 0 0; opacity:0.8;">
+                                            Return: <strong style="color:#d97706;">Requested</strong>
+                                        </p>
+                                    @endif
                                 </p>
                             </div>
 

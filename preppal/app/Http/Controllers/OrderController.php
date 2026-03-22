@@ -23,4 +23,20 @@ class OrderController extends Controller
 
         return view('frontend.orders.show', compact('order'));
     }
+
+    public function requestReturn(Order $order)
+    {
+        abort_unless($order->user_id === auth()->id(), 403);
+
+        if (($order->return_status ?? null) === 'requested') {
+            return back()->withErrors([
+                'return' => 'A return has already been requested for this order.'
+            ]);
+        }
+
+        $order->return_status = 'requested';
+        $order->save();
+
+        return back()->with('success', 'Return request submitted successfully.');
+    }
 }

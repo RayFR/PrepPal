@@ -96,5 +96,30 @@
         @endif
     </div>
 
+    <div class="card" style="padding: 1.25rem; border-radius: 12px; margin-top: 1rem;">
+        <h2 style="margin-top:0;">Returns</h2>
+
+        @if($order->return_status === 'requested')
+            <p style="margin:0; font-weight:600; color:#d97706;">
+                Return requested
+            </p>
+            <p style="margin:0.4rem 0 0; opacity:0.8;">
+                Your return request has been submitted and is awaiting review.
+            </p>
+        @else
+            <p style="margin:0 0 0.75rem; opacity:0.8;">
+                Need to return this order? Submit a return request below.
+            </p>
+
+            <form method="POST" action="{{ route('orders.return', $order->id) }}">
+                @csrf
+                <button type="submit"
+                        style="padding:0.7rem 1rem; border-radius:8px; background:#dc2626; color:white; border:none; cursor:pointer; font-weight:600;">
+                    Request Return
+                </button>
+            </form>
+        @endif
+    </div>
+
 </div>
 @endsection

@@ -61,15 +61,6 @@
                     Admin user
                 </label>
 
-                <label style="display:flex; align-items:center; gap:0.5rem;">
-                    <input
-                        type="checkbox"
-                        name="force_password_reset"
-                        value="1"
-                        {{ old('force_password_reset', $user->force_password_reset ?? false) ? 'checked' : '' }}
-                    >
-                    Force password reset on next login
-                </label>
             </div>
 
             <div style="margin-top: 1.25rem;">

@@ -97,6 +97,143 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnText) btnText.textContent = isLoading ? 'Processing…' : 'Place Order';
   }
 
+  const UK_POSTCODE_RE = /^[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}$/i;
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const SERVER_FIELD_TO_INPUT_ID = {
+    name: 'coName',
+    email: 'coEmail',
+    address: 'coAddress',
+    city: 'coCity',
+    postcode: 'coPostcode',
+    notes: 'coNotes',
+  };
+
+  const CHECKOUT_VALIDATED_INPUT_IDS = [
+    'coName', 'coEmail', 'coAddress', 'coCity', 'coPostcode', 'coNotes',
+    'coCardName', 'coCardNumber', 'coExpiry', 'coCvc',
+  ];
+
+  function clearFieldError(inputId) {
+    const input = document.getElementById(inputId);
+    const err = document.getElementById(`error-${inputId}`);
+    if (input) input.classList.remove('checkout-input-invalid');
+    if (err) {
+      err.textContent = '';
+      err.classList.remove('is-visible');
+    }
+  }
+
+  function clearAllFieldErrors() {
+    CHECKOUT_VALIDATED_INPUT_IDS.forEach(clearFieldError);
+  }
+
+  function showFieldError(inputId, msg) {
+    const input = document.getElementById(inputId);
+    const err = document.getElementById(`error-${inputId}`);
+    if (input) input.classList.add('checkout-input-invalid');
+    if (err) {
+      err.textContent = msg;
+      err.classList.add('is-visible');
+    }
+  }
+
+  function failValidation(inputId, msg) {
+    showFieldError(inputId, msg);
+    setError(msg);
+    document.getElementById(inputId)?.focus();
+    return false;
+  }
+
+  function validateDeliveryFields() {
+    const name = String(document.getElementById('coName')?.value || '').trim();
+    if (name.length < 2) return failValidation('coName', 'Please enter your full name (at least 2 characters).');
+    if (name.length > 255) return failValidation('coName', 'Name is too long.');
+
+    const email = String(document.getElementById('coEmail')?.value || '').trim();
+    if (!email) return failValidation('coEmail', 'Please enter your email address.');
+    if (!EMAIL_RE.test(email)) return failValidation('coEmail', 'Please enter a valid email address.');
+    if (email.length > 255) return failValidation('coEmail', 'Email is too long.');
+
+    const address = String(document.getElementById('coAddress')?.value || '').trim();
+    if (address.length < 5) return failValidation('coAddress', 'Please enter a complete street address.');
+    if (address.length > 500) return failValidation('coAddress', 'Address is too long.');
+
+    const city = String(document.getElementById('coCity')?.value || '').trim();
+    if (city.length < 2) return failValidation('coCity', 'Please enter your city or town.');
+    if (city.length > 255) return failValidation('coCity', 'City name is too long.');
+
+    const postcodeRaw = String(document.getElementById('coPostcode')?.value || '').trim();
+    if (!postcodeRaw) return failValidation('coPostcode', 'Please enter your postcode.');
+    const postcodeNorm = postcodeRaw.replace(/\s+/g, ' ');
+    if (!UK_POSTCODE_RE.test(postcodeNorm)) {
+      return failValidation('coPostcode', 'Please enter a valid UK postcode (e.g. SW1A 1AA).');
+    }
+    if (postcodeRaw.length > 20) return failValidation('coPostcode', 'Postcode is too long.');
+
+    const notes = String(document.getElementById('coNotes')?.value || '');
+    if (notes.length > 1000) return failValidation('coNotes', 'Delivery notes must be 1000 characters or fewer.');
+
+    return true;
+  }
+
+  function validatePaymentFields() {
+    const payMethod = form.querySelector('input[name="payMethod"]:checked');
+    if (!payMethod || payMethod.value !== 'card') {
+      setError('Please choose an available payment method.');
+      return false;
+    }
+
+    const nm = String(cardName?.value || '').trim();
+    if (nm.length < 2) {
+      return failValidation('coCardName', 'Please enter the name exactly as it appears on the card.');
+    }
+    if (nm.length > 255) return failValidation('coCardName', 'Name on card is too long.');
+
+    const cn = (cardNumber?.value || '').replace(/\s/g, '');
+    if (cn.length < 13 || cn.length > 19) {
+      return failValidation('coCardNumber', 'Please enter a valid card number (13–19 digits).');
+    }
+    if (!/^\d+$/.test(cn)) return failValidation('coCardNumber', 'Card number must contain only digits.');
+    if (!luhnCheck(cn)) {
+      return failValidation('coCardNumber', 'This card number does not look valid. Please check and try again.');
+    }
+
+    const ex = String(expiry?.value || '').trim();
+    const parsed = parseExpiry(ex);
+    if (!parsed) return failValidation('coExpiry', 'Please enter the expiry date as MM/YY.');
+    if (!isExpiryInFuture(parsed)) {
+      return failValidation('coExpiry', 'This card appears to have expired. Please use a valid expiry date.');
+    }
+
+    const cv = String(cvc?.value || '').trim();
+    if (cv.length < 3 || cv.length > 4) {
+      return failValidation('coCvc', 'Please enter a 3- or 4-digit security code.');
+    }
+    if (!/^\d+$/.test(cv)) return failValidation('coCvc', 'Security code must contain only digits.');
+
+    return true;
+  }
+
+  function firstServerValidationMessage(errors) {
+    if (!errors || typeof errors !== 'object') return null;
+    const keys = Object.keys(errors);
+    for (let i = 0; i < keys.length; i++) {
+      const arr = errors[keys[i]];
+      if (Array.isArray(arr) && arr.length) return { field: keys[i], message: arr[0] };
+    }
+    return null;
+  }
+
+  CHECKOUT_VALIDATED_INPUT_IDS.forEach((id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('input', () => {
+      clearFieldError(id);
+      setError('');
+    });
+  });
+
   function sanitizePromoInput() {
     if (!promoInput) return '';
     return promoInput.value.trim().toUpperCase();
@@ -261,6 +398,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    clearAllFieldErrors();
     setError('');
 
     Cart.reload();
@@ -271,37 +409,16 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // Delivery validation
-    const requiredIds = ['coName', 'coEmail', 'coAddress', 'coCity', 'coPostcode'];
-    for (const id of requiredIds) {
-      const el = document.getElementById(id);
-      if (el && !String(el.value || '').trim()) {
-        setError('Please complete your delivery information.');
-        el.focus();
-        return;
-      }
-    }
-
-    // Payment validation (demo UI)
-    const cn = (cardNumber?.value || '').trim();
-    const ex = (expiry?.value || '').trim();
-    const cv = (cvc?.value || '').trim();
-    const nm = (cardName?.value || '').trim();
-
-    if (!nm || !cn || !ex || !cv) {
-      setError('Please complete your card details.');
-      if (!nm) cardName?.focus();
-      else if (!cn) cardNumber?.focus();
-      else if (!ex) expiry?.focus();
-      else cvc?.focus();
-      return;
-    }
+    if (!validateDeliveryFields()) return;
+    if (!validatePaymentFields()) return;
 
     // Totals (GBP base — matches what’s stored in Cart)
     let subtotal = 0;
     items.forEach(i => { subtotal += (Number(i.price) || 0) * (Number(i.qty) || 0); });
     const { discount } = applyPromoToTotal(subtotal);
     const total = Math.max(0, subtotal - discount);
+
+    const cnDigits = (cardNumber?.value || '').replace(/\s/g, '');
 
     const payload = {
       items: items.map(i => ({
@@ -310,19 +427,19 @@ document.addEventListener('DOMContentLoaded', () => {
         price: Number(i.price), // GBP
         type: 'product'
       })),
-      name: document.getElementById('coName').value,
-      email: document.getElementById('coEmail').value,
-      address: document.getElementById('coAddress').value,
-      city: document.getElementById('coCity').value,
-      postcode: document.getElementById('coPostcode').value,
-      notes: document.getElementById('coNotes')?.value || '',
+      name: String(document.getElementById('coName').value || '').trim(),
+      email: String(document.getElementById('coEmail').value || '').trim(),
+      address: String(document.getElementById('coAddress').value || '').trim(),
+      city: String(document.getElementById('coCity').value || '').trim(),
+      postcode: String(document.getElementById('coPostcode').value || '').trim(),
+      notes: String(document.getElementById('coNotes')?.value || '').trim(),
 
       promo_code: appliedPromo || null,
       discount: Number(discount.toFixed(2)), // GBP
       total: Number(total.toFixed(2)),       // GBP
 
       payment_method: 'card',
-      card_last4: cn.slice(-4)
+      card_last4: cnDigits.slice(-4)
     };
 
     try {
@@ -344,7 +461,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (contentType.includes('application/json')) {
           const errorData = await res.json();
           console.log('Checkout error JSON:', errorData);
-          setError(errorData.message || 'Checkout failed.');
+          clearAllFieldErrors();
+          const first = firstServerValidationMessage(errorData.errors);
+          if (first) {
+            const inputId = SERVER_FIELD_TO_INPUT_ID[first.field];
+            if (inputId) showFieldError(inputId, first.message);
+            setError(first.message);
+          } else {
+            setError(errorData.message || 'Checkout failed.');
+          }
         } else {
           const errorText = await res.text();
           console.log('Checkout error HTML/text:', errorText);

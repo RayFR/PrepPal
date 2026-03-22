@@ -177,6 +177,10 @@ body[data-theme="light"] .checkout-disclaimer strong {
 }
 
 /* Errors */
+body[data-theme="light"] .checkout-field-error.is-visible {
+  color: #b91c1c;
+}
+
 body[data-theme="light"] .checkout-error {
   color: #111827;
   background: rgba(239, 68, 68, 0.10);

@@ -41,6 +41,10 @@
                 <p><strong>Created:</strong> {{ optional($order->created_at)->format('d M Y H:i') }}</p>
                 <p><strong>Processed:</strong> {{ optional($order->processed_at)->format('d M Y H:i') ?: 'Not yet' }}</p>
                 <p><strong>Shipped:</strong> {{ optional($order->shipped_at)->format('d M Y H:i') ?: 'Not yet' }}</p>
+                <p>
+                    <strong>Return Status:</strong>
+                    {{ $order->return_status ? ucfirst($order->return_status) : 'None' }}
+                </p>
             </div>
         </div>
     </div>

@@ -55,15 +55,6 @@
                 Total: £0.00
             </div>
 
-            <div class="checkout-promo">
-                <label for="coPromo" class="checkout-promo-label">Promo code</label>
-                <div class="checkout-promo-row">
-                    <input id="coPromo" type="text" placeholder="e.g., PREPPAL10" autocomplete="off">
-                    <button id="applyPromoBtn" type="button" class="promo-btn">Apply</button>
-                </div>
-                <div id="promoMessage" class="promo-msg" role="status" aria-live="polite"></div>
-                <p class="checkout-note">All items include free delivery and refrigeration-safe packaging.</p>
-            </div>
         </aside>
 
         {{-- DELIVERY + PAYMENT --}}
@@ -84,32 +75,38 @@
                     <div class="form-grid">
                         <div>
                             <label for="coName">Full Name</label>
-                            <input type="text" id="coName" autocomplete="name" required>
+                            <input type="text" id="coName" name="name" autocomplete="name" maxlength="255" required>
+                            <p class="checkout-field-error" id="error-coName" role="alert"></p>
                         </div>
 
                         <div>
                             <label for="coEmail">Email</label>
-                            <input type="email" id="coEmail" autocomplete="email" required>
+                            <input type="email" id="coEmail" name="email" autocomplete="email" maxlength="255" required>
+                            <p class="checkout-field-error" id="error-coEmail" role="alert"></p>
                         </div>
 
                         <div class="form-span-2">
                             <label for="coAddress">Address</label>
-                            <input type="text" id="coAddress" placeholder="Street address" autocomplete="street-address" required>
+                            <input type="text" id="coAddress" name="address" placeholder="Street address" autocomplete="street-address" maxlength="500" required>
+                            <p class="checkout-field-error" id="error-coAddress" role="alert"></p>
                         </div>
 
                         <div>
                             <label for="coCity">City</label>
-                            <input type="text" id="coCity" autocomplete="address-level2" required>
+                            <input type="text" id="coCity" name="city" autocomplete="address-level2" maxlength="255" required>
+                            <p class="checkout-field-error" id="error-coCity" role="alert"></p>
                         </div>
 
                         <div>
                             <label for="coPostcode">Postcode</label>
-                            <input type="text" id="coPostcode" autocomplete="postal-code" required>
+                            <input type="text" id="coPostcode" name="postcode" autocomplete="postal-code" maxlength="20" required>
+                            <p class="checkout-field-error" id="error-coPostcode" role="alert"></p>
                         </div>
 
                         <div class="form-span-2">
                             <label for="coNotes">Delivery Notes (Optional)</label>
-                            <textarea id="coNotes" rows="3" placeholder="Any delivery instructions?"></textarea>
+                            <textarea id="coNotes" name="notes" rows="3" placeholder="Any delivery instructions?" maxlength="1000"></textarea>
+                            <p class="checkout-field-error" id="error-coNotes" role="alert"></p>
                         </div>
                     </div>
                 </div>
@@ -149,29 +146,33 @@
                         <div class="form-grid">
                             <div class="form-span-2">
                                 <label for="coCardName">Name on Card</label>
-                                <input type="text" id="coCardName" placeholder="As shown on your card" autocomplete="cc-name" required>
+                                <input type="text" id="coCardName" name="card_name" placeholder="As shown on your card" autocomplete="cc-name" maxlength="255" required>
+                                <p class="checkout-field-error" id="error-coCardName" role="alert"></p>
                             </div>
 
                             <div class="form-span-2">
                                 <label for="coCardNumber">Card Number</label>
                                 <div class="input-with-icon">
                                     <span class="input-icon" aria-hidden="true">💳</span>
-                                    <input type="text" id="coCardNumber" inputmode="numeric" autocomplete="cc-number"
-                                           placeholder="1234 5678 9012 3456" maxlength="22">
+                                    <input type="text" id="coCardNumber" name="card_number" inputmode="numeric" autocomplete="cc-number"
+                                           placeholder="1234 5678 9012 3456" maxlength="22" required>
                                 </div>
                                 <div class="field-hint">Numbers only • we format automatically</div>
+                                <p class="checkout-field-error" id="error-coCardNumber" role="alert"></p>
                             </div>
 
                             <div>
                                 <label for="coExpiry">Expiry</label>
-                                <input type="text" id="coExpiry" inputmode="numeric" autocomplete="cc-exp"
-                                       placeholder="MM/YY" maxlength="5">
+                                <input type="text" id="coExpiry" name="card_expiry" inputmode="numeric" autocomplete="cc-exp"
+                                       placeholder="MM/YY" maxlength="5" required>
+                                <p class="checkout-field-error" id="error-coExpiry" role="alert"></p>
                             </div>
 
                             <div>
                                 <label for="coCvc">CVC</label>
-                                <input type="password" id="coCvc" inputmode="numeric" autocomplete="cc-csc"
-                                       placeholder="123" maxlength="4">
+                                <input type="password" id="coCvc" name="card_cvc" inputmode="numeric" autocomplete="cc-csc"
+                                       placeholder="123" maxlength="4" required>
+                                <p class="checkout-field-error" id="error-coCvc" role="alert"></p>
                             </div>
                         </div>
                     </div>

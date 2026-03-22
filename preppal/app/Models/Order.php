@@ -18,6 +18,7 @@ class Order extends Model
         'status',
         'processed_at',
         'shipped_at',
+        'return_status',
     ];
 
     public function items()
