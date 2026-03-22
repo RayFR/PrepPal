@@ -7,10 +7,7 @@
 
     <title>@yield('title', config('app.name', 'PrepPal'))</title>
 
-    <link rel="stylesheet" href="{{ asset('css/pp-14-reviews.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/author_style.css') }}?v={{ filemtime(public_path('css/author_style.css')) }}">
 
     @stack('styles')
 </head>
