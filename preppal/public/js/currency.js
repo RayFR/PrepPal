@@ -6,7 +6,6 @@
   const KEY = 'preppalCurrency';
   const BASE = 'GBP';
 
-  // Static demo rates vs GBP. (target = gbp * rate)
   const RATES = {
     GBP: 1,
     EUR: 1.17,
@@ -18,8 +17,7 @@
     SAR: 4.73
   };
 
-  // Small inline SVG flags (no extra files needed).
-  // These are simplified but look clean in the navbar.
+
   const FLAGS = {
     GBP: svgUK(),
     EUR: svgEU(),
@@ -118,7 +116,7 @@
     updatePickerUI();
   }
 
-  // Convert Store filter inputs back to GBP on submit so server-side filters still work.
+  
   function bindStoreFilters() {
     const form = document.getElementById('storeFiltersForm');
     if (!form) return;
