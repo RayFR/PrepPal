@@ -289,7 +289,7 @@
                                 </h3>
 
                                 @if($product->stock <= 0)
-                                    <span class="cta" style="display:inline-block; opacity:0.6; pointer-events:none;">
+                                    <span class="cta" style="display:inline-flex; opacity:0.6; pointer-events:none; cursor:not-allowed;">
                                         Out of stock
                                     </span>
                                 @else
@@ -348,7 +348,7 @@
                                 </h3>
 
                                 @if($product->stock <= 0)
-                                    <span class="cta" style="display:inline-block; opacity:0.6; pointer-events:none;">
+                                    <span class="cta" style="display:inline-flex; opacity:0.6; pointer-events:none; cursor:not-allowed;">
                                         Out of stock
                                     </span>
                                 @else
@@ -410,7 +410,7 @@
                                 </h3>
 
                                 @if($product->stock <= 0)
-                                    <span class="cta" style="display:inline-block; opacity:0.6; pointer-events:none;">
+                                    <span class="cta" style="display:inline-flex; opacity:0.6; pointer-events:none; cursor:not-allowed;">
                                         Out of stock
                                     </span>
                                 @else
@@ -473,7 +473,7 @@
                                 </h3>
 
                                 @if($item->stock <= 0)
-                                    <span class="cta" style="display:inline-block; opacity:0.6; pointer-events:none;">
+                                    <span class="cta" style="display:inline-flex; opacity:0.6; pointer-events:none; cursor:not-allowed;">
                                         Out of stock
                                     </span>
                                 @else
