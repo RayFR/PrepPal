@@ -1,5 +1,10 @@
-/*CHECKOUT – LIGHT MODE FIX
-   ============================ */
+/* =========================================================
+   CHECKOUT — LIGHT MODE OVERRIDES & CONFIRMATION PAGE
+   ========================================================= */
+
+/* --------------------------
+   LIGHT MODE — BASE & HERO
+-------------------------- */
 
 body[data-theme="light"] .checkout-wrapper {
   color: #111827;
@@ -17,15 +22,18 @@ body[data-theme="light"] .checkout-trustbar .trust-pill {
   background: rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(17, 24, 39, 0.10);
   color: #111827;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
-/* Cards become proper white cards */
+/* --------------------------
+   LIGHT MODE — CARD
+-------------------------- */
+
 body[data-theme="light"] .checkout-card {
   background: #ffffff;
   border: 1px solid rgba(17, 24, 39, 0.10);
-  box-shadow: 0 14px 45px rgba(0,0,0,0.10);
-  backdrop-filter: none; /* stops “washed” look in light mode */
+  box-shadow: 0 14px 45px rgba(0, 0, 0, 0.10);
+  backdrop-filter: none;
 }
 
 body[data-theme="light"] .checkout-mini {
@@ -36,40 +44,50 @@ body[data-theme="light"] .checkout-divider {
   background: rgba(17, 24, 39, 0.10);
 }
 
-/* Order items */
-body[data-theme="light"] .checkout-item-name {
-  color: #111827;
-}
-body[data-theme="light"] .checkout-item-meta {
-  color: #6b7280;
-}
+/* --------------------------
+   LIGHT MODE — ORDER ITEMS
+-------------------------- */
+
+body[data-theme="light"] .checkout-item-name,
 body[data-theme="light"] .checkout-item-price {
   color: #111827;
+}
+
+body[data-theme="light"] .checkout-item-meta {
+  color: #6b7280;
 }
 
 body[data-theme="light"] .checkout-thumb {
   border: 1px solid rgba(17, 24, 39, 0.10);
 }
 
-/* Summary rows */
+/* --------------------------
+   LIGHT MODE — SUMMARY ROWS & TOTAL
+-------------------------- */
+
 body[data-theme="light"] .checkout-summary-row {
   color: #374151;
 }
 
-/* Total box stays “highlighted” but readable */
 body[data-theme="light"] .checkout-total-box {
-  color: #111827;
   background: rgba(255, 152, 0, 0.12);
   border: 1px solid rgba(255, 152, 0, 0.35);
+  color: #111827;
 }
 
-/* Notes + small print */
+/* --------------------------
+   LIGHT MODE — NOTES & SMALLPRINT
+-------------------------- */
+
 body[data-theme="light"] .checkout-note,
 body[data-theme="light"] .checkout-smallprint {
   color: #6b7280;
 }
 
-/* Promo */
+/* --------------------------
+   LIGHT MODE — PROMO CODE
+-------------------------- */
+
 body[data-theme="light"] .checkout-promo-label {
   color: #374151;
 }
@@ -106,18 +124,20 @@ body[data-theme="light"] .promo-msg.bad {
   border-color: rgba(239, 68, 68, 0.35);
 }
 
-/* Section headings */
+/* --------------------------
+   LIGHT MODE — SECTIONS & FORM
+-------------------------- */
+
 body[data-theme="light"] .section-title h3 {
   color: #111827;
 }
 
 body[data-theme="light"] .section-badge {
-  color: #111827;
   background: rgba(255, 122, 0, 0.12);
   border: 1px solid rgba(255, 122, 0, 0.28);
+  color: #111827;
 }
 
-/* Form fields */
 body[data-theme="light"] .checkout-form-card .form-grid label {
   color: #374151;
 }
@@ -138,7 +158,10 @@ body[data-theme="light"] .field-hint {
   color: #6b7280;
 }
 
-/* Payment method cards */
+/* --------------------------
+   LIGHT MODE — PAYMENT METHODS
+-------------------------- */
+
 body[data-theme="light"] .pay-method-ui {
   background: #ffffff;
   border: 1px solid rgba(17, 24, 39, 0.12);
@@ -158,14 +181,16 @@ body[data-theme="light"] .pay-method input:checked + .pay-method-ui {
   box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.10);
 }
 
-/* Card brand pills */
 body[data-theme="light"] .card-pill {
   background: #f9fafb;
   border: 1px solid rgba(17, 24, 39, 0.12);
   color: #374151;
 }
 
-/* Disclaimer */
+/* --------------------------
+   LIGHT MODE — DISCLAIMER & ERRORS
+-------------------------- */
+
 body[data-theme="light"] .checkout-disclaimer {
   background: #f9fafb;
   border: 1px solid rgba(17, 24, 39, 0.10);
@@ -176,34 +201,35 @@ body[data-theme="light"] .checkout-disclaimer strong {
   color: #111827;
 }
 
-/* Errors */
 body[data-theme="light"] .checkout-field-error.is-visible {
   color: #b91c1c;
 }
 
 body[data-theme="light"] .checkout-error {
-  color: #111827;
   background: rgba(239, 68, 68, 0.10);
   border: 1px solid rgba(239, 68, 68, 0.25);
+  color: #111827;
 }
 
-/* Button still orange but now contrasts well */
 body[data-theme="light"] .place-order-btn {
   color: #ffffff;
 }
 
-/* Confirmation page extras */
+/* --------------------------
+   CONFIRMATION PAGE — BASE
+-------------------------- */
+
 .confirm-box {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.10);
-  border-radius: 14px;
   padding: 1rem 1.1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .confirm-row {
   padding: 0.45rem 0;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  color: rgba(255,255,255,0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .confirm-row:last-child {
@@ -213,16 +239,16 @@ body[data-theme="light"] .place-order-btn {
 .confirm-actions {
   display: flex;
   gap: 0.75rem;
-  margin-top: 1rem;
   flex-wrap: wrap;
+  margin-top: 1rem;
 }
 
 .confirm-btn {
   display: inline-block;
-  text-decoration: none;
-  font-weight: 900;
   padding: 0.9rem 1.1rem;
   border-radius: 999px;
+  font-weight: 900;
+  text-decoration: none;
   transition: 0.2s ease;
 }
 
@@ -233,29 +259,32 @@ body[data-theme="light"] .place-order-btn {
 }
 
 .confirm-primary:hover {
-  transform: translateY(-2px);
   background: #ff8f1c;
+  transform: translateY(-2px);
 }
 
 .confirm-secondary {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.12);
-  color: rgba(255,255,255,0.9);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .confirm-secondary:hover {
   transform: translateY(-2px);
 }
 
-/* Light mode confirmation */
+/* --------------------------
+   CONFIRMATION PAGE — LIGHT MODE
+-------------------------- */
+
 body[data-theme="light"] .confirm-box {
   background: #f9fafb;
   border: 1px solid rgba(17, 24, 39, 0.10);
 }
 
 body[data-theme="light"] .confirm-row {
-  color: #111827;
   border-bottom: 1px solid rgba(17, 24, 39, 0.08);
+  color: #111827;
 }
 
 body[data-theme="light"] .confirm-secondary {
@@ -263,6 +292,3 @@ body[data-theme="light"] .confirm-secondary {
   border: 1px solid rgba(17, 24, 39, 0.12);
   color: #111827;
 }
-
-/* ============================
-   
