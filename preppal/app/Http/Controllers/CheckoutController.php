@@ -19,28 +19,15 @@ class CheckoutController extends Controller
     public function store(Request $request): JsonResponse
     {
         $validated = $request->validate([
-<<<<<<< HEAD
-            'items' => 'required|array|min:1',
-            'items.*.id' => 'required|integer|exists:products,id',
-            'items.*.qty' => 'required|integer|min:1',
-
-            'name' => 'required|string|min:2|max:255',
-            'email' => 'required|email|max:255',
-            'address' => 'required|string|min:5|max:500',
-            'city' => 'required|string|min:2|max:255',
-            'postcode' => ['required', 'string', 'max:20', 'regex:/^[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}$/i'],
-            'notes' => 'nullable|string|max:1000',
-=======
             'items' => ['required', 'array', 'min:1'],
             'items.*.id' => ['required', 'integer', 'exists:products,id'],
             'items.*.qty' => ['required', 'integer', 'min:1'],
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'min:2', 'max:255'],
             'email' => ['required', 'email', 'max:255'],
-            'address' => ['required', 'string', 'max:500'],
-            'city' => ['required', 'string', 'max:255'],
-            'postcode' => ['required', 'string', 'max:20'],
+            'address' => ['required', 'string', 'min:5', 'max:500'],
+            'city' => ['required', 'string', 'min:2', 'max:255'],
+            'postcode' => ['required', 'string', 'max:20', 'regex:/^[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}$/i'],
             'notes' => ['nullable', 'string', 'max:1000'],
->>>>>>> 375427e6ce8a3c335059cc45153bb9ef9d4f2781
         ]);
 
         $items = collect($validated['items']);
