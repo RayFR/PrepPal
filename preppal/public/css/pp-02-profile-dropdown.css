@@ -1,27 +1,20 @@
 /* =========================================================
    PROFILE DROPDOWN + NAV COMPONENTS
-   Supports data-theme="dark"
    ========================================================= */
-
-/* --------------------------
-   PROFILE DROPDOWN — WRAPPER
--------------------------- */
 
 .profile-dd {
   position: relative;
   display: inline-flex;
   align-items: center;
+  min-width: 0;
 }
-
-/* --------------------------
-   PROFILE DROPDOWN — BUTTON
--------------------------- */
 
 .profile-dd__btn {
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
-  padding: 0.35rem 0.6rem;
+  padding: 0.42rem 0.68rem;
+  min-height: 50px;
   border-radius: 999px;
   border: 1px solid rgba(0, 0, 0, 0.14);
   background: rgba(255, 255, 255, 0.92);
@@ -31,6 +24,8 @@
   line-height: 1;
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  min-width: 0;
+  max-width: 250px;
 }
 
 body[data-theme="dark"] .profile-dd__btn {
@@ -43,13 +38,9 @@ body[data-theme="dark"] .profile-dd__btn {
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.10);
 }
 
-/* --------------------------
-   PROFILE DROPDOWN — AVATAR
--------------------------- */
-
 .profile-dd__avatar {
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   border-radius: 999px;
   display: inline-flex;
   align-items: center;
@@ -66,12 +57,8 @@ body[data-theme="dark"] .profile-dd__avatar {
   border-color: rgba(255, 122, 0, 0.35);
 }
 
-/* --------------------------
-   PROFILE DROPDOWN — NAME & CARET
--------------------------- */
-
 .profile-dd__name {
-  max-width: 160px;
+  max-width: 128px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -79,13 +66,10 @@ body[data-theme="dark"] .profile-dd__avatar {
 
 .profile-dd__caret {
   opacity: 0.75;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   transform: translateY(1px);
+  flex: 0 0 auto;
 }
-
-/* --------------------------
-   PROFILE DROPDOWN — MENU
--------------------------- */
 
 .profile-dd__menu {
   position: absolute;
@@ -133,10 +117,6 @@ body[data-theme="dark"] .profile-dd__menu {
   background: rgba(255, 122, 0, 0.12);
 }
 
-/* --------------------------
-   PROFILE DROPDOWN — SEPARATOR & LOGOUT
--------------------------- */
-
 .profile-dd__sep {
   height: 1px;
   background: rgba(0, 0, 0, 0.10);
@@ -155,17 +135,6 @@ body[data-theme="dark"] .profile-dd__logout {
   color: #ff6b6b;
 }
 
-/* --------------------------
-   BRAND / LOGO
-   IMPORTANT:
-   Do not shrink the navbar logo here.
-   Let pp-01-navbar-cartpill.css control size.
--------------------------- */
-
-/* --------------------------
-   BRAND / LOGO
--------------------------- */
-
 .brand {
   text-decoration: none;
   flex: 0 0 auto;
@@ -174,10 +143,6 @@ body[data-theme="dark"] .profile-dd__logout {
 .brand-badge {
   display: block;
 }
-
-/* --------------------------
-   NAV LINKS
--------------------------- */
 
 .nav-links {
   display: flex;
@@ -221,10 +186,6 @@ body[data-theme="dark"] .nav-links a {
   background: var(--color-primary);
 }
 
-/* --------------------------
-   CART PILL
--------------------------- */
-
 #cartDisplay {
   display: inline-flex;
   align-items: center;
@@ -252,24 +213,29 @@ body[data-theme="dark"] .nav-links a {
   display: none;
 }
 
-/* --------------------------
-   RESPONSIVE
--------------------------- */
-
 @media (max-width: 980px) {
-  .brand-badge {
-    width: 250px;
-    height: 68px;
+  .profile-dd__btn {
+    max-width: 210px;
+  }
+
+  .profile-dd__name {
+    max-width: 96px;
   }
 }
 
 @media (max-width: 640px) {
-  .brand-badge {
-    width: 210px;
-    height: 58px;
+  .profile-dd__btn {
+    max-width: 180px;
+    min-height: 46px;
+    padding: 0.36rem 0.58rem;
   }
 
   .profile-dd__name {
-    max-width: 90px;
+    max-width: 72px;
+  }
+
+  .profile-dd__avatar {
+    width: 30px;
+    height: 30px;
   }
 }

@@ -17,29 +17,51 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ChatbotController;
+
+/*
+|--------------------------------------------------------------------------
+| PUBLIC CONTENT
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
-
-Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])
-    ->name('newsletter.subscribe');
-
-// HOME (public)
-Route::get('/', [HomeController::class, 'index'])->name('home');
-
-// CONTACT (public)
+// Contact
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
-// AUTH (public)
+// Newsletter
+Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])
+    ->name('newsletter.subscribe');
+
+// Static footer pages
+Route::view('/shipping-delivery', 'frontend.support.shipping-delivery')->name('shipping.delivery');
+Route::view('/returns', 'frontend.support.returns')->name('returns');
+Route::view('/privacy-policy', 'frontend.support.privacy-policy')->name('privacy.policy');
+Route::view('/terms-and-conditions', 'frontend.support.terms-conditions')->name('terms.conditions');
+
+/*
+|--------------------------------------------------------------------------
+| AUTH
+|--------------------------------------------------------------------------
+*/
+
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name('password.forgot');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// PROTECTED PAGES
+/*
+|--------------------------------------------------------------------------
+| PROTECTED PAGES
+|--------------------------------------------------------------------------
+*/
+
 Route::middleware('auth')->group(function () {
 
     Route::get('/store', [ProductController::class, 'index'])->name('store');
@@ -57,7 +79,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
 
-    // CHECKOUT
+    // Checkout
     Route::get('/checkout', function () {
         return view('frontend.checkout');
     })->name('checkout');
@@ -66,14 +88,19 @@ Route::middleware('auth')->group(function () {
     Route::get('/checkout/confirmation', [CheckoutController::class, 'confirmation'])
         ->name('checkout.confirmation');
 
-    // CART
+    // Cart
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
     Route::patch('/cart/{cartItem}', [CartController::class, 'update'])->name('cart.update');
     Route::delete('/cart/{cartItem}', [CartController::class, 'destroy'])->name('cart.delete');
 });
 
-// ADMIN
+/*
+|--------------------------------------------------------------------------
+| ADMIN
+|--------------------------------------------------------------------------
+*/
+
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     // Customers
@@ -120,7 +147,12 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         ->name('admin.dashboard');
 });
 
-// REVIEWS
+/*
+|--------------------------------------------------------------------------
+| REVIEWS
+|--------------------------------------------------------------------------
+*/
+
 Route::middleware('auth')->group(function () {
     Route::post('/products/{id}/reviews', [ReviewController::class, 'store'])
         ->name('reviews.store');
@@ -132,7 +164,10 @@ Route::middleware('auth')->group(function () {
         ->name('reviews.destroy');
 });
 
-//Chatbot
-use App\Http\Controllers\ChatbotController;
+/*
+|--------------------------------------------------------------------------
+| CHATBOT
+|--------------------------------------------------------------------------
+*/
 
 Route::post('/chatbot/message', [ChatbotController::class, 'send']);

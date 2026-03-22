@@ -8,14 +8,11 @@
 
     <title>@yield('title', config('app.name', 'PrepPal'))</title>
 
-    {{-- CSS --}}
     <link rel="stylesheet" href="{{ asset('css/pp-14-reviews.css') }}">
-    {{-- Global CSS --}}
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
     <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
 
-    {{-- Page-specific CSS --}}
     @stack('styles')
 </head>
 
@@ -24,11 +21,10 @@
     <header class="nav">
         <div class="container nav-inner">
 
-            <a class="brand" href="{{ route('home') }}" aria-label="PrepPal Home">
-                <span class="brand-badge"></span>
-            </a>
+            <a href="{{ route('home') }}" class="brand" aria-label="PrepPal home">
+  <span class="brand-badge"></span>
+</a>
 
-            {{-- PRIMARY LINKS (center) --}}
             <nav class="nav-links" aria-label="Primary navigation">
                 <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">Home</a>
                 <a href="{{ route('blog.index') }}" class="{{ request()->routeIs('blog.*') ? 'active' : '' }}">Advice</a>
@@ -51,6 +47,7 @@
                             <a href="{{ route('store', ['category' => 'meal']) }}">Meal Plans</a>
                             <a href="{{ route('store', ['category' => 'supplement']) }}">Supplements</a>
                             <a href="{{ route('store', ['category' => 'drink']) }}">Drinks</a>
+                            <a href="{{ route('store', ['category' => 'equipment']) }}">Equipment</a>
                             <a href="{{ route('store', ['category' => 'clothing']) }}">Clothing</a>
                         </div>
                     </div>
@@ -61,7 +58,6 @@
                 @endauth
             </nav>
 
-            {{-- ACTIONS (right side) --}}
             <div class="nav-actions" aria-label="Navigation actions">
 
                 @auth
@@ -141,7 +137,7 @@
         </div>
     </header>
 
-    <main style="padding-top: 2rem;">
+    <main class="site-main">
         @yield('content')
     </main>
 
@@ -169,7 +165,7 @@
         <div class="pp-newsletter__backdrop" data-pp-nl-close></div>
 
         <div class="pp-newsletter__dialog" role="dialog" aria-modal="true" aria-labelledby="ppNlTitle">
-        <button class="pp-newsletter__close" type="button" aria-label="Close" data-pp-nl-close onclick="document.getElementById('ppNewsletter').classList.remove('is-open'); document.getElementById('ppNewsletter').setAttribute('aria-hidden','true'); document.documentElement.style.overflow=''; document.body.style.overflow='';">  ×</button>
+            <button class="pp-newsletter__close" type="button" aria-label="Close" data-pp-nl-close onclick="document.getElementById('ppNewsletter').classList.remove('is-open'); document.getElementById('ppNewsletter').setAttribute('aria-hidden','true'); document.documentElement.style.overflow=''; document.body.style.overflow='';">×</button>
 
             <div class="pp-newsletter__grid">
                 <div class="pp-newsletter__media" aria-hidden="true">
@@ -198,15 +194,14 @@
                         </div>
                     @else
                         <h2 class="pp-newsletter__title" id="ppNlTitle">Fuel your ambition</h2>
-                        <p class="pp-newsletter__subtitle">Get <b>15% off</b> your first order</p>
                         <p class="pp-newsletter__text">
-                            Sign up for early access to new plans, exclusive offers and expert tips.
+                            Join the PrepPal newsletter for exclusive drops, offers, meal ideas, and training support.
                         </p>
 
-                        <form class="pp-newsletter__form" method="POST" action="{{ route('newsletter.subscribe') }}">
+                        <form action="{{ route('newsletter.subscribe') }}" method="POST" class="pp-newsletter__form">
                             @csrf
 
-                            <label class="pp-newsletter__label" for="ppNlEmail">Email address</label>
+                            <label for="ppNlEmail" class="sr-only">Email address</label>
                             <input
                                 id="ppNlEmail"
                                 name="email"
@@ -222,7 +217,7 @@
 
                             <p class="pp-newsletter__fine">
                                 By providing your email, you agree to our
-                                <a href="{{ url('/privacy') }}">Privacy Policy</a>.
+                                <a href="{{ route('privacy.policy') }}">Privacy Policy</a>.
                             </p>
                         </form>
                     @endif

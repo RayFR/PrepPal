@@ -21,6 +21,22 @@
 
   $isMeal = $productCategory === 'meal';
 
+  // Clothing detection
+  $isTank = str_contains($productSlug, 'tank');
+  $isShorts = str_contains($productSlug, 'shorts');
+  $isZip = str_contains($productSlug, 'zip');
+  $isPants = str_contains($productSlug, 'jogger') || str_contains($productSlug, 'pants');
+  $isGymGirlSet = str_contains($productSlug, 'gym girl set');
+  $isClothing = $productCategory === 'clothing' || $isTank || $isShorts || $isZip || $isPants || $isGymGirlSet;
+
+  // Equipment detection
+  $isEquipment = $productCategory === 'equipment';
+  $isShaker = $productSlug === 'preppal performance shaker';
+  $isBelt = $productSlug === 'preppal heavy duty lifting belt';
+  $isWraps = $productSlug === 'preppal wrist wraps';
+  $isChalk = $productSlug === 'preppal liquid chalk';
+  $isStraps = $productSlug === 'preppal wrist straps';
+
   $mealPlans = [
     'fat loss meal prep plan' => [
       'goal' => 'Fat loss',
@@ -206,14 +222,6 @@
   $defaultMealSnackKey = $mealPlan ? array_key_first($mealPlan['snack_options']) : null;
   $defaultMealDeliveryKey = $mealPlan ? array_key_first($mealPlan['delivery_options']) : null;
 
-  // Clothing detection
-  $isTank = str_contains($productSlug, 'tank');
-  $isShorts = str_contains($productSlug, 'shorts');
-  $isZip = str_contains($productSlug, 'zip');
-  $isPants = str_contains($productSlug, 'jogger') || str_contains($productSlug, 'pants');
-  $isGymGirlSet = str_contains($productSlug, 'gym girl set');
-  $isClothing = $productCategory === 'clothing' || $isTank || $isShorts || $isZip || $isPants || $isGymGirlSet;
-
   $productContent = [
     'fat loss meal prep plan' => [
       'description' => 'The Fat Loss Meal Prep Plan is designed for customers who want a simple, structured way to reduce calories without sacrificing satisfaction, routine, or protein intake. Each weekly plan is built around balanced, portion-controlled meals that help support a calorie deficit while still giving you enough fuel for work, study, training, and day-to-day life. Meals are centred on lean proteins, smart carbohydrate sources, and vegetables, making the plan practical for people who want convenience as well as consistency. Customers can also customise their weekly setup by choosing preferred proteins, carb bases, and add-ons, so the plan feels realistic to stick to rather than overly restrictive. It is ideal for people starting a cut, returning to a routine, or wanting ready-made meals that remove the stress of planning, cooking, and tracking every day.',
@@ -384,24 +392,82 @@
         ['q' => 'Is it meant to replace meals?', 'a' => 'No. It is best enjoyed as part of a balanced daily routine alongside normal meals.'],
       ],
     ],
+
+    'preppal performance shaker' => [
+      'description' => 'The PrepPal Performance Shaker is built for everyday gym use, whether you are mixing whey, pre-workout, hydration products, or simply carrying water through the day. It combines practical function with a bold PrepPal look, giving customers a clean branded shaker that feels premium both in the gym and on the go. It is easy to carry, easy to clean, and suitable for people who want their accessories to match the same high-performance feel as the rest of their training setup. With multiple product images shown in the gallery, customers can view the shaker from different angles before ordering.',
+      'how_to_use' => 'Add your chosen powder and liquid, secure the lid fully, and shake until mixed. Rinse after use and wash thoroughly before the next session to keep the bottle fresh and ready for everyday training. It can be used for protein shakes, creatine, electrolyte mixes, pre-workout drinks, or plain water depending on your routine.',
+      'faqs' => [
+        ['q' => 'What can I use this shaker for?', 'a' => 'It can be used for whey protein, pre-workout, hydration mixes, creatine, or simply as an everyday water bottle.'],
+        ['q' => 'Does the product page show more than one image?', 'a' => 'Yes. The shaker includes multiple gallery images so customers can view the product in more detail.'],
+        ['q' => 'Is it suitable for everyday use?', 'a' => 'Yes. It is designed to work well both in the gym and as a general everyday training accessory.'],
+      ],
+    ],
+
+    'preppal heavy duty lifting belt' => [
+      'description' => 'The PrepPal Heavy Duty Lifting Belt is designed for customers who want extra support and stability during heavier training sessions. It is especially suitable for compound movements such as squats, deadlifts, rows, and other exercises where bracing and midsection support matter. The belt combines a strong, performance-led look with a sturdy feel, making it a practical piece of training equipment for both experienced lifters and customers building a more serious gym setup. The gallery shows different product images so customers can better understand the look and finish before purchasing.',
+      'how_to_use' => 'Fasten the belt securely around the midsection before your heavier working sets, making sure it feels supportive without restricting normal breathing too much. It is most commonly used for big compound lifts where added trunk stability is helpful. Store it flat or hung up after use to help maintain shape over time.',
+      'faqs' => [
+        ['q' => 'What exercises is this belt best for?', 'a' => 'It is commonly used for squats, deadlifts, rows, and other heavier compound movements.'],
+        ['q' => 'Should I wear it for every exercise?', 'a' => 'Not necessarily. Most customers save it for heavier sets where added support is most useful.'],
+        ['q' => 'Does the page show more than one image?', 'a' => 'Yes. The belt includes alternate gallery images on the product page.'],
+      ],
+    ],
+
+    'preppal wrist wraps' => [
+      'description' => 'PrepPal Wrist Wraps are made for customers who want extra wrist support during pressing movements and demanding upper-body sessions. They are well suited to exercises such as bench press, shoulder press, machine pressing, and other sessions where wrist stability can improve comfort and confidence. The wraps also help complete a stronger overall gym look, making them a practical accessory for people building out their training essentials. Multiple gallery images let customers view the wraps more clearly before ordering.',
+      'how_to_use' => 'Wrap them around the wrist firmly before pressing movements or other exercises where extra support feels useful. Adjust tightness to a level that feels secure but still comfortable for movement. After training, loosen and store them in a dry place ready for your next session.',
+      'faqs' => [
+        ['q' => 'When should I use wrist wraps?', 'a' => 'They are most useful during pressing exercises or heavier upper-body sessions where wrist support is helpful.'],
+        ['q' => 'Can beginners use them too?', 'a' => 'Yes. They can be useful for both beginners and more experienced gym-goers depending on training style.'],
+        ['q' => 'Are there multiple product images?', 'a' => 'Yes. The gallery includes additional wrap images for a better product view.'],
+      ],
+    ],
+
+    'preppal liquid chalk' => [
+      'description' => 'PrepPal Liquid Chalk is a practical grip support product for customers who want better hold during pulling movements, deadlifts, rows, calisthenics work, and other demanding exercises. It is designed to be a cleaner and more portable option than loose chalk, making it easier to keep in your gym bag and use when needed. This product is ideal for people whose grip starts to limit top sets or longer sessions, and it fits naturally into a more serious training routine.',
+      'how_to_use' => 'Apply a small amount to the palms, spread it evenly across the hands, and allow it to dry briefly before lifting. Reapply only when needed and keep the bottle sealed between uses. Use it during sessions where extra grip support is useful, especially on pulling days.',
+      'faqs' => [
+        ['q' => 'What is liquid chalk best used for?', 'a' => 'It is especially useful for deadlifts, rows, pull movements, and other exercises where grip matters.'],
+        ['q' => 'Is it cleaner than loose chalk?', 'a' => 'Yes. Many customers prefer it because it is more portable and generally less messy than traditional chalk.'],
+        ['q' => 'Can I keep it in my gym bag?', 'a' => 'Yes. It is designed to be convenient for gym bags and on-the-go training use.'],
+      ],
+    ],
+
+    'preppal wrist straps' => [
+      'description' => 'PrepPal Wrist Straps are built for customers who want help with grip fatigue during heavier pulling movements and high-volume back work. They are especially useful on exercises such as deadlifts, rows, shrugs, and machine pulls where grip can become the weak point before the target muscles are fully challenged. These straps are a practical addition for lifters who want to push their sets harder while keeping a strong gym-ready PrepPal look. The product gallery includes alternate imagery so customers can see more of the product before purchase.',
+      'how_to_use' => 'Loop the straps correctly around the wrist and bar before your working sets, then tighten them enough to assist grip without making setup uncomfortable. They are most useful during heavy or higher-rep pulling work where the hands begin to fatigue first. Store them dry after use and check them regularly as part of normal kit care.',
+      'faqs' => [
+        ['q' => 'What exercises are wrist straps most useful for?', 'a' => 'They are especially useful for deadlifts, rows, shrugs, machine pulls, and other grip-heavy training.'],
+        ['q' => 'Are straps only for advanced lifters?', 'a' => 'No. Anyone whose grip limits pulling movements may find them useful.'],
+        ['q' => 'Does the product page include more than one image?', 'a' => 'Yes. The straps use a multi-image gallery on the product page.'],
+      ],
+    ],
   ];
 
   $content = $productContent[$productSlug] ?? [
     'description' => $product->description,
     'how_to_use' => $isClothing
       ? 'Select your preferred size, review the fit guide if needed, and add the item to your cart. Once your order arrives, try it on indoors first to check the fit and comfort before training in it. Follow the care instructions on the garment label to help maintain colour, print quality, and fabric performance over time.'
-      : 'Follow the directions provided on the product label and use the product consistently as part of your normal routine. Make sure you store it correctly, pay attention to serving guidance where relevant, and combine it with a balanced diet, hydration, and sensible everyday habits.',
+      : ($isEquipment
+          ? 'Use the product according to its intended training purpose and keep it clean, dry, and stored correctly between sessions. Check the product before use, especially if it is something worn or gripped during training, and follow any care guidance provided.'
+          : 'Follow the directions provided on the product label and use the product consistently as part of your normal routine. Make sure you store it correctly, pay attention to serving guidance where relevant, and combine it with a balanced diet, hydration, and sensible everyday habits.'),
     'faqs' => $isClothing
       ? [
           ['q' => 'How do I choose the right size?', 'a' => 'Use the size selector and check the size guide on the product page before ordering if you are unsure.'],
           ['q' => 'Can I return clothing if it does not fit?', 'a' => 'Unused items should follow the store return policy, so check the returns information provided at checkout or on the site.'],
           ['q' => 'How should I wash this item?', 'a' => 'Follow the care label instructions on the garment to help preserve fit, fabric, and printed design quality.'],
         ]
-      : [
-          ['q' => 'When will my order arrive?', 'a' => 'Most UK orders arrive within 2 to 4 working days, though timings may vary during busy periods.'],
-          ['q' => 'How should I store this product?', 'a' => 'Store it according to the label guidance in a cool, dry place or chilled if stated on the packaging.'],
-          ['q' => 'Can I use this product every day?', 'a' => 'That depends on the product type and label directions, so always follow the intended usage guidance provided.'],
-        ],
+      : ($isEquipment
+          ? [
+              ['q' => 'Is this product suitable for regular gym use?', 'a' => 'Yes. Equipment items are intended to fit naturally into normal gym routines depending on the product type.'],
+              ['q' => 'How should I store it after use?', 'a' => 'Keep it dry, clean, and stored properly between sessions so it stays in good condition.'],
+              ['q' => 'Will I see multiple product images?', 'a' => 'Yes, where available, equipment products can show multiple gallery images on the product page.'],
+            ]
+          : [
+              ['q' => 'When will my order arrive?', 'a' => 'Most UK orders arrive within 2 to 4 working days, though timings may vary during busy periods.'],
+              ['q' => 'How should I store this product?', 'a' => 'Store it according to the label guidance in a cool, dry place or chilled if stated on the packaging.'],
+              ['q' => 'Can I use this product every day?', 'a' => 'That depends on the product type and label directions, so always follow the intended usage guidance provided.'],
+            ]),
   ];
 
   $wheyFlavours = [
@@ -537,6 +603,69 @@
       ],
     ],
   ];
+
+  $equipmentVariants = [];
+
+  if ($isShaker) {
+    $equipmentVariants = [
+      'standard' => [
+        'label' => 'Standard',
+        'cart_name' => 'PrepPal Performance Shaker',
+        'image' => asset('images/shaker1.png'),
+        'gallery' => [
+          asset('images/shaker1.png'),
+          asset('images/shaker2.png'),
+        ],
+      ],
+    ];
+  } elseif ($isBelt) {
+    $equipmentVariants = [
+      'standard' => [
+        'label' => 'Standard',
+        'cart_name' => 'PrepPal Heavy Duty Lifting Belt',
+        'image' => asset('images/belt1.png'),
+        'gallery' => [
+          asset('images/belt1.png'),
+          asset('images/belt2.png'),
+        ],
+      ],
+    ];
+  } elseif ($isWraps) {
+    $equipmentVariants = [
+      'standard' => [
+        'label' => 'Standard',
+        'cart_name' => 'PrepPal Wrist Wraps',
+        'image' => asset('images/wraps1.png'),
+        'gallery' => [
+          asset('images/wraps1.png'),
+          asset('images/wraps2.png'),
+        ],
+      ],
+    ];
+  } elseif ($isChalk) {
+    $equipmentVariants = [
+      'standard' => [
+        'label' => 'Standard',
+        'cart_name' => 'PrepPal Liquid Chalk',
+        'image' => asset('images/chalk.png'),
+        'gallery' => [
+          asset('images/chalk.png'),
+        ],
+      ],
+    ];
+  } elseif ($isStraps) {
+    $equipmentVariants = [
+      'standard' => [
+        'label' => 'Standard',
+        'cart_name' => 'PrepPal Wrist Straps',
+        'image' => asset('images/straps1.png'),
+        'gallery' => [
+          asset('images/straps1.png'),
+          asset('images/straps2.png'),
+        ],
+      ],
+    ];
+  }
 
   $clothingVariants = [];
 
@@ -727,23 +856,27 @@
 
   $activeFlavours = $isClothing
     ? $clothingVariants
-    : ($isWheyProtein
-        ? $wheyFlavours
-        : ($isCreatine
-            ? $creatineFlavours
-            : ($isPreWorkout
-                ? $preWorkoutFlavours
-                : ($isBcaa ? $bcaaFlavours : []))));
+    : ($isEquipment
+        ? $equipmentVariants
+        : ($isWheyProtein
+            ? $wheyFlavours
+            : ($isCreatine
+                ? $creatineFlavours
+                : ($isPreWorkout
+                    ? $preWorkoutFlavours
+                    : ($isBcaa ? $bcaaFlavours : [])))));
 
   $defaultFlavourKey = $isClothing
     ? (count($clothingVariants) ? array_key_first($clothingVariants) : null)
-    : ($isWheyProtein
-        ? 'vanilla'
-        : ($isCreatine
-            ? 'berry'
-            : ($isPreWorkout
-                ? 'grape'
-                : ($isBcaa ? 'fruit_punch' : null))));
+    : ($isEquipment
+        ? (count($equipmentVariants) ? array_key_first($equipmentVariants) : null)
+        : ($isWheyProtein
+            ? 'vanilla'
+            : ($isCreatine
+                ? 'berry'
+                : ($isPreWorkout
+                    ? 'grape'
+                    : ($isBcaa ? 'fruit_punch' : null)))));
 @endphp
 
 <main class="container main-content">
@@ -1136,6 +1269,7 @@
         data-is-preworkout="{{ $isPreWorkout ? '1' : '0' }}"
         data-is-bcaa="{{ $isBcaa ? '1' : '0' }}"
         data-is-clothing="{{ $isClothing ? '1' : '0' }}"
+        data-is-equipment="{{ $isEquipment ? '1' : '0' }}"
         data-default-flavour="{{ $defaultFlavourKey }}"
         data-flavour-images='@json($activeFlavours)'
       >
@@ -1161,8 +1295,12 @@
       <p class="pp-subtitle">
         @if($isClothing)
           Clothing
+        @elseif($isEquipment)
+          Equipment
         @elseif($product->category === 'meal')
           Meal Prep Plan
+        @elseif($product->category === 'drink')
+          Drink
         @else
           Supplement
         @endif
@@ -1205,6 +1343,10 @@
           <li>Comfortable training fit</li>
           <li>Designed for gym and casual wear</li>
           <li>Signature PrepPal branding</li>
+        @elseif($isEquipment)
+          <li>Built for regular gym use</li>
+          <li>Performance-focused PrepPal design</li>
+          <li>Practical training essential</li>
         @elseif($product->category === 'meal')
           <li>14 chef-prepared meals included</li>
           <li>Choose your protein, carb, and add-ons</li>
@@ -1791,7 +1933,16 @@
       "zipfront.png": ["/images/zipfront.png", "/images/zipback.png"],
       "zipback.png": ["/images/zipfront.png", "/images/zipback.png"],
       "pants.png": ["/images/pants.png"],
-      "gymgirlset.png": ["/images/gymgirlset.png"]
+      "gymgirlset.png": ["/images/gymgirlset.png"],
+      "shaker1.png": ["/images/shaker1.png", "/images/shaker2.png"],
+      "shaker2.png": ["/images/shaker1.png", "/images/shaker2.png"],
+      "belt1.png": ["/images/belt1.png", "/images/belt2.png"],
+      "belt2.png": ["/images/belt1.png", "/images/belt2.png"],
+      "wraps1.png": ["/images/wraps1.png", "/images/wraps2.png"],
+      "wraps2.png": ["/images/wraps1.png", "/images/wraps2.png"],
+      "chalk.png": ["/images/chalk.png"],
+      "straps1.png": ["/images/straps1.png", "/images/straps2.png"],
+      "straps2.png": ["/images/straps1.png", "/images/straps2.png"]
     };
 
     function uniq(arr) {
@@ -1816,7 +1967,8 @@
       const isPreWorkout = root.getAttribute('data-is-preworkout') === '1';
       const isBcaa = root.getAttribute('data-is-bcaa') === '1';
       const isClothing = root.getAttribute('data-is-clothing') === '1';
-      const usesVariantGallery = isWhey || isCreatine || isPreWorkout || isBcaa || isClothing;
+      const isEquipment = root.getAttribute('data-is-equipment') === '1';
+      const usesVariantGallery = isWhey || isCreatine || isPreWorkout || isBcaa || isClothing || isEquipment;
       const defaultVariant = root.getAttribute('data-default-flavour') || '';
 
       let flavourConfig = {};
@@ -2004,6 +2156,10 @@
         });
 
         applyVariant(sizeSelect.value, selectedSizeText, 'Selected size');
+      }
+
+      if (isEquipment && defaultVariant) {
+        applyVariant(defaultVariant, null, '');
       }
     });
 

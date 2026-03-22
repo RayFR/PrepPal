@@ -2,7 +2,7 @@
   Students & IDs: Agraj Khanna (240195519) / Gurpreet Singh Sidhu (230237915)
   File: store.blade.php
   Description: Store Page containing all of our products
-  Date: Dec 2025
+  Date: Mar 2026
 -->
 
 @extends('layouts.app')
@@ -11,23 +11,20 @@
 
 @section('content')
 @php
-    $q         = request()->query('q', '');
-    $category  = request()->query('category', 'all');
+    $q         = trim((string) request()->query('q', ''));
+    $category  = (string) request()->query('category', 'all');
     $min_price = request()->query('min_price', '');
     $max_price = request()->query('max_price', '');
     $sort      = request()->query('sort', 'newest');
 
+    $minFilter = is_numeric($min_price) ? (float) $min_price : null;
+    $maxFilter = is_numeric($max_price) ? (float) $max_price : null;
+
     $mealProducts = $products->where('category', 'meal')->values();
     $supplementProducts = $products->where('category', 'supplement')->values();
     $drinkProducts = $products->where('category', 'drink')->values();
+    $equipmentProducts = $products->where('category', 'equipment')->values();
 
-    /*
-    |--------------------------------------------------------------------------
-    | Static clothing items
-    |--------------------------------------------------------------------------
-    | These are not from the database yet.
-    | They are displayed manually from the images in public/images.
-    */
     $clothingProducts = collect([
         (object) [
             'slug' => 'performance-tank',
@@ -76,21 +73,75 @@
         ],
     ]);
 
+    $clothingProducts = $clothingProducts
+        ->filter(function ($item) use ($q, $minFilter, $maxFilter) {
+            $matchesSearch = $q === ''
+                || str_contains(strtolower($item->name), strtolower($q))
+                || str_contains(strtolower($item->description), strtolower($q));
+
+            $matchesMin = $minFilter === null || $item->price >= $minFilter;
+            $matchesMax = $maxFilter === null || $item->price <= $maxFilter;
+
+            return $matchesSearch && $matchesMin && $matchesMax;
+        })
+        ->values();
+
+    $clothingProducts = match ($sort) {
+        'price_asc'  => $clothingProducts->sortBy('price')->values(),
+        'price_desc' => $clothingProducts->sortByDesc('price')->values(),
+        'name_asc'   => $clothingProducts->sortBy('name')->values(),
+        default      => $clothingProducts->values(),
+    };
+
     $hasVisibleProducts =
         (($category === 'all' || $category === 'meal') && $mealProducts->isNotEmpty()) ||
         (($category === 'all' || $category === 'supplement') && $supplementProducts->isNotEmpty()) ||
         (($category === 'all' || $category === 'drink') && $drinkProducts->isNotEmpty()) ||
+        (($category === 'all' || $category === 'equipment') && $equipmentProducts->isNotEmpty()) ||
         (($category === 'all' || $category === 'clothing') && $clothingProducts->isNotEmpty());
+
+    $mealPlanPreviews = [
+        'fat loss meal prep plan' => [
+            'tag' => 'Best for cutting',
+            'points' => [
+                '14 portion-controlled meals',
+                'Choose your protein + carb each week',
+                'Lower-calorie, high-protein meal options',
+            ],
+        ],
+        'lean muscle meal prep plan' => [
+            'tag' => 'Best for muscle gain',
+            'points' => [
+                '14 higher-calorie performance meals',
+                'Choose your protein + carb each week',
+                'Built for training and recovery',
+            ],
+        ],
+        'maintenance meal prep plan' => [
+            'tag' => 'Best for balance',
+            'points' => [
+                '14 balanced meals for steady intake',
+                'Choose your protein + carb each week',
+                'Designed for routine and convenience',
+            ],
+        ],
+        'high fibre meal prep plan' => [
+            'tag' => 'Best for digestion',
+            'points' => [
+                '14 fibre-focused meals',
+                'Choose from lighter, gut-friendly options',
+                'Beans, grains, veg and balanced portions',
+            ],
+        ],
+    ];
 @endphp
 
 <div class="container">
     <h1 style="margin-bottom: 1rem;">Store</h1>
 
-    {{-- FILTER BAR --}}
     <form id="storeFiltersForm" method="GET" action="{{ route('store') }}" class="store-filters">
         <div class="filter-grid">
 
-            {{-- Search --}}
             <div class="field">
                 <label for="q">Search</label>
                 <input
@@ -98,12 +149,11 @@
                     name="q"
                     type="text"
                     value="{{ $q }}"
-                    placeholder="Chicken, whey, high protein..."
+                    placeholder="Chicken, whey, shaker, belt..."
                     autocomplete="off"
                 >
             </div>
 
-            {{-- Category --}}
             <div class="field">
                 <label for="category">Category</label>
                 <select id="category" name="category">
@@ -111,11 +161,11 @@
                     <option value="meal" {{ $category === 'meal' ? 'selected' : '' }}>Meal Plans</option>
                     <option value="supplement" {{ $category === 'supplement' ? 'selected' : '' }}>Supplements</option>
                     <option value="drink" {{ $category === 'drink' ? 'selected' : '' }}>Drinks</option>
+                    <option value="equipment" {{ $category === 'equipment' ? 'selected' : '' }}>Equipment</option>
                     <option value="clothing" {{ $category === 'clothing' ? 'selected' : '' }}>Clothing</option>
                 </select>
             </div>
 
-            {{-- Price --}}
             <div class="field price-range">
                 <label>Price <span id="ppCurrencyLabel" style="opacity:.8; font-weight:600;">£ GBP</span></label>
 
@@ -144,7 +194,6 @@
                 </div>
             </div>
 
-            {{-- Sort --}}
             <div class="field">
                 <label for="sort">Sort</label>
                 <select id="sort" name="sort">
@@ -155,7 +204,6 @@
                 </select>
             </div>
 
-            {{-- Actions --}}
             <div class="field actions-field">
                 <label class="sr-only" for="storeFiltersForm">Actions</label>
                 <div class="filter-actions">
@@ -174,43 +222,6 @@
         {{-- MEAL PLANS --}}
         @if($category === 'all' || $category === 'meal')
             @if($mealProducts->isNotEmpty())
-                @php
-                    $mealPlanPreviews = [
-                        'fat loss meal prep plan' => [
-                            'tag' => 'Best for cutting',
-                            'points' => [
-                                '14 portion-controlled meals',
-                                'Choose your protein + carb each week',
-                                'Lower-calorie, high-protein meal options',
-                            ],
-                        ],
-                        'lean muscle meal prep plan' => [
-                            'tag' => 'Best for muscle gain',
-                            'points' => [
-                                '14 higher-calorie performance meals',
-                                'Choose your protein + carb each week',
-                                'Built for training and recovery',
-                            ],
-                        ],
-                        'maintenance meal prep plan' => [
-                            'tag' => 'Best for balance',
-                            'points' => [
-                                '14 balanced meals for steady intake',
-                                'Choose your protein + carb each week',
-                                'Designed for routine and convenience',
-                            ],
-                        ],
-                        'high fibre meal prep plan' => [
-                            'tag' => 'Best for digestion',
-                            'points' => [
-                                '14 fibre-focused meals',
-                                'Choose from lighter, gut-friendly options',
-                                'Beans, grains, veg and balanced portions',
-                            ],
-                        ],
-                    ];
-                @endphp
-
                 <section style="margin-top: 2rem;">
                     <h2 style="margin-bottom: 1rem;">Meal Plans</h2>
 
@@ -282,10 +293,9 @@
                                 </p>
 
                                 <h3 style="margin: 0.5rem 0 1rem;">
-                                    <span
-                                        data-money-gbp="{{ $product->price }}"
-                                        data-money-suffix=" / week"
-                                    >£{{ number_format($product->price, 2) }} / week</span>
+                                    <span data-money-gbp="{{ $product->price }}" data-money-suffix=" / week">
+                                        £{{ number_format($product->price, 2) }} / week
+                                    </span>
                                 </h3>
 
                                 @if($product->stock <= 0)
@@ -293,14 +303,10 @@
                                         Out of stock
                                     </span>
                                 @else
-                                    <a
-                                        class="cta"
-                                        href="{{ route('product.show', $product->id) }}"
-                                    >
+                                    <a class="cta" href="{{ route('product.show', $product->id) }}">
                                         View plan & customise
                                     </a>
                                 @endif
-
                             </div>
                         @endforeach
                     </div>
@@ -317,14 +323,8 @@
                     <div class="admin-dashboard store-grid" style="gap: 1rem;">
                         @foreach($supplementProducts as $product)
                             <div class="card" data-product-card="true">
-
                                 <a href="{{ route('product.show', $product->id) }}" class="product-link" style="text-decoration:none; color:inherit;">
-                                    <img
-                                        src="{{ asset($product->image_path) }}"
-                                        alt="{{ $product->name }}"
-                                        loading="lazy"
-                                        class="product-image"
-                                    >
+                                    <img src="{{ asset($product->image_path) }}" alt="{{ $product->name }}" loading="lazy" class="product-image">
                                     <h3 style="margin-top:0.75rem;">{{ $product->name }}</h3>
                                 </a>
 
@@ -341,29 +341,14 @@
                                 </p>
 
                                 <h3 style="margin: 0.5rem 0 1rem;">
-                                    <span
-                                        data-money-gbp="{{ $product->price }}"
-                                        data-money-suffix="{{ $product->category === 'meal' ? ' / week' : '' }}"
-                                    >£{{ number_format($product->price, 2) }}{{ $product->category === 'meal' ? ' / week' : '' }}</span>
+                                    <span data-money-gbp="{{ $product->price }}">£{{ number_format($product->price, 2) }}</span>
                                 </h3>
 
                                 @if($product->stock <= 0)
-                                    <span class="cta" style="display:inline-flex; opacity:0.6; pointer-events:none; cursor:not-allowed;">
-                                        Out of stock
-                                    </span>
+                                    <span class="cta" style="display:inline-flex; opacity:0.6; pointer-events:none; cursor:not-allowed;">Out of stock</span>
                                 @else
-                                    <a
-                                        class="cta add-to-cart"
-                                        href="#"
-                                        data-id="{{ $product->id }}"
-                                        data-name="{{ $product->name }}"
-                                        data-price="{{ $product->price }}"
-                                        data-image="{{ asset($product->image_path) }}"
-                                    >
-                                        Add to cart
-                                    </a>
+                                    <a class="cta" href="{{ route('product.show', $product->id) }}">View product</a>
                                 @endif
-
                             </div>
                         @endforeach
                     </div>
@@ -380,14 +365,8 @@
                     <div class="admin-dashboard store-grid" style="gap: 1rem;">
                         @foreach($drinkProducts as $product)
                             <div class="card" data-product-card="true">
-
                                 <a href="{{ route('product.show', $product->id) }}" class="product-link" style="text-decoration:none; color:inherit;">
-                                    <img
-                                        src="{{ asset($product->image_path) }}"
-                                        alt="{{ $product->name }}"
-                                        loading="lazy"
-                                        class="product-image"
-                                    >
+                                    <img src="{{ asset($product->image_path) }}" alt="{{ $product->name }}" loading="lazy" class="product-image">
                                     <h3 style="margin-top:0.75rem;">{{ $product->name }}</h3>
                                 </a>
 
@@ -404,28 +383,70 @@
                                 </p>
 
                                 <h3 style="margin: 0.5rem 0 1rem;">
-                                    <span data-money-gbp="{{ $product->price }}">
-                                        £{{ number_format($product->price, 2) }}
-                                    </span>
+                                    <span data-money-gbp="{{ $product->price }}">£{{ number_format($product->price, 2) }}</span>
                                 </h3>
 
                                 @if($product->stock <= 0)
-                                    <span class="cta" style="display:inline-flex; opacity:0.6; pointer-events:none; cursor:not-allowed;">
-                                        Out of stock
-                                    </span>
+                                    <span class="cta" style="display:inline-flex; opacity:0.6; pointer-events:none; cursor:not-allowed;">Out of stock</span>
                                 @else
-                                    <a
-                                        class="cta add-to-cart"
-                                        href="#"
-                                        data-id="{{ $product->id }}"
-                                        data-name="{{ $product->name }}"
-                                        data-price="{{ $product->price }}"
-                                        data-image="{{ asset($product->image_path) }}"
-                                    >
-                                        Add to cart
-                                    </a>
+                                    <a class="cta" href="{{ route('product.show', $product->id) }}">View product</a>
                                 @endif
+                            </div>
+                        @endforeach
+                    </div>
+                </section>
+            @endif
+        @endif
 
+        {{-- EQUIPMENT --}}
+        @if($category === 'all' || $category === 'equipment')
+            @if($equipmentProducts->isNotEmpty())
+                <section style="margin-top: 2.5rem;">
+                    <h2 style="margin-bottom: 1rem;">Equipment</h2>
+
+                    <div class="admin-dashboard store-grid" style="gap: 1rem;">
+                        @foreach($equipmentProducts as $product)
+                            <div class="card" data-product-card="true">
+                                <a href="{{ route('product.show', $product->id) }}" class="product-link" style="text-decoration:none; color:inherit;">
+                                    <img src="{{ asset($product->image_path) }}" alt="{{ $product->name }}" loading="lazy" class="product-image">
+                                    <h3 style="margin-top:0.75rem;">{{ $product->name }}</h3>
+                                </a>
+
+                                <div style="margin: 0.4rem 0 0.8rem;">
+                                    <span style="
+                                        display:inline-block;
+                                        padding:0.35rem 0.7rem;
+                                        border-radius:999px;
+                                        background:rgba(255,140,0,.14);
+                                        color:#ff9a1f;
+                                        font-weight:700;
+                                        font-size:0.85rem;
+                                    ">
+                                        Gym equipment
+                                    </span>
+                                </div>
+
+                                <p style="opacity:0.85;">{{ $product->description }}</p>
+
+                                <p>
+                                    @if($product->stock <= 0)
+                                        <strong style="color:#dc2626;">Out of stock</strong>
+                                    @elseif($product->stock <= $product->low_stock_threshold)
+                                        <strong style="color:#d97706;">Low stock ({{ $product->stock }} left)</strong>
+                                    @else
+                                        <strong style="color:#16a34a;">In stock ({{ $product->stock }} available)</strong>
+                                    @endif
+                                </p>
+
+                                <h3 style="margin: 0.5rem 0 1rem;">
+                                    <span data-money-gbp="{{ $product->price }}">£{{ number_format($product->price, 2) }}</span>
+                                </h3>
+
+                                @if($product->stock <= 0)
+                                    <span class="cta" style="display:inline-flex; opacity:0.6; pointer-events:none; cursor:not-allowed;">Out of stock</span>
+                                @else
+                                    <a class="cta" href="{{ route('product.show', $product->id) }}">View product</a>
+                                @endif
                             </div>
                         @endforeach
                     </div>
@@ -442,15 +463,8 @@
                     <div class="admin-dashboard store-grid" style="gap: 1rem;">
                         @foreach($clothingProducts as $item)
                             <div class="card" data-product-card="true">
-
                                 <a href="{{ route('clothing.show', $item->slug) }}" class="product-link" style="text-decoration:none; color:inherit;">
-                                    <img
-                                        src="{{ asset($item->image_path) }}"
-                                        alt="{{ $item->name }}"
-                                        loading="lazy"
-                                        class="product-image"
-                                    >
-
+                                    <img src="{{ asset($item->image_path) }}" alt="{{ $item->name }}" loading="lazy" class="product-image">
                                     <h3 style="margin-top:0.75rem;">{{ $item->name }}</h3>
                                 </a>
 
@@ -467,24 +481,14 @@
                                 </p>
 
                                 <h3 style="margin: 0.5rem 0 1rem;">
-                                    <span data-money-gbp="{{ $item->price }}">
-                                        £{{ number_format($item->price, 2) }}
-                                    </span>
+                                    <span data-money-gbp="{{ $item->price }}">£{{ number_format($item->price, 2) }}</span>
                                 </h3>
 
                                 @if($item->stock <= 0)
-                                    <span class="cta" style="display:inline-flex; opacity:0.6; pointer-events:none; cursor:not-allowed;">
-                                        Out of stock
-                                    </span>
+                                    <span class="cta" style="display:inline-flex; opacity:0.6; pointer-events:none; cursor:not-allowed;">Out of stock</span>
                                 @else
-                                    <a
-                                        class="cta"
-                                        href="{{ route('clothing.show', $item->slug) }}"
-                                    >
-                                        View product
-                                    </a>
+                                    <a class="cta" href="{{ route('clothing.show', $item->slug) }}">View product</a>
                                 @endif
-
                             </div>
                         @endforeach
                     </div>
