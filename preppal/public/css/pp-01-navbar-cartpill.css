@@ -1,10 +1,9 @@
 /* =========================================================
    NAVBAR + CART PILL
-   FINAL FIX:
-   - uses cropped logo properly
-   - bigger visible logo
-   - stable desktop layout
-   - supports data-theme="dark"
+   Navbar, store dropdown, and cart pill.
+   - Uses the cropped PrepPal logo
+   - Keeps the desktop layout stable
+   - Supports data-theme="dark"
    ========================================================= */
 
 /* --------------------------
@@ -67,7 +66,7 @@ body[data-theme="dark"] .nav {
   transform: scale(1.02);
 }
 
-/* fallback if using img instead of span */
+/* Fallback for image-based logo markup */
 .brand img {
   display: block;
   width: 260px;

@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title', config('app.name', 'PrepPal'))</title>
@@ -16,6 +15,19 @@
     @stack('styles')
 </head>
 <body>
+    @php
+        $storeRoutesActive = request()->routeIs('store') || request()->routeIs('product.show') || request()->routeIs('clothing.show');
+        $showCurrencySelector = request()->routeIs('store')
+            || request()->routeIs('product.show')
+            || request()->routeIs('checkout')
+            || request()->routeIs('checkout.confirmation');
+
+        $closeNewsletterModal = "document.getElementById('ppNewsletter').classList.remove('is-open'); "
+            . "document.getElementById('ppNewsletter').setAttribute('aria-hidden', 'true'); "
+            . "document.documentElement.style.overflow = ''; "
+            . "document.body.style.overflow = '';";
+    @endphp
+
     <header class="nav">
         <div class="container nav-inner">
             <a href="{{ route('home') }}" class="brand" aria-label="PrepPal home">
@@ -28,10 +40,10 @@
                 <a href="{{ route('contact.index') }}" class="{{ request()->routeIs('contact.index') ? 'active' : '' }}">Contact</a>
 
                 @auth
-                    <div class="nav-dropdown {{ request()->routeIs('store') || request()->routeIs('product.show') || request()->routeIs('clothing.show') ? 'is-active' : '' }}">
+                    <div class="nav-dropdown {{ $storeRoutesActive ? 'is-active' : '' }}">
                         <a
                             href="{{ route('store') }}"
-                            class="nav-dropdown__trigger {{ request()->routeIs('store') || request()->routeIs('product.show') || request()->routeIs('clothing.show') ? 'active' : '' }}"
+                            class="nav-dropdown__trigger {{ $storeRoutesActive ? 'active' : '' }}"
                             aria-haspopup="true"
                             aria-expanded="false"
                         >
@@ -57,12 +69,7 @@
 
             <div class="nav-actions" aria-label="Navigation actions">
                 @auth
-                    @if (
-                        request()->routeIs('store') ||
-                        request()->routeIs('product.show') ||
-                        request()->routeIs('checkout') ||
-                        request()->routeIs('checkout.confirmation')
-                    )
+                    @if ($showCurrencySelector)
                         <div class="pp-currency" id="ppCurrency" aria-label="Currency selector">
                             <button
                                 type="button"
@@ -165,7 +172,7 @@
                 type="button"
                 aria-label="Close"
                 data-pp-nl-close
-                onclick="document.getElementById('ppNewsletter').classList.remove('is-open'); document.getElementById('ppNewsletter').setAttribute('aria-hidden', 'true'); document.documentElement.style.overflow=''; document.body.style.overflow='';"
+                onclick="{{ $closeNewsletterModal }}"
             >
                 ×
             </button>
@@ -197,7 +204,7 @@
                                 class="pp-newsletter__no"
                                 type="button"
                                 data-pp-nl-close
-                                onclick="document.getElementById('ppNewsletter').classList.remove('is-open'); document.getElementById('ppNewsletter').setAttribute('aria-hidden', 'true'); document.documentElement.style.overflow=''; document.body.style.overflow='';"
+                                onclick="{{ $closeNewsletterModal }}"
                             >
                                 Close
                             </button>
@@ -223,11 +230,12 @@
                             >
 
                             <button class="pp-newsletter__btn" type="submit">GET MY 15% OFF</button>
+
                             <button
                                 class="pp-newsletter__no"
                                 type="button"
                                 data-pp-nl-close
-                                onclick="document.getElementById('ppNewsletter').classList.remove('is-open'); document.getElementById('ppNewsletter').setAttribute('aria-hidden', 'true'); document.documentElement.style.overflow=''; document.body.style.overflow='';"
+                                onclick="{{ $closeNewsletterModal }}"
                             >
                                 No, thanks
                             </button>
