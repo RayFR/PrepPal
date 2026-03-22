@@ -888,8 +888,8 @@
 }
 
 .pp-t-avatar {
-  width: 100px;
-  height: 100px;
+  width: 500px;
+  height: 500px;
   border-radius: 50%;
   object-fit: cover;
   display: block;
