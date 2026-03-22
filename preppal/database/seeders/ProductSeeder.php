@@ -7,15 +7,17 @@ use Illuminate\Support\Facades\DB;
 
 class ProductSeeder extends Seeder
 {
-    public function run()
+    /**
+     * Seed the products table with PrepPal catalogue data.
+     */
+    public function run(): void
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('products')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         DB::table('products')->insert([
-
-            // MEAL PLANS
+            // Meal plans
             [
                 'name' => 'Fat Loss Meal Prep Plan',
                 'description' => 'A structured 8-week fat-loss programme designed for sustainable weight reduction.',
@@ -53,7 +55,7 @@ class ProductSeeder extends Seeder
                 'low_stock_threshold' => 5,
             ],
 
-            // SUPPLEMENTS
+            // Supplements
             [
                 'name' => 'Whey Protein 1kg',
                 'description' => 'A smooth whey protein powder formulated to support lean muscle growth.',
@@ -100,7 +102,7 @@ class ProductSeeder extends Seeder
                 'low_stock_threshold' => 8,
             ],
 
-            // DRINKS
+            // Drinks
             [
                 'name' => 'Electrolyte Hydration Mix',
                 'description' => 'Hydration powder sachets for workouts.',
@@ -121,7 +123,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'name' => 'Whey Protein Shake',
-                'description' => 'Ready to drink protein shake.',
+                'description' => 'Ready-to-drink protein shake.',
                 'price' => 3.49,
                 'image_path' => 'images/preppal_wheyprotein.png',
                 'category' => 'drink',
@@ -174,7 +176,7 @@ class ProductSeeder extends Seeder
                 'low_stock_threshold' => 5,
             ],
 
-            // EQUIPMENT
+            // Equipment
             [
                 'name' => 'PrepPal Performance Shaker',
                 'description' => 'A durable everyday shaker bottle built for protein shakes, intra-workout drinks, and daily hydration. Includes a premium PrepPal branded design and extra gallery views on the product page.',
@@ -220,7 +222,6 @@ class ProductSeeder extends Seeder
                 'stock' => 24,
                 'low_stock_threshold' => 5,
             ],
-
         ]);
     }
 }

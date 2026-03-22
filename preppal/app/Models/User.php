@@ -22,7 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'is_admin',
-        'force_password_reset'
+        'force_password_reset',
     ];
 
     /**
