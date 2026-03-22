@@ -1,65 +1,82 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Review;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class ReviewController extends Controller
 {
-public function store(Request $request, $id)
-{
-    $request->validate([
-        'rating' => 'required|integer|min:1|max:5',
-        'comment' => 'nullable|string',
-    ]);
+    /**
+     * Store a new review or update the existing review for the authenticated user.
+     */
+    public function store(Request $request, int $id): RedirectResponse
+    {
+        $validated = $request->validate([
+            'rating' => ['required', 'integer', 'min:1', 'max:5'],
+            'comment' => ['nullable', 'string'],
+        ]);
 
-    $review = Review::where('user_id', auth()->id())
-        ->where('product_id', $id)
-        ->first();
+        $review = Review::where('user_id', auth()->id())
+            ->where('product_id', $id)
+            ->first();
 
-    if (!$review) {
-        $review = new Review();
-        $review->user_id = auth()->id();
-        $review->product_id = $id;
+        if (! $review) {
+            $review = new Review();
+            $review->user_id = auth()->id();
+            $review->product_id = $id;
+        }
+
+        $review->rating = $validated['rating'];
+        $review->comment = $validated['comment'] ?? null;
+        $review->save();
+
+        return back()->with('success', 'Review submitted!');
     }
 
-    $review->rating = $request->rating;
-    $review->comment = $request->comment;
-    $review->save();
+    /**
+     * Display the review edit form.
+     */
+    public function edit(Review $review): View
+    {
+        abort_if(auth()->id() !== $review->user_id, 403);
 
-    return back()->with('success', 'Review submitted!');
-}
+        return view('frontend.review-edit', compact('review'));
+    }
 
-public function edit(Review $review)
-{
-    abort_if(auth()->id() !== $review->user_id, 403);
+    /**
+     * Update an existing review.
+     */
+    public function update(Request $request, Review $review): RedirectResponse
+    {
+        abort_if(auth()->id() !== $review->user_id, 403);
 
-    return view('frontend.review-edit', compact('review'));
-}
+        $validated = $request->validate([
+            'rating' => ['required', 'integer', 'min:1', 'max:5'],
+            'comment' => ['nullable', 'string'],
+        ]);
 
-public function update(Request $request, Review $review)
-{
-    abort_if(auth()->id() !== $review->user_id, 403);
+        $review->update([
+            'rating' => $validated['rating'],
+            'comment' => $validated['comment'] ?? null,
+        ]);
 
-    $request->validate([
-        'rating' => 'required|integer|min:1|max:5',
-        'comment' => 'nullable|string',
-    ]);
+        return redirect()
+            ->route('product.show', $review->product_id)
+            ->with('success', 'Review updated!');
+    }
 
-    $review->update($request->only('rating', 'comment'));
+    /**
+     * Delete a review.
+     */
+    public function destroy(Review $review): RedirectResponse
+    {
+        abort_if(auth()->id() !== $review->user_id, 403);
 
-    return redirect()
-        ->route('product.show', $review->product_id)
-        ->with('success', 'Review updated!');
-}
+        $review->delete();
 
-public function destroy(Review $review)
-{
-    abort_if(auth()->id() !== $review->user_id, 403);
-
-    $review->delete();
-
-    return back()->with('success', 'Review deleted.');
-}
-
+        return back()->with('success', 'Review deleted.');
+    }
 }

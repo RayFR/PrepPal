@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CartItem;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class CartController extends Controller
 {
-    // show cart
-    public function index()
+    /**
+     * Display the authenticated user's cart.
+     */
+    public function index(): View
     {
         $items = CartItem::with('product')
             ->where('user_id', auth()->id())
@@ -16,41 +21,59 @@ class CartController extends Controller
         return view('frontend.cart', compact('items'));
     }
 
-    // add to cart
-    public function store(Request $request)
+    /**
+     * Add an item to the authenticated user's cart.
+     */
+    public function store(Request $request): RedirectResponse
     {
+        $validated = $request->validate([
+            'product_id' => ['required', 'integer'],
+            'quantity' => ['required', 'integer', 'min:1'],
+        ]);
+
         $item = CartItem::firstOrCreate(
             [
                 'user_id' => auth()->id(),
-                'product_id' => $request->product_id
+                'product_id' => $validated['product_id'],
+            ],
+            [
+                'quantity' => 0,
             ]
         );
 
-        $item->quantity += $request->quantity;
+        $item->quantity += $validated['quantity'];
         $item->save();
 
         return back();
     }
 
-    // update quantity
-    public function update(Request $request, CartItem $cartItem)
+    /**
+     * Update the quantity of a cart item.
+     */
+    public function update(Request $request, CartItem $cartItem): RedirectResponse
     {
         $this->authorize('update', $cartItem);
 
+        $validated = $request->validate([
+            'quantity' => ['required', 'integer', 'min:1'],
+        ]);
+
         $cartItem->update([
-            'quantity' => $request->quantity
+            'quantity' => $validated['quantity'],
         ]);
 
         return back();
     }
 
-    // remove
-    public function destroy(CartItem $cartItem)
+    /**
+     * Remove an item from the cart.
+     */
+    public function destroy(CartItem $cartItem): RedirectResponse
     {
         $this->authorize('delete', $cartItem);
 
         $cartItem->delete();
+
         return back();
     }
 }
-

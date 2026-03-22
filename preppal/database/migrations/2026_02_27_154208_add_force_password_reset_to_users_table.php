@@ -7,22 +7,22 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Add the force_password_reset column to the users table.
      */
     public function up(): void
     {
-        Schema::table('users', function (\Illuminate\Database\Schema\Blueprint $table) {
+        Schema::table('users', function (Blueprint $table): void {
             $table->boolean('force_password_reset')->default(false)->after('is_admin');
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Remove the force_password_reset column from the users table.
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
+        Schema::table('users', function (Blueprint $table): void {
+            $table->dropColumn('force_password_reset');
         });
     }
 };
