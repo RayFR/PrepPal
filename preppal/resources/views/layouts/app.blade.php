@@ -35,7 +35,26 @@
                 <a href="{{ route('contact.index') }}" class="{{ request()->routeIs('contact.index') ? 'active' : '' }}">Contact</a>
 
                 @auth
-                    <a href="{{ route('store') }}" class="{{ request()->routeIs('store') ? 'active' : '' }}">Store</a>
+                    <div class="nav-dropdown {{ request()->routeIs('store') || request()->routeIs('product.show') || request()->routeIs('clothing.show') ? 'is-active' : '' }}">
+                        <a
+                            href="{{ route('store') }}"
+                            class="nav-dropdown__trigger {{ request()->routeIs('store') || request()->routeIs('product.show') || request()->routeIs('clothing.show') ? 'active' : '' }}"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                        >
+                            Store
+                            <span class="nav-dropdown__caret" aria-hidden="true">▾</span>
+                        </a>
+
+                        <div class="nav-dropdown__menu" aria-label="Store categories">
+                            <a href="{{ route('store') }}">All Products</a>
+                            <a href="{{ route('store', ['category' => 'meal']) }}">Meal Plans</a>
+                            <a href="{{ route('store', ['category' => 'supplement']) }}">Supplements</a>
+                            <a href="{{ route('store', ['category' => 'drink']) }}">Drinks</a>
+                            <a href="{{ route('store', ['category' => 'clothing']) }}">Clothing</a>
+                        </div>
+                    </div>
+
                     <a href="{{ route('calculator') }}" class="{{ request()->routeIs('calculator') ? 'active' : '' }}">Calculator</a>
                 @else
                     <a href="{{ route('login') }}" class="{{ request()->routeIs('login') ? 'active' : '' }}">Login</a>

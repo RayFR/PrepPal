@@ -122,14 +122,30 @@
           </p>
 
           <div class="hero-actions">
-            <a href="{{ route('store') }}" class="primary-cta">Browse plans</a>
-            <a href="{{ route('calculator') }}" class="hero-secondary">Use calorie planner</a>
+            <a href="{{ route('store') }}" class="primary-cta hero-btn">
+              <span>Browse plans</span>
+            </a>
+
+            <a href="{{ route('calculator') }}" class="hero-secondary hero-btn">
+              <span>Use calorie planner</span>
+            </a>
           </div>
 
           <div class="hero-trust-row">
-            <span class="hero-trust-pill">✅ Quality checked</span>
-            <span class="hero-trust-pill">🚚 Fast UK delivery</span>
-            <span class="hero-trust-pill">🔒 Secure checkout</span>
+            <span class="hero-trust-pill">
+              <span class="hero-trust-icon" aria-hidden="true">✅</span>
+              <span>Quality checked</span>
+            </span>
+
+            <span class="hero-trust-pill">
+              <span class="hero-trust-icon" aria-hidden="true">🚚</span>
+              <span>Fast UK delivery</span>
+            </span>
+
+            <span class="hero-trust-pill">
+              <span class="hero-trust-icon" aria-hidden="true">🔒</span>
+              <span>Secure checkout</span>
+            </span>
           </div>
         </div>
 
@@ -999,137 +1015,137 @@
 </script>
 
 <div id="chatbot-toggle" style="
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, #ff7a00, #ff9f1c);
-    color: white;
-    font-size: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
-    z-index: 9999;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #ff7a00, #ff9f1c);
+  color: white;
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+  z-index: 9999;
 ">
-    💬
+  💬
 </div>
 
 <div id="chatbox" style="
-    position: fixed;
-    bottom: 90px;
-    right: 20px;
-    width: 320px;
-    max-height: 450px;
-    background: #111827;
-    color: white;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-    z-index: 9999;
-    display: none;
-    flex-direction: column;
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 320px;
+  max-height: 450px;
+  background: #111827;
+  color: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  z-index: 9999;
+  display: none;
+  flex-direction: column;
 ">
-    <div style="
+  <div style="
+    background: #ff7a00;
+    color: white;
+    padding: 12px 16px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  ">
+    <span>PrepPal Chat</span>
+    <button id="chatbot-close" style="
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+    ">&times;</button>
+  </div>
+
+  <div id="messages" style="
+    height: 260px;
+    overflow-y: auto;
+    padding: 12px;
+    background: #0f172a;
+  "></div>
+
+  <div style="
+    display: flex;
+    gap: 8px;
+    padding: 10px;
+    background: #111827;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  ">
+    <input
+      id="input"
+      type="text"
+      placeholder="Ask something..."
+      style="
+        flex: 1;
+        padding: 10px;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+      "
+    >
+    <button
+      onclick="sendMessage()"
+      style="
         background: #ff7a00;
         color: white;
-        padding: 12px 16px;
-        font-weight: bold;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    ">
-        <span>PrepPal Chat</span>
-        <button id="chatbot-close" style="
-            background: transparent;
-            border: none;
-            color: white;
-            font-size: 22px;
-            cursor: pointer;
-        ">&times;</button>
-    </div>
-
-    <div id="messages" style="
-        height: 260px;
-        overflow-y: auto;
-        padding: 12px;
-        background: #0f172a;
-    "></div>
-
-    <div style="
-        display: flex;
-        gap: 8px;
-        padding: 10px;
-        background: #111827;
-        border-top: 1px solid rgba(255,255,255,0.08);
-    ">
-        <input
-            id="input"
-            type="text"
-            placeholder="Ask something..."
-            style="
-                flex: 1;
-                padding: 10px;
-                border-radius: 8px;
-                border: none;
-                outline: none;
-            "
-        >
-        <button
-            onclick="sendMessage()"
-            style="
-                background: #ff7a00;
-                color: white;
-                border: none;
-                padding: 10px 14px;
-                border-radius: 8px;
-                cursor: pointer;
-            "
-        >
-            Send
-        </button>
-    </div>
+        border: none;
+        padding: 10px 14px;
+        border-radius: 8px;
+        cursor: pointer;
+      "
+    >
+      Send
+    </button>
+  </div>
 </div>
 
 <script>
-    const chatbotToggle = document.getElementById('chatbot-toggle');
-    const chatbox = document.getElementById('chatbox');
-    const chatbotClose = document.getElementById('chatbot-close');
+  const chatbotToggle = document.getElementById('chatbot-toggle');
+  const chatbox = document.getElementById('chatbox');
+  const chatbotClose = document.getElementById('chatbot-close');
 
-    chatbotToggle.addEventListener('click', () => {
-        chatbox.style.display = chatbox.style.display === 'flex' ? 'none' : 'flex';
+  chatbotToggle.addEventListener('click', () => {
+    chatbox.style.display = chatbox.style.display === 'flex' ? 'none' : 'flex';
+  });
+
+  chatbotClose.addEventListener('click', () => {
+    chatbox.style.display = 'none';
+  });
+
+  async function sendMessage() {
+    const input = document.getElementById('input');
+    const msg = input.value.trim();
+    if (!msg) return;
+
+    const messages = document.getElementById('messages');
+    messages.innerHTML += "<p><b>You:</b> " + msg + "</p>";
+    input.value = "";
+    messages.scrollTop = messages.scrollHeight;
+
+    const res = await fetch('/chatbot/message', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+      },
+      body: JSON.stringify({ message: msg })
     });
 
-    chatbotClose.addEventListener('click', () => {
-        chatbox.style.display = 'none';
-    });
+    const data = await res.json();
 
-    async function sendMessage() {
-        const input = document.getElementById('input');
-        const msg = input.value.trim();
-        if (!msg) return;
-
-        const messages = document.getElementById('messages');
-        messages.innerHTML += "<p><b>You:</b> " + msg + "</p>";
-        input.value = "";
-        messages.scrollTop = messages.scrollHeight;
-
-        const res = await fetch('/chatbot/message', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({ message: msg })
-        });
-
-        const data = await res.json();
-
-        messages.innerHTML += "<p><b>PrepPal:</b> " + data.reply + "</p>";
-        messages.scrollTop = messages.scrollHeight;
-    }
+    messages.innerHTML += "<p><b>PrepPal:</b> " + data.reply + "</p>";
+    messages.scrollTop = messages.scrollHeight;
+  }
 </script>
 @endpush

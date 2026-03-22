@@ -174,13 +174,61 @@
         {{-- MEAL PLANS --}}
         @if($category === 'all' || $category === 'meal')
             @if($mealProducts->isNotEmpty())
+                @php
+                    $mealPlanPreviews = [
+                        'fat loss meal prep plan' => [
+                            'tag' => 'Best for cutting',
+                            'points' => [
+                                '14 portion-controlled meals',
+                                'Choose your protein + carb each week',
+                                'Lower-calorie, high-protein meal options',
+                            ],
+                        ],
+                        'lean muscle meal prep plan' => [
+                            'tag' => 'Best for muscle gain',
+                            'points' => [
+                                '14 higher-calorie performance meals',
+                                'Choose your protein + carb each week',
+                                'Built for training and recovery',
+                            ],
+                        ],
+                        'maintenance meal prep plan' => [
+                            'tag' => 'Best for balance',
+                            'points' => [
+                                '14 balanced meals for steady intake',
+                                'Choose your protein + carb each week',
+                                'Designed for routine and convenience',
+                            ],
+                        ],
+                        'high fibre meal prep plan' => [
+                            'tag' => 'Best for digestion',
+                            'points' => [
+                                '14 fibre-focused meals',
+                                'Choose from lighter, gut-friendly options',
+                                'Beans, grains, veg and balanced portions',
+                            ],
+                        ],
+                    ];
+                @endphp
+
                 <section style="margin-top: 2rem;">
                     <h2 style="margin-bottom: 1rem;">Meal Plans</h2>
 
                     <div class="admin-dashboard store-grid" style="gap: 1rem;">
                         @foreach($mealProducts as $product)
-                            <div class="card" data-product-card="true">
+                            @php
+                                $mealKey = strtolower(trim($product->name));
+                                $preview = $mealPlanPreviews[$mealKey] ?? [
+                                    'tag' => 'Custom weekly plan',
+                                    'points' => [
+                                        '14 meals included',
+                                        'Choose your meals each week',
+                                        'Goal-based portion control',
+                                    ],
+                                ];
+                            @endphp
 
+                            <div class="card" data-product-card="true">
                                 <a href="{{ route('product.show', $product->id) }}" class="product-link" style="text-decoration:none; color:inherit;">
                                     <img
                                         src="{{ asset($product->image_path) }}"
@@ -191,7 +239,37 @@
                                     <h3 style="margin-top:0.75rem;">{{ $product->name }}</h3>
                                 </a>
 
+                                <div style="margin: 0.4rem 0 0.8rem;">
+                                    <span style="
+                                        display:inline-block;
+                                        padding:0.35rem 0.7rem;
+                                        border-radius:999px;
+                                        background:rgba(255,140,0,.14);
+                                        color:#ff9a1f;
+                                        font-weight:700;
+                                        font-size:0.85rem;
+                                    ">
+                                        {{ $preview['tag'] }}
+                                    </span>
+                                </div>
+
                                 <p style="opacity:0.85;">{{ $product->description }}</p>
+
+                                <div style="
+                                    margin: 0.9rem 0 1rem;
+                                    padding: 0.9rem 1rem;
+                                    border: 1px solid rgba(255,255,255,0.08);
+                                    border-radius: 14px;
+                                    background: rgba(255,255,255,0.03);
+                                ">
+                                    <p style="margin:0 0 0.55rem; font-weight:700; color:#ff8c00;">What’s included:</p>
+
+                                    <ul style="margin:0; padding-left:1.1rem; opacity:0.92;">
+                                        @foreach($preview['points'] as $point)
+                                            <li style="margin-bottom:0.35rem;">{{ $point }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
 
                                 <p>
                                     @if($product->stock <= 0)
@@ -206,8 +284,8 @@
                                 <h3 style="margin: 0.5rem 0 1rem;">
                                     <span
                                         data-money-gbp="{{ $product->price }}"
-                                        data-money-suffix="{{ $product->category === 'meal' ? ' / week' : '' }}"
-                                    >£{{ number_format($product->price, 2) }}{{ $product->category === 'meal' ? ' / week' : '' }}</span>
+                                        data-money-suffix=" / week"
+                                    >£{{ number_format($product->price, 2) }} / week</span>
                                 </h3>
 
                                 @if($product->stock <= 0)
@@ -216,14 +294,10 @@
                                     </span>
                                 @else
                                     <a
-                                        class="cta add-to-cart"
-                                        href="#"
-                                        data-id="{{ $product->id }}"
-                                        data-name="{{ $product->name }}"
-                                        data-price="{{ $product->price }}"
-                                        data-image="{{ asset($product->image_path) }}"
+                                        class="cta"
+                                        href="{{ route('product.show', $product->id) }}"
                                     >
-                                        Add to cart
+                                        View plan & customise
                                     </a>
                                 @endif
 

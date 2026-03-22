@@ -157,19 +157,23 @@ body[data-theme="dark"] .profile-dd__logout {
 
 /* --------------------------
    BRAND / LOGO
+   IMPORTANT:
+   Do not shrink the navbar logo here.
+   Let pp-01-navbar-cartpill.css control size.
 -------------------------- */
 
 .brand {
   display: flex;
   align-items: center;
-  height: 35px;
+  height: auto;
   text-decoration: none;
+  flex: 0 0 auto;
 }
 
 .brand-badge {
-  width: 180px;
-  height: 35px;
-  background: url('../images/preppal-logo.png') center / contain no-repeat;
+  width: 340px;
+  height: 88px;
+  background: url('../images/preppal-logo.png') left center / contain no-repeat;
   display: block;
 }
 
@@ -189,6 +193,10 @@ body[data-theme="dark"] .profile-dd__logout {
   font-weight: 500;
   font-size: 0.95rem;
   transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+body[data-theme="dark"] .nav-links a {
+  color: #ffffff;
 }
 
 .nav-links a:hover,
@@ -223,27 +231,23 @@ body[data-theme="dark"] .profile-dd__logout {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  margin-left: 0.5rem;
   padding: 0.35rem 0.9rem;
   border-radius: 999px;
   background: var(--color-primary-bg-light);
   border: 1px solid var(--color-primary-border);
   color: var(--color-primary);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.9rem;
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 #cartDisplay::before {
   content: "🛒";
-  font-size: 1rem;
-  line-height: 1;
 }
 
 #cartDisplay:hover {
-  background: #ffe0b2;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transform: translateY(-1px);
 }
 
 #cartDisplay.cart-hidden {
@@ -251,62 +255,23 @@ body[data-theme="dark"] .profile-dd__logout {
 }
 
 /* --------------------------
-   CTA BUTTONS
+   RESPONSIVE
 -------------------------- */
 
-.cta,
-.primary-cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.5rem 1.35rem;
-  border-radius: 999px;
-  border: none;
-  outline: none;
-  background: var(--color-primary);
-  color: #fff !important;
-  font-weight: 600;
-  font-size: 0.95rem;
-  text-decoration: none;
-  cursor: pointer;
-  box-shadow: 0 8px 18px rgba(255, 122, 0, 0.3);
-  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+@media (max-width: 980px) {
+  .brand-badge {
+    width: 250px;
+    height: 68px;
+  }
 }
 
-.cta:hover,
-.primary-cta:hover {
-  background: var(--color-primary-light);
-  box-shadow: 0 10px 24px rgba(255, 122, 0, 0.4);
-  transform: translateY(-1px);
-}
+@media (max-width: 640px) {
+  .brand-badge {
+    width: 210px;
+    height: 58px;
+  }
 
-.primary-cta {
-  gap: 0.4rem;
-  box-shadow: 0 8px 18px rgba(255, 122, 0, 0.35);
-}
-
-.primary-cta:hover {
-  box-shadow: 0 10px 24px rgba(255, 122, 0, 0.45);
-}
-
-/* --------------------------
-   THEME TOGGLE
--------------------------- */
-
-.theme-toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  border: none;
-  border-radius: 999px;
-  padding: 0.3rem;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background 0.15s ease, transform 0.1s ease;
-}
-
-.theme-toggle:hover {
-  background: rgba(0, 0, 0, 0.04);
-  transform: translateY(-1px);
+  .profile-dd__name {
+    max-width: 90px;
+  }
 }

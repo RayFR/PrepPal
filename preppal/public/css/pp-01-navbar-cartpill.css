@@ -27,7 +27,7 @@ body[data-theme="dark"] .nav {
   display: flex;
   align-items: center;
   gap: 1rem;
-  height: 70px;
+  height: 76px;
   max-width: var(--max-width-container);
   margin: 0 auto;
   padding: 0 1rem;
@@ -40,12 +40,15 @@ body[data-theme="dark"] .nav {
 .brand {
   display: flex;
   align-items: center;
-  height: auto;
+  justify-content: flex-start;
+  flex: 0 0 auto;
+  height: 100%;
+  text-decoration: none;
 }
 
 .brand-badge {
   width: 260px;
-  height: 65px;
+  height: 64px;
   background: url('../images/preppal-logo.png') left center / contain no-repeat;
   display: block;
 }
@@ -64,7 +67,8 @@ body[data-theme="dark"] .nav {
   background: transparent;
 }
 
-.nav-links a {
+.nav-links > a,
+.nav-dropdown__trigger {
   color: #222222;
   text-decoration: none;
   font-weight: 500;
@@ -73,20 +77,28 @@ body[data-theme="dark"] .nav {
   transition: color 0.2s ease, opacity 0.2s ease;
 }
 
-body[data-theme="dark"] .nav-links a {
+body[data-theme="dark"] .nav-links > a,
+body[data-theme="dark"] .nav-dropdown__trigger {
   color: #ffffff;
 }
 
-.nav-links a:hover,
-.nav-links a.active {
+.nav-links > a:hover,
+.nav-links > a.active,
+.nav-dropdown__trigger:hover,
+.nav-dropdown__trigger.active,
+.nav-dropdown.is-active .nav-dropdown__trigger {
   color: var(--color-primary);
 }
 
-.nav-links a.active {
+.nav-links > a.active,
+.nav-dropdown__trigger.active,
+.nav-dropdown.is-active .nav-dropdown__trigger {
   position: relative;
 }
 
-.nav-links a.active::after {
+.nav-links > a.active::after,
+.nav-dropdown__trigger.active::after,
+.nav-dropdown.is-active .nav-dropdown__trigger::after {
   content: "";
   position: absolute;
   left: 0;
@@ -95,6 +107,98 @@ body[data-theme="dark"] .nav-links a {
   height: 2px;
   border-radius: 999px;
   background: var(--color-primary);
+}
+
+/* --------------------------
+   STORE DROPDOWN
+-------------------------- */
+
+.nav-dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-bottom: 18px;
+  margin-bottom: -18px;
+}
+
+.nav-dropdown__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  height: 100%;
+}
+
+.nav-dropdown__caret {
+  font-size: 0.85rem;
+  transition: transform 0.2s ease;
+}
+
+.nav-dropdown:hover .nav-dropdown__caret,
+.nav-dropdown:focus-within .nav-dropdown__caret {
+  transform: rotate(180deg);
+}
+
+.nav-dropdown__menu {
+  position: absolute;
+  top: calc(100% - 2px);
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  min-width: 220px;
+  padding: 0.55rem;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.12);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
+  z-index: 250;
+}
+
+body[data-theme="dark"] .nav-dropdown__menu {
+  background: #0d1a30;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+}
+
+.nav-dropdown::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 20px;
+}
+
+.nav-dropdown:hover .nav-dropdown__menu,
+.nav-dropdown:focus-within .nav-dropdown__menu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.nav-dropdown__menu a {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+  color: #222222;
+  font-weight: 600;
+  font-size: 0.92rem;
+  padding: 0.8rem 0.95rem;
+  border-radius: 12px;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+body[data-theme="dark"] .nav-dropdown__menu a {
+  color: #ffffff;
+}
+
+.nav-dropdown__menu a:hover {
+  background: rgba(255, 140, 0, 0.1);
+  color: var(--color-primary);
+  transform: translateX(2px);
 }
 
 /* --------------------------
@@ -173,6 +277,11 @@ body[data-theme="dark"] .theme-toggle {
     padding-bottom: 0.75rem;
   }
 
+  .brand-badge {
+    width: 220px;
+    height: 56px;
+  }
+
   .nav-links {
     order: 3;
     width: 100%;
@@ -182,8 +291,30 @@ body[data-theme="dark"] .theme-toggle {
     padding-top: 0.5rem;
   }
 
+  .nav-dropdown {
+    width: auto;
+  }
+
+  .nav-dropdown__menu {
+    left: 0;
+    transform: translateX(0) translateY(8px);
+    min-width: 200px;
+  }
+
+  .nav-dropdown:hover .nav-dropdown__menu,
+  .nav-dropdown:focus-within .nav-dropdown__menu {
+    transform: translateX(0) translateY(0);
+  }
+
   .nav-actions {
     margin-left: auto;
     flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 640px) {
+  .brand-badge {
+    width: 180px;
+    height: 46px;
   }
 }
