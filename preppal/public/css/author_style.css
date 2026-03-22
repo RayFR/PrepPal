@@ -1,5 +1,5 @@
 /*
-  File: style.css
+  File: author_style.css
   Description: Main stylesheet wrapper for the PrepPal frontend.
   Notes:
   - Preserves the original cascade order by importing the split stylesheets.
@@ -8,8 +8,8 @@
   Original consolidated file preserved as: style.full.css
 
   Contributors:
-  - Agraj Khanna (240195519), Leader / Frontend
-  - Gurpreet Singh Sidhu (230237915) / UI Frontend Assistant Designer
+  - Agraj Khanna (240195519), Project Team Leader / Lead Frontend Developer
+  - Gurpreet Singh Sidhu (230237915), Frontend Developer / UI Designer
   - Musab Ahmed Rashid (230084799), Designer
   - Rohan Hayer (240085807), Designer
 */
@@ -32,4 +32,5 @@
 @import url("./pp-15-currency.css");
 @import url("./pp-16-newsletter-modal.css");
 @import url("./pp-17-blog-advice.css");
+@import url("./pp-18-home-upgrade.css");
 @import url("./product-mp-gallery.css");
