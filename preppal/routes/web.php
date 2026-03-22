@@ -1,27 +1,26 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\Admin\AdminCustomerController;
+use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminOrderController;
 use App\Http\Controllers\Admin\AdminProductController;
-use App\Http\Controllers\Admin\AdminDashboardController;
-use App\Http\Controllers\NewsletterController;
-use App\Http\Controllers\CartController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ChatbotController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReviewController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| PUBLIC CONTENT
+| Public content
 |--------------------------------------------------------------------------
 */
 
@@ -30,15 +29,12 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
-// Contact
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
-// Newsletter
 Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])
     ->name('newsletter.subscribe');
 
-// Static footer pages
 Route::view('/shipping-delivery', 'frontend.support.shipping-delivery')->name('shipping.delivery');
 Route::view('/returns', 'frontend.support.returns')->name('returns');
 Route::view('/privacy-policy', 'frontend.support.privacy-policy')->name('privacy.policy');
@@ -46,7 +42,7 @@ Route::view('/terms-and-conditions', 'frontend.support.terms-conditions')->name(
 
 /*
 |--------------------------------------------------------------------------
-| AUTH
+| Authentication
 |--------------------------------------------------------------------------
 */
 
@@ -58,12 +54,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 /*
 |--------------------------------------------------------------------------
-| PROTECTED PAGES
+| Protected pages
 |--------------------------------------------------------------------------
 */
 
 Route::middleware('auth')->group(function () {
-
     Route::get('/store', [ProductController::class, 'index'])->name('store');
     Route::get('/product/{id}', [ProductController::class, 'show'])->name('product.show');
     Route::get('/clothing/{slug}', [ProductController::class, 'showClothing'])->name('clothing.show');
@@ -79,7 +74,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show');
 
-    // Checkout
     Route::get('/checkout', function () {
         return view('frontend.checkout');
     })->name('checkout');
@@ -88,7 +82,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/checkout/confirmation', [CheckoutController::class, 'confirmation'])
         ->name('checkout.confirmation');
 
-    // Cart
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
     Route::patch('/cart/{cartItem}', [CartController::class, 'update'])->name('cart.update');
@@ -97,13 +90,11 @@ Route::middleware('auth')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| ADMIN
+| Admin
 |--------------------------------------------------------------------------
 */
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
-
-    // Customers
     Route::get('/customers', [AdminCustomerController::class, 'index'])
         ->name('admin.customers.index');
     Route::get('/customers/{user}/edit', [AdminCustomerController::class, 'edit'])
@@ -113,7 +104,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::delete('/customers/{user}', [AdminCustomerController::class, 'destroy'])
         ->name('admin.customers.destroy');
 
-    // Orders
     Route::get('/orders', [AdminOrderController::class, 'index'])
         ->name('admin.orders.index');
     Route::get('/orders/{order}', [AdminOrderController::class, 'show'])
@@ -121,25 +111,18 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::patch('/orders/{order}/status', [AdminOrderController::class, 'updateStatus'])
         ->name('admin.orders.updateStatus');
 
-    // Products / Inventory
     Route::get('/products', [AdminProductController::class, 'index'])
         ->name('admin.products.index');
-
     Route::get('/products/create', [AdminProductController::class, 'create'])
         ->name('admin.products.create');
-
     Route::post('/products', [AdminProductController::class, 'store'])
         ->name('admin.products.store');
-
     Route::get('/products/{product}/edit', [AdminProductController::class, 'edit'])
         ->name('admin.products.edit');
-
     Route::put('/products/{product}', [AdminProductController::class, 'update'])
         ->name('admin.products.update');
-
     Route::delete('/products/{product}', [AdminProductController::class, 'destroy'])
         ->name('admin.products.destroy');
-
     Route::post('/products/{product}/stock/add', [AdminProductController::class, 'addStock'])
         ->name('admin.products.addStock');
 
@@ -149,7 +132,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| REVIEWS
+| Reviews
 |--------------------------------------------------------------------------
 */
 
@@ -166,7 +149,7 @@ Route::middleware('auth')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| CHATBOT
+| Chatbot
 |--------------------------------------------------------------------------
 */
 
