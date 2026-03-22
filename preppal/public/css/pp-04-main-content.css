@@ -1,4 +1,11 @@
-/* --- Main Content --- */
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+/* --------------------------
+   MAIN CONTENT — BASE
+-------------------------- */
+
 .main-content {
   padding: 3rem 0 4rem;
   text-align: center;
@@ -6,9 +13,9 @@
 
 .main-content h2 {
   color: #333;
-  margin-bottom: 0.75rem;
   font-size: 1.7rem;
   text-align: center;
+  margin-bottom: 0.75rem;
 }
 
 .main-content p {
@@ -19,13 +26,16 @@
   text-align: center;
 }
 
-/* Pills navigation under hero */
+/* --------------------------
+   PILL NAVIGATION
+-------------------------- */
+
 .pill-nav {
-  margin: 2rem auto 2.5rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.75rem;
+  margin: 2rem auto 2.5rem;
 }
 
 .pill-link {
@@ -33,10 +43,10 @@
   border-radius: 999px;
   border: 1px solid var(--color-border-lighter);
   background: var(--color-bg-white);
-  font-size: 0.9rem;
-  text-decoration: none;
   color: #374151;
   font-weight: 500;
+  font-size: 0.9rem;
+  text-decoration: none;
   box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
   transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
 }
@@ -47,16 +57,19 @@
   box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
 }
 
-/* Info sections on home page */
+/* --------------------------
+   INFO SECTION
+-------------------------- */
+
 .info-section {
   text-align: left;
   margin-top: 2.5rem;
 }
 
 .info-section h3 {
-  margin-bottom: 0.35rem;
   font-size: 1.4rem;
   color: #111827;
+  margin-bottom: 0.35rem;
 }
 
 .info-lead {
@@ -73,8 +86,7 @@
 }
 
 .info-cta {
-  margin-top: 1.75rem;
   display: flex;
   justify-content: flex-start;
+  margin-top: 1.75rem;
 }
-

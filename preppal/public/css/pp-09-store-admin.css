@@ -1,4 +1,11 @@
-/* --- Store & Admin Tables --- */
+/* =========================================================
+   STORE & ADMIN TABLES
+   ========================================================= */
+
+/* --------------------------
+   STORE — SEARCH ROW
+-------------------------- */
+
 .store-search-row {
   margin: 1.5rem 0 1.75rem;
   text-align: left;
@@ -6,8 +13,8 @@
 
 .store-search-label {
   display: block;
-  font-size: 0.85rem;
   margin-bottom: 0.35rem;
+  font-size: 0.85rem;
   color: #4b5563;
 }
 
@@ -17,11 +24,16 @@
   padding: 0.45rem 0.6rem;
   border-radius: 999px;
   border: 1px solid var(--color-border-lighter);
+  background: transparent;
   font-family: inherit;
   font-size: 0.9rem;
   box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
   box-sizing: border-box;
 }
+
+/* --------------------------
+   ADMIN — TABLE CARD
+-------------------------- */
 
 .admin-table-card {
   margin-top: 2rem;
@@ -31,15 +43,25 @@
 .admin-table-header {
   display: flex;
   justify-content: flex-end;
+  margin-bottom: 0.5rem;
   font-size: 0.85rem;
   color: #6b7280;
-  margin-bottom: 0.5rem;
 }
 
 .admin-table-wrapper {
   width: 100%;
   overflow-x: auto;
 }
+
+.admin-table-note {
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+/* --------------------------
+   ADMIN — TABLE
+-------------------------- */
 
 .admin-table {
   width: 100%;
@@ -56,8 +78,9 @@
 
 .admin-table th {
   font-size: 0.8rem;
-  text-transform: uppercase;
+  font-weight: inherit;
   letter-spacing: 0.06em;
+  text-transform: uppercase;
   color: #6b7280;
 }
 
@@ -65,35 +88,32 @@
   border-bottom: none;
 }
 
-.admin-table-note {
-  margin-top: 0.75rem;
-  font-size: 0.8rem;
-  color: #6b7280;
-}
-
 .admin-status-select {
   padding: 0.2rem 0.4rem;
   border-radius: 999px;
   border: 1px solid #d1d5db;
-  font-size: 0.82rem;
   background: var(--color-bg-light-gray);
+  font-size: 0.82rem;
 }
 
+/* --------------------------
+   CHART SECTION
+-------------------------- */
+
 .chart-section {
-  text-align: center;
   margin: 3rem 0;
+  text-align: center;
 }
 
 .chart-placeholder {
-  width: 100%;
-  height: 250px;
-  border: 2px dashed var(--color-primary);
-  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  height: 250px;
+  margin-top: 1rem;
+  border-radius: 12px;
+  border: 2px dashed var(--color-primary);
   font-size: 3rem;
   color: var(--color-primary);
-  margin-top: 1rem;
 }
-
