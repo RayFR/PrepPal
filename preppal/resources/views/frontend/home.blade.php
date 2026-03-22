@@ -19,82 +19,82 @@
 
   $testimonials = [
     [
-      'name' => 'Michael Brown',
-      'role' => 'Student • Cutting',
+      'name' => 'Becky F.',
+      'role' => 'Student • Fat loss',
       'stars' => 5,
-      'quote' => 'Fantastic meal structure. Quick, repeatable, and makes staying consistent much easier.',
-      'img' => asset('images/testimonials/michael.jpg'),
+      'quote' => 'PrepPal gave me a simple routine to follow and helped me stay much more consistent each week.',
+      'img' => asset('images/test/beckyaf.png'),
       'goal' => 'Fat loss',
       'duration' => '8 weeks',
-      'review_full' => 'PrepPal made my week feel much more organised. I stopped relying on random takeaway meals, had a clear structure to follow, and found it easier to stay in a calorie deficit without feeling like I was guessing all the time.',
-      'before_img' => asset('images/testimonials/michael-before.jpg'),
-      'after_img' => asset('images/testimonials/michael-after.jpg'),
-      'results' => ['Lost 4.5kg', 'Better weekly routine', 'Less takeaway food'],
+      'review_full' => 'I wanted something realistic that I could actually stick to around a busy schedule. PrepPal made my meals easier to plan, helped me stay more organised, and removed a lot of the daily guesswork. Having structure each week made it much easier to stay consistent and feel more in control of my routine.',
+      'before_img' => asset('images/test/beckybf.png'),
+      'after_img' => asset('images/test/beckyaf.png'),
+      'results' => ['More consistent meals', 'Better weekly routine', 'Improved body confidence'],
     ],
     [
-      'name' => 'Emily Harris',
-      'role' => 'Gym-goer • Lean bulk',
+      'name' => 'Dwayne J.',
+      'role' => 'Gym-goer • Leaning down',
       'stars' => 5,
-      'quote' => 'The portions and macros feel spot-on. Prep is simple and the week feels organised.',
-      'img' => asset('images/testimonials/emily.jpg'),
-      'goal' => 'Lean muscle',
-      'duration' => '10 weeks',
-      'review_full' => 'I wanted a lean bulk without eating badly or overdoing calories. The structure helped me keep protein high, stay more consistent around training, and remove a lot of the stress from planning meals every day.',
-      'before_img' => asset('images/testimonials/emily-before.jpg'),
-      'after_img' => asset('images/testimonials/emily-after.jpg'),
-      'results' => ['Improved training consistency', 'Higher protein intake', 'More organised meal prep'],
+      'quote' => 'The structure was simple, practical, and easy to fit around training and work.',
+      'img' => asset('images/test/djaf.png'),
+      'goal' => 'Lean down',
+      'duration' => '7 weeks',
+      'review_full' => 'I needed a plan that felt practical rather than extreme. PrepPal helped me keep things simple, stay more disciplined with meals, and avoid random food choices during busy days. The biggest difference was having a clear structure that supported my training without making everything feel complicated.',
+      'before_img' => asset('images/test/djbf.png'),
+      'after_img' => asset('images/test/djaf.png'),
+      'results' => ['Cleaner food choices', 'Better routine', 'More consistent training support'],
     ],
     [
-      'name' => 'Anthony Thompson',
+      'name' => 'Jay C.',
+      'role' => 'Gym-goer • Transformation',
+      'stars' => 5,
+      'quote' => 'The meals felt realistic and repeatable, which made staying on plan much easier.',
+      'img' => asset('images/test/jayaf.png'),
+      'goal' => 'Body recomposition',
+      'duration' => '9 weeks',
+      'review_full' => 'What I liked most was how repeatable everything felt. PrepPal gave me a routine that worked in real life, not just on paper. I was able to stay more consistent week to week, feel better about what I was eating, and follow a structure that supported my progress without feeling overly restrictive.',
+      'before_img' => asset('images/test/jaybf.png'),
+      'after_img' => asset('images/test/jayaf.png'),
+      'results' => ['Improved consistency', 'Better food structure', 'Noticeable physique progress'],
+    ],
+    [
+      'name' => 'Paul A.',
       'role' => 'Busy schedule • Maintenance',
       'stars' => 5,
-      'quote' => 'Best part is not thinking about meals. I just follow the plan and it works.',
-      'img' => asset('images/testimonials/anthony.jpg'),
+      'quote' => 'PrepPal made it easier to stay organised and keep meals under control during hectic weeks.',
+      'img' => asset('images/test/paulaf.png'),
       'goal' => 'Maintenance',
       'duration' => '6 weeks',
-      'review_full' => 'My work schedule is busy, so I needed something simple that removed the daily decision-making. PrepPal gave me a straightforward routine that helped me stay steady with my food and energy levels through the week.',
-      'before_img' => asset('images/testimonials/anthony-before.jpg'),
-      'after_img' => asset('images/testimonials/anthony-after.jpg'),
-      'results' => ['More consistency', 'Less food stress', 'Better routine during busy weeks'],
+      'review_full' => 'My main problem was inconsistency. Some weeks were good and others were all over the place. PrepPal gave me a much steadier routine and made meal decisions quicker. It helped me stay on top of my food, reduced stress around planning, and made my week feel much more organised overall.',
+      'before_img' => asset('images/test/paulbf.png'),
+      'after_img' => asset('images/test/paulaf.png'),
+      'results' => ['More organised weeks', 'Less food stress', 'Steadier routine'],
     ],
     [
-      'name' => 'Sofia K.',
-      'role' => 'Student • High protein',
+      'name' => 'Serina W.',
+      'role' => 'Athlete • Fitness focus',
       'stars' => 5,
-      'quote' => 'Saves time and money. The structure keeps me on track without feeling restrictive.',
-      'img' => asset('images/testimonials/sofia.jpg'),
-      'goal' => 'High protein routine',
-      'duration' => '7 weeks',
-      'review_full' => 'As a student, I needed meals that were realistic, affordable, and easy to repeat. PrepPal helped me stay on track, waste less food, and keep my protein intake up without overcomplicating things.',
-      'before_img' => asset('images/testimonials/sofia-before.jpg'),
-      'after_img' => asset('images/testimonials/sofia-after.jpg'),
-      'results' => ['Saved time', 'Better protein intake', 'Less food waste'],
-    ],
-    [
-      'name' => 'Jay P.',
-      'role' => 'Gym-goer • Fat loss',
-      'stars' => 4,
-      'quote' => 'Easy ordering, clean layout, and realistic meals for busy weeks.',
-      'img' => asset('images/testimonials/jay.jpg'),
-      'goal' => 'Fat loss',
-      'duration' => '9 weeks',
-      'review_full' => 'The meals were realistic enough to actually stick to. I liked that the structure felt practical rather than extreme, and it made staying consistent easier around work and training.',
-      'before_img' => asset('images/testimonials/jay-before.jpg'),
-      'after_img' => asset('images/testimonials/jay-after.jpg'),
-      'results' => ['More realistic dieting', 'Easier weekly prep', 'Cleaner food choices'],
-    ],
-    [
-      'name' => 'Amina R.',
-      'role' => 'Student • Maintenance',
-      'stars' => 5,
-      'quote' => 'No guesswork. I track progress and stay consistent week after week.',
-      'img' => asset('images/testimonials/amina.jpg'),
-      'goal' => 'Maintenance',
+      'quote' => 'I liked how straightforward everything was. It helped me stay structured without overthinking meals.',
+      'img' => asset('images/test/serinaaf.png'),
+      'goal' => 'Fitness and shape',
       'duration' => '8 weeks',
-      'review_full' => 'I wanted something that helped me stay balanced rather than constantly switching between extremes. PrepPal gave me enough structure to stay consistent and track my progress in a more relaxed way.',
-      'before_img' => asset('images/testimonials/amina-before.jpg'),
-      'after_img' => asset('images/testimonials/amina-after.jpg'),
-      'results' => ['Steadier routine', 'Better tracking', 'Less overthinking meals'],
+      'review_full' => 'I wanted a routine that kept things simple while still helping me stay focused on my goals. PrepPal gave me a structure that felt manageable, easy to repeat, and much less stressful than trying to figure everything out day by day. It helped me stay disciplined, save time, and feel more confident in my overall routine.',
+      'before_img' => asset('images/test/serinabf.png'),
+      'after_img' => asset('images/test/serinaaf.png'),
+      'results' => ['Better structure', 'More confidence', 'Improved consistency'],
+    ],
+    [
+      'name' => 'Sophia L.',
+      'role' => 'Student • Fat loss',
+      'stars' => 5,
+      'quote' => 'Simple meals, less guesswork, and a routine that actually felt realistic to follow.',
+      'img' => asset('images/test/sophiaaf.png'),
+      'goal' => 'Fat loss',
+      'duration' => '8 weeks',
+      'review_full' => 'As a student I needed something affordable, practical, and easy to stay consistent with. PrepPal helped me avoid random meals, stay more structured, and keep my routine simple enough to follow every week. It felt realistic, which made it much easier to stick to and see progress over time.',
+      'before_img' => asset('images/test/Sophiabf.png'),
+      'after_img' => asset('images/test/sophiaaf.png'),
+      'results' => ['Less random eating', 'More routine', 'Better consistency'],
     ],
   ];
 @endphp
@@ -571,140 +571,142 @@
   </section>
 
   <section class="pp-home-bottom-footer">
-    <div class="container">
-      <div class="pp-home-footer-shell reveal" id="home-newsletter-signup">
+  <div class="container">
+    <div class="pp-home-footer-shell reveal" id="home-newsletter-signup">
 
-        <div class="pp-home-footer-grid">
+      <div class="pp-home-footer-top">
+        <a href="{{ route('home') }}" class="pp-home-footer-top-logo" aria-label="PrepPal home">
+          <img src="{{ asset('images/preppal-logo.png') }}" alt="PrepPal logo">
+        </a>
+      </div>
 
-          <div class="pp-home-footer-col pp-home-footer-col--newsletter">
-            <div class="pp-home-footer-brand">
-              <img
-                src="{{ asset('images/preppal-logo.png') }}"
-                alt="PrepPal"
-                class="pp-home-footer-brand-logo"
-              >
+      <div class="pp-home-footer-grid">
+
+        {{-- LEFT --}}
+        <div class="pp-home-footer-left">
+          <p class="pp-home-footer-label">JOIN OUR NEWSLETTER</p>
+
+          <h2 class="pp-home-footer-heading">
+            Stay connected with PrepPal
+          </h2>
+
+          <p class="pp-home-footer-copy">
+            Sign up for new meal plans, exclusive offers, product launches,
+            and practical fitness advice.
+          </p>
+
+          @if(session('newsletter_success'))
+            <div class="pp-home-footer-alert pp-home-footer-alert--success" role="status" aria-live="polite">
+              @if(session('newsletter_existing'))
+                You’re already subscribed with <strong>{{ session('newsletter_email') }}</strong>.
+              @else
+                Thanks — you’re subscribed with <strong>{{ session('newsletter_email') }}</strong>.
+              @endif
             </div>
+          @endif
 
-            <h2 class="pp-home-footer-title">Stay in touch</h2>
+          @if($errors->has('email'))
+            <div class="pp-home-footer-alert pp-home-footer-alert--error" role="alert">
+              {{ $errors->first('email') }}
+            </div>
+          @endif
 
-            <p class="pp-home-footer-text">
-              Sign up to be the first to hear about new meals, exclusive offers,
-              fitness tips, and fresh advice content.
-            </p>
+          <form
+            class="pp-home-footer-form"
+            method="POST"
+            action="{{ route('newsletter.subscribe') }}#home-newsletter-signup"
+          >
+            @csrf
+            <input type="hidden" name="return_fragment" value="home-newsletter-signup">
 
-            @if(session('newsletter_success'))
-              <div class="pp-home-footer-alert pp-home-footer-alert--success" role="status" aria-live="polite">
-                @if(session('newsletter_existing'))
-                  You’re already subscribed with <strong>{{ session('newsletter_email') }}</strong>.
-                @else
-                  Thanks — you’re subscribed with <strong>{{ session('newsletter_email') }}</strong>.
-                @endif
-              </div>
-            @endif
-
-            @if($errors->has('email'))
-              <div class="pp-home-footer-alert pp-home-footer-alert--error" role="alert">
-                {{ $errors->first('email') }}
-              </div>
-            @endif
-
-            <form
-              class="pp-home-footer-form"
-              method="POST"
-              action="{{ route('newsletter.subscribe') }}#home-newsletter-signup"
-            >
-              @csrf
-              <input type="hidden" name="return_fragment" value="home-newsletter-signup">
-
-              <input
-                type="text"
-                class="pp-home-footer-input"
-                name="first_name"
-                placeholder="First name"
-                value="{{ old('first_name') }}"
-              >
-
+            <div class="pp-home-footer-form-row">
               <input
                 type="email"
-                class="pp-home-footer-input"
                 name="email"
-                placeholder="Email address"
+                class="pp-home-footer-email"
+                placeholder="Your email"
                 value="{{ old('email') }}"
                 required
               >
 
-              <button type="submit" class="pp-home-footer-subscribe">
-                Subscribe
+              <button type="submit" class="pp-home-footer-submit">
+                Sign up
               </button>
-            </form>
-
-            <p class="pp-home-footer-note">
-              Unsubscribe at any time. We won’t pass your data to third parties.
-            </p>
-          </div>
-
-          <div class="pp-home-footer-col pp-home-footer-col--app">
-            <h2 class="pp-home-footer-title">Download our app</h2>
-
-            <p class="pp-home-footer-text">
-              Quickly manage meals, browse plans, and stay on track in just a few taps.
-            </p>
-
-            <div class="pp-home-footer-rating">
-              <span class="pp-home-footer-stars">★★★★★</span>
-              <span>Excellent</span>
-              <span class="pp-home-footer-divider">|</span>
-              <span>11M+ meals planned</span>
             </div>
 
-            <div class="pp-home-footer-app-row">
-              <div class="pp-home-footer-qr">
-                <span>QR</span>
-              </div>
+            <label class="pp-home-footer-consent">
+              <input type="checkbox" name="consent" required>
+              <span>
+                Yes, I consent to the
+                <a href="#">terms &amp; conditions</a>
+              </span>
+            </label>
+          </form>
 
-              <div class="pp-home-footer-store-buttons">
-                <a href="{{ route('store') }}" class="pp-home-footer-store-btn">
-                  <small>Browse on</small>
-                  <strong>PrepPal Store</strong>
-                </a>
-
-                <a href="{{ route('calculator') }}" class="pp-home-footer-store-btn">
-                  <small>Try the</small>
-                  <strong>Calorie Planner</strong>
-                </a>
-              </div>
-            </div>
+          <div class="pp-home-footer-meta">
+            <span>United Kingdom</span>
           </div>
 
-          <div class="pp-home-footer-col pp-home-footer-col--links">
-            <nav class="pp-home-footer-links" aria-label="Footer links">
-              <a href="{{ route('contact.index') }}">Contact</a>
+          <div class="pp-home-footer-socials" aria-label="Social links">
+            <a href="#" aria-label="Facebook">FB</a>
+            <a href="#" aria-label="Instagram">IG</a>
+            <a href="#" aria-label="TikTok">TT</a>
+            <a href="#" aria-label="YouTube">YT</a>
+          </div>
+        </div>
+
+        {{-- RIGHT --}}
+        <div class="pp-home-footer-right">
+          <div class="pp-home-footer-links-grid">
+
+            <div class="pp-home-footer-link-col">
+              <h3>Shop</h3>
+              <a href="{{ route('store') }}">Meal Plans</a>
+              <a href="{{ route('store', ['category' => 'supplement']) }}">Supplements</a>
+              <a href="{{ route('store', ['category' => 'drink']) }}">Drinks</a>
+              <a href="{{ route('store', ['category' => 'clothing']) }}">Apparel</a>
+              <a href="{{ route('calculator') }}">Calorie Planner</a>
+            </div>
+
+            <div class="pp-home-footer-link-col">
+              <h3>Support</h3>
+              <a href="{{ route('contact.index') }}">Contact Us</a>
               <a href="{{ route('blog.index') }}">Advice</a>
-              <a href="{{ route('store') }}">Store</a>
-              <a href="{{ route('calculator') }}">Calculator</a>
-              <a href="{{ route('profile.index') }}">My Profile</a>
+              <a href="#">Shipping / Delivery</a>
+              <a href="#">Returns</a>
+              <a href="#">Privacy Policy</a>
+              <a href="#">Terms / Conditions</a>
+            </div>
+
+            <div class="pp-home-footer-link-col">
+              <h3>Community</h3>
+              @auth
+                <a href="{{ route('profile.index') }}">My Profile</a>
+              @else
+                <a href="{{ route('login') }}">Login</a>
+              @endauth
+
               @if(Route::has('orders.index'))
                 <a href="{{ route('orders.index') }}">My Orders</a>
               @endif
-            </nav>
 
-            <div class="pp-home-footer-socials" aria-label="Social links">
-              <a href="#" aria-label="Instagram">IG</a>
-              <a href="#" aria-label="TikTok">TT</a>
-              <a href="#" aria-label="X">X</a>
-              <a href="#" aria-label="Facebook">FB</a>
+              <a href="{{ route('home') }}#testimonials">Reviews</a>
+              <a href="{{ route('home') }}#home-newsletter-signup">Newsletter</a>
+              <a href="{{ route('store') }}">Browse Store</a>
             </div>
+
           </div>
-
-        </div>
-
-        <div class="pp-home-footer-bottom">
-          <p>© PrepPal Ltd 2026 All Rights Reserved.</p>
         </div>
 
       </div>
+
+      <div class="pp-home-footer-bottom">
+        <p>© PrepPal Ltd 2026. All rights reserved.</p>
+      </div>
+
     </div>
-  </section>
+  </div>
+</section>
 
 </div>
 @endsection
