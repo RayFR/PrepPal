@@ -1,7 +1,10 @@
 /* =========================================================
    NAVBAR + CART PILL
-   Fixed logo sizing + stable layout
-   Supports data-theme="dark"
+   FINAL FIX:
+   - uses cropped logo properly
+   - bigger visible logo
+   - stable desktop layout
+   - supports data-theme="dark"
    ========================================================= */
 
 /* --------------------------
@@ -29,7 +32,7 @@ body[data-theme="dark"] .nav {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  min-height: 88px;
+  min-height: 96px;
   max-width: 1440px;
   margin: 0 auto;
   padding: 0 1.25rem;
@@ -51,9 +54,9 @@ body[data-theme="dark"] .nav {
 
 .brand-badge {
   display: block;
-  width: 150px;
-  height: 44px;
-  background-image: url('../images/preppal-logo.png');
+  width: 260px;
+  height: 84px;
+  background-image: url('../images/preppal-logo-cropped.png');
   background-repeat: no-repeat;
   background-position: left center;
   background-size: contain;
@@ -67,7 +70,7 @@ body[data-theme="dark"] .nav {
 /* fallback if using img instead of span */
 .brand img {
   display: block;
-  width: 150px;
+  width: 260px;
   max-width: 100%;
   height: auto;
   object-fit: contain;
@@ -84,7 +87,7 @@ body[data-theme="dark"] .nav {
   gap: 1.75rem;
   flex: 1 1 auto;
   min-width: 0;
-  margin: 0 1rem;
+  margin: 0 1.25rem;
   background: transparent;
 }
 
@@ -284,26 +287,27 @@ body[data-theme="dark"] .theme-toggle {
 }
 
 /* --------------------------
-   LARGE DESKTOP
+   RESPONSIVE
 -------------------------- */
 
-@media (min-width: 1400px) {
+@media (max-width: 1280px) {
   .brand-badge,
   .brand img {
-    width: 165px;
-    height: 48px;
+    width: 220px;
+    height: 72px;
   }
 
   .nav-links {
-    gap: 2rem;
+    gap: 1.35rem;
+    margin: 0 0.75rem;
+  }
+
+  .nav-actions {
+    gap: 0.6rem;
   }
 }
 
-/* --------------------------
-   RESPONSIVE — TABLET
--------------------------- */
-
-@media (max-width: 1180px) {
+@media (max-width: 1100px) {
   .nav-inner {
     gap: 0.85rem;
     padding: 0 1rem;
@@ -311,17 +315,13 @@ body[data-theme="dark"] .theme-toggle {
 
   .brand-badge,
   .brand img {
-    width: 135px;
-    height: 40px;
+    width: 190px;
+    height: 62px;
   }
 
   .nav-links {
-    gap: 1.2rem;
+    gap: 1.05rem;
     margin: 0 0.5rem;
-  }
-
-  .nav-actions {
-    gap: 0.55rem;
   }
 }
 
@@ -335,8 +335,8 @@ body[data-theme="dark"] .theme-toggle {
 
   .brand-badge,
   .brand img {
-    width: 130px;
-    height: 38px;
+    width: 200px;
+    height: 64px;
   }
 
   .nav-links {
@@ -374,8 +374,8 @@ body[data-theme="dark"] .theme-toggle {
 
   .brand-badge,
   .brand img {
-    width: 120px;
-    height: 34px;
+    width: 165px;
+    height: 54px;
   }
 
   .nav-links {
