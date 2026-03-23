@@ -30,7 +30,13 @@
     <header class="nav">
         <div class="container nav-inner">
             <a href="{{ route('home') }}" class="brand" aria-label="PrepPal home">
-                <span class="brand-badge"></span>
+                <img
+                    src="{{ asset('images/preppal-logo-navbar.png') }}?v={{ filemtime(public_path('images/preppal-logo-navbar.png')) }}"
+                    alt="PrepPal logo"
+                    class="brand-logo-nav"
+                    loading="eager"
+                    decoding="async"
+                >
             </a>
 
             <nav class="nav-links" aria-label="Primary navigation">

@@ -31,7 +31,7 @@ body[data-theme="dark"] .nav {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  min-height: 96px;
+  min-height: 118px;
   max-width: 1440px;
   margin: 0 auto;
   padding: 0 1.25rem;
@@ -46,33 +46,27 @@ body[data-theme="dark"] .nav {
   align-items: center;
   justify-content: flex-start;
   flex: 0 0 auto;
-  min-width: 0;
+  min-width: 360px;
   text-decoration: none;
   line-height: 1;
 }
 
 .brand-badge {
-  display: block;
-  width: 260px;
-  height: 84px;
-  background-image: url('../images/preppal-logo-cropped.png');
-  background-repeat: no-repeat;
-  background-position: left center;
-  background-size: contain;
-  transition: transform 0.2s ease;
+  display: none;
 }
 
-.brand:hover .brand-badge {
-  transform: scale(1.02);
-}
-
-/* Fallback for image-based logo markup */
+.brand-logo-nav,
 .brand img {
   display: block;
-  width: 260px;
-  max-width: 100%;
+  width: 360px;
+  max-width: none;
   height: auto;
   object-fit: contain;
+}
+
+.brand:hover .brand-logo-nav,
+.brand:hover img {
+  transform: scale(1.02);
 }
 
 /* --------------------------
@@ -85,7 +79,7 @@ body[data-theme="dark"] .nav {
   justify-content: center;
   gap: 1.75rem;
   flex: 1 1 auto;
-  min-width: 0;
+  min-width: 360px;
   margin: 0 1.25rem;
   background: transparent;
 }

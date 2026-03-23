@@ -1390,12 +1390,15 @@
 
 .pp-home-footer-right {
   width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .pp-home-footer-links-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(140px, 1fr));
-  gap: 2.2rem;
+  grid-template-columns: repeat(2, minmax(180px, 220px));
+  gap: 3.2rem;
+  justify-content: center;
 }
 
 .pp-home-footer-link-col h3 {

@@ -572,153 +572,135 @@
   </section>
 
   <section class="pp-home-bottom-footer">
-  <div class="container">
-    <div class="pp-home-footer-shell reveal" id="home-newsletter-signup">
+    <div class="container">
+      <div class="pp-home-footer-shell reveal" id="home-newsletter-signup">
 
-      <div class="pp-home-footer-top">
-        <a href="{{ route('home') }}" class="pp-home-footer-top-logo" aria-label="PrepPal home">
-          <img src="{{ asset('images/preppal-logo.png') }}" alt="PrepPal logo">
-        </a>
-      </div>
-
-      <div class="pp-home-footer-grid">
-
-        {{-- Footer content --}}
-        <div class="pp-home-footer-left">
-          <p class="pp-home-footer-label">JOIN OUR NEWSLETTER</p>
-
-          <h2 class="pp-home-footer-heading">
-            Stay connected with PrepPal
-          </h2>
-
-          <p class="pp-home-footer-copy">
-            Sign up for new meal plans, exclusive offers, product launches,
-            and practical fitness advice.
-          </p>
-
-          @if (session('newsletter_success'))
-            <div class="pp-home-footer-alert pp-home-footer-alert--success" role="status" aria-live="polite">
-              @if (session('newsletter_existing'))
-                You’re already subscribed with <strong>{{ session('newsletter_email') }}</strong>.
-              @else
-                Thanks — you’re subscribed with <strong>{{ session('newsletter_email') }}</strong>.
-              @endif
-            </div>
-          @endif
-
-          @if ($errors->has('email'))
-            <div class="pp-home-footer-alert pp-home-footer-alert--error" role="alert">
-              {{ $errors->first('email') }}
-            </div>
-          @endif
-
-          <form
-            class="pp-home-footer-form"
-            method="POST"
-            action="{{ route('newsletter.subscribe') }}#home-newsletter-signup"
-          >
-            @csrf
-            <input type="hidden" name="return_fragment" value="home-newsletter-signup">
-
-            <div class="pp-home-footer-form-row">
-              <input
-                type="email"
-                name="email"
-                class="pp-home-footer-email"
-                placeholder="Your email"
-                value="{{ old('email') }}"
-                required
-              >
-
-              <button type="submit" class="pp-home-footer-submit">
-                Sign up
-              </button>
-            </div>
-
-            <label class="pp-home-footer-consent">
-              <input type="checkbox" name="consent" required>
-              <span>
-                Yes, I consent to the
-                <a href="#">terms &amp; conditions</a>
-              </span>
-            </label>
-          </form>
-
-          <div class="pp-home-footer-meta">
-            <span>United Kingdom</span>
-          </div>
-
-          <div class="pp-home-footer-socials" aria-label="Social links">
-            <a href="#" aria-label="Facebook">FB</a>
-            <a href="#" aria-label="Instagram">IG</a>
-            <a href="#" aria-label="TikTok">TT</a>
-            <a href="#" aria-label="YouTube">YT</a>
-          </div>
+        <div class="pp-home-footer-top">
+          <a href="{{ route('home') }}" class="pp-home-footer-top-logo" aria-label="PrepPal home">
+            <img
+              src="{{ asset('images/preppal-logo.png') }}"
+              alt="PrepPal logo"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';"
+            >
+            <span style="display:none; align-items:center; font-weight:800; font-size:1.35rem; color:#ffffff;">
+              PrepPal
+            </span>
+          </a>
         </div>
 
-        {{-- Footer navigation --}}
-        <div class="pp-home-footer-right">
-          <div class="pp-home-footer-links-grid">
-            <div class="pp-home-footer-link-col">
-              <h3>Shop</h3>
+        <div class="pp-home-footer-grid">
 
-              @auth
-                <a href="{{ route('store', ['category' => 'meal']) }}">Meal Plans</a>
-                <a href="{{ route('store', ['category' => 'supplement']) }}">Supplements</a>
-                <a href="{{ route('store', ['category' => 'drink']) }}">Drinks</a>
-                <a href="{{ route('store', ['category' => 'clothing']) }}">Apparel</a>
-                <a href="{{ route('calculator') }}">Calorie Planner</a>
-              @else
-                <a href="{{ route('login') }}">Meal Plans</a>
-                <a href="{{ route('login') }}">Supplements</a>
-                <a href="{{ route('login') }}">Drinks</a>
-                <a href="{{ route('login') }}">Apparel</a>
-                <a href="{{ route('login') }}">Calorie Planner</a>
-              @endauth
+          <div class="pp-home-footer-left">
+            <p class="pp-home-footer-label">JOIN OUR NEWSLETTER</p>
+
+            <h2 class="pp-home-footer-heading">
+              Stay connected<br>with PrepPal
+            </h2>
+
+            <p class="pp-home-footer-copy">
+              Sign up for new meal plans, exclusive offers, product launches, and practical fitness advice.
+            </p>
+
+            @if(session('newsletter_success'))
+              <div class="pp-home-footer-alert pp-home-footer-alert--success" role="status" aria-live="polite">
+                {{ session('newsletter_success') }}
+              </div>
+            @endif
+
+            @if($errors->newsletter->any())
+              <div class="pp-home-footer-alert pp-home-footer-alert--error" role="alert">
+                {{ $errors->newsletter->first('email') ?: $errors->newsletter->first('consent') ?: 'Please check your details and try again.' }}
+              </div>
+            @endif
+
+            <form
+              action="{{ route('newsletter.subscribe') }}"
+              method="POST"
+              class="pp-home-footer-form"
+              novalidate
+            >
+              @csrf
+
+              <div class="pp-home-footer-form-row">
+                <input
+                  type="email"
+                  name="email"
+                  class="pp-home-footer-email"
+                  placeholder="Your email"
+                  value="{{ old('email') }}"
+                  required
+                >
+
+                <button type="submit" class="pp-home-footer-submit">
+                  Sign up
+                </button>
+              </div>
+
+              <label class="pp-home-footer-consent">
+                <input
+                  type="checkbox"
+                  name="consent"
+                  value="1"
+                  {{ old('consent') ? 'checked' : '' }}
+                  required
+                >
+                <span>Yes, I consent to the <a href="{{ route('terms.conditions') }}">terms &amp; conditions</a></span>
+              </label>
+            </form>
+
+            <div class="pp-home-footer-meta">
+              United Kingdom
             </div>
 
-            <div class="pp-home-footer-link-col">
-              <h3>Support</h3>
-              <a href="{{ route('contact.index') }}">Contact Us</a>
-              <a href="{{ route('blog.index') }}">Advice</a>
-              <a href="{{ route('shipping.delivery') }}">Shipping / Delivery</a>
-              <a href="{{ route('returns') }}">Returns</a>
-              <a href="{{ route('privacy.policy') }}">Privacy Policy</a>
-              <a href="{{ route('terms.conditions') }}">Terms / Conditions</a>
-            </div>
-
-            <div class="pp-home-footer-link-col">
-              <h3>Shop</h3>
-
-              @auth
-                <a href="{{ route('store', ['category' => 'meal']) }}">Meal Plans</a>
-                <a href="{{ route('store', ['category' => 'supplement']) }}">Supplements</a>
-                <a href="{{ route('store', ['category' => 'drink']) }}">Drinks</a>
-                <a href="{{ route('store', ['category' => 'equipment']) }}">Equipment</a>
-                <a href="{{ route('store', ['category' => 'clothing']) }}">Apparel</a>
-                <a href="{{ route('calculator') }}">Calorie Planner</a>
-              @else
-                <a href="{{ route('login') }}">Meal Plans</a>
-                <a href="{{ route('login') }}">Supplements</a>
-                <a href="{{ route('login') }}">Drinks</a>
-                <a href="{{ route('login') }}">Equipment</a>
-                <a href="{{ route('login') }}">Apparel</a>
-                <a href="{{ route('login') }}">Calorie Planner</a>
-              @endauth
+            <div class="pp-home-footer-socials" aria-label="Social links">
+              <a href="#" aria-label="Facebook">FB</a>
+              <a href="#" aria-label="Instagram">IG</a>
+              <a href="#" aria-label="TikTok">TT</a>
+              <a href="#" aria-label="YouTube">YT</a>
             </div>
           </div>
+
+          <div class="pp-home-footer-right">
+            <div class="pp-home-footer-links-grid">
+              <div class="pp-home-footer-link-col">
+                <h3>Support</h3>
+                <a href="{{ route('contact.index') }}">Contact Us</a>
+                <a href="{{ route('blog.index') }}">Advice</a>
+                <a href="{{ route('shipping.delivery') }}">Shipping / Delivery</a>
+                <a href="{{ route('returns') }}">Returns</a>
+                <a href="{{ route('privacy.policy') }}">Privacy Policy</a>
+                <a href="{{ route('terms.conditions') }}">Terms / Conditions</a>
+              </div>
+
+              <div class="pp-home-footer-link-col">
+                <h3>Shop</h3>
+                @auth
+                  <a href="{{ route('store', ['category' => 'meal']) }}">Meal Plans</a>
+                  <a href="{{ route('store', ['category' => 'supplement']) }}">Supplements</a>
+                  <a href="{{ route('store', ['category' => 'drink']) }}">Drinks</a>
+                  <a href="{{ route('store', ['category' => 'equipment']) }}">Equipment</a>
+                  <a href="{{ route('store', ['category' => 'clothing']) }}">Apparel</a>
+                  <a href="{{ route('calculator') }}">Calorie Planner</a>
+                @else
+                  <a href="{{ route('login') }}">Meal Plans</a>
+                  <a href="{{ route('login') }}">Supplements</a>
+                  <a href="{{ route('login') }}">Drinks</a>
+                  <a href="{{ route('login') }}">Equipment</a>
+                  <a href="{{ route('login') }}">Apparel</a>
+                  <a href="{{ route('login') }}">Calorie Planner</a>
+                @endauth
+              </div>
+            </div>
+          </div>
+
         </div>
 
+        <div class="pp-home-footer-bottom">
+          <p>© PrepPal Ltd 2026. All rights reserved.</p>
+        </div>
       </div>
-
-      <div class="pp-home-footer-bottom">
-        <p>© PrepPal Ltd 2026. All rights reserved.</p>
-      </div>
-
     </div>
-  </div>
-</section>
-
+  </section>
 </div>
 @endsection
 
