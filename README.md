@@ -3,6 +3,8 @@
 PrepPal is a full-stack Laravel e-commerce web application developed for the CS2TP coursework.  
 It allows users to browse products, place orders, manage their account, and interact with a complete admin inventory and order management system.
 
+Link to hosted site: http://cs2team26.cs2410-web01pvm.aston.ac.uk/
+
 ---
 
 ## Project Overview
