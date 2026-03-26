@@ -7,7 +7,6 @@ use App\Http\Controllers\Admin\AdminProductController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
@@ -153,11 +152,3 @@ Route::middleware('auth')->group(function () {
     Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])
         ->name('reviews.destroy');
 });
-
-/*
-|--------------------------------------------------------------------------
-| Chatbot
-|--------------------------------------------------------------------------
-*/
-
-Route::post('/chatbot/message', [ChatbotController::class, 'send']);

@@ -74,12 +74,15 @@
   </a>
 </div>
 
-                <p class="auth-note">Admin demo login: <b>admin@preppal.com / 123456</b></p>
-
                 <a class="pp-backlink" href="{{ route('home') }}">
                     <span class="pp-backlink__icon">←</span>
                     <span>Back to site</span>
                 </a>
+
+                <p class="auth-note">
+                    email: <b>admin@preppal.com</b><br>
+                    password: <b>admin@123</b>
+                </p>
             </form>
 
             {{-- REGISTER FORM --}}
